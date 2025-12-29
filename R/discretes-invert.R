@@ -1,6 +1,6 @@
 #' @export
 #' @inheritParams next_discrete
-next_discrete.inverse <- function(distribution, from, n, include_from) {
+next_discrete.inverse <- function(x, from, ..., n = 1L, include_from = TRUE) {
 	d_nested <- distribution$distribution
 	if (from >= 0) {
 		n_available <- distionary::num_discretes(
@@ -34,7 +34,7 @@ next_discrete.inverse <- function(distribution, from, n, include_from) {
 
 #' @export
 #' @inheritParams next_discrete
-prev_discrete.inverse <- function(distribution, from, n, include_from) {
+prev_discrete.inverse <- function(x, from, ..., n = 1L, include_from = TRUE) {
 	d_nested <- distribution$distribution
 	if (from <= 0) {
 		n_available <- distionary::num_discretes(
@@ -67,9 +67,12 @@ prev_discrete.inverse <- function(distribution, from, n, include_from) {
 }
 
 #' @export
-num_discretes.inverse <- function(
-	distribution, from, to, include_from, include_to
-) {
+num_discretes.inverse <- function(x,
+                                  from,
+                                  to,
+                                  ...,
+                                  include_from = TRUE,
+                                  include_to = TRUE) {
 	d_nested <- distribution$distribution
 	if (to < from) {
 		a <- to

@@ -1,32 +1,5 @@
 #' @export
-num_discretes.mix <- function(distribution, from, to, include_from, include_to) {
-	inf_discretes <- distionary::has_infinite_discretes(
-		distribution, from = from, to = to
-	)
-	if (inf_discretes) {
-		return(Inf)
-	}
-	with(distribution$components, {
-		n <- vapply(
-			distributions, distionary::num_discretes, FUN.VALUE = numeric(1L),
-			from = from, to = to,include_from = include_from,
-			include_to = include_to
-		)
-		discretes <- list()
-		for (i in seq_along(distributions)) {
-			discretes[[i]] <- distionary::next_discrete(
-				distributions[[i]], from = from, n = n[[i]],
-				include_from = include_from
-			)
-		}
-		discretes <- unique(c(discretes, recursive = TRUE))
-		length(discretes)
-	})
-}
-
-#' @export
-next_discrete.mix <- function(distribution, from, n = 1L,
-                              include_from = FALSE) {
+next_discrete.mix <- function(x, from, ..., n = 1L, include_from = TRUE) {
 	if (n == 0) return(numeric(0L))
 	inf_discretes <- is.infinite(n) &&
 		has_infinite_discretes(distribution, from = from, to = Inf)
@@ -88,8 +61,7 @@ next_discrete.mix <- function(distribution, from, n = 1L,
 }
 
 #' @export
-prev_discrete.mix <- function(distribution, from, n = 1L,
-                              include_from = FALSE) {
+prev_discrete.mix <- function(x, from, ..., n = 1L, include_from = TRUE) {
 	if (n == 0) {
 		return(numeric(0L))
 	}
@@ -150,4 +122,35 @@ prev_discrete.mix <- function(distribution, from, n = 1L,
 		i <- i + 1L
 	}
 	discretes
+}
+
+#' @export
+num_discretes.mix <- function(x,
+                              from,
+                              to,
+                              ...,
+                              include_from = TRUE,
+                              include_to = TRUE) {
+  inf_discretes <- distionary::has_infinite_discretes(
+    distribution, from = from, to = to
+  )
+  if (inf_discretes) {
+    return(Inf)
+  }
+  with(distribution$components, {
+    n <- vapply(
+      distributions, distionary::num_discretes, FUN.VALUE = numeric(1L),
+      from = from, to = to,include_from = include_from,
+      include_to = include_to
+    )
+    discretes <- list()
+    for (i in seq_along(distributions)) {
+      discretes[[i]] <- distionary::next_discrete(
+        distributions[[i]], from = from, n = n[[i]],
+        include_from = include_from
+      )
+    }
+    discretes <- unique(c(discretes, recursive = TRUE))
+    length(discretes)
+  })
 }
