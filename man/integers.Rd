@@ -11,8 +11,8 @@ integers(from = -Inf, to = Inf)
 Defaults to \code{-Inf} and \code{Inf}, representing all integers.}
 }
 \value{
-An object of class \code{intgrs}, representing the set of integers
-within the specified range.
+An object of class \code{integers_infvctr} (and \code{arithmetic_infvctr},
+\code{infvctr}), representing the set of integers within the specified range.
 }
 \description{
 Create an object representing the set of integers within a specified range.

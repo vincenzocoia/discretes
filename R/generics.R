@@ -59,3 +59,8 @@ num_discretes <- function(x,
 has_infinite_discretes <- function(x, from = -Inf, to = Inf) {
   UseMethod("has_infinite_discretes")
 }
+
+#' @export
+test_discrete <- function(x, values) {
+  UseMethod("test_discrete")
+}

@@ -3,8 +3,8 @@
 #' Create an object representing the set of integers within a specified range.
 #' @param from,to Numeric values defining the inclusive range of integers.
 #' Defaults to `-Inf` and `Inf`, representing all integers.
-#' @returns An object of class `intgrs`, representing the set of integers
-#' within the specified range.
+#' @returns An object of class `integers_infvctr` (and `arithmetic_infvctr`,
+#'   `infvctr`), representing the set of integers within the specified range.
 #' @examples
 #' integers()          # All integers
 #' integers(from = 0) # Non-negative integers
@@ -14,50 +14,44 @@
 integers <- function(from = -Inf, to = Inf) {
   checkmate::assert_number(from, finite = FALSE)
   checkmate::assert_number(to, lower = from, finite = FALSE)
+  if (is.finite(from)) {
+    checkmate::assert_integerish(from, tol = 0)
+  }
+  if (is.finite(to)) {
+    checkmate::assert_integerish(to, tol = 0)
+  }
   checkmate::assert_true(to > -Inf && from < Inf)
-  x <- list(lower = from, upper = to)
-  structure(x, class = "intgrs")
-}
 
-#' @export
-print.intgrs <- function(x, ...) {
-  cat("Integer Vector\n")
-  if (x$lower == -Inf && x$upper == Inf) {
-    cat("..., -2, -1, 0, 1, 2, ...\n")
-  } else if (x$lower == -Inf) {
-    v <- x$upper - 4:0
-    cat("..., ", paste(v, collapse = ", "), "\n", sep = "")
-  } else if (x$upper == Inf) {
-    v <- x$lower + 0:4
-    cat(paste(v, collapse = ", "), " ...\n", sep = "")
+  if (is.finite(from) && is.finite(to)) {
+    representative <- from
+    n_left <- 0
+    n_right <- to - from
+  } else if (!is.finite(from) && is.finite(to)) {
+    representative <- to
+    n_left <- Inf
+    n_right <- 0
+  } else if (is.finite(from) && !is.finite(to)) {
+    representative <- from
+    n_left <- 0
+    n_right <- Inf
   } else {
-    cat(
-      x$lower, ", ", x$lower + 1, ", ", x$lower + 2, ", ..., ",
-      x$upper - 2, ", ", x$upper - 1, ", ", x$upper, "\n", sep = ""
-    )
+    representative <- 0
+    n_left <- Inf
+    n_right <- Inf
   }
-  invisible(x)
+
+  x <- arithmetic(
+    spacing = 1,
+    representative = representative,
+    n_left = n_left,
+    n_right = n_right
+  )
+  class(x) <- c("integers_infvctr", class(x))
+  x
 }
 
 #' @export
-next_discrete.intgrs <- function(x, from, ..., n = 1, include_from = TRUE) {
-  checkmate::assert_numeric(from, len = 1)
-  checkmate::assert_integerish(n, lower = 0, len = 1)
-  checkmate::assert_logical(include_from, len = 1)
-  ellipsis::check_dots_empty()
-  if (from == Inf) {
-    return(numeric(0L))
-  }
-  if (from < x$lower) {
-    from <- x$lower
-    include_from <- TRUE
-  }
-  if (from == -Inf) {
-    # Also x$lower = -Inf in this case because of the previous if statement.
-    stop("No defined next value when searching behind an infinite series.")
-  }
-  floor_from <- floor(from)
-  adjust <- from == floor_from && include_from
-  res <- floor_from + seq_len(n) - adjust
-  res[res <= x$upper]
+print.integers_infvctr <- function(x, ...) {
+  cat("Integers\n")
+  NextMethod("print")
 }

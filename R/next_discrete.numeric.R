@@ -38,31 +38,3 @@ prev_discrete.numeric <- function(x, from, ..., n = 1, include_from = FALSE) {
   n <- min(length(lower_discretes), n)
   sort(lower_discretes, decreasing = TRUE)[seq_len(n)]
 }
-
-#' @export
-num_discretes.numeric <- function(x,
-                                  from,
-                                  to,
-                                  ...,
-                                  include_from = TRUE,
-                                  include_to = TRUE) {
-  x <- unique(x)
-  if (include_from) {
-    left_query <- x >= from
-  } else {
-    left_query <- x > from
-  }
-  if (include_to) {
-    right_query <- x <= to
-  } else {
-    right_query <- x < to
-  }
-  sum(left_query & right_query)
-}
-
-#' @export
-has_infinite_discretes.numeric <- function(x, from, to) {
-  checkmate::assert_number(from)
-  checkmate::assert_number(to, lower = from)
-  FALSE
-}
