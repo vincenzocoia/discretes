@@ -24,7 +24,7 @@ many steps exist to the left and right of \code{representative}.}
 An \code{arithmetic_infvctr} object, inheriting from \code{infvctr}.
 }
 \description{
-Construct an infinite vector that represents an arithmetic progression.
+Construct an arithmetic progression, with possibly infinite values.
 The progression is anchored at \code{representative} and extends \code{n_left} steps
 to the left (decreasing values) and \code{n_right} steps to the right
 (increasing values) with constant \code{spacing} between consecutive terms.

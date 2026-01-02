@@ -22,7 +22,7 @@ or equal to \code{to}; both must be length-1 numeric vectors.}
 
 \item{...}{Reserved for future extensions; must be empty.}
 
-\item{include_from, include_to}{Logical; should the \code{from} value be included
+\item{include_from, include_to}{Should the \code{from} value be included
 in the query? Should the \code{to} value? Both must be length-1 logical vectors.}
 
 \item{tol}{Non-negative tolerance used when comparing the bounds returned by

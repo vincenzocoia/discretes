@@ -1,6 +1,6 @@
 #' Arithmetic Series
 #'
-#' Construct an infinite vector that represents an arithmetic progression.
+#' Construct an arithmetic progression, with possibly infinite values.
 #' The progression is anchored at `representative` and extends `n_left` steps
 #' to the left (decreasing values) and `n_right` steps to the right
 #' (increasing values) with constant `spacing` between consecutive terms.
@@ -20,18 +20,9 @@
 arithmetic <- function(representative, spacing, ..., n_left = Inf, n_right = Inf) {
   checkmate::assert_number(representative)
   checkmate::assert_number(spacing, lower = 0)
-  checkmate::assert_number(n_left, lower = 0)
-  checkmate::assert_number(n_right, lower = 0)
+  n_left <- assert_and_convert_integerish(n_left)
+  n_right <- assert_and_convert_integerish(n_right)
   ellipsis::check_dots_empty()
-  if (spacing == 0) {
-    return(representative)
-  }
-  if (!is.infinite(n_left)) {
-    checkmate::assert_integerish(n_left)
-  }
-  if (!is.infinite(n_right)) {
-    checkmate::assert_integerish(n_right)
-  }
   new_infvctr(
     subclass = "arithmetic_infvctr",
     data = list(
@@ -46,7 +37,11 @@ arithmetic <- function(representative, spacing, ..., n_left = Inf, n_right = Inf
 #' @describeIn arithmetic Print method for arithmetic infvctr objects.
 #' @export
 print.arithmetic_infvctr <- function(x, ...) {
-  cat("Arithmetic infvctr:\n")
+  cat("Arithmetic infvctr of length ", num_discretes(x), ":\n", sep = "")
+  if (x$spacing == 0) {
+    cat(x$representative, "\n")
+    return(invisible(x))
+  }
   if (x$n_left == Inf && x$n_right == Inf) {
     p <- x$representative + (-2:2) * x$spacing
     cat("..., ", paste(p, collapse = ", "), " ...\n", sep = "")

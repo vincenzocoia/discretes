@@ -1,18 +1,13 @@
-#' @describeIn discretes Count discretes in an arithmetic progression.
-#' @param tol Non-negative tolerance used when comparing the end-points and
-#'   step count derived from the spacing.
 #' @export
 num_discretes.arithmetic_infvctr <- function(x,
                                              ...,
                                              from = -Inf,
                                              to = Inf,
                                              include_from = TRUE,
-                                             include_to = TRUE,
-                                             tol = sqrt(.Machine$double.eps)) {
+                                             include_to = TRUE) {
   ellipsis::check_dots_empty()
-  checkmate::assert_number(tol, lower = 0, finite = TRUE)
-  checkmate::assert_number(from)
-  checkmate::assert_number(to, lower = from)
+  from <- assert_and_convert_integerish(from)
+  to <- assert_and_convert_integerish(to, lower = from)
   checkmate::assert_logical(include_from, len = 1)
   checkmate::assert_logical(include_to, len = 1)
   if (from == Inf) {
@@ -34,9 +29,7 @@ num_discretes.arithmetic_infvctr <- function(x,
     return(0L)
   }
 
-  spacing <- x$spacing
-
-  steps <- (upper - lower) / spacing
+  steps <- (upper - lower) / x$spacing
   checkmate::assert_true(checkmate::test_integerish(steps, tol = tol))
   as.integer(round(steps)) + 1L
 }

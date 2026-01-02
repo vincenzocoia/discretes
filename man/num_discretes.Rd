@@ -24,12 +24,13 @@ num_discretes(
 \item{from, to}{Reference values, possibly infinite. \code{from} must be less than
 or equal to \code{to}; both must be length-1 numeric vectors.}
 
-\item{include_from, include_to}{Logical; should the \code{from} value be included
+\item{include_from, include_to}{Should the \code{from} value be included
 in the query? Should the \code{to} value? Both must be length-1 logical vectors.}
 }
 \value{
-A single non-negative integer, or possibly \code{Inf} for infinitely many
-discrete values.
+For \code{num_discretes()},
+a single non-negative integer, or possibly \code{Inf} for infinitely many
+discrete values. For \code{has_infinite_discretes()}, a single logical value.
 }
 \description{
 Return the number of discrete values in \code{x} that lie between
@@ -37,11 +38,16 @@ Return the number of discrete values in \code{x} that lie between
 }
 \examples{
 num_discretes(-3:3)
+has_infinite_discretes(-3:3)
 num_discretes(c(0.4, 0.4, 0.4, 0))
 
 x <- arithmetic(-3.2, spacing = 0.5)
 num_discretes(x)
+has_infinite_discretes(x)
 num_discretes(x, from = -2, to = 2)
+has_infinite_discretes(x, from = -100, to = 100)
 num_discretes(1 / x, from = -2, to = 2)
+
+
 
 }
