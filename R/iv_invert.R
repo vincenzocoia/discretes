@@ -1,5 +1,10 @@
-#' @rdname linear_transform
+#' @describeIn linear_transform Take element-wise reciprocals of an infvctr.
 #' @export
 iv_invert <- function(x) {
-  structure(list(base = x), class = "inverse_infvct")
+  UseMethod("iv_invert")
+}
+
+#' @export
+print.inverse <- function(x, ...) {
+
 }

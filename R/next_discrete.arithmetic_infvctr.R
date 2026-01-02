@@ -1,27 +1,30 @@
+#' @describeIn discretes Next discrete values for arithmetic progressions.
 #' @export
 next_discrete.arithmetic_infvctr <- function(x, from, ..., n = 1, include_from = TRUE) {
-  checkmate::assert_numeric(from, len = 1)
+  checkmate::assert_number(from)
   checkmate::assert_integerish(n, lower = 0, len = 1)
   checkmate::assert_logical(include_from, len = 1)
   ellipsis::check_dots_empty()
-  if (from == Inf) {
+  if (from == Inf || n == 0) {
     return(numeric(0L))
   }
-  lower <- x$representative - x$spacing * x$n_left
-  upper <- x$representative + x$spacing * x$n_right
-  if (from < lower) {
-    from <- lower
+
+  n_left <- x$n_left
+  n_right <- x$n_right
+  representative <- x$representative
+  spacing <- x$spacing
+  lowest <- representative - n_left * spacing
+  highest <- representative + n_right * spacing
+
+  if (from < lowest) {
+    from <- lowest
     include_from <- TRUE
   }
-  if (from == -Inf) {
-    # Also lower = -Inf in this case because of the previous if statement.
-    stop("No defined next value when searching behind an infinite series.")
-  }
-  floor_from <- floor(from)
-  adjust <- from == floor_from && include_from
-  if (n == 0) {
-    return(numeric(0L))
-  }
-  res <- floor_from + seq_len(n) - adjust
-  res[res <= upper]
+
+  tol_index <- sqrt(.Machine$double.eps)
+  raw_index <- (from - representative) / spacing
+  start_index <- ceiling(raw_index - tol_index)
+  candidate_indices <- start_index + seq_len(n) - include_from
+  candidate_indices <- candidate_indices[candidate_indices <= n_right]
+  representative + candidate_indices * spacing
 }

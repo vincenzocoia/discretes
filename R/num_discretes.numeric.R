@@ -1,10 +1,13 @@
+#' @describeIn numeric_discretes Count discrete numeric values within a range.
 #' @export
 num_discretes.numeric <- function(x,
-                                  from,
-                                  to,
                                   ...,
+                                  from = -Inf,
+                                  to = Inf,
                                   include_from = TRUE,
-                                  include_to = TRUE) {
+                                  include_to = TRUE,
+                                  tol = NULL) {
+  ellipsis::check_dots_empty()
   x <- unique(x)
   if (include_from) {
     left_query <- x >= from

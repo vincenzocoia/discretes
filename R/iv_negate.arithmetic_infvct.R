@@ -1,3 +1,4 @@
+#' @describeIn linear_transform Negate an arithmetic progression.
 #' @export
 iv_negate.arithmetic_infvctr <- function(x) {
   x$representative <- -x$representative

@@ -11,30 +11,25 @@
 #' prev_discrete(x, from = 10)
 #' num_discretes(x, from = 0, to = 5)
 #' has_infinite_discretes(x, from = -Inf, to = Inf)
-#' @rdname numeric
+#' @name numeric_discretes
+#' @rdname numeric_discretes
 #' @export
 next_discrete.numeric <- function(x, from, ..., n = 1, include_from = FALSE) {
+  ellipsis::check_dots_empty()
   x <- unique(x)
+  checkmate::assert_vector(x, len = 1, any.missing = FALSE)
+  if (is.infinite(n)) {
+    res <- x[if (include_from) x >= from else x > from]
+    return(sort(res))
+  }
+  checkmate::assert_integerish(n, lower = 0)
+  n <- as.integer(n)
   if (include_from) {
     query <- x >= from
   } else {
     query <- x > from
   }
   higher_discretes <- x[query]
-  n <- min(length(higher_discretes), n)
-  sort(higher_discretes)[seq_len(n)]
-}
-
-#' @rdname numeric
-#' @export
-prev_discrete.numeric <- function(x, from, ..., n = 1, include_from = FALSE) {
-  x <- unique(x)
-  if (include_from) {
-    query <- x <= from
-  } else {
-    query <- x < from
-  }
-  lower_discretes <- x[query]
-  n <- min(length(lower_discretes), n)
-  sort(lower_discretes, decreasing = TRUE)[seq_len(n)]
+  res <- sort(higher_discretes)
+  head(res, n)
 }

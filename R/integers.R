@@ -14,35 +14,32 @@
 integers <- function(from = -Inf, to = Inf) {
   checkmate::assert_number(from, finite = FALSE)
   checkmate::assert_number(to, lower = from, finite = FALSE)
-  if (is.finite(from)) {
-    checkmate::assert_integerish(from, tol = 0)
-  }
-  if (is.finite(to)) {
-    checkmate::assert_integerish(to, tol = 0)
+  from <- ceiling(from)
+  to <- floor(to)
+  if (from > to) {
+    return(numeric(0))
   }
   checkmate::assert_true(to > -Inf && from < Inf)
-
   if (is.finite(from) && is.finite(to)) {
     representative <- from
-    n_left <- 0
+    n_left <- 0L
     n_right <- to - from
   } else if (!is.finite(from) && is.finite(to)) {
     representative <- to
     n_left <- Inf
-    n_right <- 0
+    n_right <- 0L
   } else if (is.finite(from) && !is.finite(to)) {
     representative <- from
-    n_left <- 0
+    n_left <- 0L
     n_right <- Inf
   } else {
     representative <- 0
     n_left <- Inf
     n_right <- Inf
   }
-
   x <- arithmetic(
-    spacing = 1,
-    representative = representative,
+    spacing = 1L,
+    representative = as.integer(representative),
     n_left = n_left,
     n_right = n_right
   )

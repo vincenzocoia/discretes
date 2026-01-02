@@ -4,17 +4,20 @@ Ops.infvctr <- function(e1, e2) {
   allowed <- c("+", "-", "*", "/")
 
   if (!op %in% allowed) {
-    stop(sprintf("Operator '%s' is not supported for infvctr objects.", op), call. = FALSE)
+    stop(sprintf("Operator '%s' is not supported for infvctr objects.", op))
   }
 
   unary <- missing(e2)
   if (unary) {
-    switch(
+    res <- switch(
       op,
       "+" = e1,
-      "-" = iv_negate(e1),
-      stop(sprintf("Unary operator '%s' is not supported for infvctr objects.", op), call. = FALSE)
+      "-" = iv_linear(e1, m = -1, b = 0),
+      stop(
+        sprintf("Unary operator '%s' is not supported for infvctr objects.", op)
+      )
     )
+    return(res)
   }
 
   inf1 <- inherits(e1, "infvctr")
@@ -36,20 +39,20 @@ Ops.infvctr <- function(e1, e2) {
   }
 
   if (op == "+") {
-    return(iv_shift(iv, number))
+    return(iv_linear(iv, m = 1, b = number))
   }
 
   if (op == "-") {
     if (inf1) {
-      return(iv_shift(iv, -number))
+      return(iv_linear(iv, m = 1, b = -number))
     }
     if (inf2) {
-      return(iv_shift(iv_negate(iv), number))
+      return(iv_linear(iv, m = -1, b = number))
     }
   }
 
   if (op == "*") {
-    return(iv_multiply(iv, number))
+    return(iv_linear(iv, m = number, b = 0))
   }
 
   if (op == "/") {
@@ -57,13 +60,13 @@ Ops.infvctr <- function(e1, e2) {
       if (number == 0) {
         stop("Division of an infvctr by zero is undefined.")
       }
-      return(iv_multiply(iv, 1 / number))
+      return(iv_linear(iv, m = 1 / number, b = 0))
     }
     if (inf2) {
-      if (e2 == 0) {
+      if (test_discrete(e2, 0)) {
         stop("Division of zero by an infvctr is not yet defined.")
       }
-      return(iv_multiply(iv_invert(e2), e1))
+      return(iv_invert(iv_linear(e2, m = 1 / number, b = 0)))
     }
   }
 
