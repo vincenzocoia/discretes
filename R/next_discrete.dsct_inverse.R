@@ -1,8 +1,11 @@
+#' @noRd
 #' @export
-#' @inheritParams next_discrete
-next_discrete.inverse <- function(x, from, ..., n = 1L, include_from = TRUE) {
+next_discrete.dsct_inverse <- function(x,
+                                       from,
+                                       ...,
+                                       n = 1L,
+                                       include_from = TRUE) {
   checkmate::assert_number(from)
-  ellipsis::check_dots_empty()
   checkmate::assert_integerish(n, lower = 0, len = 1)
   checkmate::assert_logical(include_from, len = 1)
   if (n == 0) {
@@ -16,21 +19,24 @@ next_discrete.inverse <- function(x, from, ..., n = 1L, include_from = TRUE) {
       from = 0,
       to = upper_bound,
       include_from = FALSE,
-      include_to = include_from
+      include_to = include_from,
+      ...
     )
     n <- min(n, n_available)
     collected <- prev_discrete(
       base,
       from = upper_bound,
       n = n,
-      include_from = include_from
+      include_from = include_from,
+      ...
     )
   } else { # Grab discretes going left, first on (-Inf, 1 / from], then (0, Inf)
     collected <- prev_discrete(
       base,
       from = 1 / from,
       n = n,
-      include_from = include_from
+      include_from = include_from,
+      ...
     )
     n_remaining <- n - length(collected)
     n_available <- num_discretes(
@@ -45,7 +51,8 @@ next_discrete.inverse <- function(x, from, ..., n = 1L, include_from = TRUE) {
       base,
       from = Inf,
       n = n_remaining,
-      include_from = FALSE
+      include_from = FALSE,
+      ...
     )
     collected <- append(collected, extra)
   }

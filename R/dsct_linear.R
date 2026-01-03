@@ -6,12 +6,13 @@
 #' @returns A linearly transformed discretes object.
 #' @examples
 #' dsct_linear(integers(), m = 2, b = 3)
-#' @rdname linear_transform
+#' @noRd
 #' @export
 dsct_linear <- function(x, m, b) {
   UseMethod("dsct_linear")
 }
 
+#' @noRd
 #' @export
 dsct_linear.discretes <- function(x, m, b) {
   checkmate::assert_number(m, finite = TRUE)
@@ -24,12 +25,7 @@ dsct_linear.discretes <- function(x, m, b) {
   }
   new_discretes(
     data = list(base = x, m = m, b = b),
+    name = "Linear-transformed",
     subclass = "dsct_linear"
   )
-}
-
-
-#' @export
-print.dsct_linear <- function(x, ...) {
-
 }

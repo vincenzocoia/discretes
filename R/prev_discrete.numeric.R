@@ -1,5 +1,6 @@
+#' @noRd
 #' @export
-prev_discrete.numeric <- function(x, from, ..., n = 1, include_from = FALSE) {
+prev_discrete.numeric <- function(x, from, ..., n = 1, include_from = TRUE) {
   checkmate::assert_number(from)
   ellipsis::check_dots_empty()
   n <- assert_and_convert_integerish(n, lower = 0)

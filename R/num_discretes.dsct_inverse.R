@@ -1,10 +1,11 @@
+#' @noRd
 #' @export
-num_discretes.inverse <- function(x,
-                                  ...,
-                                  from = -Inf,
-                                  to = Inf,
-                                  include_from = TRUE,
-                                  include_to = TRUE) {
+num_discretes.dsct_inverse <- function(x,
+                                       ...,
+                                       from = -Inf,
+                                       to = Inf,
+                                       include_from = TRUE,
+                                       include_to = TRUE) {
   ellipsis::check_dots_empty()
   checkmate::assert_number(from)
   checkmate::assert_number(to)

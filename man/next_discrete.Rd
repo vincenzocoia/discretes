@@ -5,7 +5,7 @@
 \alias{prev_discrete}
 \title{Probing discrete values in a distribution}
 \usage{
-next_discrete(x, from, ..., n = 1L, include_from = FALSE)
+next_discrete(x, from, ..., n = 1L, include_from = TRUE)
 
 prev_discrete(x, from, ..., n = 1L, include_from = FALSE)
 }

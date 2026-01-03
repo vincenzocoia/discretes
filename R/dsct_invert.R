@@ -10,15 +10,12 @@ dsct_invert <- function(x) {
   UseMethod("dsct_invert")
 }
 
+#' @noRd
 #' @export
 dsct_invert.discretes <- function(x) {
   new_discretes(
     data = list(base = x),
+    name = "Reciprocal",
     subclass = "dsct_inverse"
   )
-}
-
-#' @export
-print.dsct_inverse <- function(x, ...) {
-
 }

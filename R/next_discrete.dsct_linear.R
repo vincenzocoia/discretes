@@ -1,11 +1,10 @@
-#' @describeIn discretes Next discrete values after a linear transform.
+#' @noRd
 #' @export
-#' @inheritParams next_discrete
-next_discrete.linear_transform <- function(x,
-                                           from,
-                                           ...,
-                                           n = 1L,
-                                           include_from = FALSE) {
+next_discrete.dsct_linear <- function(x,
+                                      from,
+                                      ...,
+                                      n = 1L,
+                                      include_from = TRUE) {
   checkmate::assert_number(from, finite = FALSE)
   checkmate::assert_integerish(n, len = 1, lower = 0)
   checkmate::assert_logical(include_from, len = 1, any.missing = FALSE)

@@ -1,3 +1,4 @@
+#' @noRd
 #' @export
 num_discretes.dsct_negation <- function(x,
                                         ...,

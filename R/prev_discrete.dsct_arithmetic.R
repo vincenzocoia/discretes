@@ -1,3 +1,4 @@
+#' @noRd
 #' @export
 prev_discrete.dsct_arithmetic <- function(x,
                                           from,
@@ -11,19 +12,24 @@ prev_discrete.dsct_arithmetic <- function(x,
   if (from == -Inf || n == 0) {
     return(numeric(0L))
   }
-
   n_left <- x$n_left
   n_right <- x$n_right
   representative <- x$representative
   spacing <- x$spacing
+  if (spacing == 0) {
+    n_left <- 0
+    n_right <- 0
+    spacing <- 1
+  }
+  if (is.infinite(n_right) && from == Inf) {
+    return(numeric(0))
+  }
   lowest <- representative - n_left * spacing
   highest <- representative + n_right * spacing
-
   if (from > highest) {
     from <- highest
     include_from <- TRUE
   }
-
   raw_index <- (from - representative) / spacing
   start_index <- floor(raw_index)
   candidate_indices <- start_index - (seq_len(n) - include_from)

@@ -1,11 +1,8 @@
-#' @describeIn test_discrete Membership test for arithmetic progressions.
-#' @param tol Numerical tolerance used when checking whether values align with
-#'   the progression.
+#' @noRd
 #' @export
-test_discrete.dsct_arithmetic <- function(x, values, ..., tol = 1e-12) {
+test_discrete.dsct_arithmetic <- function(x, values, ...) {
   ellipsis::check_dots_empty()
   checkmate::assert_numeric(values, any.missing = TRUE, finite = FALSE)
-  checkmate::assert_number(tol, lower = 0, finite = TRUE)
 
   if (!length(values)) {
     return(logical())
@@ -15,11 +12,11 @@ test_discrete.dsct_arithmetic <- function(x, values, ..., tol = 1e-12) {
   spacing <- x$spacing
 
   indices <- (values - rep_val) / spacing
-  is_integerish <- abs(indices - round(indices)) <= tol
+  is_integerish <- abs(indices - round(indices)) == 0
   is_integerish[is.infinite(indices)] <- FALSE
 
   n_left <- -x$n_left
   n_right <- x$n_right
 
-  is_integerish & (indices >= n_left - tol) & (indices <= n_right + tol)
+  is_integerish & (indices >= n_left) & (indices <= n_right)
 }

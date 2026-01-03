@@ -1,4 +1,4 @@
-#' @describeIn linear_transform Compose linear transforms.
+#' @noRd
 #' @export
 dsct_linear.dsct_linear <- function(x, m, b) {
   checkmate::assert_number(m, finite = TRUE)

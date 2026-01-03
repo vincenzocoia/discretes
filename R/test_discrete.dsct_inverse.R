@@ -1,4 +1,4 @@
-#' @describeIn test_discrete Membership test for reciprocal transforms.
+#' @noRd
 #' @export
 test_discrete.dsct_inverse <- function(x, values, ...) {
   checkmate::assert_numeric(values, any.missing = TRUE, finite = FALSE)

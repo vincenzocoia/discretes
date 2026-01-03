@@ -1,3 +1,4 @@
+#' @noRd
 #' @export
 Ops.discretes <- function(e1, e2) {
   op <- .Generic

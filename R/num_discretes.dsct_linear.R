@@ -1,3 +1,4 @@
+#' @noRd
 #' @export
 num_discretes.dsct_linear <- function(x,
                                       ...,
@@ -5,7 +6,6 @@ num_discretes.dsct_linear <- function(x,
                                       to = Inf,
                                       include_from = TRUE,
                                       include_to = TRUE) {
-  ellipsis::check_dots_empty()
   checkmate::assert_number(from)
   checkmate::assert_number(to)
   checkmate::assert_logical(include_from, len = 1, any.missing = FALSE)
@@ -17,6 +17,7 @@ num_discretes.dsct_linear <- function(x,
     from = base_from,
     to = base_to,
     include_from = include_from,
-    include_to = include_to
+    include_to = include_to,
+    ...
   )
 }

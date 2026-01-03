@@ -47,7 +47,4 @@ has_infinite_discretes(x)
 num_discretes(x, from = -2, to = 2)
 has_infinite_discretes(x, from = -100, to = 100)
 num_discretes(1 / x, from = -2, to = 2)
-
-
-
 }

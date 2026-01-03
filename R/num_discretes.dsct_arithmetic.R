@@ -1,3 +1,4 @@
+#' @noRd
 #' @export
 num_discretes.dsct_arithmetic <- function(x,
                                           ...,
@@ -13,10 +14,18 @@ num_discretes.dsct_arithmetic <- function(x,
   if (from == Inf) {
     return(0L)
   }
-  if (is.infinite(x$n_left) && is.infinite(from)) {
+  spacing <- x$spacing
+  n_left <- x$n_left
+  n_right <- x$n_right
+  if (spacing == 0) {
+    spacing <- 1
+    n_left <- 0
+    n_right <- 0
+  }
+  if (is.infinite(n_left) && is.infinite(from)) {
     return(Inf)
   }
-  if (is.infinite(x$n_right) && is.infinite(to)) {
+  if (is.infinite(n_right) && is.infinite(to)) {
     return(Inf)
   }
   lower <- next_discrete(x, from = from, n = 1L, include_from = include_from)
@@ -24,7 +33,7 @@ num_discretes.dsct_arithmetic <- function(x,
   if (!length(lower) || !length(upper) || upper < lower) {
     return(numeric(0))
   }
-  steps <- (upper - lower) / x$spacing
+  steps <- (upper - lower) / spacing
   checkmate::assert_true(checkmate::test_integerish(steps))
   as.integer(round(steps)) + 1L
 }

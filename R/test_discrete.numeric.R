@@ -1,4 +1,4 @@
-#' @describeIn numeric_discretes Membership test for finite numeric discretes.
+#' @noRd
 #' @export
 test_discrete.numeric <- function(x, values, ...) {
   ellipsis::check_dots_empty()

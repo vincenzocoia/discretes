@@ -6,7 +6,7 @@
 #' @param subclass Character vector of subclass tags to prepend.
 #' @param data List of fields describing the infinite vector.
 #' @param base Optional underlying discretes object being transformed.
-#' @keywords internal
-new_discretes <- function(data, ..., subclass = character()) {
-  structure(data, ..., class = c(subclass, "discretes"))
+#' @noRd
+new_discretes <- function(data, ..., name = NULL, subclass = character()) {
+  structure(data, ..., name = name, class = c(subclass, "discretes"))
 }

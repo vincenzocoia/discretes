@@ -1,4 +1,4 @@
-#' @describeIn numeric_discretes Count discrete numeric values within a range.
+#' @noRd
 #' @export
 num_discretes.numeric <- function(x,
                                   ...,

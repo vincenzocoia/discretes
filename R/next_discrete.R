@@ -33,13 +33,13 @@
 #' next_discrete(dst_norm(0, 1), from = 1.3, n = 4)
 #' @rdname next_discrete
 #' @export
-next_discrete <- function(x, from, ..., n = 1L, include_from = FALSE) {
+next_discrete <- function(x, from, ..., n = 1L, include_from = TRUE) {
   UseMethod("next_discrete")
 }
 
 #' @export
 #' @inheritParams next_discrete
-next_discrete.discretes <- function(x, from, ..., n = 1L, include_from = FALSE) {
+next_discrete.discretes <- function(x, from, ..., n = 1L, include_from = TRUE) {
   stop("Don't know how to walk forwards on this series.")
 }
 

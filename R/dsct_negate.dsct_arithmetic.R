@@ -1,4 +1,4 @@
-#' @describeIn linear_transform Negate an arithmetic progression.
+#' @noRd
 #' @export
 dsct_negate.dsct_arithmetic <- function(x) {
   x$representative <- -x$representative
