@@ -2,7 +2,7 @@
 % Please edit documentation in R/integers.R
 \name{integers}
 \alias{integers}
-\title{Integers}
+\title{Integer Discrete Values}
 \usage{
 integers(from = -Inf, to = Inf)
 }
@@ -11,15 +11,16 @@ integers(from = -Inf, to = Inf)
 Defaults to \code{-Inf} and \code{Inf}, representing all integers.}
 }
 \value{
-An object of class \code{integers_infvctr} (and \code{arithmetic_infvctr},
-\code{infvctr}), representing the set of integers within the specified range.
+A "discretes" object of class \code{dsct_integers},
+representing the set of integers within the specified range.
 }
 \description{
-Create an object representing the set of integers within a specified range.
+Create a "discretes" object representing the set of integers within a
+specified range.
 }
 \examples{
-integers()          # All integers
-integers(from = 0) # Non-negative integers
-integers(to = 0)   # Non-positive integers
-integers(from = -5, to = 5) # Integers from -5
+integers()                  # All integers
+integers(from = 0)          # Non-negative integers
+integers(to = 1.5)          # Ends at 1.
+integers(from = -5, to = 5) # Integers from -5 to 5.
 }

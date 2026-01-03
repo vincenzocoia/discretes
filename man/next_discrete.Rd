@@ -20,9 +20,6 @@ prev_discrete(x, from, ..., n = 1L, include_from = FALSE)
 
 \item{include_from, include_to}{Logical; should the \code{from} value be included
 in the query? Should the \code{to} value?}
-
-\item{tol}{Numerical tolerance used by some methods when comparing bounds
-or step counts.}
 }
 \value{
 For \code{next_discrete()} and \code{prev_discrete()}, a vector of

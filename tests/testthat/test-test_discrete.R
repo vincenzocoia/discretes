@@ -1,5 +1,5 @@
 test_that("NA, Inf, and empty values with test_discrete.", {
-  # arithmetic_infvctr
+  # arithmetic
   x <- arithmetic(5.5, 1.2, n_left = 3, n_right = 4)
   expect_equal(
     test_discrete(x, c(NA, 6.7, 6, Inf, -Inf)),

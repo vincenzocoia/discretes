@@ -2,7 +2,7 @@
 #' @param tol Numerical tolerance used when checking whether values align with
 #'   the progression.
 #' @export
-test_discrete.arithmetic_infvctr <- function(x, values, ..., tol = 1e-12) {
+test_discrete.dsct_arithmetic <- function(x, values, ..., tol = 1e-12) {
   ellipsis::check_dots_empty()
   checkmate::assert_numeric(values, any.missing = TRUE, finite = FALSE)
   checkmate::assert_number(tol, lower = 0, finite = TRUE)

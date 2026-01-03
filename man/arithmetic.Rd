@@ -2,12 +2,9 @@
 % Please edit documentation in R/arithmetic.R
 \name{arithmetic}
 \alias{arithmetic}
-\alias{print.arithmetic_infvctr}
 \title{Arithmetic Series}
 \usage{
 arithmetic(representative, spacing, ..., n_left = Inf, n_right = Inf)
-
-\method{print}{arithmetic_infvctr}(x, ...)
 }
 \arguments{
 \item{representative}{Numeric scalar giving a known term in the progression.}
@@ -21,7 +18,7 @@ adjacent terms.}
 many steps exist to the left and right of \code{representative}.}
 }
 \value{
-An \code{arithmetic_infvctr} object, inheriting from \code{infvctr}.
+A \code{dsct_arithmetic} object, inheriting from \code{discretes}.
 }
 \description{
 Construct an arithmetic progression, with possibly infinite values.
@@ -29,11 +26,6 @@ The progression is anchored at \code{representative} and extends \code{n_left} s
 to the left (decreasing values) and \code{n_right} steps to the right
 (increasing values) with constant \code{spacing} between consecutive terms.
 }
-\section{Functions}{
-\itemize{
-\item \code{print(arithmetic_infvctr)}: Print method for arithmetic infvctr objects.
-
-}}
 \examples{
 arithmetic(representative = -0.6, spacing = 0.7)
 arithmetic(representative = 0.6, spacing = 0.7, n_right = 0)

@@ -1,0 +1,24 @@
+#' Reciprocal Series
+#'
+#' Take the reciprocal of values in a series of discretes.
+#' @param x Discretes object.
+#' @returns A new series of discretes containing the reciprocals of all values
+#'   in `x`.
+#' @noRd
+#' @export
+dsct_invert <- function(x) {
+  UseMethod("dsct_invert")
+}
+
+#' @export
+dsct_invert.discretes <- function(x) {
+  new_discretes(
+    data = list(base = x),
+    subclass = "dsct_inverse"
+  )
+}
+
+#' @export
+print.dsct_inverse <- function(x, ...) {
+
+}

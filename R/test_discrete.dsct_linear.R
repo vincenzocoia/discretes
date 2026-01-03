@@ -1,6 +1,6 @@
 #' @describeIn test_discrete Membership test for linear transforms.
 #' @export
-test_discrete.linear_transform <- function(x, values, ...) {
+test_discrete.dsct_linear <- function(x, values, ...) {
   checkmate::assert_numeric(values, any.missing = TRUE, finite = FALSE)
   m <- x$m
   b <- x$b

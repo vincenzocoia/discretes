@@ -20,7 +20,7 @@ prev_discrete.linear_transform <- function(x,
   base <- x$base
 
   if (m == 0) {
-    if (from > b || (include_from && from == b)) {
+    if (from > b || (from == b && include_from)) {
       return(b)
     }
     return(numeric(0L))

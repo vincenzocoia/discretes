@@ -10,7 +10,7 @@ natural1()
 natural0()
 }
 \value{
-An object of class \code{infvctr}, which is like an infinite-length
+An object of class \code{discretes}, which is like an infinite-length
 vector.
 }
 \description{

@@ -1,7 +1,7 @@
 #' Natural Numbers
 #'
 #' Creates an infinite vector of natural numbers starting at 0 or 1.
-#' @returns An object of class `infvctr`, which is like an infinite-length
+#' @returns An object of class `discretes`, which is like an infinite-length
 #' vector.
 #' @rdname natural
 #' @export

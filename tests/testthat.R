@@ -7,6 +7,6 @@
 # * https://testthat.r-lib.org/articles/special-files.html
 
 library(testthat)
-library(infvctrs)
+library(discretes)
 
-test_check("infvctrs")
+test_check("discretes")

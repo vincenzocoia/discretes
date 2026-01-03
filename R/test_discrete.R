@@ -1,6 +1,6 @@
 #' Test if values belong to a discrete set
 #'
-#' @param x An infvctr object.
+#' @param x An discretes object.
 #' @param values A vector of values to check.
 #' @returns A logical vector indicating whether each value belongs to the
 #'   discrete set defined by `x`. `NA` values are preserved such that `NA` in

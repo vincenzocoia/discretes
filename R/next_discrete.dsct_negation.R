@@ -1,7 +1,7 @@
-#' @describeIn discretes Previous discrete values for negated infvctr objects.
+#' @describeIn discretes Next discrete values for negated discrete objects.
 #' @export
-#' @inheritParams prev_discrete
-prev_discrete.negate_infvctr <- function(x,
+#' @inheritParams next_discrete
+next_discrete.dsct_negate <- function(x,
                                          from,
                                          ...,
                                          n = 1L,
@@ -9,7 +9,7 @@ prev_discrete.negate_infvctr <- function(x,
   checkmate::assert_number(from, finite = FALSE)
   checkmate::assert_integerish(n, len = 1, lower = 0)
   checkmate::assert_logical(include_from, len = 1, any.missing = FALSE)
-  -next_discrete(
+  -prev_discrete(
     x$base,
     from = -from,
     n = n,

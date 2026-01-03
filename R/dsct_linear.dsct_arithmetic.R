@@ -1,5 +1,5 @@
 #' @export
-iv_linear.arithmetic_infvctr <- function(x, m, b) {
+dsct_linear.dsct_arithmetic <- function(x, m, b) {
   checkmate::assert_number(m, finite = TRUE)
   checkmate::assert_number(b, finite = TRUE)
   x$representative <- x$representative * m + b

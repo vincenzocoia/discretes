@@ -12,8 +12,6 @@
 #' @param n Number of discrete values to find.
 #' @param include_from,include_to Logical; should the `from` value be included
 #' in the query? Should the `to` value?
-#' @param tol Numerical tolerance used by some methods when comparing bounds
-#'   or step counts.
 #' @return For `next_discrete()` and `prev_discrete()`, a vector of
 #' all available discrete points satisfying the query.
 #' If less values are available than asked
@@ -38,3 +36,10 @@
 next_discrete <- function(x, from, ..., n = 1L, include_from = FALSE) {
   UseMethod("next_discrete")
 }
+
+#' @export
+#' @inheritParams next_discrete
+next_discrete.discretes <- function(x, from, ..., n = 1L, include_from = FALSE) {
+  stop("Don't know how to walk forwards on this series.")
+}
+

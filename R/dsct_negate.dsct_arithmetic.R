@@ -1,6 +1,6 @@
 #' @describeIn linear_transform Negate an arithmetic progression.
 #' @export
-iv_negate.arithmetic_infvctr <- function(x) {
+dsct_negate.dsct_arithmetic <- function(x) {
   x$representative <- -x$representative
   n_left <- x$n_left
   x$n_left <- x$n_right

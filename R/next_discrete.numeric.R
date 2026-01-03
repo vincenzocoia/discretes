@@ -15,21 +15,17 @@
 #' @rdname numeric_discretes
 #' @export
 next_discrete.numeric <- function(x, from, ..., n = 1, include_from = FALSE) {
+  checkmate::assert_number(from)
   ellipsis::check_dots_empty()
+  n <- assert_and_convert_integerish(n, lower = 0)
+  checkmate::assert_logical(include_from, any.missing = FALSE, len = 1)
   x <- unique(x)
-  checkmate::assert_vector(x, len = 1, any.missing = FALSE)
-  if (is.infinite(n)) {
-    res <- x[if (include_from) x >= from else x > from]
-    return(sort(res))
-  }
-  checkmate::assert_integerish(n, lower = 0)
-  n <- as.integer(n)
+  x <- x[!is.na(x)]
   if (include_from) {
-    query <- x >= from
+    upper_discretes <- x[x >= from]
   } else {
-    query <- x > from
+    upper_discretes <- x[x > from]
   }
-  higher_discretes <- x[query]
-  res <- sort(higher_discretes)
-  head(res, n)
+  upper_discretes <- sort(upper_discretes)
+  head(upper_discretes, n)
 }

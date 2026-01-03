@@ -1,10 +1,10 @@
 #' @describeIn linear_transform Compose linear transforms.
 #' @export
-iv_linear.linear_transform <- function(x, m, b) {
+dsct_linear.dsct_linear <- function(x, m, b) {
   checkmate::assert_number(m, finite = TRUE)
   checkmate::assert_number(b, finite = TRUE)
   if (m < 0) {
-    return(iv_linear(iv_negate(x), m = abs(m), b = b))
+    return(dsct_linear(dsct_negate(x), m = abs(m), b = b))
   }
   old_m <- x$m
   old_b <- x$b

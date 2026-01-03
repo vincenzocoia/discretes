@@ -1,4 +1,4 @@
-### Traversal contract for `infvctr` subclasses
+### Traversal contract for `discretes` subclasses
 
 - **Both directions are required.** Implement `next_discrete()` and
   `prev_discrete()` for every subclass. The sequence owner already knows how
