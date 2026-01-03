@@ -1,17 +1,21 @@
 Package: discretes
 Type: Package
 Title: What the Package Does (Title Case)
-Version: 0.1.0
+Version: 0.1.0.9000
 Authors@R: c(
     person(
-      "Jane", "Doe",
-      email = "jane@example.com",
-      role = c("aut", "cre")
+      "Vincenzo", "Coia",
+      email = "vincenzo.coia@gmail.com",
+      role = c("aut", "cre", "cph")
     )
   )
 Description: More about what it does (maybe more than one line).
     Continuation lines should be indented.
-License: What license is it under?
+License: MIT + file LICENSE
+Imports:
+    checkmate,
+    distionary,
+    ellipsis
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.3.3
