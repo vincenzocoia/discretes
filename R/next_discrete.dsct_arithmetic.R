@@ -4,11 +4,13 @@ next_discrete.dsct_arithmetic <- function(x,
                                           from,
                                           ...,
                                           n = 1,
-                                          include_from = TRUE) {
+                                          include_from = TRUE,
+                                          tol = sqrt(.Machine$double.eps)) {
   checkmate::assert_number(from)
   ellipsis::check_dots_empty()
-  checkmate::assert_integerish(n, lower = 0, len = 1)
+  n <- assert_and_convert_integerish(n, lower = 0)
   checkmate::assert_logical(include_from, len = 1, any.missing = FALSE)
+  checkmate::assert_number(tol, lower = 0)
   if (from == Inf || n == 0) {
     return(numeric(0L))
   }
@@ -24,15 +26,19 @@ next_discrete.dsct_arithmetic <- function(x,
   if (is.infinite(n_left) && from == -Inf) {
     return(numeric(0))
   }
-  lowest <- representative - n_left * spacing
-  highest <- representative + n_right * spacing
-  if (from < lowest) {
-    from <- lowest
+  from_index <- (from - representative) / spacing
+  round_index <- round(from_index)
+  if (abs(round_index - from_index) <= tol) {
+    from_index <- round_index
+  } else {
+    from_index <- ceiling(from_index)
     include_from <- TRUE
   }
-  raw_index <- (from - representative) / spacing
-  start_index <- ceiling(raw_index)
-  candidate_indices <- start_index + seq_len(n) - include_from
+  if (from_index < n_left) {
+    from_index <- n_left
+    include_from <- TRUE
+  }
+  candidate_indices <- from_index + seq_len(n) - include_from
   indices <- candidate_indices[candidate_indices <= n_right]
   representative + indices * spacing
 }

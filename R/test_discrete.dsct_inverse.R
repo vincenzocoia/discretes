@@ -1,10 +1,14 @@
 #' @noRd
 #' @export
-test_discrete.dsct_inverse <- function(x, values, ...) {
+test_discrete.dsct_inverse <- function(x,
+                                       values,
+                                       ...,
+                                       tol = sqrt(.Machine$double.eps)) {
   checkmate::assert_numeric(values, any.missing = TRUE, finite = FALSE)
-
+  ellipsis::check_dots_empty()
+  checkmate::assert_number(tol, lower = 0)
   if (!length(values)) {
-    return(logical(0L))
+    return(logical())
   }
 
   res <- rep_len(FALSE, length(values))
@@ -19,6 +23,6 @@ test_discrete.dsct_inverse <- function(x, values, ...) {
 
   val_subset <- values[valid_idx]
   mapped <- 1 / val_subset
-  res[valid_idx] <- test_discrete(x$base, mapped, ...)
+  res[valid_idx] <- test_discrete(x$base, values = mapped, tol = tol)
   res
 }

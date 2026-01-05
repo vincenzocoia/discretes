@@ -1,7 +1,14 @@
 #' @noRd
 #' @export
-test_discrete.dsct_linear <- function(x, values, ...) {
+test_discrete.dsct_linear <- function(x,
+                                      values,
+                                      ...,
+                                      tol = sqrt(.Machine$double.eps)) {
   checkmate::assert_numeric(values, any.missing = TRUE, finite = FALSE)
+  checkmate::assert_number(tol, lower = 0)
+  if (!length(values)) {
+    return(logical())
+  }
   m <- x$m
   b <- x$b
   res <- rep_len(FALSE, length(values))
@@ -12,10 +19,10 @@ test_discrete.dsct_linear <- function(x, values, ...) {
   }
   idx <- !is_na
   if (m == 0) {
-    res[idx] <- values[idx] == b
+    res[idx] <- abs(values[idx] - b) < tol
     return(res)
   }
   base_values <- (values[idx] - b) / m
-  res[idx] <- test_discrete(x$base, base_values, ...)
+  res[idx] <- test_discrete(x$base, values = base_values, tol = tol, ...)
   res
 }

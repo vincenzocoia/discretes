@@ -7,13 +7,12 @@
 #' @examples
 #' dsct_linear(integers(), m = 2, b = 3)
 #' @noRd
-#' @export
 dsct_linear <- function(x, m, b) {
   UseMethod("dsct_linear")
 }
 
 #' @noRd
-#' @export
+#' @exportS3Method
 dsct_linear.discretes <- function(x, m, b) {
   checkmate::assert_number(m, finite = TRUE)
   checkmate::assert_number(b, finite = TRUE)

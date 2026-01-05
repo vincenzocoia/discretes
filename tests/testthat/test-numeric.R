@@ -4,5 +4,5 @@ test_that("Discrete-testing works for numeric discretes.", {
     test_discrete(x, c(NA, 6.5, 6, Inf, -Inf)),
     c(NA, TRUE, FALSE, FALSE, FALSE)
   )
-  expect_equal(test_discrete(x, c()), logical(0))
+  expect_equal(test_discrete(x, numeric()), logical(0))
 })

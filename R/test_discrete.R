@@ -9,6 +9,9 @@
 #' test_discrete(natural0(), c(-1, 0, 1, 12.5, NA))
 #' test_discrete(1 / natural1(), 0)
 #' @export
-test_discrete <- function(x, values) {
+test_discrete <- function(x,
+                          values,
+                          ...,
+                          tol = sqrt(.Machine$double.eps)) {
   UseMethod("test_discrete")
 }

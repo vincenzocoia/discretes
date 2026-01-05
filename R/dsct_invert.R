@@ -5,13 +5,12 @@
 #' @returns A new series of discretes containing the reciprocals of all values
 #'   in `x`.
 #' @noRd
-#' @export
 dsct_invert <- function(x) {
   UseMethod("dsct_invert")
 }
 
 #' @noRd
-#' @export
+#' @exportS3Method
 dsct_invert.discretes <- function(x) {
   new_discretes(
     data = list(base = x),

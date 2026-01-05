@@ -7,35 +7,27 @@
 \usage{
 next_discrete(x, from, ..., n = 1L, include_from = TRUE)
 
-prev_discrete(x, from, ..., n = 1L, include_from = FALSE)
+prev_discrete(x, from, ..., n = 1L, include_from = TRUE)
 }
 \arguments{
 \item{x}{Vector or discretes.}
 
-\item{from, to}{Reference values.}
+\item{from}{Reference value to start searching from; single numeric.}
 
 \item{...}{Arguments to pass to other methods.}
 
-\item{n}{Number of discrete values to find.}
+\item{n}{Number of discrete values to find; single positive integer.}
 
-\item{include_from, include_to}{Logical; should the \code{from} value be included
-in the query? Should the \code{to} value?}
+\item{include_from}{Should the \code{from} value be included
+in the query? Single logical; defaults to \code{TRUE}.}
 }
 \value{
-For \code{next_discrete()} and \code{prev_discrete()}, a vector of
-all available discrete points satisfying the query.
-If less values are available than asked
-via \code{n}, only those values are returned.
-If infinite values satisfy the query, an error is thrown;
-\code{NaN} occurs when no one particular discrete value follows, such as
-when asking for the integer that comes before infinity.
-
-For \code{num_discretes()}, a single non-negative integer, possibly infinite.
-Possibly also \code{NA_integer_} if there's not enough information to
-determine this.
-
-For \code{has_infinite_discretes()}, a single logical, possibly \code{NA} if
-there's not enough information to determine this.
+A vector of sequential points starting from \code{from}, which is
+included in the vector if it has membership in the series and
+\code{include_from = TRUE}. The length of the vector is at most \code{n}, and
+will return an empty numeric vector if there is no such discrete
+value. \code{next_discrete()} is increasing, while \code{prev_discrete()} is
+decreasing, so that earlier values are encountered sooner.
 }
 \description{
 \code{next_discrete()} and \code{prev_discrete()} find the \code{n} discrete values
@@ -44,9 +36,12 @@ the number of discrete values within a range. \code{has_infinite_discretes()}
 checks whether there are an infinite amount of discrete values between
 a range of values.
 }
+\note{
+Just because there may not be any
+}
 \examples{
-x <- discretes(from = 2, to = Inf)
-next_discrete(dst_pois(1), from = 1.3)
-prev_discrete(dst_pois(1), from = 3, n = 10)
-next_discrete(dst_norm(0, 1), from = 1.3, n = 4)
+x <- integers(from = 2)
+next_discrete(x, from = 1.3)
+prev_discrete(x, from = 4, n = 10)
+next_discrete(x - 0.7, from = 1.3, n = 4)
 }

@@ -15,8 +15,8 @@
 integers <- function(from = -Inf, to = Inf) {
   checkmate::assert_number(from, finite = FALSE)
   checkmate::assert_number(to, lower = from, finite = FALSE)
-  from <- ceiling(from)
-  to <- floor(to)
+  from <- as.integer(ceiling(from))
+  to <- as.integer(floor(to))
   if (from > to) {
     return(numeric(0))
   }
@@ -34,14 +34,17 @@ integers <- function(from = -Inf, to = Inf) {
     n_left <- 0L
     n_right <- Inf
   } else {
-    representative <- 0
+    representative <- 0L
     n_left <- Inf
     n_right <- Inf
   }
-  arithmetic(
+  x <- arithmetic(
     spacing = 1L,
-    representative = as.integer(representative),
+    representative = representative,
     n_left = n_left,
     n_right = n_right
   )
+  class(x) <- c("dsct_integer", class(x))
+  attr(x, "name") <- "Integer"
+  x
 }

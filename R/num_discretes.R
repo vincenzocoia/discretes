@@ -29,6 +29,7 @@ num_discretes <- function(x,
                           from = -Inf,
                           to = Inf,
                           include_from = TRUE,
-                          include_to = TRUE) {
+                          include_to = TRUE,
+                          tol = sqrt(.Machine$double.eps)) {
   UseMethod("num_discretes")
 }

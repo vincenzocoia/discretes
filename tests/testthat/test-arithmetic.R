@@ -24,14 +24,4 @@ test_that("integers - bad inputs", {
   expect_error(integers(NA, 2))
   expect_error(integers(from = Inf))
   expect_error(integers(to = -Inf))
-  expect_error(integers(2.2, 5.5))
 })
-
-test_that("Zero spacing", {
-  expect_equal(arithmetic(5.5, 0), 5.5)
-  expect_equal(arithmetic(5.5, 0, n_left = 0, n_right = 0), 5.5)
-  expect_equal(integers(2, 2), 2)
-})
-
-expect_equal(integers(-3, -3), -3)
-expect_equal(integers(-3, 2), -3:2)

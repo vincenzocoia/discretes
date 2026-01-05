@@ -4,13 +4,13 @@ next_discrete.dsct_linear <- function(x,
                                       from,
                                       ...,
                                       n = 1L,
-                                      include_from = TRUE) {
-  checkmate::assert_number(from, finite = FALSE)
-  checkmate::assert_integerish(n, len = 1, lower = 0)
+                                      include_from = TRUE,
+                                      tol = sqrt(.Machine$double.eps)) {
+  checkmate::assert_number(from)
+  n <- assert_and_convert_integerish(n, lower = 0)
   checkmate::assert_logical(include_from, len = 1, any.missing = FALSE)
-
-  n <- as.integer(n)
-  if (n == 0L) {
+  checkmate::assert_number(tol, lower = 0)
+  if (n == 0) {
     return(numeric(0L))
   }
 
@@ -19,10 +19,11 @@ next_discrete.dsct_linear <- function(x,
   base <- x$base
 
   if (m == 0) {
-    if (from < b || (from == b && include_from)) {
-      return(b)
-    }
-    return(numeric(0L))
+    proxy <- arithmetic(representative = b, spacing = 0)
+    res <- next_discrete(
+      proxy, from = from, n = n, include_from = include_from, tol = tol, ...
+    )
+    return(res)
   }
 
   base_from <- (from - b) / m
@@ -31,6 +32,7 @@ next_discrete.dsct_linear <- function(x,
     from = base_from,
     n = n,
     include_from = include_from,
+    tol = tol,
     ...
   )
   base_next * m + b

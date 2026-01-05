@@ -24,9 +24,9 @@ arithmetic <- function(representative,
                        n_right = Inf) {
   checkmate::assert_number(representative)
   checkmate::assert_number(spacing, lower = 0)
+  ellipsis::check_dots_empty()
   n_left <- assert_and_convert_integerish(n_left, lower = 0)
   n_right <- assert_and_convert_integerish(n_right, lower = 0)
-  ellipsis::check_dots_empty()
   new_discretes(
     data = list(
       representative = representative,

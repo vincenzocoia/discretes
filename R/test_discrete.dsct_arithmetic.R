@@ -1,9 +1,12 @@
 #' @noRd
 #' @export
-test_discrete.dsct_arithmetic <- function(x, values, ...) {
-  ellipsis::check_dots_empty()
+test_discrete.dsct_arithmetic <- function(x,
+                                          values,
+                                          ...,
+                                          tol = sqrt(.Machine$double.eps)) {
   checkmate::assert_numeric(values, any.missing = TRUE, finite = FALSE)
-
+  ellipsis::check_dots_empty()
+  checkmate::assert_number(tol, lower = 0)
   if (!length(values)) {
     return(logical())
   }
@@ -12,11 +15,13 @@ test_discrete.dsct_arithmetic <- function(x, values, ...) {
   spacing <- x$spacing
 
   indices <- (values - rep_val) / spacing
-  is_integerish <- abs(indices - round(indices)) == 0
+  is_integerish <- abs(indices - round(indices)) < tol
   is_integerish[is.infinite(indices)] <- FALSE
 
-  n_left <- -x$n_left
-  n_right <- x$n_right
+  i_integerish <- which(is_integerish)
+  indices[i_integerish] <- round(indices[i_integerish])
+  above_left <- indices >= -x$n_left
+  below_right <- indices <= x$n_right
 
-  is_integerish & (indices >= n_left) & (indices <= n_right)
+  is_integerish & above_left & below_right
 }

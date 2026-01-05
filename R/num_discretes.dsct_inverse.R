@@ -1,48 +1,56 @@
-#' @noRd
 #' @export
 num_discretes.dsct_inverse <- function(x,
                                        ...,
                                        from = -Inf,
                                        to = Inf,
                                        include_from = TRUE,
-                                       include_to = TRUE) {
+                                       include_to = TRUE,
+                                       tol = sqrt(.Machine$double.eps)) {
   ellipsis::check_dots_empty()
   checkmate::assert_number(from)
-  checkmate::assert_number(to)
+  checkmate::assert_number(to, lower = from)
   checkmate::assert_logical(include_from, len = 1, any.missing = FALSE)
   checkmate::assert_logical(include_to, len = 1, any.missing = FALSE)
+  checkmate::assert_number(tol, lower = 0)
   d_nested <- x$base
-  if (to < from) {
-    a <- to
-    b <- from
-    include_a <- include_to
-    include_b <- include_from
-  } else {
-    a <- from
-    b <- to
-    include_a <- include_from
-    include_b <- include_to
-  }
-  if (b <= 0) {
+  if (sign(from) == sign(to)) {
     n <- num_discretes(
-      d_nested, from = -1 / abs(b), to = -1 / abs(a),
-      include_from = include_b, include_to = include_a
+      d_nested,
+      from = 1 / to, to = 1 / from,
+      include_from = include_to, include_to = include_from,
+      tol = tol
     )
-  } else if (a >= 0) {
-    n <- num_discretes(
-      d_nested, from = 1 / b, to = 1 / a, include_from = include_b,
-      include_to = include_a
-    )
-  } else {
-    n_neg <- num_discretes(
-      d_nested, from = -Inf, to = 1 / a, include_from = FALSE,
-      include_to = include_a
-    )
-    n_pos <- num_discretes(
-      d_nested, from = 1 / b, to = Inf, include_from = include_b,
-      include_to = FALSE
-    )
-    n <- n_neg + n_pos
+    return(n)
   }
-  n
+  if (from == 0) {
+    n <- num_discretes(
+      d_nested,
+      from = 1 / to, to = Inf,
+      include_from = include_to,
+      tol = tol
+    )
+    return(n)
+  }
+  if (to == 0) {
+    n <- num_discretes(
+      d_nested,
+      from = -Inf, to = 1 / from,
+      include_to = include_from,
+      tol = tol
+    )
+    return(n)
+  }
+  n_neg <- num_discretes(
+    d_nested,
+    from = -Inf, to = 1 / from,
+    include_to = include_from,
+    tol = tol
+  )
+  n_pos <- num_discretes(
+    d_nested,
+    from = 1 / to, to = Inf,
+    include_from = include_to,
+    tol = tol
+  )
+  n_neg + n_pos
 }

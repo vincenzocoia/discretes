@@ -13,7 +13,7 @@
 #' try(assert_and_convert_integerish(1:10))  # Error
 #' @noRd
 assert_and_convert_integerish <- function(x, lower = -Inf, ...) {
-  checkmate::assert_numeric(x, len = 1, lower = lower)
+  checkmate::assert_numeric(x, len = 1, lower = lower, any.missing = FALSE)
   if (is.infinite(x)) {
     return(x)
   }

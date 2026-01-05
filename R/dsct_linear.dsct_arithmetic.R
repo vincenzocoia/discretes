@@ -1,5 +1,5 @@
 #' @noRd
-#' @export
+#' @exportS3Method
 dsct_linear.dsct_arithmetic <- function(x, m, b) {
   checkmate::assert_number(m, finite = TRUE)
   checkmate::assert_number(b, finite = TRUE)

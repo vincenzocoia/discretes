@@ -5,6 +5,9 @@
 
 <!-- badges: start -->
 
+[![Codecov test
+coverage](https://codecov.io/gh/probaverse/discretes/graph/badge.svg)](https://app.codecov.io/gh/probaverse/discretes)
+[![R-CMD-check](https://github.com/probaverse/discretes/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/probaverse/discretes/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 The goal of discretes is to …

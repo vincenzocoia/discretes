@@ -7,30 +7,23 @@
 #' a range of values.
 #'
 #' @param x Vector or discretes.
-#' @param from,to Reference values.
+#' @param from Reference value to start searching from; single numeric.
 #' @param ... Arguments to pass to other methods.
-#' @param n Number of discrete values to find.
-#' @param include_from,include_to Logical; should the `from` value be included
-#' in the query? Should the `to` value?
-#' @return For `next_discrete()` and `prev_discrete()`, a vector of
-#' all available discrete points satisfying the query.
-#' If less values are available than asked
-#' via `n`, only those values are returned.
-#' If infinite values satisfy the query, an error is thrown;
-#' `NaN` occurs when no one particular discrete value follows, such as
-#' when asking for the integer that comes before infinity.
-#'
-#' For `num_discretes()`, a single non-negative integer, possibly infinite.
-#' Possibly also `NA_integer_` if there's not enough information to
-#' determine this.
-#'
-#' For `has_infinite_discretes()`, a single logical, possibly `NA` if
-#' there's not enough information to determine this.
+#' @param n Number of discrete values to find; single positive integer.
+#' @param include_from Should the `from` value be included
+#' in the query? Single logical; defaults to `TRUE`.
+#' @return A vector of sequential points starting from `from`, which is
+#' included in the vector if it has membership in the series and
+#' `include_from = TRUE`. The length of the vector is at most `n`, and
+#' will return an empty numeric vector if there is no such discrete
+#' value. `next_discrete()` is increasing, while `prev_discrete()` is
+#' decreasing, so that earlier values are encountered sooner.
+#' @note Just because there may not be any
 #' @examples
-#' x <- discretes(from = 2, to = Inf)
-#' next_discrete(dst_pois(1), from = 1.3)
-#' prev_discrete(dst_pois(1), from = 3, n = 10)
-#' next_discrete(dst_norm(0, 1), from = 1.3, n = 4)
+#' x <- integers(from = 2)
+#' next_discrete(x, from = 1.3)
+#' prev_discrete(x, from = 4, n = 10)
+#' next_discrete(x - 0.7, from = 1.3, n = 4)
 #' @rdname next_discrete
 #' @export
 next_discrete <- function(x, from, ..., n = 1L, include_from = TRUE) {

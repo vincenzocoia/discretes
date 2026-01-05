@@ -17,19 +17,22 @@ discretes_between <- function(x,
                               to = Inf,
                               ...,
                               include_from = TRUE,
-                              include_to = TRUE) {
+                              include_to = TRUE,
+                              tol = sqrt(.Machine$double.eps)) {
   ellipsis::check_dots_empty()
   checkmate::assert_number(from)
   checkmate::assert_number(to, lower = from)
   checkmate::assert_logical(include_from, len = 1, any.missing = FALSE)
   checkmate::assert_logical(include_to, len = 1, any.missing = FALSE)
+  checkmate::assert_number(tol, lower = 0)
 
   n <- num_discretes(
     x,
     from = from,
     to = to,
     include_from = include_from,
-    include_to = include_to
+    include_to = include_to,
+    tol = tol
   )
 
   if (is.infinite(n)) {
@@ -43,6 +46,7 @@ discretes_between <- function(x,
     x,
     from = from,
     n = n,
-    include_from = include_from
+    include_from = include_from,
+    tol = tol
   )
 }
