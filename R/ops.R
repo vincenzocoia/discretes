@@ -13,9 +13,11 @@ Ops.discretes <- function(e1, e2) {
     res <- switch(
       op,
       "+" = e1,
-      "-" = dsct_linear(e1, m = -1, b = 0),
+      "-" = dsct_linear(e1, m = -1L, b = 0L),
       stop(
-        sprintf("Unary operator '%s' is not supported for discretes objects.", op)
+        sprintf(
+          "Unary operator '%s' is not supported for discretes objects.", op
+        )
       )
     )
     return(res)
@@ -40,20 +42,20 @@ Ops.discretes <- function(e1, e2) {
   }
 
   if (op == "+") {
-    return(dsct_linear(iv, m = 1, b = number))
+    return(dsct_linear(iv, m = 1L, b = number))
   }
 
   if (op == "-") {
     if (inf1) {
-      return(dsct_linear(iv, m = 1, b = -number))
+      return(dsct_linear(iv, m = 1L, b = -number))
     }
     if (inf2) {
-      return(dsct_linear(iv, m = -1, b = number))
+      return(dsct_linear(iv, m = -1L, b = number))
     }
   }
 
   if (op == "*") {
-    return(dsct_linear(iv, m = number, b = 0))
+    return(dsct_linear(iv, m = number, b = 0L))
   }
 
   if (op == "/") {
@@ -61,13 +63,13 @@ Ops.discretes <- function(e1, e2) {
       if (number == 0) {
         stop("Division of a discretes object by zero is undefined.")
       }
-      return(dsct_linear(iv, m = 1 / number, b = 0))
+      return(dsct_linear(iv, m = 1L / number, b = 0L))
     }
     if (inf2) {
       if (test_discrete(e2, 0)) {
         stop("Division of zero by a discretes object is not yet defined.")
       }
-      return(dsct_invert(dsct_linear(e2, m = 1 / number, b = 0)))
+      return(dsct_invert(dsct_linear(e2, m = 1L / number, b = 0L)))
     }
   }
   NextMethod()

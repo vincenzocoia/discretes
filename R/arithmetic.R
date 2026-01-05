@@ -27,6 +27,9 @@ arithmetic <- function(representative,
   ellipsis::check_dots_empty()
   n_left <- assert_and_convert_integerish(n_left, lower = 0)
   n_right <- assert_and_convert_integerish(n_right, lower = 0)
+  type <- typeof(representative + spacing)
+  mode(representative) <- type
+  mode(spacing) <- type
   new_discretes(
     data = list(
       representative = representative,

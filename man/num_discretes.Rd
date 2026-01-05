@@ -5,7 +5,13 @@
 \alias{num_discretes}
 \title{Number of Discrete Values in a Series}
 \usage{
-has_infinite_discretes(x, ..., from = -Inf, to = Inf)
+has_infinite_discretes(
+  x,
+  ...,
+  from = -Inf,
+  to = Inf,
+  tol = sqrt(.Machine$double.eps)
+)
 
 num_discretes(
   x,
@@ -13,7 +19,8 @@ num_discretes(
   from = -Inf,
   to = Inf,
   include_from = TRUE,
-  include_to = TRUE
+  include_to = TRUE,
+  tol = sqrt(.Machine$double.eps)
 )
 }
 \arguments{
@@ -23,6 +30,9 @@ num_discretes(
 
 \item{from, to}{Reference values, possibly infinite. \code{from} must be less than
 or equal to \code{to}; both must be length-1 numeric vectors.}
+
+\item{tol}{Numerical tolerance used for snapping \code{from} or \code{to} values
+to a discrete value in the series; single non-negative numeric.}
 
 \item{include_from, include_to}{Should the \code{from} value be included
 in the query? Should the \code{to} value? Both must be length-1 logical vectors.}

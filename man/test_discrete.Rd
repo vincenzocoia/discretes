@@ -4,12 +4,17 @@
 \alias{test_discrete}
 \title{Test if values belong to a discrete set}
 \usage{
-test_discrete(x, values)
+test_discrete(x, values, ..., tol = sqrt(.Machine$double.eps))
 }
 \arguments{
 \item{x}{An discretes object.}
 
 \item{values}{A vector of values to check.}
+
+\item{...}{Reserved for future extensions; must be empty.}
+
+\item{tol}{Numerical tolerance used for snapping \code{values}
+to discrete values in the series; single non-negative numeric.}
 }
 \value{
 A logical vector indicating whether each value belongs to the

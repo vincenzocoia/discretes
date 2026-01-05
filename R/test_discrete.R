@@ -2,6 +2,9 @@
 #'
 #' @param x An discretes object.
 #' @param values A vector of values to check.
+#' @param ... Reserved for future extensions; must be empty.
+#' @param tol Numerical tolerance used for snapping `values`
+#'   to discrete values in the series; single non-negative numeric.
 #' @returns A logical vector indicating whether each value belongs to the
 #'   discrete set defined by `x`. `NA` values are preserved such that `NA` in
 #'   `values` results in `NA` in the output.

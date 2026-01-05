@@ -2,7 +2,7 @@
 #'
 #' @param x A discretes object.
 #' @returns A single numeric vector with a representative value from the
-#'   discrete set.
+#'   discrete set, with the proper mode.
 #' @examples
 #' representative(integers())
 #' representative(natural1() + 7)

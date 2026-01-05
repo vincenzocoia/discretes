@@ -12,6 +12,7 @@ next_discrete.numeric <- function(x,
   checkmate::assert_logical(include_from, len = 1, any.missing = FALSE)
   checkmate::assert_number(tol, lower = 0)
   x <- unique(x)
+  has_na <- any(is.na(x))
   x <- x[!is.na(x)]
   if (include_from) {
     upper_discretes <- x[x >= from - tol]

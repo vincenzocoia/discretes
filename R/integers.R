@@ -15,8 +15,8 @@
 integers <- function(from = -Inf, to = Inf) {
   checkmate::assert_number(from, finite = FALSE)
   checkmate::assert_number(to, lower = from, finite = FALSE)
-  from <- as.integer(ceiling(from))
-  to <- as.integer(floor(to))
+  from <- assert_and_convert_integerish(ceiling(from))
+  to <- assert_and_convert_integerish(floor(to))
   if (from > to) {
     return(numeric(0))
   }
@@ -44,6 +44,7 @@ integers <- function(from = -Inf, to = Inf) {
     n_left = n_left,
     n_right = n_right
   )
+  # Special class for printing only
   class(x) <- c("dsct_integer", class(x))
   attr(x, "name") <- "Integer"
   x

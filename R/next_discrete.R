@@ -8,10 +8,12 @@
 #'
 #' @param x Vector or discretes.
 #' @param from Reference value to start searching from; single numeric.
-#' @param ... Arguments to pass to other methods.
+#' @param ... Reserved for future extensions; must be empty.
 #' @param n Number of discrete values to find; single positive integer.
 #' @param include_from Should the `from` value be included
 #' in the query? Single logical; defaults to `TRUE`.
+#' @param tol Numerical tolerance used for snapping the `from` value
+#'   to a discrete value in the series; single non-negative numeric.
 #' @return A vector of sequential points starting from `from`, which is
 #' included in the vector if it has membership in the series and
 #' `include_from = TRUE`. The length of the vector is at most `n`, and
@@ -26,7 +28,7 @@
 #' next_discrete(x - 0.7, from = 1.3, n = 4)
 #' @rdname next_discrete
 #' @export
-next_discrete <- function(x, from, ..., n = 1L, include_from = TRUE) {
+next_discrete <- function(x, from, ..., n = 1L, include_from = TRUE, tol) {
   UseMethod("next_discrete")
 }
 

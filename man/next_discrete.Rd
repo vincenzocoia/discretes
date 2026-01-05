@@ -5,7 +5,7 @@
 \alias{prev_discrete}
 \title{Probing discrete values in a distribution}
 \usage{
-next_discrete(x, from, ..., n = 1L, include_from = TRUE)
+next_discrete(x, from, ..., n = 1L, include_from = TRUE, tol)
 
 prev_discrete(x, from, ..., n = 1L, include_from = TRUE)
 }
@@ -14,12 +14,15 @@ prev_discrete(x, from, ..., n = 1L, include_from = TRUE)
 
 \item{from}{Reference value to start searching from; single numeric.}
 
-\item{...}{Arguments to pass to other methods.}
+\item{...}{Reserved for future extensions; must be empty.}
 
 \item{n}{Number of discrete values to find; single positive integer.}
 
 \item{include_from}{Should the \code{from} value be included
 in the query? Single logical; defaults to \code{TRUE}.}
+
+\item{tol}{Numerical tolerance used for snapping the \code{from} value
+to a discrete value in the series; single non-negative numeric.}
 }
 \value{
 A vector of sequential points starting from \code{from}, which is

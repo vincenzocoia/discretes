@@ -1,5 +1,7 @@
 #' @export
 #' @noRd
 representative.dsct_arithmetic <- function(x) {
-  x$representative
+  res <- x$representative
+  mode(res) <- typeof(res + x$spacing)
+  res
 }

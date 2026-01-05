@@ -10,7 +10,8 @@ discretes_between(
   to = Inf,
   ...,
   include_from = TRUE,
-  include_to = TRUE
+  include_to = TRUE,
+  tol = sqrt(.Machine$double.eps)
 )
 }
 \arguments{
@@ -23,6 +24,9 @@ or equal to \code{to}; both must be length-1 numeric vectors.}
 
 \item{include_from, include_to}{Should the \code{from} value be included
 in the query? Should the \code{to} value? Both must be length-1 logical vectors.}
+
+\item{tol}{Numerical tolerance used for snapping \code{from} or \code{to} values
+to a discrete value in the series; single non-negative numeric.}
 }
 \value{
 A numeric vector containing all discrete values between \code{from} and

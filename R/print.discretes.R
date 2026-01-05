@@ -4,7 +4,7 @@ print.discretes <- function(x, len = 6, ...) {
   len <- assert_and_convert_integerish(len, lower = 0)
   n <- num_discretes(x)
   if (n == 0) {
-    cat("Empty series.")
+    cat("Empty series.\n")
     return(invisible(x))
   }
   nm <- attr(x, "name")
@@ -31,6 +31,7 @@ print.discretes <- function(x, len = 6, ...) {
     } else {
       cat(v, sep = ", ")
     }
+    cat("\n")
     return(invisible(x))
   }
   if (is.infinite(len)) {
@@ -46,12 +47,13 @@ print.discretes <- function(x, len = 6, ...) {
   # Closed on one side
   if (closed_left && !closed_right) {
     v <- series_first
-    cat(v, "...", sep = ", ")
+    cat(v, "...\n", sep = ", ")
     return(invisible(x))
   }
   if (!closed_left && closed_right) {
     v <- series_last
     cat("...", v, sep = ", ")
+    cat("\n")
     return(invisible(x))
   }
 
@@ -67,6 +69,6 @@ print.discretes <- function(x, len = 6, ...) {
     ikeep <- rm_left + seq_len(len)
     v <- v[ikeep]
   }
-  cat("...", v, "...", sep = ", ")
-  return(invisible(x))
+  cat("...", v, "...\n", sep = ", ")
+  invisible(x)
 }

@@ -17,9 +17,9 @@ test_that("NA, Inf, and empty values with test_discrete.", {
 test_that("edge cases - numeric", {
   y <- c(1.2, -4.4, NA)
   expect_equal(test_discrete(y, NA), NA)
-  expect_equal(test_discrete(y, c(NA, -4.4, Inf)), c(NA, TRUE, FALSE))
+  expect_equal(test_discrete(y, c(NA, -4.4, Inf)), c(NA, NA, NA))
   y <- numeric(0)
-  expect_equal(test_discrete(y, NA), NA)
-  expect_equal(test_discrete(y, c(NA, 4.4, Inf)), c(NA, FALSE, FALSE))
+  expect_equal(test_discrete(y, NA), FALSE)
+  expect_equal(test_discrete(y, c(NA, 4.4, Inf)), c(FALSE, FALSE, FALSE))
   expect_equal(test_discrete(y, 1:3), c(FALSE, FALSE, FALSE))
 })

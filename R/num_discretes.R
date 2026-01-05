@@ -8,6 +8,8 @@
 #'   or equal to `to`; both must be length-1 numeric vectors.
 #' @param include_from,include_to Should the `from` value be included
 #'   in the query? Should the `to` value? Both must be length-1 logical vectors.
+#' @param tol Numerical tolerance used for snapping `from` or `to` values
+#'   to a discrete value in the series; single non-negative numeric.
 #' @returns For `num_discretes()`,
 #'   a single non-negative integer, or possibly `Inf` for infinitely many
 #'   discrete values. For `has_infinite_discretes()`, a single logical value.
