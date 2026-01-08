@@ -27,6 +27,11 @@ arithmetic <- function(representative,
   ellipsis::check_dots_empty()
   n_left <- assert_and_convert_integerish(n_left, lower = 0)
   n_right <- assert_and_convert_integerish(n_right, lower = 0)
+  if (spacing == 0) {
+    n_left <- 0L
+    n_right <- 0L
+    spacing <- 1L
+  }
   type <- typeof(representative + spacing)
   mode(representative) <- type
   mode(spacing) <- type

@@ -15,33 +15,24 @@ next_discrete.dsct_arithmetic <- function(x,
     type <- typeof(representative(x))
     return(vector(type, 0L))
   }
-  n_left <- x$n_left
-  n_right <- x$n_right
-  representative <- x$representative
-  spacing <- x$spacing
-  if (spacing == 0) {
-    n_left <- 0L
-    n_right <- 0L
-    spacing <- 1L
-  }
   if (from == -Inf && is.infinite(n_left)) {
     type <- typeof(representative(x))
     return(vector(type, 0L))
   }
+  n_left <- x$n_left
+  n_right <- x$n_right
+  representative <- x$representative
+  spacing <- x$spacing
   from_index <- (from - representative) / spacing
   if (from_index < -n_left) {
     from_index <- -n_left
     include_from <- TRUE
   }
-  round_index <- round(from_index)
-  if (abs(round_index - from_index) <= tol) {
-    from_index <- round_index
-  } else {
-    from_index <- ceiling(from_index)
+  round_index <- ceiling2(from_index, tol = tol)
+  if (abs(round_index - from_index) > tol) {
     include_from <- TRUE
   }
-  from_index <- as.integer(from_index)
-  candidate_indices <- from_index + seq_len(n) - include_from
+  candidate_indices <- from_index + seq_len(n) - round_index
   indices <- candidate_indices[candidate_indices <= n_right]
   representative + indices * spacing
 }

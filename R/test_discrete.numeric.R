@@ -23,20 +23,13 @@ test_discrete.numeric <- function(x,
   checkmate::assert_numeric(values, any.missing = TRUE, finite = FALSE)
   ellipsis::check_dots_empty()
   checkmate::assert_number(tol, lower = 0)
-  # 1. If the input is NA, we don't know if it's in the support
-  if (any(is.na(x))) {
-    return(rep(NA, length(values)))
-  }
-
-  # 2. If the support is empty, nothing can be in it (even an unknown)
+  has_na <- any(is.na(x))
   if (!length(x)) {
     return(rep(FALSE, length(values)))
   }
-
-  # 3. Standard membership check (excluding NAs in the support itself)
-  # Use match() or a loop with tolerance to avoid R's %in% behavior
   x <- unique(x)
-  vapply(
+  x <- x[!is.na(x)]
+  res <- vapply(
     values,
     FUN = function(v) {
       if (is.infinite(v)) {
@@ -49,5 +42,10 @@ test_discrete.numeric <- function(x,
     },
     FUN.VALUE = logical(1L)
   )
+  if (has_na) {
+    # Can't say FALSE when NAs are present, but we can say what's TRUE.
+    res[!res] <- NA
+  }
+  res
 }
 

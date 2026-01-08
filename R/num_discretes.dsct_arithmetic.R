@@ -19,11 +19,6 @@ num_discretes.dsct_arithmetic <- function(x,
   spacing <- x$spacing
   n_left <- x$n_left
   n_right <- x$n_right
-  if (spacing == 0) {
-    spacing <- 1
-    n_left <- 0
-    n_right <- 0
-  }
   if (is.infinite(n_left) && is.infinite(from)) {
     return(Inf)
   }
@@ -39,7 +34,7 @@ num_discretes.dsct_arithmetic <- function(x,
   if (!length(lower) || !length(upper) || upper < lower) {
     # Situations where we're looking outside of the series, or
     # when `from` and `to` are both in between two consecutive values.
-    return(numeric(0))
+    return(0L)
   }
   steps <- (upper - lower) / spacing
   as.integer(round(steps)) + 1L
