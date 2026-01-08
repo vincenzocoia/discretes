@@ -1,5 +1,5 @@
 #' @noRd
-#' @exportS3Method
+#' @export
 dsct_invert.numeric <- function(x) {
   1 / x
 }

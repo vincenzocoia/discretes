@@ -11,7 +11,7 @@ representative(x)
 }
 \value{
 A single numeric vector with a representative value from the
-discrete set.
+discrete set, with the proper mode.
 }
 \description{
 Get a representative value in a discrete set

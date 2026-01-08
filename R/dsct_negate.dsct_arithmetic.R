@@ -1,5 +1,5 @@
 #' @noRd
-#' @exportS3Method
+#' @export
 dsct_negate.dsct_arithmetic <- function(x) {
   x$representative <- -x$representative
   n_left <- x$n_left

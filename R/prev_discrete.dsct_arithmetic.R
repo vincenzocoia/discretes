@@ -15,15 +15,14 @@ prev_discrete.dsct_arithmetic <- function(x,
     type <- typeof(representative(x))
     return(vector(type, 0L))
   }
-  if (from == Inf && is.infinite(n_right)) {
-    type <- typeof(representative(x))
-    return(vector(type, 0L))
-  }
   n_left <- x$n_left
   n_right <- x$n_right
   representative <- x$representative
   spacing <- x$spacing
-
+  if (from == Inf && is.infinite(n_right)) {
+    type <- typeof(representative(x))
+    return(vector(type, 0L))
+  }
   from_index <- (from - representative) / spacing
   if (from_index > n_right) {
     from_index <- n_right

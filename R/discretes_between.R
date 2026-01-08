@@ -19,9 +19,10 @@ discretes_between <- function(x,
                               include_from = TRUE,
                               include_to = TRUE,
                               tol = sqrt(.Machine$double.eps)) {
-  ellipsis::check_dots_empty()
+  checkmate::assert_true(is_discretes(x))
   checkmate::assert_number(from)
   checkmate::assert_number(to, lower = from)
+  ellipsis::check_dots_empty()
   checkmate::assert_logical(include_from, len = 1, any.missing = FALSE)
   checkmate::assert_logical(include_to, len = 1, any.missing = FALSE)
   checkmate::assert_number(tol, lower = 0)
