@@ -11,6 +11,7 @@ next_discrete.dsct_union <- function(x,
   checkmate::assert_logical(include_from, len = 1, any.missing = FALSE)
   checkmate::assert_number(tol, lower = 0)
   ellipsis::check_dots_empty()
+  type <- typeof(representative(x))
   inputs <- x$inputs
   result <- vector(type, length = 0L)
   if (include_from) {
