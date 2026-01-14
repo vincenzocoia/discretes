@@ -1,0 +1,45 @@
+num_discretes.dsct_keep <- function(
+  x,
+  ...,
+  from = -Inf,
+  to = Inf,
+  include_from = TRUE,
+  include_to = TRUE,
+  tol = sqrt(.Machine$double.eps)
+) {
+  ellipsis::check_dots_empty()
+  checkmate::assert_number(from)
+  checkmate::assert_number(to, lower = from)
+  checkmate::assert_logical(include_from, len = 1, any.missing = FALSE)
+  checkmate::assert_logical(include_to, len = 1, any.missing = FALSE)
+  checkmate::assert_number(tol, lower = 0)
+  base <- x$base
+  l <- x$left
+  r <- x$right
+  include_left <- x$include_left
+  include_right <- x$include_right
+  if (from <= l + tol) {
+    from <- l
+    if (abs(from - l) <= tol) {
+      include_from <- include_left && include_from
+    } else {
+      include_from <- include_left
+    }
+  }
+  if (to >= r - tol) {
+    to <- r
+    if (abs(to - r) <= tol) {
+      include_to <- include_right && include_to
+    } else {
+      include_to <- include_right
+    }
+  }
+  num_discretes(
+    base,
+    from = from,
+    to = to,
+    include_from = include_from,
+    include_to = include_to,
+    tol = tol
+  )
+}
