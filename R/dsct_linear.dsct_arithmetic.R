@@ -9,7 +9,7 @@ dsct_linear.dsct_arithmetic <- function(x, m, b) {
     old_n_left <- x$n_left
     x$n_left <- x$n_right
     x$n_right <- old_n_left
-    attr(x, "sinks") <- -attr(x, "sinks")
+    attr(x, "sinks") <- -sinks(x)
   }
   x
 }

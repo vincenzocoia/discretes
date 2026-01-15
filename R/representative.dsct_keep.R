@@ -8,7 +8,7 @@ representative.dsct_keep <- function(x) {
   if (length(a)) {
     return(a)
   }
-  b <- prev_discrete(x, from = x$right, n = 1L, include_to = x$include_right)
+  b <- prev_discrete(x, from = x$right, n = 1L, include_from = x$include_right)
   if (length(b)) {
     return(b)
   }
@@ -24,6 +24,6 @@ representative.dsct_keep <- function(x) {
     mid <- mean(sinks12)
   }
   a <- next_discrete(x, from = mid, n = 1L, include_from = TRUE)
-  b <- prev_discrete(x, from = mid, n = 1L, include_to = TRUE)
+  b <- prev_discrete(x, from = mid, n = 1L, include_from = TRUE)
   c(a, b)[1]
 }

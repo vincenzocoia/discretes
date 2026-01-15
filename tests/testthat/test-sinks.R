@@ -11,7 +11,7 @@ make_expected_sinks <- function(location = numeric(), direction = numeric()) {
 
 expect_sinks <- function(x, location = numeric(), direction = numeric()) {
   expected <- make_expected_sinks(location = location, direction = direction)
-  actual <- attr(x, "sinks")
+  actual <- sinks(x)
   testthat::expect_equal(actual, expected)
 }
 

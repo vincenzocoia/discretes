@@ -48,12 +48,7 @@ dsct_keep <- function(
   base_sinks <- sinks(x)
   location <- base_sinks[, "location"]
   direction <- base_sinks[, "direction"]
-  keep <- ifelse(
-    direction > 0,
-    from <= location & to > location,
-    from < location & to >= location
-  )
-  sinks <- base_sinks[keep, , drop = FALSE]
+  sinks <- base_sinks[from <= location & to >= location, , drop = FALSE]
   new_discretes(
     data = list(
       base = x,
@@ -64,6 +59,6 @@ dsct_keep <- function(
     ),
     name = "Subset",
     sinks = sinks,
-    subclass = "dsct_keep",
+    subclass = "dsct_keep"
   )
 }

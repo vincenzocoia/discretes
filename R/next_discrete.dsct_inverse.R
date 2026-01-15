@@ -16,7 +16,7 @@ next_discrete.dsct_inverse <- function(x,
   }
   base <- x$base
   if (from >= 0) { # Grab discretes only on (0, 1 / from] going left.
-    upper_bound <- 1 / from
+    upper_bound <- 1 / abs(from)  # abs() in case from = -0.
     n_available <- num_discretes(
       base,
       from = 0,

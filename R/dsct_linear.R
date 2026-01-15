@@ -23,10 +23,12 @@ dsct_linear.discretes <- function(x, m, b) {
   if (m == 1 && b == 0) {
     return(x)
   }
+  sinksmat <- sinks(x)
+  sinksmat[, "location"] <- sinksmat[, "location"] * m + b
   new_discretes(
     data = list(base = x, m = m, b = b),
     name = "Linear-transformed",
-    sinks = attr(x, "sinks") * m + b,
+    sinks = sinksmat,
     subclass = "dsct_linear"
   )
 }

@@ -5,9 +5,23 @@
 \alias{prev_discrete}
 \title{Probing discrete values in a distribution}
 \usage{
-next_discrete(x, from, ..., n = 1L, include_from = TRUE, tol)
+next_discrete(
+  x,
+  from,
+  ...,
+  n = 1L,
+  include_from = TRUE,
+  tol = sqrt(.Machine$double.eps)
+)
 
-prev_discrete(x, from, ..., n = 1L, include_from = TRUE)
+prev_discrete(
+  x,
+  from,
+  ...,
+  n = 1L,
+  include_from = TRUE,
+  tol = sqrt(.Machine$double.eps)
+)
 }
 \arguments{
 \item{x}{Vector or discretes.}

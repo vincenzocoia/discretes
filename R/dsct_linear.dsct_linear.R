@@ -10,7 +10,7 @@ dsct_linear.dsct_linear <- function(x, m, b) {
   old_b <- x$b
   x$m <- old_m * m
   x$b <- old_b * m + b
-  attr(x, "sinks") <- attr(x, "sinks") * m + b
+  attr(x, "sinks") <- sinks(x) * m + b
   if (x$m == 1 && x$b == 0) {
     return(x$base)
   }

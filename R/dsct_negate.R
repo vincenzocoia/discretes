@@ -10,7 +10,7 @@ dsct_negate.discretes <- function(x) {
   new_discretes(
     list(base = x),
     name = "Negated",
-    sinks = -attr(x, "sinks"),
-    subclass = "dsct_negate"
+    sinks = -sinks(x),
+    subclass = "dsct_negation"
   )
 }

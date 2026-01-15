@@ -31,7 +31,7 @@ dsct_union <- function(...) {
       res <- append(res, list(x))
     }
   }
-  sinks_list <- lapply(res, function(item) attr(item, "sinks"))
+  sinks_list <- lapply(res, sinks)
   sinks <- do.call(rbind, sinks_list)
   sinks <- unique(sinks)
   new_discretes(

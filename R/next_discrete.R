@@ -28,13 +28,23 @@
 #' next_discrete(x - 0.7, from = 1.3, n = 4)
 #' @rdname next_discrete
 #' @export
-next_discrete <- function(x, from, ..., n = 1L, include_from = TRUE, tol) {
+next_discrete <- function(x,
+                          from,
+                          ...,
+                          n = 1L,
+                          include_from = TRUE,
+                          tol = sqrt(.Machine$double.eps)) {
   UseMethod("next_discrete")
 }
 
 #' @export
 #' @inheritParams next_discrete
-next_discrete.discretes <- function(x, from, ..., n = 1L, include_from = TRUE) {
+next_discrete.discretes <- function(x,
+                                    from,
+                                    ...,
+                                    n = 1L,
+                                    include_from = TRUE,
+                                    tol = sqrt(.Machine$double.eps)) {
   stop("Don't know how to walk forwards on this series.")
 }
 

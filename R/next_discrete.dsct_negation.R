@@ -1,6 +1,6 @@
 #' @noRd
 #' @export
-next_discrete.dsct_negate <- function(x,
+next_discrete.dsct_negation <- function(x,
                                       from,
                                       ...,
                                       n = 1L,
