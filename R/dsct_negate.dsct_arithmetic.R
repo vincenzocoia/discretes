@@ -5,5 +5,6 @@ dsct_negate.dsct_arithmetic <- function(x) {
   n_left <- x$n_left
   x$n_left <- x$n_right
   x$n_right <- n_left
+  attr(x, "sinks") <- -attr(x, "sinks")
   x
 }

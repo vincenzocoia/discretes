@@ -1,3 +1,4 @@
+#' @export
 num_discretes.dsct_keep <- function(
   x,
   ...,

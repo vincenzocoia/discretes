@@ -45,7 +45,15 @@ dsct_keep <- function(
     type <- typeof(representative(x))
     return(vector(type, length = 0L))
   }
-
+  base_sinks <- sinks(x)
+  location <- base_sinks[, "location"]
+  direction <- base_sinks[, "direction"]
+  keep <- ifelse(
+    direction > 0,
+    from <= location & to > location,
+    from < location & to >= location
+  )
+  sinks <- base_sinks[keep, , drop = FALSE]
   new_discretes(
     data = list(
       base = x,
@@ -55,6 +63,7 @@ dsct_keep <- function(
       include_right = include_to
     ),
     name = "Subset",
+    sinks = sinks,
     subclass = "dsct_keep",
   )
 }

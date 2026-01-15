@@ -35,6 +35,16 @@ arithmetic <- function(representative,
   type <- typeof(representative + spacing)
   mode(representative) <- type
   mode(spacing) <- type
+  location <- numeric()
+  direction <- numeric()
+  if (is.infinite(n_right)) {
+    location <- c(location, Inf)
+    direction <- c(direction, -1)
+  }
+  if (is.infinite(n_left)) {
+    location <- c(location, -Inf)
+    direction <- c(direction, 1)
+  }
   new_discretes(
     data = list(
       representative = representative,
@@ -43,6 +53,7 @@ arithmetic <- function(representative,
       n_right = n_right
     ),
     name = "Arithmetic",
+    sinks = sinks_matrix(location = location, direction = direction),
     subclass = "dsct_arithmetic"
   )
 }

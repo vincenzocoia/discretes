@@ -13,9 +13,17 @@ dsct_invert <- function(x) {
 #' @noRd
 #' @export
 dsct_invert.discretes <- function(x) {
+  base_sinks <- sinks(x)
+  location <- base_sinks[, "location"]
+  direction <- base_sinks[, "direction"]
+  new_location <- 1 / location
+  new_direction <- -direction
+  is_zero <- location == 0
+  new_location[is_zero] <- ifelse(direction[is_zero] > 0, Inf, -Inf)
   new_discretes(
     data = list(base = x),
     name = "Reciprocal",
+    sinks = sinks_matrix(location = new_location, direction = new_direction),
     subclass = "dsct_inverse"
   )
 }

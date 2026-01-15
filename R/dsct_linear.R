@@ -26,6 +26,7 @@ dsct_linear.discretes <- function(x, m, b) {
   new_discretes(
     data = list(base = x, m = m, b = b),
     name = "Linear-transformed",
+    sinks = attr(x, "sinks") * m + b,
     subclass = "dsct_linear"
   )
 }

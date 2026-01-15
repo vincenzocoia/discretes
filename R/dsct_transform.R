@@ -19,9 +19,12 @@ dsct_transform <- function(x, fun, inv) {
 dsct_transform.discretes <- function(x, fun, inv) {
   checkmate::assert_function(fun)
   checkmate::assert_function(inv)
+  sinkmat <- attr(x, "sinks")
+  sinkmat[, "location"] <- fun(sinkmat[, "location"])
   new_discretes(
     data = list(base = x, fun = fun, inv = inv),
     name = "Transformed",
+    sinks = sinkmat,
     subclass = "dsct_transform"
   )
 }
