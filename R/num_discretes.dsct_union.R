@@ -26,7 +26,7 @@ num_discretes.dsct_union <- function(x,
         tol = tol
       )
     },
-    numeric(1L)
+    FUN.VALUE = numeric(1L)
   )
   if (any(is.na(counts))) {
     return(NA_integer_)
@@ -37,21 +37,39 @@ num_discretes.dsct_union <- function(x,
   if (all(counts == 0L)) {
     return(0L)
   }
-  values <- unlist(
-    lapply(seq_along(inputs), function(i) {
-      if (!counts[[i]]) {
-        return(numeric(0))
-      }
-      discretes_between(
-        inputs[[i]],
-        from = from,
-        to = to,
-        include_from = include_from,
-        include_to = include_to,
-        tol = tol
-      )
-    }),
-    use.names = FALSE
-  )
-  length(unique(values))
+  n <- 0L
+  if (include_from) {
+    has_from <- vapply(
+      inputs,
+      function(d) {
+        test_discrete(d, values = from, tol = tol)
+      },
+      FUN.VALUE = logical(1L)
+    )
+    n <- n + as.integer(any(has_from))
+  }
+  if (include_to) {
+    has_to <- vapply(
+      inputs,
+      function(d) {
+        test_discrete(d, values = to, tol = tol)
+      },
+      FUN.VALUE = logical(1L)
+    )
+    n <- n + as.integer(any(has_to))
+  }
+  this_from <- from
+  n <- n - 1L
+  while (this_from < to) {
+    n <- n + 1L
+    next_vals <- vapply(
+      inputs,
+      function(d) {
+        next_discrete(d, from = this_from, include_from = FALSE, tol = tol)
+      },
+      FUN.VALUE = numeric(1L)
+    )
+    this_from <- min(next_vals)
+  }
+  n
 }

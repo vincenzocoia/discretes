@@ -16,7 +16,7 @@ test_that("dsct_union merges symmetric discrete series", {
 test_that("dsct_union recognises duplicates and numeric support", {
   x <- dsct_union(c(-2, 0, 2, 2), natural1())
   expect_identical(
-    discretes_between(x, from = -2, to = 3),
+    as.numeric(x, from = -2, to = 3),
     c(-2, 0, 1, 2, 3)
   )
   expect_true(all(test_discrete(x, values = c(-2, 0, 1))))

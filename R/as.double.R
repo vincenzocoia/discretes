@@ -9,20 +9,20 @@
 #'   `to`. Returns `numeric(0)` when the interval contains no discrete support
 #'   points.
 #' @examples
-#' discretes_between(integers(), from = 6.6, to = 10.1)
-#' discretes_between(integers(-3, 4))
-#' @export
-discretes_between <- function(x,
-                              from = -Inf,
-                              to = Inf,
-                              ...,
-                              include_from = TRUE,
-                              include_to = TRUE,
-                              tol = sqrt(.Machine$double.eps)) {
+#' as.numeric(integers(), from = 6.6, to = 10.1)
+#' as.numeric(1 / integers(1, 4))
+#' @exportS3Method base::as.double
+as.double.discretes <- function(x,
+                                ...,
+                                from = -Inf,
+                                to = Inf,
+                                include_from = TRUE,
+                                include_to = TRUE,
+                                tol = sqrt(.Machine$double.eps)) {
   checkmate::assert_true(is_discretes(x))
+  ellipsis::check_dots_empty()
   checkmate::assert_number(from)
   checkmate::assert_number(to, lower = from)
-  ellipsis::check_dots_empty()
   checkmate::assert_logical(include_from, len = 1, any.missing = FALSE)
   checkmate::assert_logical(include_to, len = 1, any.missing = FALSE)
   checkmate::assert_number(tol, lower = 0)

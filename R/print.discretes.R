@@ -17,7 +17,7 @@ print.discretes <- function(x, len = 6, ...) {
 
   # Finite Series
   if (is.finite(n)) {
-    v <- discretes_between(x)
+    v <- as.numeric(x)
     v_len <- length(v)
     excess <- v_len - len
     if (excess > 0) {
