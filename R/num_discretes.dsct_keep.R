@@ -19,9 +19,13 @@ num_discretes.dsct_keep <- function(
   r <- x$right
   include_left <- x$include_left
   include_right <- x$include_right
+  if (from > r + tol || to < l - tol) {
+    return(0L)
+  }
   if (from <= l + tol) {
     from <- l
-    if (abs(from - l) <= tol) {
+    same_left <- is.infinite(from) && is.infinite(l) && sign(from) == sign(l)
+    if (same_left || abs(from - l) <= tol) {
       include_from <- include_left && include_from
     } else {
       include_from <- include_left
@@ -29,7 +33,8 @@ num_discretes.dsct_keep <- function(
   }
   if (to >= r - tol) {
     to <- r
-    if (abs(to - r) <= tol) {
+    same_right <- is.infinite(to) && is.infinite(r) && sign(to) == sign(r)
+    if (same_right || abs(to - r) <= tol) {
       include_to <- include_right && include_to
     } else {
       include_to <- include_right

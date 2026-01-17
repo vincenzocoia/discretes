@@ -17,7 +17,8 @@ next_discrete.dsct_keep <- function(
   r <- x$right
   include_left <- x$include_left
   include_right <- x$include_right
-  if (abs(from - l) <= tol && include_from) {
+  same_left <- is.infinite(from) && is.infinite(l) && sign(from) == sign(l)
+  if ((same_left || abs(from - l) <= tol) && include_from) {
     from <- l
     include_from <- include_left
   }

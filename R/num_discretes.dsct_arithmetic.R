@@ -16,6 +16,9 @@ num_discretes.dsct_arithmetic <- function(x,
   if (from == Inf) {
     return(0L)
   }
+  if (to == -Inf) {
+    return(0L)
+  }
   spacing <- x$spacing
   n_left <- x$n_left
   n_right <- x$n_right

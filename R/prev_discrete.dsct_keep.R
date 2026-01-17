@@ -17,7 +17,8 @@ prev_discrete.dsct_keep <- function(
   r <- x$right
   include_left <- x$include_left
   include_right <- x$include_right
-  if (abs(from - r) <= tol && include_from) {
+  same_right <- is.infinite(from) && is.infinite(r) && sign(from) == sign(r)
+  if ((same_right || abs(from - r) <= tol) && include_from) {
     from <- r
     include_from <- include_right
   }

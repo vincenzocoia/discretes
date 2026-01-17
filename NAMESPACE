@@ -2,6 +2,7 @@
 
 S3method(Ops,discretes)
 S3method(base::as.double,discretes)
+S3method(base::plot,discretes)
 S3method(dsct_invert,discretes)
 S3method(dsct_invert,dsct_inverse)
 S3method(dsct_invert,numeric)

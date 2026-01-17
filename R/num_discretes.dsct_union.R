@@ -61,14 +61,17 @@ num_discretes.dsct_union <- function(x,
   this_from <- from
   n <- n - 1L
   while (this_from < to) {
-    n <- n + 1L
-    next_vals <- vapply(
+    next_vals <- lapply(
       inputs,
       function(d) {
         next_discrete(d, from = this_from, include_from = FALSE, tol = tol)
-      },
-      FUN.VALUE = numeric(1L)
+      }
     )
+    next_vals <- unlist(next_vals, use.names = FALSE)
+    if (length(next_vals) == 0L) {
+      break
+    }
+    n <- n + 1L
     this_from <- min(next_vals)
   }
   n

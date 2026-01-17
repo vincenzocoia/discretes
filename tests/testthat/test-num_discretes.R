@@ -19,6 +19,8 @@ test_that("regular num_discretes() behaviour", {
   # Reciprocal
   x <- 1 / natural1()
   expect_identical(num_discretes(x), Inf)
+  x <- dsct_keep(1 / natural1(), from = 0.01)
+  expect_identical(num_discretes(x), 100L)
 })
 
 test_that("num_discretes() behaviour around numeric vectors with NA", {
