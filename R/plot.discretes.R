@@ -137,13 +137,31 @@ plot_finite_discretes <- function(x,
     pch = "|",
     ...
   )
-  abline(v = sinks, col = "gray", lty = 2)
+  graphics::abline(v = sinks, col = "gray", lty = 2)
   xsinks <- sinks[sinks %in% x]
-  points(xsinks, rep(1, length(xsinks)), pch = "|", col = "red", cex = 1.5)
+  graphics::points(
+    xsinks,
+    rep(1, length(xsinks)),
+    pch = "|",
+    col = "red",
+    cex = 1.5
+  )
   if (to_neg_inf) {
-    points(min(x) - 1:3 * delta, c(1, 1, 1), pch = "<", col = "gray", cex = 1)
+    graphics::points(
+      min(x) - 1:3 * delta,
+      c(1, 1, 1),
+      pch = "<",
+      col = "gray",
+      cex = 1
+    )
   }
   if (to_pos_inf) {
-    points(max(x) + 1:3 * delta, c(1, 1, 1), pch = ">", col = "gray", cex = 1)
+    graphics::points(
+      max(x) + 1:3 * delta,
+      c(1, 1, 1),
+      pch = ">",
+      col = "gray",
+      cex = 1
+    )
   }
 }
