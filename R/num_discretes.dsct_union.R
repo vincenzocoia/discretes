@@ -13,6 +13,13 @@ num_discretes.dsct_union <- function(x,
   checkmate::assert_logical(include_from, len = 1, any.missing = FALSE)
   checkmate::assert_logical(include_to, len = 1, any.missing = FALSE)
   checkmate::assert_number(tol, lower = 0)
+  if (from == to) {
+    return(
+      as.integer(
+        include_from && include_to && test_discrete(x, values = from, tol = tol)
+      )
+    )
+  }
   inputs <- x$inputs
   counts <- vapply(
     inputs,
@@ -48,7 +55,7 @@ num_discretes.dsct_union <- function(x,
     )
     n <- n + as.integer(any(has_from))
   }
-  if (include_to) {
+  if (include_to && to > from) {
     has_to <- vapply(
       inputs,
       function(d) {
@@ -59,8 +66,8 @@ num_discretes.dsct_union <- function(x,
     n <- n + as.integer(any(has_to))
   }
   this_from <- from
-  n <- n - 1L
-  while (this_from < to) {
+  next_vals <- 0 # dummy value
+  while (length(next_vals) && this_from < to) {
     next_vals <- lapply(
       inputs,
       function(d) {
@@ -68,11 +75,9 @@ num_discretes.dsct_union <- function(x,
       }
     )
     next_vals <- unlist(next_vals, use.names = FALSE)
-    if (length(next_vals) == 0L) {
-      break
-    }
-    n <- n + 1L
-    this_from <- min(next_vals)
+    next_vals <- next_vals[next_vals < to]
+    n <- n + as.integer(length(next_vals) > 0)
+    this_from <- min(next_vals, Inf) # Inf in case there are no next_vals
   }
   n
 }

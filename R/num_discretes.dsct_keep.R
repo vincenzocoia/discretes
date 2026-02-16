@@ -1,19 +1,24 @@
 #' @export
-num_discretes.dsct_keep <- function(
-  x,
-  ...,
-  from = -Inf,
-  to = Inf,
-  include_from = TRUE,
-  include_to = TRUE,
-  tol = sqrt(.Machine$double.eps)
-) {
+num_discretes.dsct_keep <- function(x,
+                                    ...,
+                                    from = -Inf,
+                                    to = Inf,
+                                    include_from = TRUE,
+                                    include_to = TRUE,
+                                    tol = sqrt(.Machine$double.eps)) {
   ellipsis::check_dots_empty()
   checkmate::assert_number(from)
   checkmate::assert_number(to, lower = from)
   checkmate::assert_logical(include_from, len = 1, any.missing = FALSE)
   checkmate::assert_logical(include_to, len = 1, any.missing = FALSE)
   checkmate::assert_number(tol, lower = 0)
+  if (from == to) {
+    return(
+      as.integer(
+        include_from && include_to && test_discrete(x, values = from, tol = tol)
+      )
+    )
+  }
   base <- x$base
   l <- x$left
   r <- x$right

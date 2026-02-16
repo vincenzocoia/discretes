@@ -12,14 +12,15 @@ num_discretes.numeric <- function(x,
   checkmate::assert_logical(include_from, len = 1, any.missing = FALSE)
   checkmate::assert_logical(include_to, len = 1, any.missing = FALSE)
   checkmate::assert_number(tol, lower = 0)
+  if (from == to) {
+    return(
+      as.integer(
+        include_from && include_to && test_discrete(x, values = from, tol = tol)
+      )
+    )
+  }
   has_na <- any(is.na(x))
   x <- unique(x)
-  if (from == to) {
-    if (include_from && include_to) {
-      return(as.integer(test_discrete(x, values = from, tol = tol)))
-    }
-    return(0L)
-  }
   x <- x[!is.na(x)]
   if (has_na) {
     if (is.integer(x) && is.finite(from) && is.finite(to)) {

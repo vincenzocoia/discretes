@@ -1,13 +1,11 @@
 #' @rdname subsetting
 #' @export
-dsct_drop <- function(
-  x,
-  ...,
-  from = -Inf,
-  to = Inf,
-  include_from = TRUE,
-  include_to = TRUE
-) {
+dsct_drop <- function(x,
+                      ...,
+                      from = -Inf,
+                      to = Inf,
+                      include_from = TRUE,
+                      include_to = TRUE) {
   nleft <- num_discretes(x, from = -Inf, to = from, include_to = !include_from)
   nright <- num_discretes(x, from = to, to = Inf, include_from = !include_to)
   ndropping <- num_discretes(

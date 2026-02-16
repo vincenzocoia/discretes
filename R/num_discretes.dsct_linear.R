@@ -11,10 +11,16 @@ num_discretes.dsct_linear <- function(x,
   checkmate::assert_logical(include_from, len = 1, any.missing = FALSE)
   checkmate::assert_logical(include_to, len = 1, any.missing = FALSE)
   checkmate::assert_number(tol, lower = 0)
-  base_from <- (from - x$b) / x$m
-  base_to <- (to - x$b) / x$m
+  m <- x[["m"]]
+  b <- x[["b"]]
+  base <- x$base
+  if (is.null(b)) {
+    b <- 0
+  }
+  base_from <- (from - b) / m
+  base_to <- (to - b) / m
   num_discretes(
-    x$base,
+    base,
     from = base_from,
     to = base_to,
     include_from = include_from,

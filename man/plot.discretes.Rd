@@ -14,7 +14,8 @@
 )
 }
 \arguments{
-\item{x}{Object of class \code{discretes}.}
+\item{x}{Discrete value series
+(\code{numeric} vector or object of class \code{"discretes"}).}
 
 \item{...}{Additional arguments passed to the underlying \code{plot()} function.}
 
@@ -39,8 +40,10 @@ specified interval.
 Sinks at finite values are indicated by vertical dotted gray lines.
 A red tick mark is used to indicate that a finite sink value is part of
 the series.
+
 When the series extends to infinity in either direction, three arrows
-(\code{<} or \code{>}) are drawn to indicate this.
+(\code{<} or \code{>}) are drawn to indicate this. When infinity is part of the series,
+the last arrow is red.
 
 This is a simple plotting scheme with naive handling of infinite discrete
 values:

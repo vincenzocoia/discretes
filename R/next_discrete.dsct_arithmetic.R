@@ -34,5 +34,9 @@ next_discrete.dsct_arithmetic <- function(x,
   }
   candidate_indices <- round_index + seq_len(n) - include_from
   indices <- candidate_indices[candidate_indices <= n_right]
-  representative + indices * spacing
+  res <- representative + indices * spacing
+  if (representative == 0 && 0 %in% res) {
+    res[res == 0] <- representative
+  }
+  res
 }

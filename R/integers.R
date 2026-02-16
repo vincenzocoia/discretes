@@ -1,16 +1,27 @@
-#' Integer Discrete Values
+#' Integer Discrete Value Series
 #'
-#' Create a "discretes" object representing the set of integers within a
-#' specified range.
-#' @param from,to Numeric values defining the inclusive range of integers.
-#' Defaults to `-Inf` and `Inf`, representing all integers.
-#' @returns A "discretes" object of class `dsct_integers`,
-#'   representing the set of integers within the specified range.
+#' Use `integers()` to create a discrete value series consisting of integers
+#' within a specified range, possibly unbounded on either end. Use `natural0()`
+#' and `natural1()` for the set of natural numbers starting at either 0 or 1.
+#' 
+#' @param from,to Numeric values defining the range of integers.
+#'   Defaults to `-Inf` and `Inf`, representing all integers, although
+#'   is not closed: `-Inf` and `Inf` are never included in the series.
+#' @returns An arithmetic discrete value series (inheriting class 
+#'   `"dsct_arithmetic"`) representing the set of integers within the specified
+#'   range.
 #' @examples
 #' integers()                  # All integers
 #' integers(from = 0)          # Non-negative integers
 #' integers(to = 1.5)          # Ends at 1.
-#' integers(from = -5, to = 5) # Integers from -5 to 5.
+#' integers(-5, 5) # Integers from -5 to 5.
+#' natural1()
+#' natural0()
+#' 
+#' # Infinity is never contained in the series.
+#' test_discrete(integers(), Inf)
+#' @rdname integers
+#' @seealso [arithmetic()]
 #' @export
 integers <- function(from = -Inf, to = Inf) {
   checkmate::assert_number(from, finite = FALSE)

@@ -1,4 +1,3 @@
-#' @noRd
 #' @export
 test_discrete.dsct_inverse <- function(x,
                                        values,
@@ -10,19 +9,17 @@ test_discrete.dsct_inverse <- function(x,
   if (!length(values)) {
     return(logical())
   }
-
+  base <- x$base
   res <- rep_len(FALSE, length(values))
   is_na <- is.na(values)
   is_inf <- is.infinite(values)
+  is_zro <- abs(values) <= tol
   res[is_na] <- NA
-
-  valid_idx <- which(!(is_na | is_inf))
-  if (!length(valid_idx)) {
-    return(res)
-  }
-
-  val_subset <- values[valid_idx]
-  mapped <- 1 / val_subset
-  res[valid_idx] <- test_discrete(x$base, values = mapped, tol = tol)
+  res[which(values == -Inf)] <- has_negative_zero(base)
+  res[which(values == Inf)] <- has_positive_zero(base)
+  res[which(is_zro)] <- any(test_discrete(base, values = c(-Inf, Inf)))
+  remaining_idx <- which(!(is_na | is_inf | is_zro))
+  mapped <- 1 / values[remaining_idx]
+  res[remaining_idx] <- test_discrete(base, values = mapped, tol = tol)
   res
 }

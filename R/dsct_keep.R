@@ -1,5 +1,6 @@
-#' Subsetting Discrete Support Values
+#' Subset a Discrete Value Series
 #'
+#' @inheritParams dsct_negate
 #' @param ... Reserved for future extensions; must be empty.
 #' @param from,to Numeric values defining the range to keep; single numerics
 #' with `from <= to`.
@@ -13,15 +14,14 @@
 #' dsct_keep(x, from = -1.5, to = 2.5)
 #' dsct_keep(x, to = 2)
 #' @rdname subsetting
+#' @family transformations
 #' @export
-dsct_keep <- function(
-  x,
-  ...,
-  from = -Inf,
-  to = Inf,
-  include_from = TRUE,
-  include_to = TRUE
-) {
+dsct_keep <- function(x,
+                      ...,
+                      from = -Inf,
+                      to = Inf,
+                      include_from = TRUE,
+                      include_to = TRUE) {
   ellipsis::check_dots_empty()
   checkmate::expect_number(from)
   checkmate::expect_number(to, lower = from)

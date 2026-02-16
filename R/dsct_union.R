@@ -1,4 +1,4 @@
-#' Union of discrete series
+#' Combine Discrete Value Series
 #'
 #' Combine one or more discrete series (or numeric vectors interpreted as
 #' discrete support) into a single union that preserves the discrete traversal
@@ -6,12 +6,15 @@
 #'
 #' @param ... Objects to combine. Each must be either a `discretes` object or a
 #'   numeric vector.
-#' @param name Optional label used when printing the resulting series.
 #' @returns A "discretes" object inheriting from `dsct_union`.
+#' @details
+#' Values are flattened
+#' @note While both `-0` and `+0` can both exist, 
 #' @examples
 #' x1 <- natural1()
 #' x2 <- -natural1()
 #' dsct_union(x1, x2)
+#' @family transformations
 #' @export
 dsct_union <- function(...) {
   inputs <- rlang::list2(...)

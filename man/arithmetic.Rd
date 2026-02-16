@@ -14,8 +14,8 @@ adjacent terms.}
 
 \item{...}{Reserved for future extensions; must be empty.}
 
-\item{n_left, n_right}{Non-negative counts (possibly \code{Inf}) describing how
-many steps exist to the left and right of \code{representative}.}
+\item{n_left, n_right}{Non-negative counts (possibly \code{Inf}, the default)
+describing how many steps exist to the left and right of \code{representative}.}
 }
 \value{
 A \code{dsct_arithmetic} object, inheriting from \code{discretes}.
@@ -26,8 +26,22 @@ The progression is anchored at \code{representative} and extends \code{n_left} s
 to the left (decreasing values) and \code{n_right} steps to the right
 (increasing values) with constant \code{spacing} between consecutive terms.
 }
+\note{
+While \code{spacing} can be zero, this results in a discrete series
+containing only the \code{representative} value, with no other terms. This is
+achieved by setting both \code{n_left} and \code{n_right} to zero internally,
+and overriding the spacing to \code{1L}.
+
+The series can only contain \code{-0} if the \code{representative} is set as such.
+}
 \examples{
 arithmetic(representative = -0.6, spacing = 0.7)
 arithmetic(representative = 0.6, spacing = 0.7, n_right = 0)
 arithmetic(representative = 0, spacing = 2, n_left = 2, n_right = 2)
+
+# Negative zero, resulting in `-Inf` upon inversion:
+1 / as.numeric(arithmetic(-0, 1, n_left = 0, n_right = 0))
+}
+\seealso{
+\code{\link[=integers]{integers()}}
 }

@@ -24,6 +24,10 @@ discrete set defined by \code{x}. \code{NA} values are preserved such that \code
 \description{
 Test if values belong to a discrete set
 }
+\note{
+This function does not distinguish between \code{+0} and \code{-0}. For that,
+use \code{has_negative_zero()} or \code{has_positive_zero()}.
+}
 \examples{
 test_discrete(natural0(), c(-1, 0, 1, 12.5, NA))
 test_discrete(1 / natural1(), 0)

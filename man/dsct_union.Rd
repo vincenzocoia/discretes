@@ -2,15 +2,13 @@
 % Please edit documentation in R/dsct_union.R
 \name{dsct_union}
 \alias{dsct_union}
-\title{Union of discrete series}
+\title{Combine Discrete Value Series}
 \usage{
 dsct_union(...)
 }
 \arguments{
 \item{...}{Objects to combine. Each must be either a \code{discretes} object or a
 numeric vector.}
-
-\item{name}{Optional label used when printing the resulting series.}
 }
 \value{
 A "discretes" object inheriting from \code{dsct_union}.
@@ -20,8 +18,22 @@ Combine one or more discrete series (or numeric vectors interpreted as
 discrete support) into a single union that preserves the discrete traversal
 contract. Duplicate support points are removed using a numerical tolerance.
 }
+\details{
+Values are flattened
+}
+\note{
+While both \code{-0} and \code{+0} can both exist,
+}
 \examples{
 x1 <- natural1()
 x2 <- -natural1()
 dsct_union(x1, x2)
 }
+\seealso{
+Other transformations: 
+\code{\link{dsct_drop}()},
+\code{\link{dsct_invert}()},
+\code{\link{dsct_negate}()},
+\code{\link{dsct_transform}()}
+}
+\concept{transformations}

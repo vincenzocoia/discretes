@@ -12,45 +12,78 @@ num_discretes.dsct_inverse <- function(x,
   checkmate::assert_logical(include_from, len = 1, any.missing = FALSE)
   checkmate::assert_logical(include_to, len = 1, any.missing = FALSE)
   checkmate::assert_number(tol, lower = 0)
-  d_nested <- x$base
-  if (sign(from) == sign(to)) {
-    n <- num_discretes(
-      d_nested,
-      from = 1 / to, to = 1 / from,
-      include_from = include_to, include_to = include_from,
-      tol = tol
+  if (from == to) {
+    return(
+      as.integer(
+        include_from && include_to && test_discrete(x, values = from, tol = tol)
+      )
     )
-    return(n)
   }
-  if (from == 0) {
-    n <- num_discretes(
-      d_nested,
-      from = 1 / to, to = Inf,
+  n <- 0L
+  if (from == -Inf && include_from) {
+    n <- n + test_discrete(x, values = -Inf)
+    include_from <- FALSE
+  }
+  if (to == Inf && include_to) {
+    n <- n + test_discrete(x, values = Inf)
+    include_to <- FALSE
+  }
+  if (from == 0 && include_from) {
+    n <- n + test_discrete(x, values = 0)
+    include_from <- FALSE
+  }
+  if (to == 0 && include_to) {
+    n <- n + test_discrete(x, values = 0)
+    include_to <- FALSE
+  }
+  
+  base <- x$base
+  if (sign(to) < 1) {
+    # Interval doesn't reach positive values.
+    n <- n + num_discretes(
+      base,
+      from = 1 / (-abs(to)),  # In case to == 0, ensures to == -0.
+      to = 1 / from,
       include_from = include_to,
-      tol = tol
-    )
-    return(n)
-  }
-  if (to == 0) {
-    n <- num_discretes(
-      d_nested,
-      from = -Inf, to = 1 / from,
       include_to = include_from,
       tol = tol
     )
     return(n)
   }
+  
+  if (sign(from) > -1) {
+    # Interval doesn't reach negative values.
+    n <- n + num_discretes(
+      base,
+      from = 1 / to,
+      to = 1 / abs(from),  # In case from == 0, ensures from == +0.
+      include_from = include_to,
+      include_to = include_from,
+      tol = tol
+    )
+    return(n)
+  }
+  
+  # Count the straddled 0, if present.
+  n <- n + any(test_discrete(base, values = c(-Inf, Inf)))
+  
   n_neg <- num_discretes(
-    d_nested,
-    from = -Inf, to = 1 / from,
+    base,
+    from = -Inf,
+    to = 1 / from,
+    include_from = FALSE,
     include_to = include_from,
     tol = tol
   )
+  
   n_pos <- num_discretes(
-    d_nested,
-    from = 1 / to, to = Inf,
+    base,
+    from = 1 / to,
+    to = Inf,
     include_from = include_to,
+    include_to = FALSE,
     tol = tol
   )
-  n_neg + n_pos
+  
+  n + n_neg + n_pos
 }

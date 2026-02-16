@@ -2,7 +2,7 @@
 #'
 #' Plot the discrete values represented by a `discretes` object within a
 #' specified interval.
-#' @param x Object of class `discretes`.
+#' @inheritParams dsct_negate
 #' @param ... Additional arguments passed to the underlying `plot()` function.
 #' @param from,to Numeric values defining the range to plot; single numerics.
 #' @param closeness Numeric value indicating how close to the (non-infinite)
@@ -16,8 +16,10 @@
 #' Sinks at finite values are indicated by vertical dotted gray lines.
 #' A red tick mark is used to indicate that a finite sink value is part of
 #' the series.
+#' 
 #' When the series extends to infinity in either direction, three arrows
-#' (`<` or `>`) are drawn to indicate this.
+#' (`<` or `>`) are drawn to indicate this. When infinity is part of the series,
+#' the last arrow is red.
 #'
 #' This is a simple plotting scheme with naive handling of infinite discrete
 #' values:
@@ -37,17 +39,7 @@ plot.discretes <- function(x,
                            tol = sqrt(.Machine$double.eps)) {
   checkmate::assert_number(from)
   checkmate::assert_number(to, lower = from)
-  original_sinks <- sinks(x)
-  if (-Inf %in% original_sinks[, "location"]) {
-    to_neg_inf <- TRUE
-  } else {
-    to_neg_inf <- FALSE
-  }
-  if (Inf %in% original_sinks[, "location"]) {
-    to_pos_inf <- TRUE
-  } else {
-    to_pos_inf <- FALSE
-  }
+  
   y <- dsct_keep(
     x,
     from = from,
@@ -55,74 +47,178 @@ plot.discretes <- function(x,
     include_from = TRUE,
     include_to = TRUE
   )
-  n <- num_discretes(y)
-  if (is.finite(n)) {
-    xcollect <- as.numeric(y)
-    plot_finite_discretes(
-      xcollect,
-      to_neg_inf = to_neg_inf,
-      to_pos_inf = to_pos_inf,
-      ...
-    )
-    return(invisible(x))
-  }
   sinksmat <- sinks(y)
-  sinksloc <- sinksmat[, "location"]
-  sinksfin <- sinksloc[is.finite(sinksloc)]
+  sinksmatfin <- sinksmat[is.finite(sinksmat[, "location"]), , drop = FALSE]
+  sinklocs <- sinksmat[, "location"]
+  sinksfin <- sinklocs[is.finite(sinklocs)]
+  for (i in seq_len(nrow(sinksmatfin))) {
+    l <- sinksmatfin[i, "location"]
+    dir <- sinksmatfin[i, "direction"]
+    drop_from <- min(l, l + dir * closeness)
+    drop_to <- max(l, l + dir * closeness)
+    y <- dsct_drop(
+      y,
+      from = drop_from,
+      to = drop_to,
+      include_from = FALSE,
+      include_to = FALSE,
+      tol = tol
+    )
+  }
   repr <- representative(y)
-  if (min(sinksloc) == -Inf) {
-    # firstfin <- if (length(sinksfin), min(sinksfin), repr)
+  inc_neg_inf <- test_discrete(x, values = -Inf)
+  inc_pos_inf <- test_discrete(x, values = Inf)
+  if (inc_neg_inf) {
+    neg_inf <- "closed"
+  } else if (-Inf %in% sinklocs) {
+    neg_inf <- "open"
+  } else {
+    neg_inf <- "no"
+  }
+  if (inc_pos_inf) {
+    pos_inf <- "closed"
+  } else if (Inf %in% sinklocs) {
+    pos_inf <- "open"
+  } else {
+    pos_inf <- "no"
+  }
+  left_bound <- next_discrete(y, from = from, include_from = is.finite(from))
+  right_bound <- prev_discrete(y, from = to, include_from = is.finite(to))
+  if (!length(left_bound)) {
     firstfin <- min(repr, sinksfin)
     left_bound <- firstfin - 10
-  } else {
-    left_bound <- from
   }
-  if (max(sinksloc) == Inf) {
-    # lastfin <- if (length(sinksfin), max(sinksfin), repr)
+  if (!length(right_bound)) {
     lastfin <- max(repr, sinksfin)
     right_bound <- lastfin + 10
-  } else {
-    right_bound <- to
   }
-  cuts <- sort(c(left_bound, sinksfin, right_bound))
-  xcollect <- numeric()
-  for (i in seq_along(cuts[-1])) {
-    l <- cuts[i]
-    r <- cuts[i + 1]
-    ldir <- sinksmat[sinksmat[, "location"] == l, "direction"]
-    rdir <- sinksmat[sinksmat[, "location"] == r, "direction"]
-    if (1 %in% ldir) {
-      l <- l + closeness
-    }
-    if (-1 %in% rdir) {
-      r <- r - closeness
-    }
-    this_x <- as.numeric(y, from = l, to = r)
-    xcollect <- append(xcollect, this_x)
-  }
+  xcollect <- as.numeric(y, from = left_bound, to = right_bound)
   plot_finite_discretes(
     xcollect,
-    sinks = sinksloc,
-    to_neg_inf = to_neg_inf,
-    to_pos_inf = to_pos_inf,
+    sinklocs = sinklocs,
+    neg_inf = neg_inf,
+    pos_inf = pos_inf,
     ...
   )
   return(invisible(x))
 }
 
+
+
+
+# plot.discretes <- function(x,
+#                            ...,
+#                            from = -Inf,
+#                            to = Inf,
+#                            closeness = 1e-2,
+#                            tol = sqrt(.Machine$double.eps)) {
+#   checkmate::assert_number(from)
+#   checkmate::assert_number(to, lower = from)
+#   
+#   y <- dsct_keep(
+#     x,
+#     from = from,
+#     to = to,
+#     include_from = TRUE,
+#     include_to = TRUE
+#   )
+#   sinksmat <- sinks(y)
+#   sinklocs <- sinksmat[, "location"]
+#   sinksfin <- sinklocs[is.finite(sinklocs)]
+#   repr <- representative(y)
+#   inc_neg_inf <- test_discrete(x, values = -Inf)
+#   inc_pos_inf <- test_discrete(x, values = Inf)
+#   if (inc_neg_inf) {
+#     neg_inf <- "closed"
+#   } else if (-Inf %in% sinklocs) {
+#     neg_inf <- "open"
+#   } else {
+#     neg_inf <- "no"
+#   }
+#   if (inc_pos_inf) {
+#     pos_inf <- "closed"
+#   } else if (Inf %in% sinklocs) {
+#     pos_inf <- "open"
+#   } else {
+#     pos_inf <- "no"
+#   }
+#   n <- num_discretes(y)
+#   if (is.finite(n) && neg_inf == "no" && pos_inf == "no") {
+#     xcollect <- as.numeric(y)
+#     plot_finite_discretes(
+#       xcollect,
+#       neg_inf = neg_inf,
+#       pos_inf = pos_inf,
+#       ...
+#     )
+#     return(invisible(x))
+#   }
+#   
+#   if (neg_inf != "no") {
+#     firstfin <- min(repr, sinksfin)
+#     left_bound <- firstfin - 10
+#   } else {
+#     left_bound <- from
+#   }
+#   if (pos_inf != "no") {
+#     lastfin <- max(repr, sinksfin)
+#     right_bound <- lastfin + 10
+#   } else {
+#     right_bound <- to
+#   }
+#   cuts <- sort(c(left_bound, sinksfin, right_bound))
+#   xcollect <- numeric()
+#   for (i in seq_along(cuts[-1])) {
+#     l <- cuts[i]
+#     r <- cuts[i + 1]
+#     ldir <- sinksmat[sinksmat[, "location"] == l, "direction"]
+#     rdir <- sinksmat[sinksmat[, "location"] == r, "direction"]
+#     if (1 %in% ldir) {
+#       l <- l + closeness
+#     }
+#     if (-1 %in% rdir) {
+#       r <- r - closeness
+#     }
+#     this_x <- as.numeric(y, from = l, to = r)
+#     xcollect <- append(xcollect, this_x)
+#   }
+#   plot_finite_discretes(
+#     xcollect,
+#     sinklocs = sinklocs,
+#     neg_inf = neg_inf,
+#     pos_inf = pos_inf,
+#     ...
+#   )
+#   return(invisible(x))
+# }
+
+#' Helper function for plotting discrete value series
+#' 
+#' @param x Numeric vector to plot.
+#' @param sinklocs Numeric vector of sink locations to indicate on the plot
+#'   as dashed gray lines.
+#' @param neg_inf,pos_inf Either: `"closed"`, where the infinite point is
+#'   included in the discrete value series; `"open"`, where it's a limit point
+#'   but not included in the series; or `"no"` (the default) where the series
+#'   does not extend to infinity in the specified direction.
+#' @param ... Arguments to pass to the main `plot()` function.
+#' @returns Plot of the numeric vector on the number line.
+#' @noRd
 plot_finite_discretes <- function(x,
-                                  sinks = numeric(),
-                                  to_neg_inf = FALSE,
-                                  to_pos_inf = FALSE,
+                                  sinklocs = numeric(),
+                                  neg_inf = c("no", "open", "closed"),
+                                  pos_inf = c("no", "open", "closed"),
                                   ...) {
+  neg_inf <- rlang::arg_match(neg_inf)
+  pos_inf <- rlang::arg_match(pos_inf)
   r <- diff(range(x))
   delta <- 0.02 * r
   xlim1 <- min(x)
   xlim2 <- max(x)
-  if (to_neg_inf) {
+  if (neg_inf != "no") {
     xlim1 <- xlim1 - 3 * delta
   }
-  if (to_pos_inf) {
+  if (pos_inf != "no") {
     xlim2 <- xlim2 + 3 * delta
   }
   plot(
@@ -137,16 +233,16 @@ plot_finite_discretes <- function(x,
     pch = "|",
     ...
   )
-  graphics::abline(v = sinks, col = "gray", lty = 2)
-  xsinks <- sinks[sinks %in% x]
+  graphics::abline(v = sinklocs, col = "gray", lty = 2)
+  xsinklocs <- sinklocs[sinklocs %in% x]
   graphics::points(
-    xsinks,
-    rep(1, length(xsinks)),
+    xsinklocs,
+    rep(1, length(xsinklocs)),
     pch = "|",
     col = "red",
     cex = 1.5
   )
-  if (to_neg_inf) {
+  if (neg_inf != "no") {
     graphics::points(
       min(x) - 1:3 * delta,
       c(1, 1, 1),
@@ -155,12 +251,30 @@ plot_finite_discretes <- function(x,
       cex = 1
     )
   }
-  if (to_pos_inf) {
+  if (pos_inf != "no") {
     graphics::points(
       max(x) + 1:3 * delta,
       c(1, 1, 1),
       pch = ">",
       col = "gray",
+      cex = 1
+    )
+  }
+  if (neg_inf == "closed") {
+    graphics::points(
+      min(x) - 3 * delta,
+      1,
+      pch = "<",
+      col = "red",
+      cex = 1
+    )
+  }
+  if (pos_inf == "closed") {
+    graphics::points(
+      max(x) + 3 * delta,
+      1,
+      pch = ">",
+      col = "red",
       cex = 1
     )
   }

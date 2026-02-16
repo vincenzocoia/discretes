@@ -9,8 +9,11 @@ test_discrete.dsct_linear <- function(x,
   if (!length(values)) {
     return(logical())
   }
-  m <- x$m
-  b <- x$b
+  m <- x[["m"]]
+  b <- x[["b"]]
+  if (is.null(b)) {
+    b <- 0
+  }
   res <- rep_len(FALSE, length(values))
   is_na <- is.na(values)
   res[is_na] <- NA
@@ -18,10 +21,6 @@ test_discrete.dsct_linear <- function(x,
     return(res)
   }
   idx <- !is_na
-  if (m == 0) {
-    res[idx] <- abs(values[idx] - b) < tol
-    return(res)
-  }
   base_values <- (values[idx] - b) / m
   res[idx] <- test_discrete(x$base, values = base_values, tol = tol, ...)
   res

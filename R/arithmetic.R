@@ -9,13 +9,23 @@
 #' @param spacing Non-negative numeric scalar describing the distance between
 #'   adjacent terms.
 #' @param ... Reserved for future extensions; must be empty.
-#' @param n_left,n_right Non-negative counts (possibly `Inf`) describing how
-#'   many steps exist to the left and right of `representative`.
+#' @param n_left,n_right Non-negative counts (possibly `Inf`, the default)
+#'   describing how many steps exist to the left and right of `representative`.
 #' @return A `dsct_arithmetic` object, inheriting from `discretes`.
+#' @note While `spacing` can be zero, this results in a discrete series
+#'  containing only the `representative` value, with no other terms. This is
+#'  achieved by setting both `n_left` and `n_right` to zero internally,
+#'  and overriding the spacing to `1L`.
+#'  
+#' The series can only contain `-0` if the `representative` is set as such. 
 #' @examples
 #' arithmetic(representative = -0.6, spacing = 0.7)
 #' arithmetic(representative = 0.6, spacing = 0.7, n_right = 0)
 #' arithmetic(representative = 0, spacing = 2, n_left = 2, n_right = 2)
+#' 
+#' # Negative zero, resulting in `-Inf` upon inversion:
+#' 1 / as.numeric(arithmetic(-0, 1, n_left = 0, n_right = 0))
+#' @seealso [integers()]
 #' @export
 arithmetic <- function(representative,
                        spacing,
@@ -27,10 +37,8 @@ arithmetic <- function(representative,
   ellipsis::check_dots_empty()
   n_left <- assert_and_convert_integerish(n_left, lower = 0)
   n_right <- assert_and_convert_integerish(n_right, lower = 0)
-  if (spacing == 0) {
-    n_left <- 0L
-    n_right <- 0L
-    spacing <- 1L
+  if (spacing == 0 || (n_left == 0 && n_right == 0)) {
+    return(dsct_numeric(representative))
   }
   type <- typeof(representative + spacing)
   mode(representative) <- type

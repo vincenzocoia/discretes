@@ -11,22 +11,17 @@ prev_discrete.dsct_linear <- function(x,
   checkmate::assert_logical(include_from, len = 1, any.missing = FALSE)
   checkmate::assert_number(tol, lower = 0)
   if (n == 0) {
-    return(numeric(0L))
+    return(vector(length = 0, mode = typeof(representative(x))))
   }
-
-  m <- x$m
-  b <- x$b
   base <- x$base
-
-  if (m == 0) {
-    proxy <- arithmetic(representative = b, spacing = 0)
-    res <- prev_discrete(
-      proxy, from = from, n = n, include_from = include_from, tol = tol, ...
-    )
-    return(res)
+  m <- x[["m"]]
+  b <- x[["b"]]
+  if (is.null(b)) { # For use of b = 0 when signed 0 doesn't matter.
+    bb <- 0
+  } else {
+    bb <- b
   }
-
-  base_from <- (from - b) / m
+  base_from <- (from - bb) / m
   base_prev <- prev_discrete(
     base,
     from = base_from,
@@ -35,6 +30,9 @@ prev_discrete.dsct_linear <- function(x,
     tol = tol,
     ...
   )
+  if (is.null(b)) {
+    return(base_prev * m)
+  }
   base_prev * m + b
 }
 

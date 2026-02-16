@@ -3,7 +3,7 @@
 \name{dsct_drop}
 \alias{dsct_drop}
 \alias{dsct_keep}
-\title{Subsetting Discrete Support Values}
+\title{Subset a Discrete Value Series}
 \usage{
 dsct_drop(
   x,
@@ -24,6 +24,9 @@ dsct_keep(
 )
 }
 \arguments{
+\item{x}{Discrete value series
+(\code{numeric} vector or object of class \code{"discretes"}).}
+
 \item{...}{Reserved for future extensions; must be empty.}
 
 \item{from, to}{Numeric values defining the range to keep; single numerics
@@ -38,10 +41,18 @@ A \code{discretes} object representing the subset of discrete values
 within the specified range.
 }
 \description{
-Subsetting Discrete Support Values
+Subset a Discrete Value Series
 }
 \examples{
 x <- integers(from = -3)
 dsct_keep(x, from = -1.5, to = 2.5)
 dsct_keep(x, to = 2)
 }
+\seealso{
+Other transformations: 
+\code{\link{dsct_invert}()},
+\code{\link{dsct_negate}()},
+\code{\link{dsct_transform}()},
+\code{\link{dsct_union}()}
+}
+\concept{transformations}

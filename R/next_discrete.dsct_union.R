@@ -15,17 +15,16 @@ next_discrete.dsct_union <- function(x,
   inputs <- x$inputs
   result <- vector(type, length = 0L)
   if (include_from) {
-    has_from <- vapply(
+    froms <- lapply(
       inputs,
       function(d) {
-        test_discrete(d, values = from, tol = tol)
-      },
-      FUN.VALUE = logical(1L)
+        next_discrete(d, from = from, n = 1L, include_from = TRUE)
+      }
     )
-    if (any(has_from)) {
-      result <- from
-      mode(result) <- type # in case `from` is not integer but should be
-    }
+    froms <- unlist(froms)
+    froms <- froms[abs(froms - from) <= tol]
+    result <- utils::head(froms, n = 1)
+    mode(result) <- type
   }
   current_from <- from
   while (length(result) < n) {
