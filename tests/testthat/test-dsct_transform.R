@@ -91,6 +91,16 @@ test_that("Identity transform works", {
 })
 
 
+test_that("Empty sets remain empty", {
+  x <- dsct_empty()
+  y <- dsct_transform(x, exp, log, range = c(0, Inf))
+  expect_identical(x, y)
+  x <- dsct_empty("integer")
+  y <- dsct_transform(x, exp, log, range = c(0, Inf))
+  expect_identical(typeof(representative(y)), "double")
+})
+
+
 test_that("dsct_transform() works with custom domain and range.", {
   x <- integers()
   # R -> (0, 1)

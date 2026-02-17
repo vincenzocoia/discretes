@@ -1,7 +1,7 @@
 #' @noRd
 #' @export
 Ops.discretes <- function(e1, e2) {
-  op <- .Generic # nolint
+  op <- .Generic
   allowed <- c("+", "-", "*", "/", "^")
 
   if (!op %in% allowed) {
@@ -49,9 +49,12 @@ Ops.discretes <- function(e1, e2) {
       return(dsct_empty(typeof(number ^ representative(dsct))))
     }
 
-    # discretes ^ number
+    old_type <- typeof(representative(dsct))
+    new_type <- typeof(number ^ representative(dsct))
+
+    # discretes^number
     if (e1_is_dsct) {
-      if (number == 1) {
+      if (number == 1 && old_type == new_type) {
         return(dsct)
       }
       if (number == 0) {
@@ -76,27 +79,28 @@ Ops.discretes <- function(e1, e2) {
           )
         )
       }
-      number_int <- tryCatch(
-        assert_and_convert_integerish(number, lower = 0),
-        error = function(e) NULL
-      )
-      if (is.null(number_int) || (number_int %% 2 != 1)) {
+      if (number %% 2 != 1) {
         stop(
           "Exponentiation of a discretes series is only supported for ",
-          "odd powers (or any positive power when the series is non-negative)."
+          "odd powers."
         )
       }
-      return(dsct_transform(
+      res <- dsct_transform(
         dsct,
-        fun = function(x) x^number_int,
-        inv = function(x) sign(x) * abs(x)^(1 / number_int)
-      ))
+        fun = function(x) x^number,
+        inv = function(x) {
+          sign(x) * abs(x)^(1 / number)
+        }
+      )
     }
 
     # number ^ discretes
     a <- number
-    if (a < 0 || is.na(a)) {
-      stop("Base must be positive when exponentiating a discretes series.")
+    if (!is.finite(a)) {
+      stop("For `number ^ discretes`, the base must be a finite, positive number.")
+    }
+    if (a <= 0) {
+      stop("For `number ^ discretes`, the base must be a positive number.")
     }
     if (a == 1) {
       return(dsct_numeric(1))

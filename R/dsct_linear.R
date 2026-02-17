@@ -5,85 +5,94 @@
 #' 
 #' @inheritParams dsct_negate
 #' @param m A numeric value indicating the multiplier.
-#' @param b A numeric value indicating the intercept. Allowed to be missing
-#'   (as opposed to setting equal to zero), to preserve signed zeroes.
+#' @param b A numeric value indicating the intercept. Allowed to be `NULL`
+#'   (the default) to indicate the transformation `m * x` without an intercept,
+#'   which is important to distinguish signed zero.
 #' @returns A linearly transformed discretes object.
 #' @examples
 #' discretes:::dsct_linear(integers(), m = 2)
 #' discretes:::dsct_linear(integers(), m = 2, b = 0.5)
-dsct_linear <- function(x, m, b) {
+dsct_linear <- function(x, m, b = NULL) {
   UseMethod("dsct_linear")
 }
 
 #' @export
-dsct_linear.discretes <- function(x, m, b) {
+dsct_linear.discretes <- function(x, m, b = NULL) {
   checkmate::assert_numeric(m, any.missing = FALSE)
+  checkmate::assert_numeric(b, any.missing = FALSE, null.ok = TRUE)
   if (length(m) > 1) {
     stop("Cannot multiply a series by a vector of length >1.")
-  }
-  old_type <- typeof(representative(x))
-  if (!missing(b)) {
-    checkmate::assert_numeric(b, any.missing = FALSE)
-    if (length(b) > 1) {
-      stop("Cannot add a vector of length >1 to a series.")
-    }
-    new_type <- typeof(m * representative(x) + b)
-    bb <- b
-    l <- list(base = x, m = m, b = b)
-  } else {
-    new_type <- typeof(m * representative(x))
-    bb <- 0L # When signed zero doesn't matter.
-    l <- list(base = x, m = m)
-  }
-  if (num_discretes(x) == 0 || length(m) == 0 || length(bb) == 0) {
-    return(dsct_empty(typeof(m * representative(x) + bb)))
   }
   if (m < 0) {
     return(dsct_linear(dsct_negate(x), m = abs(m), b = b))
   }
-  if (m == 1 && (missing(b) || has_negative_zero(b)) && new_type == old_type) {
-    return(x)
-  }
-  if ((m == -Inf && bb == Inf) || (m == Inf && bb == -Inf)) {
-    stop("Invalid linear transformation: ", m, " * x + ", bb, ": NaN.")
-  }
-  if (m == 0 && any(test_discrete(x, values = c(-Inf, Inf)))) {
-    stop("Cannot multiply a series containing infinity by 0: NaN.")
-  }
-  if (is.infinite(m) && test_discrete(x, values = 0)) {
-    stop("Cannot multiply a series containing 0 by infinity: NaN.")
-  }
-  if (is.infinite(bb) && test_discrete(x, values = -bb)) {
-    stop("Cannot add ", bb, " to a series containing ", -bb, ": NaN.")
-  }
-  if (is.infinite(bb)) {
-    return(dsct_numeric(bb))
-  }
-  if (is.infinite(m)) {
-    has_pos <- num_discretes(x, from = 0, to = Inf, include_from = FALSE) > 0
-    has_neg <- num_discretes(x, from = -Inf, to = 0, include_to = FALSE) > 0
-    v <- c(Inf, -Inf)[c(has_pos, has_neg)]
-    return(dsct_numeric(m * v))
-  }
-  if (m == 0) {
-    has_pos <- has_positive_zero(x) ||
-      (num_discretes(x, from = 0, to = Inf, include_from = FALSE) > 0)
-    has_neg <- has_negative_zero(x) ||
-      (num_discretes(x, from = -Inf, to = 0, include_to = FALSE) > 0)
-    v <- c(0, -0)[c(has_pos, has_neg)]
-    if (missing(b)) {
-      v <- m * v
-    } else {
-      v <- m * v + b
+  if (!is.null(b)) {
+    if (length(b) > 1) {
+      stop("Cannot add a vector of length >1 to a series.")
     }
-    return(dsct_numeric(v))
+    bb <- b
+  } else {
+    bb <- 0L # To use when signed zero doesn't matter.
   }
-  sinksmat <- sinks(x)
-  sinksmat[, "location"] <- sinksmat[, "location"] * m + bb
-  new_discretes(
-    data = l,
+  if (num_discretes(x) == 0 || length(m) == 0 || length(bb) == 0) {
+    return(dsct_empty(typeof(m * representative(x) + bb)))
+  }
+  n_neg <- num_discretes(
+    x,
+    from = -Inf,
+    to = 0,
+    include_from = FALSE,
+    include_to = FALSE
+  )
+  n_pos <- num_discretes(
+    x,
+    from = 0,
+    to = Inf,
+    include_from = FALSE,
+    include_to = FALSE
+  )
+  symbolic_x <- c(
+    pluck_discretes(x, values = c(-Inf, Inf)),
+    zeroes_vector(x),
+    (-1)[n_neg > 0],
+    (1)[n_pos > 0]
+  )
+  if (is.null(b)) {
+    symbolic_y <- m * symbolic_x
+  } else {
+    symbolic_y <- m * symbolic_x + b
+  }
+  if (any(is.na(symbolic_y))) {
+    # Can arise from -Inf + Inf or 0 * Inf, for example.
+    stop("NA or NaN values arise from the supplied linear transformation.")
+  }
+  if (is.infinite(bb) || is.infinite(m) || m == 0) {
+    # The linear function is flat in these cases, with one or two plateaus,
+    # with behaviour completely described by x = c(-Inf, -1, -0, 0, 1, Inf),
+    # of which "symbolic_x" is a subset.
+    return(dsct_numeric(symbolic_y))
+  }
+  if (is.null(b)) {
+    fun <- function(t) m * t
+    inv <- function(t) t / m
+  } else {
+    fun <- function(t) m * t + b
+    inv <- function(t) (t - b) / m
+  }
+  sinkmat <- sinks(x)
+  sinkmat[, "location"] <- fun(sinkmat[, "location"])
+  new_dsct_transform(
+    data = list(
+      base = x,
+      fun = fun,
+      inv = inv,
+      domain = c(-Inf, Inf),
+      range = c(-Inf, Inf),
+      m = m,
+      b = b
+    ),
     name = "Linear-transformed",
-    sinks = sinksmat,
+    sinks = sinkmat,
     subclass = "dsct_linear"
   )
 }

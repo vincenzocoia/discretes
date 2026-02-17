@@ -4,7 +4,7 @@
 \alias{dsct_linear}
 \title{Linearly Transform a Discrete Value Series}
 \usage{
-dsct_linear(x, m, b)
+dsct_linear(x, m, b = NULL)
 }
 \arguments{
 \item{x}{Discrete value series
@@ -12,8 +12,9 @@ dsct_linear(x, m, b)
 
 \item{m}{A numeric value indicating the multiplier.}
 
-\item{b}{A numeric value indicating the intercept. Allowed to be missing
-(as opposed to setting equal to zero), to preserve signed zeroes.}
+\item{b}{A numeric value indicating the intercept. Allowed to be \code{NULL}
+(the default) to indicate the transformation \code{m * x} without an intercept,
+which is important to distinguish signed zero.}
 }
 \value{
 A linearly transformed discretes object.

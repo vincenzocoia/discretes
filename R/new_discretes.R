@@ -1,7 +1,4 @@
-#' Construct an infinite vector object
-#'
-#' Helper for creating discretes objects that optionally wrap a base
-#' vector.
+#' Construct a discrete set object
 #'
 #' @param data List of fields describing the infinite vector.
 #' @param ... Additional attributes to set on the object.
@@ -9,6 +6,8 @@
 #'   Use `sinks_matrix()` to create a matrix.
 #' @param name Character vector of the name of the infinite vector.
 #' @param subclass Character vector of subclass tags to prepend.
+#' @returns Object of class "discretes", with additional classes given by
+#'   `subclass`.
 #' @noRd
 new_discretes <- function(data,
                           ...,
