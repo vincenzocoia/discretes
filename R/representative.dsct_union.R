@@ -1,4 +1,3 @@
-#' @noRd
 #' @export
 representative.dsct_union <- function(x) {
   inputs <- x$inputs

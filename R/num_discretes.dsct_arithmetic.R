@@ -1,4 +1,3 @@
-#' @noRd
 #' @export
 num_discretes.dsct_arithmetic <- function(x,
                                           ...,

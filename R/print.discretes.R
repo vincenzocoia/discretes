@@ -1,4 +1,3 @@
-#' @noRd
 #' @export
 print.discretes <- function(x, len = 6, ...) {
   len <- assert_and_convert_integerish(len, lower = 0)

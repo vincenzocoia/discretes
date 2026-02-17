@@ -31,9 +31,6 @@ dsct_union(x1, x2)
 }
 \seealso{
 Other transformations: 
-\code{\link{dsct_drop}()},
-\code{\link{dsct_invert}()},
-\code{\link{dsct_negate}()},
 \code{\link{dsct_transform}()}
 }
 \concept{transformations}

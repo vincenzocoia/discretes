@@ -1,9 +1,8 @@
 #' Negate a Discrete Value Series
 #' 
-#' @param x Discrete value series
-#'   (`numeric` vector or object of class `"discretes"`).
+#' @inheritParams next_discrete
 #' @family transformations
-#' @export
+#' @noRd
 dsct_negate <- function(x) {
   UseMethod("dsct_negate")
 }

@@ -40,9 +40,6 @@ dsct_transform(integers(), fun = exp, inv = log)
 }
 \seealso{
 Other transformations: 
-\code{\link{dsct_drop}()},
-\code{\link{dsct_invert}()},
-\code{\link{dsct_negate}()},
 \code{\link{dsct_union}()}
 }
 \concept{transformations}

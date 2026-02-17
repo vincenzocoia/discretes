@@ -5,20 +5,7 @@
 #' @inheritParams dsct_negate
 #' @returns A new discrete value series containing the reciprocals of all values
 #'   in `x`.
-#' @details
-#' By default, this transformation creates a new `"dsct_inverse"` subclass by
-#' wrapping the input object. Simplifications occur when behaviour is known,
-#' for the following series:
-#' 
-#' - **Numeric vectors**: The reciprocal of each value is computed directly,
-#'   returning another numeric vector.
-#' - **Inverse series**: The inverse of an inverse series returns the original
-#'   series.
-#' @family transformations
-#' @examples
-#' dsct_invert()
-#' 
-#' @export
+#' @noRd
 dsct_invert <- function(x) {
   UseMethod("dsct_invert")
 }

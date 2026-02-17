@@ -1,4 +1,3 @@
-#' @noRd
 #' @export
 next_discrete.numeric <- function(x,
                                   from,

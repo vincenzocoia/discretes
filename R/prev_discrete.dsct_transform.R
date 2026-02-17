@@ -1,4 +1,3 @@
-#' @noRd
 #' @export
 prev_discrete.dsct_transform <- function(x,
                                          from,

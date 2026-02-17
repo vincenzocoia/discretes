@@ -48,11 +48,3 @@ x <- integers(from = -3)
 dsct_keep(x, from = -1.5, to = 2.5)
 dsct_keep(x, to = 2)
 }
-\seealso{
-Other transformations: 
-\code{\link{dsct_invert}()},
-\code{\link{dsct_negate}()},
-\code{\link{dsct_transform}()},
-\code{\link{dsct_union}()}
-}
-\concept{transformations}

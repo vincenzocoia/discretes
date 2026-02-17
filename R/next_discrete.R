@@ -6,7 +6,8 @@
 #' checks whether there are an infinite amount of discrete values between
 #' a range of values.
 #'
-#' @param x Vector or discretes.
+#' @param x Discrete value series
+#'   (`numeric` vector or object of class `"discretes"`).
 #' @param from Reference value to start searching from; single numeric.
 #' @param ... Reserved for future extensions; must be empty.
 #' @param n Number of discrete values to find; single positive integer.
@@ -38,7 +39,6 @@ next_discrete <- function(x,
 }
 
 #' @export
-#' @inheritParams next_discrete
 next_discrete.discretes <- function(x,
                                     from,
                                     ...,

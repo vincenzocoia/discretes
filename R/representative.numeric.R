@@ -1,4 +1,3 @@
-#' @noRd
 #' @export
 representative.numeric <- function(x) {
   x <- unique(x)

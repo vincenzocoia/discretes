@@ -3,7 +3,7 @@
 #' Check if a discrete value series contains zero with a negative sign (`-0`)
 #' or a positive sign (`+0`). See details.
 #' 
-#' @inheritParams dsct_negate
+#' @inheritParams next_discrete
 #' @returns A single logical vector indicating whether `-0` is present
 #'   in the series for `has_negative_zero()`, and whether `+0` is present in the
 #'   series for `has_positive_zero()`. Both could be `TRUE`; see details.

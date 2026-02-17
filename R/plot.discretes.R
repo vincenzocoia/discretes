@@ -2,7 +2,7 @@
 #'
 #' Plot the discrete values represented by a `discretes` object within a
 #' specified interval.
-#' @inheritParams dsct_negate
+#' @inheritParams next_discrete
 #' @param ... Additional arguments passed to the underlying `plot()` function.
 #' @param from,to Numeric values defining the range to plot; single numerics.
 #' @param closeness Numeric value indicating how close to the (non-infinite)

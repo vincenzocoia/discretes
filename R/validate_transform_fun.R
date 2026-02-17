@@ -1,5 +1,6 @@
 # Simple checks on the input function `fun` and its inverse, `inv`,
-# for `dsct_transform()`.
+# for `dsct_transform()`. Run for its `warning()` side effects; returns
+# `fun` invisibly. See `dsct_transform()` for the inputs.
 validate_transform_fun <- function(fun, inv, domain, range) {
   if (all(is.infinite(domain))) {
     domain <- c(-2, 2)

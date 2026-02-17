@@ -9,7 +9,6 @@ prev_discrete <- function(x,
   UseMethod("prev_discrete")
 }
 
-#' @noRd
 #' @export
 prev_discrete.discretes <- function(x,
                                     from,

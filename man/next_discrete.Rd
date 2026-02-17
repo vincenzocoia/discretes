@@ -24,7 +24,8 @@ prev_discrete(
 )
 }
 \arguments{
-\item{x}{Vector or discretes.}
+\item{x}{Discrete value series
+(\code{numeric} vector or object of class \code{"discretes"}).}
 
 \item{from}{Reference value to start searching from; single numeric.}
 

@@ -24,7 +24,6 @@ dsct_numeric <- function(x) {
   )
 }
 
-#' @noRd
 #' @export
 num_discretes.dsct_numeric <- function(x,
                                        ...,
@@ -44,7 +43,6 @@ num_discretes.dsct_numeric <- function(x,
   )
 }
 
-#' @noRd
 #' @export
 next_discrete.dsct_numeric <- function(x,
                                        from,
@@ -62,7 +60,6 @@ next_discrete.dsct_numeric <- function(x,
   )
 }
 
-#' @noRd
 #' @export
 prev_discrete.dsct_numeric <- function(x,
                                        from,
@@ -80,7 +77,6 @@ prev_discrete.dsct_numeric <- function(x,
   )
 }
 
-#' @noRd
 #' @export
 test_discrete.dsct_numeric <- function(x,
                                        values,
@@ -89,19 +85,16 @@ test_discrete.dsct_numeric <- function(x,
   test_discrete(x$values, values = values, ..., tol = tol)
 }
 
-#' @noRd
 #' @export
 representative.dsct_numeric <- function(x) {
   representative(x$values)
 }
 
-#' @noRd
 #' @export
 has_negative_zero.dsct_numeric <- function(x) {
   has_negative_zero(x$values)
 }
 
-#' @noRd
 #' @export
 has_positive_zero.dsct_numeric <- function(x) {
   has_positive_zero(x$values)

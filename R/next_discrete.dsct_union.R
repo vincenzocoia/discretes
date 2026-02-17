@@ -1,4 +1,3 @@
-#' @noRd
 #' @export
 next_discrete.dsct_union <- function(x,
                                      from,

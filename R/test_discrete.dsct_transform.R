@@ -1,4 +1,3 @@
-#' @noRd
 #' @export
 test_discrete.dsct_transform <- function(x,
                                          values,

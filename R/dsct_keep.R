@@ -1,6 +1,6 @@
 #' Subset a Discrete Value Series
 #'
-#' @inheritParams dsct_negate
+#' @inheritParams next_discrete
 #' @param ... Reserved for future extensions; must be empty.
 #' @param from,to Numeric values defining the range to keep; single numerics
 #' with `from <= to`.
@@ -14,7 +14,6 @@
 #' dsct_keep(x, from = -1.5, to = 2.5)
 #' dsct_keep(x, to = 2)
 #' @rdname subsetting
-#' @family transformations
 #' @export
 dsct_keep <- function(x,
                       ...,

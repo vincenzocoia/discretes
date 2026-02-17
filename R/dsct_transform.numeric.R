@@ -1,4 +1,3 @@
-#' @noRd
 #' @export
 dsct_transform.numeric <- function(x,
                                    fun,

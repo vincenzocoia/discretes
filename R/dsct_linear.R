@@ -3,7 +3,7 @@
 #' Apply a linear function to a discrete value series (`m * x + b`).
 #' Internal function, with preference to use `+`, `-`, `*`, and `/` instead.
 #' 
-#' @inheritParams dsct_negate
+#' @inheritParams next_discrete
 #' @param m A numeric value indicating the multiplier.
 #' @param b A numeric value indicating the intercept. Allowed to be `NULL`
 #'   (the default) to indicate the transformation `m * x` without an intercept,

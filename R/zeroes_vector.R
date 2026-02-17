@@ -5,7 +5,7 @@
 #' contains `-0` if the series contains `-0`. Internal; useful for delegating
 #' the behaviour of signed zero to how R does it for numeric vectors.
 #' 
-#' @inheritParams dsct_negate
+#' @inheritParams next_discrete
 #' @returns A numeric (double) vector of zeroes, either of length 0, 1, or 2.
 #' @examples
 #' (none <- discretes:::zeroes_vector(natural1()))

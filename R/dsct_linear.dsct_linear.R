@@ -1,4 +1,3 @@
-#' @noRd
 #' @export
 dsct_linear.dsct_linear <- function(x, m, b = NULL) {
   checkmate::assert_numeric(m, any.missing = FALSE, len = 1)

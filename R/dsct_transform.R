@@ -1,6 +1,6 @@
 #' Monotonically Transform a Discrete Value Series
 #'
-#' @inheritParams dsct_negate
+#' @inheritParams next_discrete
 #' @param fun,inv A vectorized, strictly increasing function to apply to the
 #'   discrete support values, and its inverse, `inv`.
 #' @param domain,range Numeric vectors of length 2, indicating the domain and
@@ -29,7 +29,6 @@ dsct_transform <- function(x,
   UseMethod("dsct_transform")
 }
 
-#' @noRd
 #' @export
 dsct_transform.discretes <- function(x,
                                      fun,

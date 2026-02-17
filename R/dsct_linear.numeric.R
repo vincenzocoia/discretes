@@ -1,4 +1,3 @@
-#' @noRd
 #' @export
 dsct_linear.numeric <- function(x, m, b = NULL) {
   checkmate::assert_number(m, finite = TRUE)
