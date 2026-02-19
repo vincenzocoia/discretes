@@ -42,12 +42,14 @@ as.double.discretes <- function(x,
       "cannot return a vector."
     )
   }
-
-  next_discrete(
-    x,
-    from = from,
-    n = n,
-    include_from = include_from,
-    tol = tol
+  
+  as.numeric(
+    next_discrete(
+      x,
+      from = from,
+      n = n,
+      include_from = include_from,
+      tol = tol
+    )
   )
 }

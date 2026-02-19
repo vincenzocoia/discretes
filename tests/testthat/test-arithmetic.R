@@ -1,3 +1,26 @@
+test_that("Numbers in an arithmetic set can match numeric vectors", {
+  # Check that numbers between -10 and 10 match; `numbers` can spill over
+  # the [-10, 10] range.
+  expect_match <- function(x, numbers) {
+    numbers <- numbers[numbers >= -10 & numbers <= 10]
+    testthat::expect_equal(
+      as.numeric(x, from = -10, to = 10),
+      numbers
+    )
+  }
+  expect_match(integers(), -10:10)
+  expect_match(natural0(), 0:10)
+  expect_match(natural1(), 1:10)
+  expect_match(integers(to = 0), -10:0)
+  expect_match(integers(-2, 5), -2:5)
+  expect_match(arithmetic(0.5, 1.5), -10:10 * 1.5 + 0.5)
+  expect_match(arithmetic(0.5, 1.5, n_right = 2), -10:2 * 1.5 + 0.5)
+  expect_match(arithmetic(0.5, 1.5, n_left = 2), -2:10 * 1.5 + 0.5)
+  expect_match(arithmetic(0.5, 1.5, n_right = 0), -10:0 * 1.5 + 0.5)
+  expect_match(arithmetic(0.5, 1.5, n_left = 0), 0:10 * 1.5 + 0.5)
+  expect_match(arithmetic(0.5, 1.5, n_left = 3, n_right = 2), -3:2 * 1.5 + 0.5)
+})
+
 test_that("arithmetic - bad inputs", {
   expect_error(arithmetic("5.5", 1.2))
   expect_error(arithmetic(NA, 1.2))
@@ -50,4 +73,3 @@ test_that("Only one signed zero exists and is expressed properly.", {
   check_arith_signed_zero(-(1 * arithmetic(-0L, 3L)), "neg")
   check_arith_signed_zero(-arithmetic(1, 2), "none")
 })
-

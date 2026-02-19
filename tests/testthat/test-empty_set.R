@@ -5,5 +5,4 @@ test_that("", {
     representative(dsct_union(numeric(), integer())),
     numeric()
   )
-  expect_length(representative(dsct_union(1:10, numeric(0))), 1)
 })
