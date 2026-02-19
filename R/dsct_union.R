@@ -18,7 +18,7 @@
 #' @export
 dsct_union <- function(...) {
   inputs <- rlang::list2(...)
-  good_inputs <- vapply(inputs, is_discretes, FUN.VALUE = logical(1L))
+  good_inputs <- vapply(inputs, is_discrete_set, FUN.VALUE = logical(1L))
   if (!all(good_inputs)) {
     stop("All inputs must be discretes objects or numeric vectors.")
   }

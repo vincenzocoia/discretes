@@ -1,12 +1,10 @@
 #' @export
-prev_discrete.dsct_keep <- function(
-  x,
-  from,
-  ...,
-  n = 1L,
-  include_from = TRUE,
-  tol = sqrt(.Machine$double.eps)
-) {
+prev_discrete.dsct_keep <- function(x,
+                                    from,
+                                    ...,
+                                    n = 1L,
+                                    include_from = FALSE,
+                                    tol = sqrt(.Machine$double.eps)) {
   checkmate::assert_number(from)
   ellipsis::check_dots_empty()
   n <- assert_and_convert_integerish(n, lower = 0)

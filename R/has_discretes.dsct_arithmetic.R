@@ -1,5 +1,5 @@
 #' @export
-test_discrete.dsct_arithmetic <- function(x,
+has_discretes.dsct_arithmetic <- function(x,
                                           values,
                                           ...,
                                           tol = sqrt(.Machine$double.eps)) {

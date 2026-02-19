@@ -4,7 +4,7 @@ test_that("Numbers in an arithmetic set can match numeric vectors", {
   expect_match <- function(x, numbers) {
     numbers <- numbers[numbers >= -10 & numbers <= 10]
     testthat::expect_equal(
-      as.numeric(x, from = -10, to = 10),
+      get_discretes_in(x, from = -10, to = 10),
       numbers
     )
   }
@@ -48,8 +48,8 @@ test_that("Only one signed zero exists and is expressed properly.", {
     }
     pos(has_positive_zero(dsct))
     neg(has_negative_zero(dsct))
-    pos(has_positive_zero(pluck_discretes(dsct, 0)))
-    neg(has_negative_zero(pluck_discretes(dsct, 0)))
+    pos(has_positive_zero(get_discretes_at(dsct, 0)))
+    neg(has_negative_zero(get_discretes_at(dsct, 0)))
     pos(has_positive_zero(next_discrete(dsct, from = 0, include_from = TRUE)))
     neg(has_negative_zero(next_discrete(dsct, from = 0, include_from = TRUE)))
     pos(has_positive_zero(prev_discrete(dsct, from = 0, include_from = TRUE)))

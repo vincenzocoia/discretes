@@ -36,7 +36,7 @@ natural1()
 natural0()
 
 # Infinity is never contained in the series.
-test_discrete(integers(), Inf)
+has_discretes(integers(), Inf)
 }
 \seealso{
 \code{\link[=arithmetic]{arithmetic()}}

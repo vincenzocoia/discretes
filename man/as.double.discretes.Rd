@@ -2,43 +2,24 @@
 % Please edit documentation in R/as.double.R
 \name{as.double.discretes}
 \alias{as.double.discretes}
-\title{Discrete values within an interval}
+\title{Convert a discrete set to a numeric vector}
 \usage{
-\method{as.double}{discretes}(
-  x,
-  ...,
-  from = -Inf,
-  to = Inf,
-  include_from = TRUE,
-  include_to = TRUE,
-  tol = sqrt(.Machine$double.eps)
-)
+\method{as.double}{discretes}(x, ...)
 }
 \arguments{
 \item{x}{Invctr object.}
 
 \item{...}{Reserved for future extensions; must be empty.}
-
-\item{from, to}{Reference values, possibly infinite. \code{from} must be less than
-or equal to \code{to}; both must be length-1 numeric vectors.}
-
-\item{include_from, include_to}{Should the \code{from} value be included
-in the query? Should the \code{to} value? Both must be length-1 logical vectors.}
-
-\item{tol}{Numerical tolerance used for snapping \code{from} or \code{to} values
-to a discrete value in the series; single non-negative numeric.}
 }
 \value{
-A numeric vector containing all discrete values between \code{from} and
-\code{to}. Returns \code{numeric(0)} when the interval contains no discrete support
-points.
+A numeric vector containing all discrete values in \code{x},
+ordered from smallest to largest. Returns \code{numeric(0)} when the interval
+contains no discrete values.
 }
 \description{
-Return all discrete points for \code{x} that lie between \code{from} and \code{to}.
-The result is a plain numeric vector so it can be consumed directly by
-routines that expect finite sequences.
+Return all discrete values in a "discretes" object, if finite.
+If infinite, throws an error.
 }
 \examples{
-as.numeric(integers(), from = 6.6, to = 10.1)
-as.numeric(1 / integers(1, 4))
+as.numeric(integers(-3.5, 10))
 }

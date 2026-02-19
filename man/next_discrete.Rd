@@ -10,7 +10,7 @@ next_discrete(
   from,
   ...,
   n = 1L,
-  include_from = TRUE,
+  include_from = FALSE,
   tol = sqrt(.Machine$double.eps)
 )
 
@@ -19,7 +19,7 @@ prev_discrete(
   from,
   ...,
   n = 1L,
-  include_from = TRUE,
+  include_from = FALSE,
   tol = sqrt(.Machine$double.eps)
 )
 }

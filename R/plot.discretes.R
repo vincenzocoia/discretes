@@ -66,8 +66,8 @@ plot.discretes <- function(x,
     )
   }
   repr <- representative(y)
-  inc_neg_inf <- test_discrete(x, values = -Inf)
-  inc_pos_inf <- test_discrete(x, values = Inf)
+  inc_neg_inf <- has_discretes(x, values = -Inf)
+  inc_pos_inf <- has_discretes(x, values = Inf)
   if (inc_neg_inf) {
     neg_inf <- "closed"
   } else if (-Inf %in% sinklocs) {
@@ -92,7 +92,7 @@ plot.discretes <- function(x,
     lastfin <- max(repr, sinksfin)
     right_bound <- lastfin + 10
   }
-  xcollect <- as.numeric(y, from = left_bound, to = right_bound)
+  xcollect <- get_discretes_in(y, from = left_bound, to = right_bound)
   plot_finite_discretes(
     xcollect,
     sinklocs = sinklocs,
@@ -126,8 +126,8 @@ plot.discretes <- function(x,
 #   sinklocs <- sinksmat[, "location"]
 #   sinksfin <- sinklocs[is.finite(sinklocs)]
 #   repr <- representative(y)
-#   inc_neg_inf <- test_discrete(x, values = -Inf)
-#   inc_pos_inf <- test_discrete(x, values = Inf)
+#   inc_neg_inf <- has_discretes(x, values = -Inf)
+#   inc_pos_inf <- has_discretes(x, values = Inf)
 #   if (inc_neg_inf) {
 #     neg_inf <- "closed"
 #   } else if (-Inf %in% sinklocs) {
@@ -144,7 +144,7 @@ plot.discretes <- function(x,
 #   }
 #   n <- num_discretes(y)
 #   if (is.finite(n) && neg_inf == "no" && pos_inf == "no") {
-#     xcollect <- as.numeric(y)
+#     xcollect <- get_discretes_in(y)
 #     plot_finite_discretes(
 #       xcollect,
 #       neg_inf = neg_inf,
@@ -179,7 +179,7 @@ plot.discretes <- function(x,
 #     if (-1 %in% rdir) {
 #       r <- r - closeness
 #     }
-#     this_x <- as.numeric(y, from = l, to = r)
+#     this_x <- get_discretes_in(y, from = l, to = r)
 #     xcollect <- append(xcollect, this_x)
 #   }
 #   plot_finite_discretes(

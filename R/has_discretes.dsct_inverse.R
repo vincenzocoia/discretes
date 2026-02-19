@@ -1,5 +1,5 @@
 #' @export
-test_discrete.dsct_inverse <- function(x,
+has_discretes.dsct_inverse <- function(x,
                                        values,
                                        ...,
                                        tol = sqrt(.Machine$double.eps)) {
@@ -17,9 +17,9 @@ test_discrete.dsct_inverse <- function(x,
   res[is_na] <- NA
   res[which(values == -Inf)] <- has_negative_zero(base)
   res[which(values == Inf)] <- has_positive_zero(base)
-  res[which(is_zro)] <- any(test_discrete(base, values = c(-Inf, Inf)))
+  res[which(is_zro)] <- any(has_discretes(base, values = c(-Inf, Inf)))
   remaining_idx <- which(!(is_na | is_inf | is_zro))
   mapped <- 1 / values[remaining_idx]
-  res[remaining_idx] <- test_discrete(base, values = mapped, tol = tol)
+  res[remaining_idx] <- has_discretes(base, values = mapped, tol = tol)
   res
 }

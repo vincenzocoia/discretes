@@ -2,12 +2,12 @@
 % Please edit documentation in R/sinks.R
 \name{sinks}
 \alias{sinks}
-\alias{sink_is_between}
+\alias{has_sink}
 \title{Sinks}
 \usage{
 sinks(x)
 
-sink_is_between(x, from = -Inf, to = Inf, ..., tol = sqrt(.Machine$double.eps))
+has_sink(x, from = -Inf, to = Inf, ..., tol = sqrt(.Machine$double.eps))
 }
 \arguments{
 \item{x}{Discrete value series
@@ -34,18 +34,18 @@ are infinitely many discrete points around the sink.
 \examples{
 # The set of integers have sinks at +Inf and -Inf
 sinks(integers())
-sink_is_between(integers())
+has_sink(integers())
 
 # The set 1, 1/2, 1/4, 1/8, ... has a sink at 0 approached from the right.
 halves <- 0.5^natural0()
 sinks(halves)
-sink_is_between(halves, to = 0)
-sink_is_between(halves, from = 0)
+has_sink(halves, to = 0)
+has_sink(halves, from = 0)
 
 # The reciprocal of the integers has a sink at 0 approached from both the
 # left and right; while the integer 0 gets mapped to Inf, infinity is not a
 # sink because discrete values don't get arbitrarily close to it.
 reciprocals <- 1 / integers()
 sinks(reciprocals)
-test_discrete(reciprocals, Inf) # Yet Inf is a member.
+has_discretes(reciprocals, Inf) # Yet Inf is a member.
 }

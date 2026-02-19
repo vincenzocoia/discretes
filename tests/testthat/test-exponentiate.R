@@ -1,14 +1,14 @@
 test_that("Exponentiation works: basic check.", {
   expect_identical(
-    as.numeric(exp(dsct_numeric(c(-1, 1, 10)))),
+    get_discretes_in(exp(as_discretes(c(-1, 1, 10)))),
     exp(c(-1, 1, 10))
   )
   expect_identical(
-    as.numeric(2^dsct_numeric(c(-1, 1, 10))),
+    get_discretes_in(2^as_discretes(c(-1, 1, 10))),
     2^c(-1, 1, 10)
   )
   expect_identical(
-    as.numeric(0.5^dsct_numeric(c(-1, 1, 10))),
+    get_discretes_in(0.5^as_discretes(c(-1, 1, 10))),
     rev(0.5^c(-1, 1, 10))
   )
 })
@@ -20,12 +20,12 @@ test_that("Exponentiation via different mechanisms match.", {
     expect_identical(num_discretes(x, to = -1), 0L)
     expect_identical(num_discretes(y, to = -1), 0L)
     expect_equal(
-      next_discrete(x, from = 0.1, n = 10),
-      next_discrete(y, from = 0.1, n = 10)
+      next_discrete(x, from = 0.1, n = 10, include_from = TRUE),
+      next_discrete(y, from = 0.1, n = 10, include_from = TRUE)
     )
     expect_equal(
-      prev_discrete(x, from = 1000, n = 10),
-      prev_discrete(y, from = 1000, n = 10)
+      prev_discrete(x, from = 1000, n = 10, include_from = TRUE),
+      prev_discrete(y, from = 1000, n = 10, include_from = TRUE)
     )
   }
   # Base e
@@ -48,11 +48,11 @@ test_that("Exponentiation via different mechanisms match.", {
   # This also works. Notice how the sets reduce.
   x <- 0^dsct_union(integers(), -Inf, Inf)
   expect_identical(num_discretes(x), 3L)
-  expect_identical(as.numeric(x), c(0, 1, Inf))
+  expect_identical(get_discretes_in(x), c(0, 1, Inf))
   
   y <- 1^dsct_union(integers(), -Inf, Inf)
   expect_identical(num_discretes(y), 1L)
-  expect_identical(as.numeric(y), 1)
+  expect_identical(get_discretes_in(y), 1)
 })
 
 test_that("Exponentiation edge cases.", {
@@ -63,10 +63,10 @@ test_that("Exponentiation edge cases.", {
   # Empty base returns empty. Empty set returns empty.
   expect_identical(
     discretes:::dsct_raise(integers(), base = numeric(0)),
-    dsct_empty("double")
+    empty_set("double")
   )
-  expect_identical(numeric(0)^integers(), dsct_empty("double"))
-  expect_identical(2^dsct_empty(), dsct_empty())
-  expect_identical(1^dsct_empty(), dsct_empty())
-  expect_identical(0^dsct_empty(), dsct_empty())
+  expect_identical(numeric(0)^integers(), empty_set("double"))
+  expect_identical(2^empty_set(), empty_set())
+  expect_identical(1^empty_set(), empty_set())
+  expect_identical(0^empty_set(), empty_set())
 })

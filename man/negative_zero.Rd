@@ -33,7 +33,7 @@ made consistent with the behaviour of signed zero in numeric vectors.
 It's possible for a discrete value series to contain both \code{-0} and
 \code{+0}, just like the numeric vector \code{c(0, -0)} contains both. However, only
 one zero will ever get expressed when calling \code{next_discrete()},
-\code{prev_discrete()}, or \code{as.numeric()}, similar to the behaviour of
+\code{prev_discrete()}, or \code{get_discretes_in()}, similar to the behaviour of
 \code{unique(c(0, -0))}. However, their presence remains latent in the encoding
 of the series, and will get expressed differently when the series is
 inverted, spawning both \code{Inf} and \code{-Inf}. See the examples.

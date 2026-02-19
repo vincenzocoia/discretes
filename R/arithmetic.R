@@ -24,7 +24,7 @@
 #' arithmetic(representative = 0, spacing = 2, n_left = 2, n_right = 2)
 #' 
 #' # Negative zero, resulting in `-Inf` upon inversion:
-#' 1 / as.numeric(arithmetic(-0, 1, n_left = 0, n_right = 0))
+#' 1 / get_discretes_in(arithmetic(-0, 1, n_left = 0, n_right = 0))
 #' @seealso [integers()]
 #' @export
 arithmetic <- function(representative,
@@ -38,7 +38,7 @@ arithmetic <- function(representative,
   n_left <- assert_and_convert_integerish(n_left, lower = 0)
   n_right <- assert_and_convert_integerish(n_right, lower = 0)
   if (spacing == 0 || (n_left == 0 && n_right == 0)) {
-    return(dsct_numeric(representative))
+    return(as_discretes(representative))
   }
   type <- typeof(representative + spacing)
   mode(representative) <- type

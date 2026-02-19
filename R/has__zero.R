@@ -18,7 +18,7 @@
 #' It's possible for a discrete value series to contain both `-0` and
 #' `+0`, just like the numeric vector `c(0, -0)` contains both. However, only
 #' one zero will ever get expressed when calling `next_discrete()`,
-#' `prev_discrete()`, or `as.numeric()`, similar to the behaviour of
+#' `prev_discrete()`, or `get_discretes_in()`, similar to the behaviour of
 #' `unique(c(0, -0))`. However, their presence remains latent in the encoding
 #' of the series, and will get expressed differently when the series is
 #' inverted, spawning both `Inf` and `-Inf`. See the examples.

@@ -39,7 +39,7 @@ dsct_linear.discretes <- function(x, m, b = NULL) {
     return(x)
   }
   if (num_discretes(x) == 0 || length(m) == 0 || length(bb) == 0) {
-    return(dsct_empty(typeof(m * rpr + bb)))
+    return(empty_set(typeof(m * rpr + bb)))
   }
   n_neg <- num_discretes(
     x,
@@ -56,7 +56,7 @@ dsct_linear.discretes <- function(x, m, b = NULL) {
     include_to = FALSE
   )
   symbolic_x <- c(
-    pluck_discretes(x, values = c(-Inf, Inf)),
+    get_discretes_at(x, values = c(-Inf, Inf)),
     zeroes_vector(x),
     (-1)[n_neg > 0],
     (1)[n_pos > 0]
@@ -74,7 +74,7 @@ dsct_linear.discretes <- function(x, m, b = NULL) {
     # The linear function is flat in these cases, with one or two plateaus,
     # with behaviour completely described by x = c(-Inf, -1, -0, 0, 1, Inf),
     # of which "symbolic_x" is a subset.
-    return(dsct_numeric(symbolic_y))
+    return(as_discretes(symbolic_y))
   }
   if (is.null(b)) {
     fun <- function(t) m * t

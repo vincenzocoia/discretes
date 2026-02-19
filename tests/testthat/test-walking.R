@@ -68,7 +68,10 @@ test_that("prev_discrete() - numeric with NA", {
   # Integers
   x <- c(1:5, NA)
   # --> Able to resolve
-  expect_identical(prev_discrete(x, from = -Inf), integer())
+  expect_identical(
+    prev_discrete(x, from = -Inf, include_from = TRUE),
+    integer()
+  )
   expect_identical(prev_discrete(x, from = -7, n = 0), integer())
   expect_identical(
     prev_discrete(x, from = 3, n = 3, include_from = TRUE),
@@ -108,4 +111,3 @@ test_that("prev_discrete() - numeric with NA", {
   expect_error(prev_discrete(x, from = 3, n = 2, include_from = TRUE))
   expect_error(prev_discrete(x, from = 3, n = Inf, include_from = TRUE))
 })
-

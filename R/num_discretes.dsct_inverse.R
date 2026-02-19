@@ -15,25 +15,25 @@ num_discretes.dsct_inverse <- function(x,
   if (from == to) {
     return(
       as.integer(
-        include_from && include_to && test_discrete(x, values = from, tol = tol)
+        include_from && include_to && has_discretes(x, values = from, tol = tol)
       )
     )
   }
   n <- 0L
   if (from == -Inf && include_from) {
-    n <- n + test_discrete(x, values = -Inf)
+    n <- n + has_discretes(x, values = -Inf)
     include_from <- FALSE
   }
   if (to == Inf && include_to) {
-    n <- n + test_discrete(x, values = Inf)
+    n <- n + has_discretes(x, values = Inf)
     include_to <- FALSE
   }
   if (from == 0 && include_from) {
-    n <- n + test_discrete(x, values = 0)
+    n <- n + has_discretes(x, values = 0)
     include_from <- FALSE
   }
   if (to == 0 && include_to) {
-    n <- n + test_discrete(x, values = 0)
+    n <- n + has_discretes(x, values = 0)
     include_to <- FALSE
   }
   
@@ -65,7 +65,7 @@ num_discretes.dsct_inverse <- function(x,
   }
   
   # Count the straddled 0, if present.
-  n <- n + any(test_discrete(base, values = c(-Inf, Inf)))
+  n <- n + any(has_discretes(base, values = c(-Inf, Inf)))
   
   n_neg <- num_discretes(
     base,

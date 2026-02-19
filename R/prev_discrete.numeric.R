@@ -3,7 +3,7 @@ prev_discrete.numeric <- function(x,
                                   from,
                                   ...,
                                   n = 1,
-                                  include_from = TRUE,
+                                  include_from = FALSE,
                                   tol = sqrt(.Machine$double.eps)) {
   checkmate::assert_number(from)
   ellipsis::check_dots_empty()
@@ -34,7 +34,7 @@ prev_discrete.numeric <- function(x,
         return(lower_discretes)
       }
     }
-    if (test_discrete(x, values = from, tol = tol) && include_from && n == 1) {
+    if (has_discretes(x, values = from, tol = tol) && include_from && n == 1) {
       return(lower_discretes)
     }
     stop("Cannot determine the length of the output due to NA values in 'x'.")

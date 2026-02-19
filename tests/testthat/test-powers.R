@@ -1,30 +1,30 @@
 test_that("Powers work: basic check.", {
   # Positive
-  expect_identical(as.numeric(dsct_numeric(0:5)^2), (0:5)^2)
-  expect_identical(as.numeric(sqrt(dsct_numeric(0:5))), sqrt(0:5))
-  expect_identical(as.numeric(dsct_numeric(0:5)^1), as.double(0:5))
-  expect_identical(as.numeric(dsct_numeric(-5:5)^3), (-5:5)^3)
+  expect_identical(get_discretes_in(as_discretes(0:5)^2), (0:5)^2)
+  expect_identical(get_discretes_in(sqrt(as_discretes(0:5))), sqrt(0:5))
+  expect_identical(get_discretes_in(as_discretes(0:5)^1), as.double(0:5))
+  expect_identical(get_discretes_in(as_discretes(-5:5)^3), (-5:5)^3)
   # Zero
   expect_identical(
-    as.numeric(dsct_numeric(c(-Inf, -5, 0, 5, Inf))^0),
+    get_discretes_in(as_discretes(c(-Inf, -5, 0, 5, Inf))^0),
     unique(c(-Inf, -5, 0, 5, Inf)^0)
   )
   # Negative
-  expect_identical(as.numeric(dsct_numeric(0:5)^-2), rev((0:5)^-2))
-  expect_identical(as.numeric(dsct_numeric(0:5)^-0.5), rev(1 / sqrt(0:5)))
-  expect_identical(as.numeric(dsct_numeric(0:5)^-1), rev(1 / (0:5)))
-  expect_identical(as.numeric(dsct_numeric(-5:5)^-3), sort((-5:5)^-3))
+  expect_identical(get_discretes_in(as_discretes(0:5)^-2), rev((0:5)^-2))
+  expect_identical(get_discretes_in(as_discretes(0:5)^-0.5), rev(1 / sqrt(0:5)))
+  expect_identical(get_discretes_in(as_discretes(0:5)^-1), rev(1 / (0:5)))
+  expect_identical(get_discretes_in(as_discretes(-5:5)^-3), sort((-5:5)^-3))
 })
 
 test_that("Powers via different mechanisms match.", {
   expect_same_powers <- function(x, y) {
     expect_equal(
-      next_discrete(x, from = -10, n = 10),
-      next_discrete(y, from = -10, n = 10)
+      next_discrete(x, from = -10, n = 10, include_from = TRUE),
+      next_discrete(y, from = -10, n = 10, include_from = TRUE)
     )
     expect_equal(
-      prev_discrete(x, from = 10, n = 10),
-      prev_discrete(y, from = 10, n = 10)
+      prev_discrete(x, from = 10, n = 10, include_from = TRUE),
+      prev_discrete(y, from = 10, n = 10, include_from = TRUE)
     )
   }
   
@@ -45,7 +45,7 @@ test_that("Powers via different mechanisms match.", {
   x <- discretes:::dsct_power(integers(), power = 3)
   y <- integers()^3
   expect_identical(
-    as.numeric(x, from = -3^3 - 1, to = 3^3 + 1),
+    get_discretes_in(x, from = -3^3 - 1, to = 3^3 + 1),
     (-3:3)^3
   )
   expect_same_powers(x, y)
@@ -58,7 +58,7 @@ test_that("Powers via different mechanisms match.", {
   expect_same_powers(y, z)
   
   ## Negative power other than -1
-  base <- dsct_numeric(0:10)
+  base <- as_discretes(0:10)
   w <- discretes:::dsct_power(base, power = -2)
   x <- base^(-2)
   y <- 1 / (base^2)
@@ -89,11 +89,11 @@ test_that("Powers - edge cases.", {
   ## Negative zero doesn't survive ^(-1) in R, but it does with `1/`;
   ## so it is in discretes.
   expect_identical(
-    as.numeric(dsct_numeric(c(-0, 0))^(-1)),
+    get_discretes_in(as_discretes(c(-0, 0))^(-1)),
     unique(c(-0, 0)^(-1)) # Inf
   )
   expect_identical(
-    as.numeric(1 / dsct_numeric(c(-0, 0))),
+    get_discretes_in(1 / as_discretes(c(-0, 0))),
     unique(1 / c(-0, 0)) # c(-Inf, Inf)
   )
 })

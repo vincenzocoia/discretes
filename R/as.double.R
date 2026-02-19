@@ -1,55 +1,23 @@
-#' Discrete values within an interval
+#' Convert a discrete set to a numeric vector
 #'
-#' Return all discrete points for `x` that lie between `from` and `to`.
-#' The result is a plain numeric vector so it can be consumed directly by
-#' routines that expect finite sequences.
+#' Return all discrete values in a "discretes" object, if finite.
+#' If infinite, throws an error.
 #'
 #' @inheritParams num_discretes
-#' @return A numeric vector containing all discrete values between `from` and
-#'   `to`. Returns `numeric(0)` when the interval contains no discrete support
-#'   points.
+#' @return A numeric vector containing all discrete values in `x`,
+#'   ordered from smallest to largest. Returns `numeric(0)` when the interval
+#'   contains no discrete values.
 #' @examples
-#' as.numeric(integers(), from = 6.6, to = 10.1)
-#' as.numeric(1 / integers(1, 4))
+#' as.numeric(integers(-3.5, 10))
 #' @exportS3Method base::as.double
-as.double.discretes <- function(x,
-                                ...,
-                                from = -Inf,
-                                to = Inf,
-                                include_from = TRUE,
-                                include_to = TRUE,
-                                tol = sqrt(.Machine$double.eps)) {
-  checkmate::assert_true(is_discretes(x))
+as.double.discretes <- function(x, ...) {
   ellipsis::check_dots_empty()
-  checkmate::assert_number(from)
-  checkmate::assert_number(to, lower = from)
-  checkmate::assert_logical(include_from, len = 1, any.missing = FALSE)
-  checkmate::assert_logical(include_to, len = 1, any.missing = FALSE)
-  checkmate::assert_number(tol, lower = 0)
-
-  n <- num_discretes(
-    x,
-    from = from,
-    to = to,
-    include_from = include_from,
-    include_to = include_to,
-    tol = tol
-  )
-
-  if (is.infinite(n)) {
-    stop(
-      "Infinitely many values lie in the requested interval; ",
-      "cannot return a vector."
-    )
-  }
-  
   as.numeric(
     next_discrete(
       x,
-      from = from,
-      n = n,
-      include_from = include_from,
-      tol = tol
+      from = -Inf,
+      n = Inf,
+      include_from = TRUE
     )
   )
 }

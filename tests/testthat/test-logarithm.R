@@ -1,20 +1,20 @@
 test_that("Logarithms work: basic check.", {
   x <- c(0.5, 1, 10)
-  dsct <- dsct_numeric(x)
+  dsct <- as_discretes(x)
   expect_equal(
-    as.numeric(log(dsct)),
+    get_discretes_in(log(dsct)),
     log(x)
   )
   expect_equal(
-    as.numeric(log10(dsct)),
+    get_discretes_in(log10(dsct)),
     log10(x)
   )
   expect_equal(
-    as.numeric(log2(dsct)),
+    get_discretes_in(log2(dsct)),
     log2(x)
   )
   expect_equal(
-    as.numeric(log(dsct, base = 0.5)),
+    get_discretes_in(log(dsct, base = 0.5)),
     rev(log(x, base = 0.5))
   )
 })
@@ -22,12 +22,12 @@ test_that("Logarithms work: basic check.", {
 test_that("Logarithms via different mechanisms match.", {
   expect_same_log <- function(x, y) {
     expect_equal(
-      next_discrete(x, from = -10, n = 10),
-      next_discrete(y, from = -10, n = 10)
+      next_discrete(x, from = -10, n = 10, include_from = TRUE),
+      next_discrete(y, from = -10, n = 10, include_from = TRUE)
     )
     expect_equal(
-      prev_discrete(x, from = 4, n = 10),
-      prev_discrete(y, from = 4, n = 10)
+      prev_discrete(x, from = 4, n = 10, include_from = TRUE),
+      prev_discrete(y, from = 4, n = 10, include_from = TRUE)
     )
   }
   
@@ -70,10 +70,10 @@ test_that("Logarithms - edge cases.", {
   ## Empty base returns empty. Empty set returns empty.
   expect_identical(
     log(natural1(), base = numeric(0)),
-    dsct_empty("double")
+    empty_set("double")
   )
   expect_identical(
-    log(dsct_empty()),
-    dsct_empty()
+    log(empty_set()),
+    empty_set()
   )
 })

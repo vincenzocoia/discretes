@@ -1,5 +1,5 @@
 #' @export
-test_discrete.dsct_transform <- function(x,
+has_discretes.dsct_transform <- function(x,
                                          values,
                                          ...,
                                          tol = sqrt(.Machine$double.eps)) {
@@ -18,6 +18,6 @@ test_discrete.dsct_transform <- function(x,
   idx <- !is_na & values >= rng[1] & values <= rng[2]
   vals <- values[idx]
   base_values <- x[["inv"]](vals)
-  res[idx] <- test_discrete(x[["base"]], values = base_values, tol = tol, ...)
+  res[idx] <- has_discretes(x[["base"]], values = base_values, tol = tol, ...)
   res
 }

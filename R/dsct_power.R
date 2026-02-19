@@ -19,13 +19,13 @@
 #' discretes:::dsct_power(integers(), power = 3)
 #' integers()^3
 dsct_power <- function(x, power) {
-  checkmate::assert_true(is_discretes(x))
+  checkmate::assert_true(is_discrete_set(x))
   checkmate::assert_numeric(power, any.missing = FALSE, finite = FALSE)
   if (length(power) > 1) {
     stop("Cannot exponentiate a series by a vector of length >1.")
   }
   if (num_discretes(x) == 0 || length(power) == 0) {
-    return(dsct_empty(typeof(representative(x)^power)))
+    return(empty_set(typeof(representative(x)^power)))
   }
   old_type <- typeof(representative(x))
   new_type <- typeof(representative(x)^power)
@@ -34,7 +34,7 @@ dsct_power <- function(x, power) {
     return(x)
   }
   if (power == 0) {
-    return(dsct_numeric(1))
+    return(as_discretes(1))
   }
   if (power < 0) {
     return(dsct_invert(x^abs(power)))

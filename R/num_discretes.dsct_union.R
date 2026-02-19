@@ -15,7 +15,7 @@ num_discretes.dsct_union <- function(x,
   if (from == to) {
     return(
       as.integer(
-        include_from && include_to && test_discrete(x, values = from, tol = tol)
+        include_from && include_to && has_discretes(x, values = from, tol = tol)
       )
     )
   }
@@ -48,7 +48,7 @@ num_discretes.dsct_union <- function(x,
     has_from <- vapply(
       inputs,
       function(d) {
-        test_discrete(d, values = from, tol = tol)
+        has_discretes(d, values = from, tol = tol)
       },
       FUN.VALUE = logical(1L)
     )
@@ -58,7 +58,7 @@ num_discretes.dsct_union <- function(x,
     has_to <- vapply(
       inputs,
       function(d) {
-        test_discrete(d, values = to, tol = tol)
+        has_discretes(d, values = to, tol = tol)
       },
       FUN.VALUE = logical(1L)
     )

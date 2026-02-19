@@ -33,7 +33,7 @@ next_discrete <- function(x,
                           from,
                           ...,
                           n = 1L,
-                          include_from = TRUE,
+                          include_from = FALSE,
                           tol = sqrt(.Machine$double.eps)) {
   UseMethod("next_discrete")
 }
@@ -43,7 +43,7 @@ next_discrete.discretes <- function(x,
                                     from,
                                     ...,
                                     n = 1L,
-                                    include_from = TRUE,
+                                    include_from = FALSE,
                                     tol = sqrt(.Machine$double.eps)) {
   stop("Don't know how to walk forwards on this series.")
 }

@@ -3,7 +3,7 @@ prev_discrete.dsct_arithmetic <- function(x,
                                           from,
                                           ...,
                                           n = 1,
-                                          include_from = TRUE,
+                                          include_from = FALSE,
                                           tol = sqrt(.Machine$double.eps)) {
   checkmate::assert_number(from)
   ellipsis::check_dots_empty()

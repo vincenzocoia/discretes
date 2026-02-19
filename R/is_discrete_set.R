@@ -7,10 +7,10 @@
 #' @returns `TRUE` if `x` can be understood as a "discretes" object,
 #' `FALSE` otherwise.
 #' @examples
-#' is_discretes(natural0())
-#' is_discretes(c(1, 2, 3))
-#' is_discretes("not a discretes")
+#' is_discrete_set(natural0())
+#' is_discrete_set(c(1, 2, 3))
+#' is_discrete_set("not a discretes")
 #' @export
-is_discretes <- function(x) {
+is_discrete_set <- function(x) {
   inherits(x, "discretes") || is.numeric(x)
 }

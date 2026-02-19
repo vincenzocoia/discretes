@@ -19,7 +19,7 @@
 #' natural0()
 #' 
 #' # Infinity is never contained in the series.
-#' test_discrete(integers(), Inf)
+#' has_discretes(integers(), Inf)
 #' @rdname integers
 #' @seealso [arithmetic()]
 #' @export

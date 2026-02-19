@@ -3,7 +3,7 @@ prev_discrete.dsct_union <- function(x,
                                      from,
                                      ...,
                                      n = 1L,
-                                     include_from = TRUE,
+                                     include_from = FALSE,
                                      tol = sqrt(.Machine$double.eps)) {
   checkmate::assert_number(from)
   n <- assert_and_convert_integerish(n, lower = 0)
@@ -44,7 +44,7 @@ prev_discrete.dsct_union <- function(x,
     sinks <- vapply(
       inputs,
       function(d) {
-        sink_is_between(d, from = prev_val, to = current_from, tol = tol)
+        has_sink(d, from = prev_val, to = current_from, tol = tol)
       },
       FUN.VALUE = logical(1L)
     )

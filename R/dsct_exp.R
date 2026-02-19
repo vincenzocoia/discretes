@@ -23,10 +23,10 @@
 #' 0^integers()
 #' @rdname exponentiate
 dsct_raise <- function(x, base = exp(1)) {
-  checkmate::assert_true(is_discretes(x))
+  checkmate::assert_true(is_discrete_set(x))
   checkmate::assert_numeric(base, any.missing = FALSE, finite = FALSE)
   if (!length(base) || num_discretes(x) == 0) {
-    return(dsct_empty(typeof(representative(x)^base)))
+    return(empty_set(typeof(representative(x)^base)))
   }
   if (length(base) > 1) {
     stop("Cannot exponentiate a series by a vector of length >1.")
@@ -35,10 +35,10 @@ dsct_raise <- function(x, base = exp(1)) {
     stop("Exponentiating a discrete set with a negative base is not supported.")
   }
   if (base == 1) {
-    return(dsct_numeric(1))
+    return(as_discretes(1))
   }
   if (base == 0 || base == Inf) {
-    has_zero <- test_discrete(x, values = 0)
+    has_zero <- has_discretes(x, values = 0)
     has_neg <- num_discretes(
       x,
       from = -Inf,
@@ -58,7 +58,7 @@ dsct_raise <- function(x, base = exp(1)) {
     } else {
       vals <- c(0, 1, Inf)[c(has_neg, has_zero, has_pos)]
     }
-    return(dsct_numeric(vals))
+    return(as_discretes(vals))
   }
   if (base < 1) {
     # Function is decreasing and therefore cannot be directly put into

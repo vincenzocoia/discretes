@@ -4,7 +4,7 @@ test_that("next_discrete works", {
   # to be sorted). Tests each n from 0 to the provided one,
   # except when n = Inf, in which case it just tests the provided n.
   expect_next <- function(base, from, inc, expect) {
-    dsct <- 1 / dsct_numeric(base)
+    dsct <- 1 / as_discretes(base)
     fwd <- sort(expect)
     n <- length(expect) + 1
     n_set <- append(seq_len(n), Inf)
@@ -25,13 +25,13 @@ test_that("next_discrete works", {
       include_to = TRUE
     )
     testthat::expect_equal(nd, length(expect))
-    testthat::expect_true(all(test_discrete(dsct, values = expect)))
+    testthat::expect_true(all(has_discretes(dsct, values = expect)))
     fnte <- expect[is.finite(expect)]
-    testthat::expect_true(all(!test_discrete(dsct, values = fnte + 1e-5)))
+    testthat::expect_true(all(!has_discretes(dsct, values = fnte + 1e-5)))
     invisible()
   }
   expect_prev <- function(base, from, inc, expect) {
-    dsct <- 1 / dsct_numeric(base)
+    dsct <- 1 / as_discretes(base)
     expect <- sort(expect, decreasing = TRUE)
     n <- length(expect) + 1
     n_set <- append(seq_len(n), Inf)
@@ -52,9 +52,9 @@ test_that("next_discrete works", {
       include_to = inc
     )
     testthat::expect_equal(nd, length(expect))
-    testthat::expect_true(all(test_discrete(dsct, values = expect)))
+    testthat::expect_true(all(has_discretes(dsct, values = expect)))
     fnte <- expect[is.finite(expect)]
-    testthat::expect_true(!any(test_discrete(dsct, values = fnte + 1e-5)))
+    testthat::expect_true(!any(has_discretes(dsct, values = fnte + 1e-5)))
     invisible()
   }
   
@@ -63,8 +63,8 @@ test_that("next_discrete works", {
   
   # Start with the whole gamut
   x <- c(-Inf, neg, -0, 0, pos, Inf)
-  expect_true(has_positive_zero(1 / dsct_numeric(x)))
-  expect_true(has_negative_zero(1 / dsct_numeric(x)))
+  expect_true(has_positive_zero(1 / as_discretes(x)))
+  expect_true(has_negative_zero(1 / as_discretes(x)))
   expect_next(
     x,
     from = -Inf,
@@ -100,8 +100,8 @@ test_that("next_discrete works", {
   # Remove -Inf from base -- same answers because of the presence of +Inf,
   # but loses -0
   x <- c(neg, -0, 0, pos, Inf)
-  expect_true(has_positive_zero(1 / dsct_numeric(x)))
-  expect_false(has_negative_zero(1 / dsct_numeric(x)))
+  expect_true(has_positive_zero(1 / as_discretes(x)))
+  expect_false(has_negative_zero(1 / as_discretes(x)))
   expect_next(
     x,
     from = -Inf,
@@ -137,8 +137,8 @@ test_that("next_discrete works", {
   # Remove Inf from base -- same answers because of the presence of -Inf,
   # but loses +0
   x <- c(-Inf, neg, -0, 0, pos)
-  expect_false(has_positive_zero(1 / dsct_numeric(x)))
-  expect_true(has_negative_zero(1 / dsct_numeric(x)))
+  expect_false(has_positive_zero(1 / as_discretes(x)))
+  expect_true(has_negative_zero(1 / as_discretes(x)))
   expect_next(
     x,
     from = -Inf,
@@ -173,8 +173,8 @@ test_that("next_discrete works", {
   
   # Remove both infinities from the base -- 0 goes away in the result.
   x <- c(neg, -0, 0, pos)
-  expect_false(has_positive_zero(1 / dsct_numeric(x)))
-  expect_false(has_negative_zero(1 / dsct_numeric(x)))
+  expect_false(has_positive_zero(1 / as_discretes(x)))
+  expect_false(has_negative_zero(1 / as_discretes(x)))
   expect_next(
     x,
     from = -Inf,
@@ -319,7 +319,7 @@ test_that("next_discrete works", {
   expect_next(x, from = 10, inc = TRUE, expect = numeric())
   expect_next(x, from = Inf, inc = TRUE, expect = numeric())
   
-  # The above have been tested on dsct_numeric(); try on something else.
+  # The above have been tested on as_discretes(); try on something else.
   x <- 1 / integers()
   expect_equal(next_discrete(x, from = 2), Inf)
   expect_equal(prev_discrete(x, from = -2), numeric())

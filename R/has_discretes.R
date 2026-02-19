@@ -11,12 +11,12 @@
 #' @note This function does not distinguish between `+0` and `-0`. For that,
 #'   use `has_negative_zero()` or `has_positive_zero()`.
 #' @examples
-#' test_discrete(natural0(), c(-1, 0, 1, 12.5, NA))
-#' test_discrete(1 / natural1(), 0)
+#' has_discretes(natural0(), c(-1, 0, 1, 12.5, NA))
+#' has_discretes(1 / natural1(), 0)
 #' @export
-test_discrete <- function(x,
+has_discretes <- function(x,
                           values,
                           ...,
                           tol = sqrt(.Machine$double.eps)) {
-  UseMethod("test_discrete")
+  UseMethod("has_discretes")
 }

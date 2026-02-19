@@ -40,7 +40,7 @@ arithmetic(representative = 0.6, spacing = 0.7, n_right = 0)
 arithmetic(representative = 0, spacing = 2, n_left = 2, n_right = 2)
 
 # Negative zero, resulting in `-Inf` upon inversion:
-1 / as.numeric(arithmetic(-0, 1, n_left = 0, n_right = 0))
+1 / get_discretes_in(arithmetic(-0, 1, n_left = 0, n_right = 0))
 }
 \seealso{
 \code{\link[=integers]{integers()}}

@@ -3,7 +3,7 @@ next_discrete.dsct_inverse <- function(x,
                                        from,
                                        ...,
                                        n = 1L,
-                                       include_from = TRUE,
+                                       include_from = FALSE,
                                        tol = sqrt(.Machine$double.eps)) {
   checkmate::assert_number(from)
   ellipsis::check_dots_empty()
@@ -22,7 +22,7 @@ next_discrete.dsct_inverse <- function(x,
   # 4. Positive values
   # 5. Inf
   if (from == -Inf && include_from) {
-    to_add <- -Inf[test_discrete(x, values = -Inf)]
+    to_add <- -Inf[has_discretes(x, values = -Inf)]
     collected <- append(collected, to_add)
     include_from <- FALSE
     n <- n - length(to_add)
@@ -44,7 +44,7 @@ next_discrete.dsct_inverse <- function(x,
     include_from <- TRUE
   }
   if (n > 0 && from == 0 && include_from) {
-    base_infs <- test_discrete(base, values = c(-Inf, Inf))
+    base_infs <- has_discretes(base, values = c(-Inf, Inf))
     if (base_infs[1] && !base_infs[2]) {
       collected <- append(collected, -0)
       n <- n - 1
@@ -78,7 +78,7 @@ next_discrete.dsct_inverse <- function(x,
     include_from <- TRUE
   }
   if (n > 0 && from == Inf && include_from) {
-    collected <- append(collected, Inf[test_discrete(x, values = Inf)])
+    collected <- append(collected, Inf[has_discretes(x, values = Inf)])
   }
   collected
 }

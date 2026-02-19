@@ -72,12 +72,12 @@ test_that("Identity transform works", {
   x <- integers()
   y <- dsct_transform(x, fun = identity, inv = identity)
   expect_equal(
-    next_discrete(y, from = 0, n = 10),
-    next_discrete(x, from = 0, n = 10)
+    next_discrete(y, from = 0, n = 10, include_from = TRUE),
+    next_discrete(x, from = 0, n = 10, include_from = TRUE)
   )
   expect_equal(
-    prev_discrete(y, from = 0, n = 10),
-    prev_discrete(x, from = 0, n = 10)
+    prev_discrete(y, from = 0, n = 10, include_from = FALSE),
+    prev_discrete(x, from = 0, n = 10, include_from = FALSE)
   )
   expect_equal(
     num_discretes(y, from = -10, to = 10),
@@ -85,17 +85,17 @@ test_that("Identity transform works", {
   )
   expect_equal(representative(x), representative(y))
   expect_equal(
-    test_discrete(x, values = c(3, 4.5, -10, 100)),
-    test_discrete(y, values = c(3, 4.5, -10, 100))
+    has_discretes(x, values = c(3, 4.5, -10, 100)),
+    has_discretes(y, values = c(3, 4.5, -10, 100))
   )
 })
 
 
 test_that("Empty sets remain empty", {
-  x <- dsct_empty()
+  x <- empty_set()
   y <- dsct_transform(x, exp, log, range = c(0, Inf))
   expect_identical(x, y)
-  x <- dsct_empty("integer")
+  x <- empty_set("integer")
   y <- dsct_transform(x, exp, log, range = c(0, Inf))
   expect_identical(typeof(representative(y)), "double")
 })
@@ -125,13 +125,13 @@ test_that("dsct_transform() works with custom domain and range.", {
   # Transforming from a finite domain to finite range.
   x <- seq(0, pi, length.out = 10)
   y <- dsct_transform(
-    dsct_numeric(x),
+    as_discretes(x),
     fun = function(t) -cos(t),
     inv = function(t) acos(-t),
     domain = c(0, pi),
     range = c(-1, 1)
   )
-  expect_true(test_discrete(y, values = representative(y)))
+  expect_true(has_discretes(y, values = representative(y)))
   expect_equal(num_discretes(y), 10)
   expect_equal(num_discretes(y, to = -1.1), 0)
   expect_equal(num_discretes(y, from = 1.1), 0)
@@ -150,7 +150,7 @@ test_that("dsct_transform() works with custom domain and range.", {
   expect_equal(num_discretes(y, to = 0), 5)
   expect_equal(num_discretes(y, from = 0), 5)
   expect_equal(
-    test_discrete(y, values = c(-cos(c(0, pi)), 0)),
+    has_discretes(y, values = c(-cos(c(0, pi)), 0)),
     c(TRUE, TRUE, FALSE)
   )
   # Mode is preserved

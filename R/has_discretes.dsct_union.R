@@ -1,5 +1,5 @@
 #' @export
-test_discrete.dsct_union <- function(x,
+has_discretes.dsct_union <- function(x,
                                      values,
                                      ...,
                                      tol = sqrt(.Machine$double.eps)) {
@@ -11,7 +11,7 @@ test_discrete.dsct_union <- function(x,
     return(logical())
   }
   tests <- lapply(inputs, function(d) {
-    test_discrete(d, values = values, tol = tol)
+    has_discretes(d, values = values, tol = tol)
   })
   Reduce(`|`, tests)  # Proper handling of NA is automatic.
 }

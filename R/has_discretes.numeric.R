@@ -14,10 +14,10 @@
 #'
 #' This is unlike Base R, which treats `NA` as a distinct element of a set.
 #' As a result, `NA %in% NA` evaluates to `TRUE`, whereas
-#' `test_discretes(NA, NA)` evaluates to `NA`.
+#' `has_discretess(NA, NA)` evaluates to `NA`.
 #' @noRd
 #' @export
-test_discrete.numeric <- function(x,
+has_discretes.numeric <- function(x,
                                   values,
                                   ...,
                                   tol = sqrt(.Machine$double.eps)) {

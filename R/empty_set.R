@@ -6,9 +6,9 @@
 #'   discrete set; either "double" (the default) or "integer".
 #' @returns An empty discrete set of the specified mode.
 #' @examples
-#' dsct_empty()
+#' empty_set()
 #' @export
-dsct_empty <- function(mode = c("double", "integer")) {
+empty_set <- function(mode = c("double", "integer")) {
   mode <- rlang::arg_match(mode)
-  dsct_numeric(vector(length = 0L, mode = mode))
+  as_discretes(vector(length = 0L, mode = mode))
 }

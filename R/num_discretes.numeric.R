@@ -15,7 +15,7 @@ num_discretes.numeric <- function(x,
   if (from == to) {
     return(
       as.integer(
-        include_from && include_to && test_discrete(x, values = from, tol = tol)
+        include_from && include_to && has_discretes(x, values = from, tol = tol)
       )
     )
   }

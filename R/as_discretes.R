@@ -15,7 +15,7 @@
 #' This function also ensures that manipulations remain pure: manipulating
 #'   a discrete set returns a new discrete set.
 #' @noRd
-dsct_numeric <- function(x) {
+as_discretes <- function(x) {
   checkmate::assert_numeric(x, any.missing = FALSE, finite = FALSE)
   new_discretes(
     data = list(values = x),
@@ -48,7 +48,7 @@ next_discrete.dsct_numeric <- function(x,
                                        from,
                                        ...,
                                        n = 1L,
-                                       include_from = TRUE,
+                                       include_from = FALSE,
                                        tol = sqrt(.Machine$double.eps)) {
   next_discrete(
     x = x$values,
@@ -65,7 +65,7 @@ prev_discrete.dsct_numeric <- function(x,
                                        from,
                                        ...,
                                        n = 1L,
-                                       include_from = TRUE,
+                                       include_from = FALSE,
                                        tol = sqrt(.Machine$double.eps)) {
   prev_discrete(
     x = x$values,
@@ -78,11 +78,11 @@ prev_discrete.dsct_numeric <- function(x,
 }
 
 #' @export
-test_discrete.dsct_numeric <- function(x,
+has_discretes.dsct_numeric <- function(x,
                                        values,
                                        ...,
                                        tol = sqrt(.Machine$double.eps)) {
-  test_discrete(x$values, values = values, ..., tol = tol)
+  has_discretes(x$values, values = values, ..., tol = tol)
 }
 
 #' @export

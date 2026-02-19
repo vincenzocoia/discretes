@@ -1,5 +1,5 @@
 #' @export
-test_discrete.dsct_keep <- function(
+has_discretes.dsct_keep <- function(
   x,
   values,
   ...,
@@ -19,7 +19,7 @@ test_discrete.dsct_keep <- function(
   bad_l <- !include_left & abs(values - l) <= tol
   bad_r <- !include_right & abs(values - r) <= tol
   layer1 <- !outside & !bad_l & !bad_r
-  layer2 <- test_discrete(
+  layer2 <- has_discretes(
     x$base,
     values = values,
     tol = tol

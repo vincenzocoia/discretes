@@ -16,7 +16,7 @@ print.discretes <- function(x, len = 6, ...) {
 
   # Finite Series
   if (is.finite(n)) {
-    v <- as.numeric(x)
+    v <- get_discretes_in(x)
     v_len <- length(v)
     excess <- v_len - len
     if (excess > 0) {
@@ -38,8 +38,10 @@ print.discretes <- function(x, len = 6, ...) {
   }
 
   # Which sides are closed?
-  series_first <- next_discrete(x, from = -Inf, n = len)
-  series_last <- sort(prev_discrete(x, from = Inf, n = len))
+  series_first <- next_discrete(x, from = -Inf, n = len, include_from = TRUE)
+  series_last <- sort(
+    prev_discrete(x, from = Inf, n = len, include_from = TRUE)
+  )
   closed_left <- as.logical(length(series_first))
   closed_right <- as.logical(length(series_last))
 
@@ -58,8 +60,8 @@ print.discretes <- function(x, len = 6, ...) {
 
   # Closed on neither side
   representative <- representative(x)
-  left <- prev_discrete(x, from = representative, n = len)
-  right <- next_discrete(x, from = representative, n = len)
+  left <- prev_discrete(x, from = representative, n = len, include_from = TRUE)
+  right <- next_discrete(x, from = representative, n = len, include_from = TRUE)
   v <- sort(unique(append(left, right)))
   v_len <- length(v)
   excess <- v_len - len
