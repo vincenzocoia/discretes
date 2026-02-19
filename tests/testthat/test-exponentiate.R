@@ -17,6 +17,8 @@ test_that("Exponentiation via different mechanisms match.", {
   expect_same_exp <- function(x, y) {
     expect_identical(num_discretes(x, to = 0), 0L)
     expect_identical(num_discretes(y, to = 0), 0L)
+    expect_identical(num_discretes(x, to = -1), 0L)
+    expect_identical(num_discretes(y, to = -1), 0L)
     expect_equal(
       next_discrete(x, from = 0.1, n = 10),
       next_discrete(y, from = 0.1, n = 10)
@@ -36,6 +38,11 @@ test_that("Exponentiation via different mechanisms match.", {
   # Base 2
   x <- discretes:::dsct_raise(integers(), base = 2)
   y <- 2^integers()
+  expect_same_exp(x, y)
+  
+  # Base 0.5
+  x <- discretes:::dsct_raise(integers(), base = 0.5)
+  y <- 0.5^integers()
   expect_same_exp(x, y)
   
   # This also works. Notice how the sets reduce.

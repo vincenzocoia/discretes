@@ -54,7 +54,7 @@ next_discrete.dsct_inverse <- function(x,
     }
     include_from <- FALSE
   }
-  if (n > 0 && from >= 0) {
+  if (n > 0 && from >= 0 && from < Inf) {
     upper_bound <- 1 / abs(from)  # abs() in case from = -0.
     n_available <- num_discretes( # Don't want to go left of 0 on the base.
       base,

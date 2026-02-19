@@ -34,8 +34,12 @@ dsct_linear.discretes <- function(x, m, b = NULL) {
   } else {
     bb <- 0L # To use when signed zero doesn't matter.
   }
+  rpr <- representative(x)
+  if (m == 1 && is.null(b) && typeof(rpr) == typeof(m * rpr)) {
+    return(x)
+  }
   if (num_discretes(x) == 0 || length(m) == 0 || length(bb) == 0) {
-    return(dsct_empty(typeof(m * representative(x) + bb)))
+    return(dsct_empty(typeof(m * rpr + bb)))
   }
   n_neg <- num_discretes(
     x,

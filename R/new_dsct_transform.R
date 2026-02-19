@@ -7,7 +7,7 @@
 #' @noRd
 new_dsct_transform <- function(data,
                                ...,
-                               sinks = NULL,
+                               sinks = sinks_matrix(),
                                name = NULL,
                                subclass = character()) {
   new_discretes(

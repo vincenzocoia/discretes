@@ -133,6 +133,8 @@ test_that("dsct_transform() works with custom domain and range.", {
   )
   expect_true(test_discrete(y, values = representative(y)))
   expect_equal(num_discretes(y), 10)
+  expect_equal(num_discretes(y, to = -1.1), 0)
+  expect_equal(num_discretes(y, from = 1.1), 0)
   expect_equal(
     prev_discrete(y, from = Inf, n = 4, include_from = FALSE),
     prev_discrete(y, from = pi, n = 4, include_from = TRUE)
@@ -146,6 +148,7 @@ test_that("dsct_transform() works with custom domain and range.", {
     -1
   )
   expect_equal(num_discretes(y, to = 0), 5)
+  expect_equal(num_discretes(y, from = 0), 5)
   expect_equal(
     test_discrete(y, values = c(-cos(c(0, pi)), 0)),
     c(TRUE, TRUE, FALSE)

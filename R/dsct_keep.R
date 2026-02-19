@@ -46,7 +46,6 @@ dsct_keep <- function(x,
   }
   base_sinks <- sinks(x)
   location <- base_sinks[, "location"]
-  direction <- base_sinks[, "direction"]
   sinks <- base_sinks[from <= location & to >= location, , drop = FALSE]
   new_discretes(
     data = list(

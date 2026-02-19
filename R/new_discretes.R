@@ -11,12 +11,9 @@
 #' @noRd
 new_discretes <- function(data,
                           ...,
-                          sinks = NULL,
+                          sinks = sinks_matrix(),
                           name = NULL,
                           subclass = character()) {
-  if (is.null(sinks)) {
-    sinks <- empty_sinks()
-  }
   structure(
     data,
     ...,

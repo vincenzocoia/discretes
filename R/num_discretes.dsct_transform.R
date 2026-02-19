@@ -14,6 +14,9 @@ num_discretes.dsct_transform <- function(x,
   inv <- x[["inv"]]
   dom <- x[["domain"]]
   rng <- x[["range"]]
+  if (to < rng[1] || from > rng[2]) {
+    return(0L)
+  }
   if (from < rng[1]) {
     base_from <- dom[1]
     include_from <- TRUE
