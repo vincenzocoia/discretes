@@ -1,0 +1,99 @@
+test_that("Powers work: basic check.", {
+  # Positive
+  expect_identical(as.numeric(dsct_numeric(0:5)^2), (0:5)^2)
+  expect_identical(as.numeric(sqrt(dsct_numeric(0:5))), sqrt(0:5))
+  expect_identical(as.numeric(dsct_numeric(0:5)^1), as.double(0:5))
+  expect_identical(as.numeric(dsct_numeric(-5:5)^3), (-5:5)^3)
+  # Zero
+  expect_identical(
+    as.numeric(dsct_numeric(c(-Inf, -5, 0, 5, Inf))^0),
+    unique(c(-Inf, -5, 0, 5, Inf)^0)
+  )
+  # Negative
+  expect_identical(as.numeric(dsct_numeric(0:5)^-2), rev((0:5)^-2))
+  expect_identical(as.numeric(dsct_numeric(0:5)^-0.5), rev(1 / sqrt(0:5)))
+  expect_identical(as.numeric(dsct_numeric(0:5)^-1), rev(1 / (0:5)))
+  expect_identical(as.numeric(dsct_numeric(-5:5)^-3), sort((-5:5)^-3))
+})
+
+test_that("Powers via different mechanisms match.", {
+  expect_same_powers <- function(x, y) {
+    expect_equal(
+      next_discrete(x, from = -10, n = 10),
+      next_discrete(y, from = -10, n = 10)
+    )
+    expect_equal(
+      prev_discrete(x, from = 10, n = 10),
+      prev_discrete(y, from = 10, n = 10)
+    )
+  }
+  
+  ## Square
+  x <- discretes:::dsct_power(natural0(), power = 2)
+  y <- natural0()^2
+  expect_identical(next_discrete(x, from = -Inf, n = 5), (0:4)^2)
+  expect_same_powers(x, y)
+  
+  ## Square root
+  x <- discretes:::dsct_power(natural0(), power = 0.5)
+  y <- natural0()^0.5
+  z <- sqrt(natural0())
+  expect_same_powers(x, y)
+  expect_same_powers(y, z)
+  
+  ## Cube
+  x <- discretes:::dsct_power(integers(), power = 3)
+  y <- integers()^3
+  expect_identical(
+    as.numeric(x, from = -3^3 - 1, to = 3^3 + 1),
+    (-3:3)^3
+  )
+  expect_same_powers(x, y)
+  
+  ## Inversion via -1 power
+  x <- discretes:::dsct_power(natural0(), power = -1)
+  y <- natural0()^(-1)
+  z <- 1 / natural0()
+  expect_same_powers(x, y)
+  expect_same_powers(y, z)
+  
+  ## Negative power other than -1
+  base <- dsct_numeric(0:10)
+  w <- discretes:::dsct_power(base, power = -2)
+  x <- base^(-2)
+  y <- 1 / (base^2)
+  z <- (1 / base)^2
+  expect_same_powers(w, x)
+  expect_same_powers(x, y)
+  expect_same_powers(y, z)
+  
+  ## Negative fraction
+  x <- discretes:::dsct_power(natural0(), power = -0.5)
+  y <- natural0()^-0.5
+  z <- 1 / sqrt(natural0())
+  expect_same_powers(x, y)
+  expect_same_powers(y, z)
+})
+
+test_that("Powers - edge cases.", {
+  ## Non-odd powers error out if there are negative values in the set.
+  expect_no_error(integers()^5)
+  expect_no_error(integers()^(-5))
+  expect_error(integers()^2)
+  expect_error(integers()^(-2))
+  expect_error(integers()^2.5)
+  expect_error(integers()^(-2.5))
+  expect_error(integers()^0.5)
+  expect_error(integers()^(-0.5))
+  
+  ## Negative zero doesn't survive ^(-1) in R, but it does with `1/`;
+  ## so it is in discretes.
+  expect_identical(
+    as.numeric(dsct_numeric(c(-0, 0))^(-1)),
+    unique(c(-0, 0)^(-1)) # Inf
+  )
+  expect_identical(
+    as.numeric(1 / dsct_numeric(c(-0, 0))),
+    unique(1 / c(-0, 0)) # c(-Inf, Inf)
+  )
+})

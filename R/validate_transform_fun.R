@@ -3,13 +3,13 @@
 # `fun` invisibly. See `dsct_transform()` for the inputs.
 validate_transform_fun <- function(fun, inv, domain, range) {
   if (all(is.infinite(domain))) {
-    domain <- c(-2, 2)
+    domain <- c(-1, 1)
   }
   if (domain[1] == -Inf) {
-    domain[1] <- domain[2] - 5
+    domain[1] <- domain[2] - 1
   }
   if (domain[2] == Inf) {
-    domain[2] <- domain[1] + 5
+    domain[2] <- domain[1] + 1
   }
   middle <- try(fun(mean(domain)), silent = TRUE)
   if (inherits(middle, "try-error")) {

@@ -1,16 +1,31 @@
-dsct_exp <- function(x) {
-  dsct_transform(
-    x,
-    fun = exp,
-    inv = log,
-    range = c(0, Inf)
-  )
-}
-
+#' Exponentiation of a discrete set
+#' 
+#' Exponentiate a discrete set `x` with a given base; that is, `base^x`.
+#' `dsct_exp()` is a special case of `dsct_raise()` where the base is `exp(1)`.
+#' Internal; use `exp()` or `^` operators instead.
+#' 
+#' @inheritParams next_discrete
+#' @param base The base to use for exponentiation; numeric of length 0 or 1,
+#'   with negative values not allowed (an error is thrown otherwise).
+#' @returns A discretes object where each member is the result of 
+#'   exponentiating a member of `x` by `base` (that is, `base^x`).
+#' @examples
+#' # These are the same
+#' discretes:::dsct_exp(integers())
+#' discretes:::dsct_raise(integers(), base = exp(1))
+#' exp(integers())
+#' 
+#' # These are also the same
+#' discretes:::dsct_raise(integers(), base = 2)
+#' 2^integers()
+#' 
+#' # This also works. Notice how the set reduces.
+#' 0^integers()
+#' @rdname exponentiate
 dsct_raise <- function(x, base = exp(1)) {
   checkmate::assert_true(is_discretes(x))
   checkmate::assert_numeric(base, any.missing = FALSE, finite = FALSE)
-  if (!length(base)) {
+  if (!length(base) || num_discretes(x) == 0) {
     return(dsct_empty(typeof(representative(x)^base)))
   }
   if (length(base) > 1) {
@@ -45,10 +60,31 @@ dsct_raise <- function(x, base = exp(1)) {
     }
     return(dsct_numeric(vals))
   }
+  if (base < 1) {
+    # Function is decreasing and therefore cannot be directly put into
+    # dsct_transform().
+    res <- dsct_transform(
+      x,
+      fun = function(t) (1 / base)^t,
+      inv = function(t) log(t, base = 1 / base),
+      range = c(0, Inf)
+    )
+    return(1 / res)
+  }
   dsct_transform(
     x,
-    fun = function(x) base^x,
-    inv = function(x) log(x, base = base),
+    fun = function(t) base^t,
+    inv = function(t) log(t, base = base),
+    range = c(0, Inf)
+  )
+}
+
+#' @rdname exponentiate
+dsct_exp <- function(x) {
+  dsct_transform(
+    x,
+    fun = exp,
+    inv = log,
     range = c(0, Inf)
   )
 }

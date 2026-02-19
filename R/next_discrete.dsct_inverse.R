@@ -22,9 +22,10 @@ next_discrete.dsct_inverse <- function(x,
   # 4. Positive values
   # 5. Inf
   if (from == -Inf && include_from) {
-    collected <- append(collected, -Inf[test_discrete(x, values = -Inf)])
+    to_add <- -Inf[test_discrete(x, values = -Inf)]
+    collected <- append(collected, to_add)
     include_from <- FALSE
-    n <- n - 1
+    n <- n - length(to_add)
   }
   if (n > 0 && from < 0) {
     newx <- prev_discrete(
@@ -34,7 +35,7 @@ next_discrete.dsct_inverse <- function(x,
       include_from = include_from,
       tol = tol
     )
-    # Remove -Inf if present; will be treated separately next.
+    # Remove -Inf if present in the base; this maps to 0 and is treated next.
     newx <- newx[is.finite(newx)]
     collected <- append(collected, 1 / newx)
     # Update configuration

@@ -1,27 +1,46 @@
-# Discrete^power
-dsct_power <- function(dsct, power) {
-  checkmate::assert_true(is_discretes(dsct))
+#' Raise a discrete set to a power.
+#'
+#' Apply a power transformation to a discrete set `x` for a given `power`;
+#' that is, `x^power`.
+#' Internal; use `^` operator instead.
+#' 
+#' @inheritParams next_discrete
+#' @param power The power to raise the series to; numeric of length 0 or 1.
+#'   If `x` contains negative values, then only odd values are allowed;
+#'   an error is thrown otherwise.
+#' @returns A discretes object where the members are the result of applying the
+#'  power transformation `^` to `x` with the specified `power`.
+#' @examples
+#' ## These are the same
+#' discretes:::dsct_power(natural0(), power = 2)
+#' natural0()^2
+#' 
+#' ## These are also the same
+#' discretes:::dsct_power(integers(), power = 3)
+#' integers()^3
+dsct_power <- function(x, power) {
+  checkmate::assert_true(is_discretes(x))
   checkmate::assert_numeric(power, any.missing = FALSE, finite = FALSE)
   if (length(power) > 1) {
     stop("Cannot exponentiate a series by a vector of length >1.")
   }
-  if (num_discretes(dsct) == 0 || length(power) == 0) {
-    return(dsct_empty(typeof(representative(dsct)^power)))
+  if (num_discretes(x) == 0 || length(power) == 0) {
+    return(dsct_empty(typeof(representative(x)^power)))
   }
-  old_type <- typeof(representative(dsct))
-  new_type <- typeof(representative(dsct)^power)
-  if (power == 1 && old_type == new_type && !has_negative_zero(dsct)) {
+  old_type <- typeof(representative(x))
+  new_type <- typeof(representative(x)^power)
+  if (power == 1 && old_type == new_type && !has_negative_zero(x)) {
     # Note: (-0)^1 = +0, which is why we need the negative zero check here.
-    return(dsct)
+    return(x)
   }
   if (power == 0) {
     return(dsct_numeric(1))
   }
   if (power < 0) {
-    return(dsct_invert(dsct)^abs(power))
+    return(dsct_invert(x^abs(power)))
   }
   nneg <- num_discretes(
-    dsct,
+    x,
     from = -Inf,
     to = 0,
     include_from = TRUE,
@@ -30,9 +49,9 @@ dsct_power <- function(dsct, power) {
   if (nneg == 0) {
     return(
       dsct_transform(
-        dsct,
-        fun = function(x) x^power,
-        inv = function(x) x^(1 / power),
+        x,
+        fun = function(t) t^power,
+        inv = function(t) t^(1 / power),
         domain = c(0, Inf),
         range = c(0, Inf)
       )
@@ -45,10 +64,10 @@ dsct_power <- function(dsct, power) {
     )
   }
   dsct_transform(
-    dsct,
-    fun = function(x) x^power,
-    inv = function(x) {
-      sign(x) * abs(x)^(1 / power)
+    x,
+    fun = function(t) t^power,
+    inv = function(t) {
+      sign(t) * abs(t)^(1 / power)
     }
   )
 }

@@ -2,7 +2,7 @@
 #' @export
 Math.discretes <- function(x, ...) {
   op <- .Generic # nolint
-  allowed <- c("exp", "log", "log10", "log2")
+  allowed <- c("exp", "log", "log10", "log2", "sqrt")
   if (!(op %in% allowed)) {
     stop(
       sprintf("Math function '%s' is not supported for discretes objects.", op)
@@ -12,6 +12,11 @@ Math.discretes <- function(x, ...) {
   if (op == "exp") {
     ellipsis::check_dots_empty()
     return(dsct_exp(x))
+  }
+  
+  if (op == "sqrt") {
+    ellipsis::check_dots_empty()
+    return(dsct_power(x, power = 0.5))
   }
 
   # log variants

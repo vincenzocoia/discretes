@@ -20,7 +20,7 @@ prev_discrete.dsct_transform <- function(x,
   } else if (from < rng[1]) {
     return(vector(mode = typeof(representative(x)), length = 0L))
   } else {
-    base_from <- suppressWarnings(x[["inv"]](from))
+    base_from <- x[["inv"]](from)
   }
   base_prev <- prev_discrete(
     x[["base"]],

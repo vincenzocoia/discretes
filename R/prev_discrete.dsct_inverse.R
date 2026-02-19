@@ -10,55 +10,75 @@ prev_discrete.dsct_inverse <- function(x,
   n <- assert_and_convert_integerish(n, lower = 0)
   checkmate::assert_logical(include_from, len = 1, any.missing = FALSE)
   checkmate::assert_number(tol, lower = 0)
-  if (n == 0) {
-    return(numeric(0))
-  }
   base <- x$base
-  if (from <= 0) { # Grab discretes only on [1 / from, 0) going right.
-    lower_bound <- -1 / abs(from)  # use "-" and abs() in case from = 0.
-    n_available <- num_discretes(
-      base,
-      from = lower_bound,
-      to = 0,
-      include_from = include_from,
-      include_to = FALSE,
-      tol = tol
-    )
-    n <- min(n, n_available)
-    collected <- next_discrete(
-      base,
-      from = lower_bound,
-      n = n,
-      include_from = include_from,
-      tol = tol
-    )
-  } else { # Grab discretes going rght, first on [1 / from, Inf), then (-Inf, 0)
-    collected <- next_discrete(
+  collected <- vector(length = 0, mode = typeof(representative(x)))
+  if (n == 0) {
+    return(collected)
+  }
+  # The strategy is to move from right to left in segments:
+  # 1. Inf
+  # 2. Positive values
+  # 3. 0
+  # 4. Negative values
+  # 5. -Inf
+  if (from == Inf && include_from) {
+    to_add <- Inf[test_discrete(x, values = Inf)]
+    collected <- append(collected, to_add)
+    include_from <- FALSE
+    n <- n - length(to_add)
+  }
+  if (n > 0 && from > 0) {
+    newx <- next_discrete(
       base,
       from = 1 / from,
       n = n,
       include_from = include_from,
       tol = tol
     )
-    n_remaining <- n - length(collected)
-    n_available <- num_discretes(
+    # Remove Inf if present in the base; this maps to 0 and is treated next.
+    newx <- newx[is.finite(newx)]
+    collected <- append(collected, 1 / newx)
+    # Update configuration
+    n <- max(0, n - length(newx))
+    from <- 0
+    include_from <- TRUE
+  }
+  if (n > 0 && from == 0 && include_from) {
+    base_infs <- test_discrete(base, values = c(-Inf, Inf))
+    if (base_infs[1] && !base_infs[2]) {
+      collected <- append(collected, -0)
+      n <- n - 1
+    } else if (any(base_infs)) {
+      collected <- append(collected, 0)
+      n <- n - 1
+    }
+    include_from <- FALSE
+  }
+  if (n > 0 && from <= 0) {
+    lower_bound <- 1 / abs(from)  # abs() in case from = -0.
+    n_available <- num_discretes( # Don't want to go right of 0 on the base.
       base,
-      from = -Inf,
+      from = lower_bound,
       to = 0,
-      include_from = FALSE,
+      include_from = include_from,
       include_to = FALSE,
       tol = tol
     )
-    n_remaining <- min(n_available, n_remaining)
-    extra <- next_discrete(
+    n_neg <- min(n, n_available)
+    newx <- next_discrete(
       base,
-      from = -Inf,
-      n = n_remaining,
-      include_from = FALSE,
+      from = lower_bound,
+      n = n_neg,
+      include_from = include_from,
       tol = tol
     )
-    collected <- append(collected, extra)
+    collected <- append(collected, 1 / newx)
+    n <- n - length(newx)
+    from <- -Inf
+    include_from <- TRUE
   }
-  reciprocals <- 1 / collected
-  sort(reciprocals, decreasing = TRUE)
+  if (n > 0 && from == -Inf && include_from) {
+    collected <- append(collected, -Inf[test_discrete(x, values = -Inf)])
+  }
+  collected
 }
