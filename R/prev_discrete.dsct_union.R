@@ -17,13 +17,11 @@ prev_discrete.dsct_union <- function(x,
     froms <- lapply(
       inputs,
       function(d) {
-        next_discrete(d, from = from, n = 1L, include_from = TRUE)
+        get_discretes_at(d, from, tol = tol)
       }
     )
     froms <- unlist(froms)
-    froms <- froms[abs(froms - from) <= tol]
     result <- utils::head(froms, n = 1)
-    mode(result) <- type
   }
   current_from <- from
   while (length(result) < n) {

@@ -10,7 +10,7 @@ prev_discrete.numeric <- function(x,
   n <- assert_and_convert_integerish(n, lower = 0)
   checkmate::assert_logical(include_from, len = 1, any.missing = FALSE)
   checkmate::assert_number(tol, lower = 0)
-  if (from == -Inf || n == 0) {
+  if (n == 0) {
     return(vector(mode = typeof(x), length = 0))
   }
   has_na <- any(is.na(x))

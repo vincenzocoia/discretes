@@ -10,7 +10,7 @@ prev_discrete.dsct_negation <- function(x,
   checkmate::assert_logical(include_from, len = 1, any.missing = FALSE)
   checkmate::assert_number(tol, lower = 0)
   -next_discrete(
-    x$base,
+    x[["base"]],
     from = -from,
     n = n,
     include_from = include_from,
