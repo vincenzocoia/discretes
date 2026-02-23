@@ -56,3 +56,9 @@ value (whichever is closer to the infinite sink) is used. This can be
 manually adjusted by changing the \code{from} and \code{to} parameters.
 }
 }
+\examples{
+plot(integers())
+plot(integers(), from = -50, to = 50)
+plot(0.5^natural1(), closeness = 1e-5)
+plot(dsct_union(1 / integers(), 0), closeness = 0.05)
+}
