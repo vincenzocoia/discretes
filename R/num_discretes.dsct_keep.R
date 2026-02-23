@@ -14,7 +14,7 @@ num_discretes.dsct_keep <- function(x,
   checkmate::assert_number(tol, lower = 0)
   if (from == to) {
     return(
-      as.integer(
+      possibly_as_integer(
         include_from && include_to && has_discretes(x, values = from, tol = tol)
       )
     )

@@ -14,7 +14,7 @@ num_discretes.dsct_arithmetic <- function(x,
   checkmate::assert_number(tol, lower = 0)
   if (from == to) {
     return(
-      as.integer(
+      possibly_as_integer(
         include_from && include_to && has_discretes(x, values = from, tol = tol)
       )
     )
@@ -40,5 +40,5 @@ num_discretes.dsct_arithmetic <- function(x,
     return(0L)
   }
   steps <- (upper - lower) / spacing
-  as.integer(round(steps)) + 1L
+  possibly_as_integer(round(steps)) + 1L
 }

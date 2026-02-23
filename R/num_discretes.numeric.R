@@ -14,7 +14,7 @@ num_discretes.numeric <- function(x,
   checkmate::assert_number(tol, lower = 0)
   if (from == to) {
     return(
-      as.integer(
+      possibly_as_integer(
         include_from && include_to && has_discretes(x, values = from, tol = tol)
       )
     )
@@ -38,7 +38,7 @@ num_discretes.numeric <- function(x,
       n_series <- to_int - from_int - 1L + include_from + include_to
       series <- from_int + seq_len(n_series) - include_from
       if (all(series %in% x)) {
-        return(as.integer(n_series))
+        return(possibly_as_integer(n_series))
       }
     }
     return(NA_integer_)

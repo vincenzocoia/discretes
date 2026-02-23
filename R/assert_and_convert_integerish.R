@@ -18,5 +18,5 @@ assert_and_convert_integerish <- function(x, lower = -Inf, ...) {
     return(x)
   }
   checkmate::assert_integerish(x, lower = lower, ...)
-  as.integer(round(x))
+  possibly_as_integer(round(x))
 }
