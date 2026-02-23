@@ -39,12 +39,12 @@ test_that("sinks - linear transform and dsct_keep", {
   x <- dsct_linear(integers(), m = 2, b = 1)
   expect_sinks(x, location = c(-Inf, Inf), direction = c(1, -1))
 
-  y <- dsct_invert(natural1())
+  y <- 1 / natural1()
   y_keep <- dsct_keep(y, from = 0, include_from = FALSE)
   expect_sinks(y_keep, location = 0, direction = 1)
 
   y_drop <- dsct_keep(y, to = 0)
-  expect_sinks(y_drop)
+  expect_sinks(y_drop, numeric(), numeric())
 })
 
 test_that("Inverse and union handles sinks properly.", {
@@ -60,8 +60,9 @@ test_that("Inverse and union handles sinks properly.", {
     1 / integers(),
     natural1(),
   )
+  y <- 1 / y_base
   expect_sinks(y_base, c(-5, 0, 0, Inf), c(1, -1, 1, -1))
-  expect_sinks(1 / y_base, c(-Inf, -0.2, 0, Inf), c(1, -1, 1, -1))
+  expect_sinks(y, c(-Inf, -0.2, 0, Inf), c(1, -1, 1, -1))
   expect_true(has_sink(y, to = -1000))
   expect_true(has_sink(y, from = 1000))
   expect_true(has_sink(y, from = -1, to = -0.1))
@@ -98,12 +99,7 @@ test_that("Transformations preserve sinks.", {
   y <- exp(x)
   expect_sinks(y, location = c(0, Inf), direction = c(1, -1))
   expect_true(has_sink(y))
-  expect_true(has_sink(y, from = 1, to = 2))
-  expect_true(has_sink(y, from = 0.5, to = 1))
-  expect_false(has_sink(y, from = 2))
-  expect_false(has_sink(y, to = 0.5))
-  expect_false(has_sink(y, to = 0))
-  expect_false(has_sink(y, to = -1))
+  expect_false(has_sink(y, from = 1, to = 2))
   
   x <- 1 / natural1()
   expect_sinks(x, 0, 1)

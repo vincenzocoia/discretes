@@ -5,7 +5,7 @@
 \alias{get_discretes_in}
 \title{Extract members of a discrete set}
 \usage{
-get_discretes_at(x, values, ..., tol = sqrt(.Machine$double.eps))
+get_discretes_at(x, ..., values, tol = sqrt(.Machine$double.eps))
 
 get_discretes_in(
   x,
@@ -18,14 +18,15 @@ get_discretes_in(
 )
 }
 \arguments{
-\item{x}{Invctr object.}
-
-\item{values}{Numeric vector of values to pull from the discrete set \code{x}.}
+\item{x}{Discrete value series
+(\code{numeric} vector or object of class \code{"discretes"}).}
 
 \item{...}{Reserved for future extensions; must be empty.}
 
-\item{tol}{Numerical tolerance used for snapping \code{from} or \code{to} values
-to a discrete value in the series; single non-negative numeric.}
+\item{values}{Numeric vector of values to pull from the discrete set \code{x}.}
+
+\item{tol}{Numerical tolerance used for snapping queried values
+to members in the discrete series; single non-negative numeric.}
 
 \item{from, to}{Reference values, possibly infinite. \code{from} must be less than
 or equal to \code{to}; both must be length-1 numeric vectors.}
@@ -34,16 +35,29 @@ or equal to \code{to}; both must be length-1 numeric vectors.}
 in the query? Should the \code{to} value? Both must be length-1 logical vectors.}
 }
 \value{
-A numeric vector containing all discrete values between \code{from} and
-\code{to}. Returns \code{numeric(0)} when the interval contains no discrete values.
+A numeric vector containing all discrete values in the provided series \code{x}:
+\itemize{
+\item For \code{get_discretes_in()}, all discrete values between \code{from} and \code{to},
+ordered from smallest to largest.
+\item For \code{get_discretes_at()}, all discrete values that snap to \code{values}.
+}
+
+An error will be thrown in \code{get_discretes_in()} if there are infinitely
+many points in the range.
 }
 \description{
 Extract a finite subset of values from a discrete set by asking for
 specific values (\code{get_discretes_at()}) or by setting a range
-(\code{pluck_between()}). For \code{get_discretes_at()}, specified values "snap" to
-those in the discrete set if they are within \code{tol} of a value.
+(\code{get_discretes_in()}). For \code{get_discretes_at()}, specified values "snap" to
+those in the discrete set if they are within \code{tol} of a value, and are
+dropped otherwise; \code{NA} values are kept in place.
 }
 \examples{
 get_discretes_in(integers(), from = 6.6, to = 10.1)
-get_discretes_in(1 / integers(1, 4, n_left = 3, n_right = 5))
+get_discretes_in(1 / arithmetic(1, 4, n_left = 3, n_right = 5))
+get_discretes_at(integers(), values = c(-10, 4, 3.5, 10, NA))
+get_discretes_at(integers(), values = 5.5)
+}
+\seealso{
+\code{\link[=as.double.discretes]{as.double.discretes()}}
 }

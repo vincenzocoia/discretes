@@ -36,8 +36,8 @@ prev_discrete(
 \item{include_from}{Should the \code{from} value be included
 in the query? Single logical; defaults to \code{TRUE}.}
 
-\item{tol}{Numerical tolerance used for snapping the \code{from} value
-to a discrete value in the series; single non-negative numeric.}
+\item{tol}{Numerical tolerance used for snapping queried values
+to members in the discrete series; single non-negative numeric.}
 }
 \value{
 A vector of sequential points starting from \code{from}, which is

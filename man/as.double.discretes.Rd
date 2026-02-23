@@ -7,7 +7,8 @@
 \method{as.double}{discretes}(x, ...)
 }
 \arguments{
-\item{x}{Invctr object.}
+\item{x}{Discrete value series
+(\code{numeric} vector or object of class \code{"discretes"}).}
 
 \item{...}{Reserved for future extensions; must be empty.}
 }
@@ -22,4 +23,7 @@ If infinite, throws an error.
 }
 \examples{
 as.numeric(integers(-3.5, 10))
+}
+\seealso{
+\code{\link[=get_discretes_in]{get_discretes_in()}}
 }

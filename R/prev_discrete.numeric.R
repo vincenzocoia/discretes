@@ -10,7 +10,7 @@ prev_discrete.numeric <- function(x,
   n <- assert_and_convert_integerish(n, lower = 0)
   checkmate::assert_logical(include_from, len = 1, any.missing = FALSE)
   checkmate::assert_number(tol, lower = 0)
-  if (n == 0) {
+  if (n == 0 || (from == -Inf && !include_from)) {
     return(vector(mode = typeof(x), length = 0))
   }
   has_na <- any(is.na(x))
@@ -24,16 +24,6 @@ prev_discrete.numeric <- function(x,
   lower_discretes <- sort(lower_discretes, decreasing = TRUE)
   lower_discretes <- utils::head(lower_discretes, n)
   if (has_na) {
-    if (is.integer(x) && is.finite(n)) {
-      from_int <- floor2(from, tol = tol)
-      if (abs(from_int - from) > tol) {
-        include_from <- TRUE
-      }
-      ref <- from_int - (seq_len(n) - include_from)
-      if (identical(ref, lower_discretes)) {
-        return(lower_discretes)
-      }
-    }
     if (has_discretes(x, values = from, tol = tol) && include_from && n == 1) {
       return(lower_discretes)
     }

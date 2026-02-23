@@ -13,12 +13,13 @@ has_sink(x, from = -Inf, to = Inf, ..., tol = sqrt(.Machine$double.eps))
 \item{x}{Discrete value series
 (\code{numeric} vector or object of class \code{"discretes"}).}
 
-\item{from}{Reference value to start searching from; single numeric.}
+\item{from, to}{Reference values, possibly infinite. \code{from} must be less than
+or equal to \code{to}; both must be length-1 numeric vectors.}
 
 \item{...}{Reserved for future extensions; must be empty.}
 
-\item{tol}{Numerical tolerance used for snapping the \code{from} value
-to a discrete value in the series; single non-negative numeric.}
+\item{tol}{Numerical tolerance used for snapping queried values
+to members in the discrete series; single non-negative numeric.}
 }
 \value{
 A matrix with two columns: \code{location} and \code{direction}. Each row

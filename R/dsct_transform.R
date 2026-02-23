@@ -18,7 +18,7 @@
 #'   and `-0`, which has special treatment with `dsct_inverse()`, but not
 #'   for `dsct_transform()`.
 #' @examples
-#' dsct_transform(integers(), fun = exp, inv = log)
+#' dsct_transform(integers(), fun = exp, inv = log, range = c(0, Inf))
 #' @family transformations
 #' @export
 dsct_transform <- function(x,

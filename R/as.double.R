@@ -9,6 +9,7 @@
 #'   contains no discrete values.
 #' @examples
 #' as.numeric(integers(-3.5, 10))
+#' @seealso [get_discretes_in()]
 #' @exportS3Method base::as.double
 as.double.discretes <- function(x, ...) {
   ellipsis::check_dots_empty()

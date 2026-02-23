@@ -24,15 +24,16 @@ num_discretes(
 )
 }
 \arguments{
-\item{x}{Invctr object.}
+\item{x}{Discrete value series
+(\code{numeric} vector or object of class \code{"discretes"}).}
 
 \item{...}{Reserved for future extensions; must be empty.}
 
 \item{from, to}{Reference values, possibly infinite. \code{from} must be less than
 or equal to \code{to}; both must be length-1 numeric vectors.}
 
-\item{tol}{Numerical tolerance used for snapping \code{from} or \code{to} values
-to a discrete value in the series; single non-negative numeric.}
+\item{tol}{Numerical tolerance used for snapping queried values
+to members in the discrete series; single non-negative numeric.}
 
 \item{include_from, include_to}{Should the \code{from} value be included
 in the query? Should the \code{to} value? Both must be length-1 logical vectors.}

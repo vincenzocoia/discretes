@@ -9,8 +9,7 @@ test_that("+0 and -0 combined takes first instance.", {
   # the inverse of this series will have two: -Inf and Inf. This is because
   # all components of the discrete series remains intact until expression
   # as a vector via `get_discretes_in()`.
-  expect_equal(get_discretes_in(1 / dsct_union(0, -0)), c(Inf, -Inf))
-  
+  expect_equal(get_discretes_in(1 / dsct_union(0, -0)), c(-Inf, Inf))
 })
 
 

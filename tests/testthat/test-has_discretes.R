@@ -17,7 +17,7 @@ test_that("NA, Inf, and empty values with has_discretes.", {
 test_that("edge cases - numeric", {
   y <- c(1.2, -4.4, NA)
   expect_equal(has_discretes(y, NA), NA)
-  expect_equal(has_discretes(y, c(NA, -4.4, Inf)), c(NA, NA, NA))
+  expect_equal(has_discretes(y, c(NA, -4.4, Inf)), c(NA, TRUE, NA))
   y <- numeric(0)
   expect_equal(has_discretes(y, NA), FALSE)
   expect_equal(has_discretes(y, c(NA, 4.4, Inf)), c(FALSE, FALSE, FALSE))

@@ -4,7 +4,7 @@
 #' get arbitrarily close to the sink (from the left or right), and that there
 #' are infinitely many discrete points around the sink.
 #' 
-#' @inheritParams next_discrete
+#' @inheritParams num_discretes
 #' @returns A matrix with two columns: `location` and `direction`. Each row
 #'  corresponds to a sink, where `location` is the location of the sink
 #'  (possibly infinite), and `direction` indicates whether the sink is
@@ -38,10 +38,10 @@ sinks <- function(x) {
 #' @rdname sinks
 #' @export
 has_sink <- function(x,
-                            from = -Inf,
-                            to = Inf,
-                            ...,
-                            tol = sqrt(.Machine$double.eps)) {
+                     from = -Inf,
+                     to = Inf,
+                     ...,
+                     tol = sqrt(.Machine$double.eps)) {
   checkmate::assert_true(is_discrete_set(x))
   checkmate::assert_number(from)
   checkmate::assert_number(to, lower = from)

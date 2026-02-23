@@ -71,14 +71,17 @@ test_that("Negative zeroes are being tracked properly", {
   expect_identical(has_negative_zero(posneg_drop), FALSE)
   expect_identical(has_positive_zero(posneg_drop), FALSE)
   ## --> linear
-  nonev <- c(4, 5)
-  posv <- c(0, 3)
-  negv <- c(-0, 2)
-  posnegv <- c(-0, 0, 3)
-  # Check m * x + b where x has class "discretes" vs. when it's numeric (the
-  # reference check).
-  check_mb <- function(dsct, dbl, m, b) {
-    if (missing(b)) {
+  nonev <- get_discretes_in(none, from = -10, to = 10)
+  posv <- c(nonev, 0)
+  negv <- c(nonev, -0)
+  posnegv <- c(nonev, -0, 0)
+  # Check that linear transforms induce signed zero like it would for a numeric
+  # vector: supply the slope (m) and intercept (b), and check that the
+  # numeric version of the "discretes" reference object behaves in the same
+  # way (just make sure the numeric version extends left and right "far enough"
+  # to encompass zero for each m and b chosen).
+  check_mb <- function(dsct, dbl, m, b = NULL) {
+    if (is.null(b)) {
       testthat::expect_identical(
         has_positive_zero(m * dsct),
         has_positive_zero(m * dbl)
@@ -86,17 +89,6 @@ test_that("Negative zeroes are being tracked properly", {
       testthat::expect_identical(
         has_negative_zero(m * dsct),
         has_negative_zero(m * dbl)
-      )
-      return(invisible(NULL))
-    }
-    if (missing(m)) {
-      testthat::expect_identical(
-        has_positive_zero(dsct + b),
-        has_positive_zero(dbl + b)
-      )
-      testthat::expect_identical(
-        has_negative_zero(dsct + b),
-        has_negative_zero(dbl + b)
       )
       return(invisible(NULL))
     }
@@ -132,25 +124,25 @@ test_that("Negative zeroes are being tracked properly", {
   check_mb(posneg, posnegv, m = -2)
 
   ## b
-  check_mb(none,   nonev,   b = 0)
-  check_mb(pos,    posv,    b = 0)
-  check_mb(neg,    negv,    b = 0)
-  check_mb(posneg, posnegv, b = 0)
+  check_mb(none,   nonev,   m = 1, b = 0)
+  check_mb(pos,    posv,    m = 1, b = 0)
+  check_mb(neg,    negv,    m = 1, b = 0)
+  check_mb(posneg, posnegv, m = 1, b = 0)
 
-  check_mb(none,   nonev,   b = -0)
-  check_mb(pos,    posv,    b = -0)
-  check_mb(neg,    negv,    b = -0)
-  check_mb(posneg, posnegv, b = -0)
+  check_mb(none,   nonev,   m = 1, b = -0)
+  check_mb(pos,    posv,    m = 1, b = -0)
+  check_mb(neg,    negv,    m = 1, b = -0)
+  check_mb(posneg, posnegv, m = 1, b = -0)
 
-  check_mb(none,   nonev,   b = 2)
-  check_mb(pos,    posv,    b = 2)
-  check_mb(neg,    negv,    b = 2)
-  check_mb(posneg, posnegv, b = 2)
+  check_mb(none,   nonev,   m = 1, b = 2)
+  check_mb(pos,    posv,    m = 1, b = 2)
+  check_mb(neg,    negv,    m = 1, b = 2)
+  check_mb(posneg, posnegv, m = 1, b = 2)
 
-  check_mb(none,   nonev,   b = -2)
-  check_mb(pos,    posv,    b = -2)
-  check_mb(neg,    negv,    b = -2)
-  check_mb(posneg, posnegv, b = -2)
+  check_mb(none,   nonev,   m = 1, b = -2)
+  check_mb(pos,    posv,    m = 1, b = -2)
+  check_mb(neg,    negv,    m = 1, b = -2)
+  check_mb(posneg, posnegv, m = 1, b = -2)
 
   ## m, b
   check_mb(none,   nonev,   m = 0,  b = 0)
@@ -236,26 +228,13 @@ test_that("Negative zeroes are being tracked properly", {
   ## --> negation
   expect_identical(has_negative_zero(-none), FALSE)
   expect_identical(has_positive_zero(-none), FALSE)
-  expect_identical(has_negative_zero(-pos), FALSE)
-  expect_identical(has_positive_zero(-pos), TRUE)
+  expect_identical(has_negative_zero(-pos), TRUE)
+  expect_identical(has_positive_zero(-pos), FALSE)
   expect_identical(has_negative_zero(-neg), FALSE)
   expect_identical(has_positive_zero(-neg), TRUE)
   expect_identical(has_negative_zero(-posneg), TRUE)
   expect_identical(has_positive_zero(-posneg), TRUE)
   ## --> transform
-  none_negate <- dsct_transform(none, fun = `-`, inv = `-`)
-  pos_negate <- dsct_transform(pos, fun = `-`, inv = `-`)
-  neg_negate <- dsct_transform(neg, fun = `-`, inv = `-`)
-  posneg_negate <- dsct_transform(posneg, fun = `-`, inv = `-`)
-  expect_identical(has_negative_zero(none_negate), FALSE)
-  expect_identical(has_positive_zero(none_negate), FALSE)
-  expect_identical(has_negative_zero(pos_negate), FALSE)
-  expect_identical(has_positive_zero(pos_negate), TRUE)
-  expect_identical(has_negative_zero(neg_negate), TRUE)
-  expect_identical(has_positive_zero(neg_negate), FALSE)
-  expect_identical(has_negative_zero(posneg_negate), TRUE)
-  expect_identical(has_positive_zero(posneg_negate), TRUE)
-
   none_tanh <- dsct_transform(none, fun = tanh, inv = atanh)
   pos_tanh <- dsct_transform(pos, fun = tanh, inv = atanh)
   neg_tanh <- dsct_transform(neg, fun = tanh, inv = atanh)

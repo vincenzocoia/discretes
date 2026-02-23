@@ -18,7 +18,7 @@ test_that("Integers - bad inputs", {
 
 test_that("Integer sets match arithmetic series numerically", {
   expect_same_numbers <- function(x, y) {
-    testthat::expect_identical(
+    testthat::expect_equal(
       get_discretes_in(x, from = -10, to = 10),
       get_discretes_in(y, from = -10, to = 10)
     )

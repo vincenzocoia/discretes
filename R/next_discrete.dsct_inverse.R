@@ -77,9 +77,9 @@ next_discrete.dsct_inverse <- function(x,
     )
     collected <- append(collected, 1 / newx)
     n <- n - length(newx)
+    encountered_sink <- has_sink(x, from = from)
     from <- Inf
     include_from <- TRUE
-    encountered_sink <- has_sink(x, from = 0)
   }
   if (n > 0 && !encountered_sink && from == Inf && include_from) {
     collected <- append(collected, Inf[has_discretes(x, values = Inf)])

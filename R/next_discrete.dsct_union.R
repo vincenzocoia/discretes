@@ -17,7 +17,7 @@ next_discrete.dsct_union <- function(x,
     froms <- lapply(
       inputs,
       function(d) {
-        get_discretes_at(d, from, tol = tol)
+        get_discretes_at(d, values = from, tol = tol)
       }
     )
     froms <- unlist(froms)

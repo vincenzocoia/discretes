@@ -31,6 +31,12 @@ next_discrete.dsct_arithmetic <- function(x,
   if (abs(round_index - from_index) > tol) {
     include_from <- TRUE
   }
+  if (n == Inf) {
+    if (n_right == Inf) {
+      stop("Infinitely many values found; ensure `n` is finite here.")
+    }
+    n <- n_right - round_index + include_from
+  }
   candidate_indices <- round_index + seq_len(n) - include_from
   indices <- candidate_indices[candidate_indices <= n_right]
   res <- representative + indices * spacing

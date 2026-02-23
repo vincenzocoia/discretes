@@ -11,7 +11,6 @@
 #'  logarithmic transformation `log()` to `x` with the specified base.
 #' @examples
 #' ## These are the same
-#' discretes:::dsct_ln(natural0())
 #' discretes:::dsct_log(natural0(), base = exp(1))
 #' log(natural0())
 #' 
@@ -29,8 +28,6 @@ dsct_log <- function(x, base = exp(1)) {
   if (base <= 0 || base == 1) {
     stop("Log base must be positive and not equal to 1.")
   }
-  # dsct_ln(x) / log(base)
-  
   
   nneg <- num_discretes(
     x,
@@ -59,25 +56,3 @@ dsct_log <- function(x, base = exp(1)) {
     domain = c(0, Inf)
   )
 }
-
-# #' @rdname logarithm
-# dsct_ln <- function(x) {
-#   checkmate::assert_true(is_discrete_set(x))
-#   nneg <- num_discretes(
-#     x,
-#     from = -Inf,
-#     to = 0,
-#     include_from = TRUE,
-#     include_to = FALSE
-#   )
-#   if (nneg > 0) {
-#     stop("Series has negative values; cannot apply log transform.")
-#   }
-#   dsct_transform(
-#     x,
-#     fun = log,
-#     inv = exp,
-#     domain = c(0, Inf)
-#   )
-# }
-

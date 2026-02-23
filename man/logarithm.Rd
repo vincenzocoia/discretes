@@ -24,7 +24,6 @@ Internal; use \code{log()} instead.
 }
 \examples{
 ## These are the same
-discretes:::dsct_ln(natural0())
 discretes:::dsct_log(natural0(), base = exp(1))
 log(natural0())
 

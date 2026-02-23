@@ -23,9 +23,6 @@ dsct_linear.discretes <- function(x, m, b = NULL) {
   if (length(m) > 1) {
     stop("Cannot multiply a series by a vector of length >1.")
   }
-  if (m < 0) {
-    return(dsct_linear(dsct_negate(x), m = abs(m), b = b))
-  }
   if (!is.null(b)) {
     if (length(b) > 1) {
       stop("Cannot add a vector of length >1 to a series.")
@@ -35,11 +32,14 @@ dsct_linear.discretes <- function(x, m, b = NULL) {
     bb <- 0L # To use when signed zero doesn't matter.
   }
   rpr <- representative(x)
-  if (m == 1 && is.null(b) && typeof(rpr) == typeof(m * rpr)) {
-    return(x)
-  }
   if (num_discretes(x) == 0 || length(m) == 0 || length(bb) == 0) {
     return(empty_set(typeof(m * rpr + bb)))
+  }
+  if (m < 0) {
+    return(dsct_linear(dsct_negate(x), m = abs(m), b = b))
+  }
+  if (m == 1 && is.null(b) && typeof(rpr) == typeof(m * rpr)) {
+    return(x)
   }
   n_neg <- num_discretes(
     x,

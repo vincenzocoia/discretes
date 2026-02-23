@@ -13,8 +13,8 @@
 #' @param n Number of discrete values to find; single positive integer.
 #' @param include_from Should the `from` value be included
 #' in the query? Single logical; defaults to `TRUE`.
-#' @param tol Numerical tolerance used for snapping the `from` value
-#'   to a discrete value in the series; single non-negative numeric.
+#' @param tol Numerical tolerance used for snapping queried values
+#'   to members in the discrete series; single non-negative numeric.
 #' @return A vector of sequential points starting from `from`, which is
 #' included in the vector if it has membership in the series and
 #' `include_from = TRUE`. The length of the vector is at most `n`, and

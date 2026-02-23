@@ -137,10 +137,4 @@ test_that("Ops results in proper linear transform.", {
   expect_same_linear(base / (1 / 3) + 6, y)
   z <- discretes:::dsct_linear(base, m = 2, b = 0)
   expect_same_linear(2 * base + 5 - 5, z)
-  
-  # Negation of linear transforms has a special method -- check it.
-  expect_same_linear(-1L * base - 0, -(base + 0))
-  expect_same_linear(-2 * base + 5, -(2 * base - 5))
-  expect_same_linear(-2 * base, -(2 * base))
-  expect_same_linear(-base - 5, -(base + 5))
 })

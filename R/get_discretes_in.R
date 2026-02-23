@@ -1,11 +1,27 @@
-#' Extract discrete values from a discrete set
-#'
+#' Extract members of a discrete set
+#' 
+#' Extract a finite subset of values from a discrete set by asking for
+#' specific values (`get_discretes_at()`) or by setting a range
+#' (`get_discretes_in()`). For `get_discretes_at()`, specified values "snap" to
+#' those in the discrete set if they are within `tol` of a value, and are
+#' dropped otherwise; `NA` values are kept in place.
+#' 
 #' @inheritParams num_discretes
-#' @return A numeric vector containing all discrete values between `from` and
-#'   `to`. Returns `numeric(0)` when the interval contains no discrete values.
+#' @returns 
+#' A numeric vector containing all discrete values in the provided series `x`:
+#' 
+#' - For `get_discretes_in()`, all discrete values between `from` and `to`,
+#'     ordered from smallest to largest.
+#' - For `get_discretes_at()`, all discrete values that snap to `values`.
+#' 
+#' An error will be thrown in `get_discretes_in()` if there are infinitely
+#' many points in the range.
 #' @examples
 #' get_discretes_in(integers(), from = 6.6, to = 10.1)
-#' get_discretes_in(1 / integers(1, 4, n_left = 3, n_right = 5))
+#' get_discretes_in(1 / arithmetic(1, 4, n_left = 3, n_right = 5))
+#' get_discretes_at(integers(), values = c(-10, 4, 3.5, 10, NA))
+#' get_discretes_at(integers(), values = 5.5)
+#' @seealso [as.double.discretes()]
 #' @rdname get_discretes
 #' @export
 get_discretes_in <- function(x,

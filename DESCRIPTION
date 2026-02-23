@@ -1,6 +1,6 @@
 Package: discretes
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Countable Numeric Sets
 Version: 0.1.0.9000
 Authors@R: c(
     person(
@@ -9,8 +9,11 @@ Authors@R: c(
       role = c("aut", "cre", "cph")
     )
   )
-Description: More about what it does (maybe more than one line).
-    Continuation lines should be indented.
+Description: While it is impossible to create an infinite-length numeric
+    vector such as the set of all integers, this package provides a work-around
+    by allowing you to create countable sets and manipulate them. Probe the
+    set by walking forwards or backwards, retrieving limit points ('sinks'),
+    checking membership, and more.
 License: MIT + file LICENSE
 Imports:
     checkmate,
