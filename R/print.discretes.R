@@ -1,6 +1,7 @@
 #' @export
 print.discretes <- function(x, len = 6, ...) {
-  len <- assert_and_convert_integerish(len, lower = 0)
+  len <- assert_and_convert_integerish(len, lower = 2)
+  
   n <- num_discretes(x)
   if (n == 0) {
     cat("Empty series.\n")
@@ -17,13 +18,12 @@ print.discretes <- function(x, len = 6, ...) {
   # Finite Series
   if (is.finite(n)) {
     v <- get_discretes_in(x)
-    v_len <- length(v)
-    excess <- v_len - len
+    excess <- n - len
     if (excess > 0) {
       nleft <- floor(len / 2)
       nright <- ceiling(len / 2)
       ikeep_left <- seq_len(nleft)
-      ikeep_right <- sort(v_len - (seq_len(nright) - 1))
+      ikeep_right <- sort(n - (seq_len(nright) - 1))
       vleft <- v[ikeep_left]
       vright <- v[ikeep_right]
       cat(vleft, "...", vright, sep = ", ")

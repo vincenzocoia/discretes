@@ -1,4 +1,4 @@
-test_that("next_discrete works", {
+test_that("walking on inverse series works", {
   # Function to build an inverse set from a collection of numeric vectors in
   # `...` and test walking the series against `expect` (which doesn't need
   # to be sorted). Tests each n from 0 to the provided one,
@@ -327,4 +327,15 @@ test_that("next_discrete works", {
   expect_equal(prev_discrete(x, from = -0.99), -1)
   expect_equal(prev_discrete(x, from = 1.1, n = 5), 1 / (1:5))
   expect_equal(next_discrete(x, from = -1.1, n = 5), -1 / (1:5))
+  
+  # Try adding a sink on the positive side and negative side: walking the
+  # series should stop.
+  y <- 1 / dsct_union(natural0(), -1, Inf)
+  expect_equal(next_discrete(y, from = -Inf, n = Inf), c(-1, 0))
+  y <- 1 / dsct_union(-1 - 1 / natural0(), -1, -0.5)
+  expect_equal(next_discrete(y, from = -Inf, n = Inf), c(-2, -1))
+  y <- 1 / dsct_union(-natural0(), 1, -Inf)
+  expect_equal(prev_discrete(y, from = Inf, n = Inf), c(1, 0))
+  y <- 1 / dsct_union(1 + 1 / natural0(), 1, 0.5)
+  expect_equal(prev_discrete(y, from = Inf, n = Inf), c(2, 1))
 })

@@ -12,6 +12,7 @@ next_discrete.dsct_inverse <- function(x,
   checkmate::assert_number(tol, lower = 0)
   base <- x$base
   collected <- vector(length = 0, mode = typeof(representative(x)))
+  encountered_sink <- FALSE
   if (n == 0) {
     return(collected)
   }
@@ -21,6 +22,7 @@ next_discrete.dsct_inverse <- function(x,
   # 3. 0
   # 4. Positive values
   # 5. Inf
+  # Only move forward if there's positive `n`, and we haven't reached a sink.
   if (from == -Inf && include_from) {
     to_add <- -Inf[has_discretes(x, values = -Inf)]
     collected <- append(collected, to_add)
@@ -40,10 +42,11 @@ next_discrete.dsct_inverse <- function(x,
     collected <- append(collected, 1 / newx)
     # Update configuration
     n <- max(0, n - length(newx))
+    encountered_sink <- has_sink(x, from = from, to = 0)
     from <- 0
     include_from <- TRUE
   }
-  if (n > 0 && from == 0 && include_from) {
+  if (n > 0 && !encountered_sink && from == 0 && include_from) {
     base_infs <- has_discretes(base, values = c(-Inf, Inf))
     if (base_infs[1] && !base_infs[2]) {
       collected <- append(collected, -0)
@@ -54,7 +57,7 @@ next_discrete.dsct_inverse <- function(x,
     }
     include_from <- FALSE
   }
-  if (n > 0 && from >= 0 && from < Inf) {
+  if (n > 0 && !encountered_sink && from >= 0 && from < Inf) {
     upper_bound <- 1 / abs(from)  # abs() in case from = -0.
     n_available <- num_discretes( # Don't want to go left of 0 on the base.
       base,
@@ -76,8 +79,9 @@ next_discrete.dsct_inverse <- function(x,
     n <- n - length(newx)
     from <- Inf
     include_from <- TRUE
+    encountered_sink <- has_sink(x, from = 0)
   }
-  if (n > 0 && from == Inf && include_from) {
+  if (n > 0 && !encountered_sink && from == Inf && include_from) {
     collected <- append(collected, Inf[has_discretes(x, values = Inf)])
   }
   collected
