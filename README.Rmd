@@ -20,38 +20,100 @@ knitr::opts_chunk$set(
 [![R-CMD-check](https://github.com/probaverse/discretes/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/probaverse/discretes/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
-While you can't make an infinite-length vector in R like `1:Inf`, you can get part-way there with discretes.
+The discretes package provides a framework for representing numeric series that may be finite or infinite. Think `1:Inf`, without storing all the values explicitly.
+
+Series can be traversed, combined using arithmetic operations, tested for membership, and queried for limit points ("sinks"), without explicit enumeration of all elements.
+
+The name "discretes" reflects the original use case of representing the supports of discrete probability distributions, which are often infinite but enumerable.
+The package is not limited to probability applications: it is designed as a general-purpose tool for working with enumerable numeric series.
+
 
 ## Installation
 
-You can install the development version of discretes like so:
+Install discretes from CRAN with:
 
 ``` r
-# FILL THIS IN! HOW CAN PEOPLE INSTALL YOUR DEV PACKAGE?
+install.packages("discretes")
 ```
 
-## Example
+## Examples
 
-Base types of series:
+```{r}
+library(discretes)
+```
 
-- numeric
-- arithmetic (and integers)
-  - Difference being tolerance
+While vectors in R must be finite, this is not a problem for discretes.
 
-Transformed series:
+```{r}
+natural0()
+```
 
-- linear
-- negated
-- inverted
+What's the next discrete value after 10 in the series of integers? Or the previous 5 values from 1.3?
 
+```{r}
+next_discrete(integers(), from = 10)
+prev_discrete(integers(), from = 1.3, n = 5)
+```
+
+Test whether values are discrete points in a series.
+
+```{r}
+has_discretes(natural1(), c(0, 1))
+```
+
+Perform arithmetic operations on series.
+
+```{r}
+1 / 2^integers()
+```
+
+Arithmetic operations on series return new series, preserving structure where possible.
+See the [transformations]() vignette to learn more about what's allowed (hint: non-monotonic functions are not), and how to use transformations that are not supported out of the box.
+
+### Sinks
+
+That last series above, `1 / 2^integers()`, has a sink[^1] at 0 (approached from the right) and a sink at infinity, best seen by plotting:
+
+[^1]: Or more precisely, a limit point.
+
+```{r}
+x <- 1 / 2^integers()
+plot(x)
+```
+
+Notice that there are infinitely many discrete values close to 0.
+
+```{r}
+num_discretes(x, from = 0, to = 1)
+```
+
+There is no such thing as a "next" value when looking left of the sink.
+
+```{r}
+next_discrete(x, from = -1)
+```
+
+You can ask whether a sink exists directly.
+
+```{r}
+has_sink(x, from = 0, to = 1)
+```
+
+
+## Limitations
+
+The series supported by the package include arithmetic series like integers, finite series from a numeric vector, and some [transformations]() of those series.
+Specialized series like the Fibonacci numbers are not explicitly supported, but could be added by a user.
+Dense countable sets like the rational numbers are not supported because they do not have a well-defined notion of local successor/predecessor.
 
 ## Similar Packages
 
-- ['Zseq'](https://cran.r-project.org/package=Zseq) provides access to various
-  named integer sequences like the Fibonnaci sequence and Prime numbers, but
-  does not allow the creation of new series by manipulation.
-- ['sets']() package focusses on set operations.
-- ['set6']() allows for infinite sets but was removed from CRAN.
-- ['peruse'](https://jacgoldsm.github.io/peruse/) provides tools for iterating
-  a sequence like with `next_discrete()`. It focuses on fully general sequences
-  without transformation.
+- ['Zseq'](https://cran.r-project.org/package=Zseq) provides access to named integer sequences (e.g., Fibonacci numbers, prime numbers), but does not provide a general framework for constructing and transforming numeric series.
+-	['sets'](https://cran.r-project.org/web/packages/sets/index.html) focuses on finite set operations and abstract set algebra, rather than structured numeric series.
+-	['set6'](https://CRAN.R-project.org/package=set6) supported infinite sets via object-oriented abstractions, but is no longer available on CRAN.
+- ['peruse'](https://jacgoldsm.github.io/peruse/) provides tools for iterating general sequences, but does not focus on algebraic manipulation or structured numeric series.
+
+## Acknowledgements
+
+Development of this package would not have been possible without the funding and support of the [European Space Agency](https://www.esa.int/) and the [Politecnico di Milano](https://www.polimi.it/).
+The need for this package arose from work on the [probaverse](https://probaverse.com/) project, which aims to provide tools for probabilistic modeling and inference in R.

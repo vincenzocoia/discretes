@@ -1,6 +1,6 @@
 Package: discretes
 Type: Package
-Title: Countable Numeric Sets
+Title: Discrete Numeric Series
 Version: 0.1.0.9000
 Authors@R: c(
     person(
@@ -9,11 +9,11 @@ Authors@R: c(
       role = c("aut", "cre", "cph")
     )
   )
-Description: While it is impossible to create an infinite-length numeric
-    vector such as the set of all integers, this package provides a work-around
-    by allowing you to create countable sets and manipulate them. Probe the
-    set by walking forwards or backwards, retrieving limit points ('sinks'),
-    checking membership, and more.
+Description: Provides a framework for representing discrete numeric series
+    (enumerable sets of numbers) that may be finite or infinite. Series can
+    be traversed, combined using arithmetic operations, tested for membership,
+    and queried for limit points ("sinks"), without explicit enumeration of
+    all elements.
 License: MIT + file LICENSE
 Imports:
     checkmate,
@@ -25,5 +25,8 @@ LazyData: true
 RoxygenNote: 7.3.3
 Roxygen: list(markdown = TRUE)
 Suggests: 
+    knitr,
+    rmarkdown,
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
+VignetteBuilder: knitr
