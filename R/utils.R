@@ -33,7 +33,7 @@ ceiling2 <- function(x, tol = sqrt(.Machine$double.eps)) {
   x_floor <- floor(x)
   close_enough <- x - x_floor < tol
   res[which(close_enough)] <- x_floor[which(close_enough)]
-  possibly_as_integer(res)
+  as_integerish(res)
 }
 
 floor2 <- function(x, tol = sqrt(.Machine$double.eps)) {
@@ -43,19 +43,54 @@ floor2 <- function(x, tol = sqrt(.Machine$double.eps)) {
   x_ceil <- ceiling(x)
   close_enough <- x_ceil - x < tol
   res[which(close_enough)] <- x_ceil[which(close_enough)]
-  possibly_as_integer(res)
+  as_integerish(res)
 }
 
-# Convert a vector to integer via as.integer(), if possible.
-# If the number is too big, as.integer() will return NA; this function
-# is more forgiving and makes it numeric instead under this situation.
-possibly_as_integer <- function(x) {
-  try_int <- suppressWarnings(as.integer(x))
-  originally_non_na <- try_int[!is.na(x)]
-  if (any(is.na(originally_non_na))) {
-    return(x)
+#' "Safely" convert to integer-like
+#' 
+#' R doesn't allow numbers to hold an integer type if they are too big.
+#' `as.integer()` will convert such numbers to `NA`, so that its output
+#' is always of type "integer". `as_integerish()`, on the other hand,
+#' would rather keep the original number and change the type to "double"
+#' than to convert large numbers to `NA`.
+#'
+#' @param x Numeric vector. More specifically, an atomic vector that is
+#'   coercable to numeric via `as.numeric()` without becoming `NA`.
+#' @returns A vector comprising of whole numbers, with type "integer" if
+#'   possible, but at least type "double". 
+#' @details
+#' When `as.integer()` coneverts a number to `NA`, `as_integerish()` will
+#' instead drop the fractional part of the number, keeping the sign.
+#' 
+#' Values in `x` that are `NA` are preserved as `NA`.
+#' 
+#' `as.integer()` is quite forgiving with its inputs.
+#' As of 'base' version 4.4.3, `as.integer("5.5")` returns `5L`, for example.
+#' `as_integerish()` adopts the same behaviour by allowing inputs that don't
+#' get converted to `NA` by `as.numeric()`.
+#' @examples
+#' suppressWarnings(as.integer(1e100))
+#' discretes:::as_integerish(1e100)
+#' discretes:::as_integerish(1e100 + 0.8) == 1e100
+#' discretes:::as_integerish(-1e100 - 0.8) == -1e100
+#' 
+#' x <- discretes:::as_integerish(c(NA, 1, -5.5))
+#' is.integer(x)
+#' 
+#' y <- discretes:::as_integerish(c(NA, 1, -5.5, 1e100))
+#' is.integer(y)
+as_integerish <- function(x) {
+  checkmate::assert_atomic_vector(x)
+  checkmate::assert_numeric(
+    suppressWarnings(as.numeric(x[!is.na(x)])),
+    any.missing = FALSE
+  )
+  as_int <- suppressWarnings(as.integer(x))
+  newly_na <- !is.na(x) & is.na(as_int)
+  if (any(newly_na)) {
+    as_int[newly_na] <- sign(x[newly_na]) * floor(abs(x[newly_na]))
   }
-  try_int
+  as_int
 }
 
 #' Check if values are between two bounds

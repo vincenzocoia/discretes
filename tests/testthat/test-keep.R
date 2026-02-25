@@ -19,6 +19,12 @@ test_that("Drop works.", {
     prev_discrete(y, n = Inf, from = 0.5, include_from = TRUE),
     c(0.5, -0.5, -1)
   )
+  
+  # Dropping is a union of two keeps; or, is just a single keep.
+  x <- integers(0, 10)
+  expect_s3_class(dsct_drop(x, from = 5), "dsct_keep")
+  expect_s3_class(dsct_drop(x, to = 5), "dsct_keep")
+  expect_s3_class(dsct_drop(x, from = 3, to = 7), "dsct_union")
 })
 
 test_that("Keep works.", {
@@ -246,6 +252,14 @@ test_that("Edge cases", {
   expect_identical(next_discrete(y, from = -Inf), integer())
   expect_identical(prev_discrete(y, from = Inf), integer())
   expect_false(has_discretes(y, values = 0))
+  
+  # Keep everything. Keep nothing.
+  x <- integers(1, 5)
+  expect_identical(dsct_drop(x, from = 7, to = 9), x)
+  expect_identical(dsct_drop(x, from = -9, to = -7), x)
+  expect_identical(dsct_drop(x, from = 5, to = 9, include_from = FALSE), x)
+  expect_identical(dsct_drop(x, from = -9, to = 1, include_to = FALSE), x)
+  expect_identical(dsct_drop(x, from = 0, to = 6), empty_set("integer"))
 })
 
 test_that("Sinks are preserved or eliminated.", {
@@ -259,6 +273,46 @@ test_that("Sinks are preserved or eliminated.", {
   expect_identical(nrow(sinks(yr)), 1L)
 })
 
+test_that("Representative works.", {
+  x <- 1 / natural0()
+  y <- dsct_union(x, 2 - x)
+  # left sink
+  z <- dsct_keep(y, from = 0, to = 1)
+  expect_true(has_sink(z, from = 0, to = 0.1))
+  expect_true(has_discretes(z, representative(z)))
+  # right sink
+  z <- dsct_keep(y, from = 1, to = 2)
+  expect_true(has_sink(z, from = 1.9, to = 2))
+  expect_true(has_discretes(z, representative(z)))
+  # both side have sinks
+  z <- dsct_keep(y, from = 0, to = 2)
+  expect_true(has_sink(z, from = 0, to = 0.1))
+  expect_true(has_sink(z, from = 1.9, to = 2))
+  expect_true(has_discretes(z, representative(z)))
+  # infinite sinks on both sides
+  x <- dsct_union(integers(), -Inf, Inf)
+  z <- dsct_keep(x, include_from = FALSE, include_to = FALSE)
+  expect_true(has_sink(z, to = -100))
+  expect_true(has_sink(z, from = 100))
+  expect_true(has_discretes(z, representative(z)))
+})
+
 test_that("Signed zero", {
+  # Both
+  x <- c(-9, -0, 0, 9)
+  y <- dsct_keep(x, from = -5, to = 5)
+  expect_true(has_negative_zero(y))
+  expect_true(has_positive_zero(y))
   
+  # Negative
+  x <- c(-9, -0, 9)
+  y <- dsct_keep(x, from = -5, to = 5)
+  expect_true(has_negative_zero(y))
+  expect_false(has_positive_zero(y))
+  
+  # Positive
+  x <- c(-9, 0, 9)
+  y <- dsct_keep(x, from = -5, to = 5)
+  expect_false(has_negative_zero(y))
+  expect_true(has_positive_zero(y))
 })

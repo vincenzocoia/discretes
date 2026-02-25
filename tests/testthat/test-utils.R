@@ -113,3 +113,20 @@ test_that("floor2 and ceiling2 work.", {
     c(NA_integer_, 6L, 7L)
   )
 })
+
+test_that("as_integerish works.", {
+  expect_identical(as_integerish(1e100), 1e100)
+  expect_false(is.integer(as_integerish(1e100)))
+  expect_identical(as_integerish(1e100 + 0.8), 1e100)
+  expect_identical(as_integerish(-1e100 - 0.8), -1e100)
+  
+  x <- as_integerish(c(NA, 1, -5.5))
+  expect_identical(x, c(NA_integer_, 1L, -5L))
+  expect_true(is.integer(x))
+  
+  y <- as_integerish(c(NA, 1, -5.5, 1e100, Inf, -1e100, -Inf))
+  expect_identical(y, c(NA_real_, 1, -5, 1e100, Inf, -1e100, -Inf))
+  expect_false(is.integer(y))
+  
+  expect_identical(as_integerish(numeric()), integer())
+})

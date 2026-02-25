@@ -19,6 +19,14 @@ test_that("next_discrete() - edge cases", {
   expect_identical(next_discrete(z, from = 0, n = 0), numeric())
   expect_error(next_discrete("hello", from = "hello"))
   expect_error(prev_discrete("hello", from = "hello"))
+  
+  # Unknown discretes object fails.
+  x <- list(1, 2, 3)
+  class(x) <- "discretes"
+  expect_error(next_discrete(x, from = 2))
+  expect_error(prev_discrete(x, from = 2))
+  expect_error(has_negative_zero(x))
+  expect_error(has_positive_zero(x))
 })
 
 test_that("next_discrete() - numeric with NA", {

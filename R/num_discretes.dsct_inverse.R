@@ -13,7 +13,7 @@ num_discretes.dsct_inverse <- function(x,
   checkmate::assert_number(tol, lower = 0)
   if (from == to) {
     return(
-      possibly_as_integer(
+      as_integerish(
         include_from && include_to && has_discretes(x, values = from, tol = tol)
       )
     )

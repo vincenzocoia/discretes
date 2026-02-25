@@ -13,7 +13,7 @@ num_discretes.dsct_union <- function(x,
   checkmate::assert_number(tol, lower = 0)
   if (from == to) {
     return(
-      possibly_as_integer(
+      as_integerish(
         include_from && include_to && has_discretes(x, values = from, tol = tol)
       )
     )
@@ -52,7 +52,7 @@ num_discretes.dsct_union <- function(x,
       },
       FUN.VALUE = logical(1L)
     )
-    n <- n + possibly_as_integer(any(has_from))
+    n <- n + as_integerish(any(has_from))
   }
   if (include_to && to > from) {
     has_to <- vapply(
@@ -62,7 +62,7 @@ num_discretes.dsct_union <- function(x,
       },
       FUN.VALUE = logical(1L)
     )
-    n <- n + possibly_as_integer(any(has_to))
+    n <- n + as_integerish(any(has_to))
   }
   this_from <- from
   next_vals <- 0 # dummy value
@@ -75,7 +75,7 @@ num_discretes.dsct_union <- function(x,
     )
     next_vals <- unlist(next_vals, use.names = FALSE)
     next_vals <- next_vals[next_vals < to]
-    n <- n + possibly_as_integer(length(next_vals) > 0)
+    n <- n + as_integerish(length(next_vals) > 0)
     this_from <- min(next_vals, Inf) # Inf in case there are no next_vals
   }
   n

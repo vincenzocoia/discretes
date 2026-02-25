@@ -20,7 +20,7 @@ dsct_drop <- function(x,
   }
   type <- typeof(representative(x))
   if (nleft + nright == 0) {
-    return(vector(type, length = 0L))
+    return(empty_set(type))
   }
   right_side <- dsct_keep(x, from = to, include_from = !include_to)
   if (nleft == 0) {

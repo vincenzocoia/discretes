@@ -76,4 +76,7 @@ test_that("Logarithms - edge cases.", {
     log(empty_set()),
     empty_set()
   )
+  
+  ## Error with other args
+  expect_error(log(natural1(), hello = "hi"))
 })

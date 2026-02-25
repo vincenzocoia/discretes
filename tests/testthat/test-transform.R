@@ -1,73 +1,3 @@
-test_that("Bad function inputs to dsct_transform() result in warning", {
-  expect_a_warning <- function(expr) {
-    suppressWarnings(expect_warning(expr))
-  }
-  # Not proper inverse
-  expect_a_warning(dsct_transform(integers(), fun = exp, inv = exp))
-  expect_a_warning(dsct_transform(-100:100, fun = exp, inv = exp))
-  # Not increasing
-  expect_a_warning(dsct_transform(integers(), fun = `-`, inv = `-`))
-  # Improper domain -> range mapping
-  expect_a_warning(
-    dsct_transform(
-      integers(),
-      fun = exp,
-      inv = log,
-      domain = c(0, 10),
-      range = c(-100, 0)
-    )
-  )
-  # Not vectorized
-  expect_a_warning(
-    dsct_transform(
-      integers(),
-      fun = function(x) exp(x[1]),
-      inv = log,
-      range = c(0, Inf)
-    )
-  )
-  expect_a_warning(
-    dsct_transform(
-      integers(),
-      fun = exp,
-      inv = function(x) log(x[1]),
-      range = c(0, Inf)
-    )
-  )
-  # Function evaluates to NA
-  expect_a_warning(
-    dsct_transform(
-      integers(),
-      fun = function(x) {
-        y <- exp(x)
-        y[x == 0] <- NA
-        y
-      },
-      log,
-      domain = 0:1,
-      range = c(1, exp(1))
-    )
-  )
-  # Trying to map values outside of the domain
-  expect_a_warning(
-    dsct_transform(
-      integers(),
-      fun = exp,
-      inv = log,
-      domain = c(0, 10),
-      range = c(1, exp(10))
-    )
-  )
-  # Trying to map values outside of the range
-  y <- dsct_transform(
-    integers(),
-    fun = exp,
-    inv = log,
-    range = c(0, 100)
-  )
-  expect_a_warning(next_discrete(y, from = 50, n = 2))
-})
-
 test_that("Identity transform works", {
   x <- integers()
   y <- dsct_transform(x, fun = identity, inv = identity)
@@ -171,4 +101,84 @@ test_that("dsct_transform() works with custom domain and range.", {
   y <- dsct_transform(dsct_union(0, -0), function(x) x + 0, identity)
   expect_false(has_negative_zero(y))
   expect_true(has_positive_zero(y))
+})
+
+test_that("Bad function inputs to dsct_transform() result in warning", {
+  expect_a_warning <- function(expr) {
+    suppressWarnings(expect_warning(expr))
+  }
+  # Not proper inverse
+  expect_a_warning(dsct_transform(integers(), fun = exp, inv = exp))
+  expect_a_warning(dsct_transform(-100:100, fun = exp, inv = exp))
+  # Not increasing
+  expect_a_warning(dsct_transform(integers(), fun = `-`, inv = `-`))
+  # Improper domain -> range mapping
+  expect_a_warning(
+    dsct_transform(
+      integers(),
+      fun = exp,
+      inv = log,
+      domain = c(0, 10),
+      range = c(-100, 0)
+    )
+  )
+  # Not vectorized
+  expect_a_warning(
+    dsct_transform(
+      integers(),
+      fun = function(x) exp(x[1]),
+      inv = log,
+      range = c(0, Inf)
+    )
+  )
+  expect_a_warning(
+    dsct_transform(
+      integers(),
+      fun = exp,
+      inv = function(x) log(x[1]),
+      range = c(0, Inf)
+    )
+  )
+  # Function evaluates to NA
+  expect_a_warning(
+    dsct_transform(
+      integers(),
+      fun = function(x) {
+        y <- exp(x)
+        y[x == 0] <- NA
+        y
+      },
+      log,
+      domain = 0:1,
+      range = c(1, exp(1))
+    )
+  )
+  # Function errors.
+  expect_a_warning(
+    expect_error(
+      dsct_transform(
+        integers(),
+        fun = function(x) stop(),
+        inv = identity
+      )
+    )
+  )
+  # Trying to map values outside of the domain
+  expect_a_warning(
+    dsct_transform(
+      integers(),
+      fun = exp,
+      inv = log,
+      domain = c(0, 10),
+      range = c(1, exp(10))
+    )
+  )
+  # Trying to map values outside of the range
+  y <- dsct_transform(
+    integers(),
+    fun = exp,
+    inv = log,
+    range = c(0, 100)
+  )
+  expect_a_warning(next_discrete(y, from = 50, n = 2))
 })

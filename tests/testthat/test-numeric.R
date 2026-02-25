@@ -11,6 +11,8 @@ test_that("S3 methods for numeric work properly.", {
   expect_identical(dsct_linear(0:10, m = numeric(), b = numeric()), numeric())
   expect_identical(dsct_linear(NA_real_, m = 1.5), NA_real_)
   expect_identical(dsct_linear(NA_real_, m = 1.5, b = 0.1), NA_real_)
+  expect_error(dsct_linear(0:10, m = 0:10))
+  expect_error(dsct_linear(0:10, m = 1, b = 0:10))
   # Negation
   expect_identical(dsct_negate(0:10), -(0:10))
   expect_identical(dsct_negate(NA_real_), NA_real_)
