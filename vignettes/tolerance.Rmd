@@ -1,0 +1,107 @@
+---
+title: "tolerance"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{tolerance}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(discretes)
+```
+
+## What is `tol`?
+
+Many operations in **discretes** involve comparing a *queried* numeric value to a
+known discrete set. Because most decimal fractions are not represented exactly
+in floating point (e.g. `0.1`), values that "should" match can differ by a tiny
+amount after arithmetic.
+
+In this package, `tol` is an **absolute tolerance** used when deciding whether a
+query value is "close enough" to a discrete member.
+
+- Setting **`tol = 0`** requests **exact** comparisons.
+- The default is `sqrt(.Machine$double.eps)`, which is small but usually enough
+  to ignore round-off noise.
+
+## Where is `tol` actually used?
+
+Conceptually, `tol` is only used at the points where the package must make a
+yes/no decision about membership or boundaries. Most other functions accept
+`tol` and simply pass it along to wherever that decision is made.
+
+The two most important "leaf" cases are:
+
+- **Arithmetic progressions** (`arithmetic()`): membership is checked by testing
+  whether the implied index \((x - representative) / spacing\) is *integer-ish*.
+- **Explicit numeric sets** (plain numeric vectors, or `as_discretes(numeric)`):
+  membership is checked by testing whether a queried value is within `tol` of
+  any stored value.
+
+Transformations (like `exp(as_discretes(...))`) work by mapping queried points
+back to the root space and then applying the same membership logic there, using
+the same `tol`.
+
+## Example: `tol` with `arithmetic()`
+
+Without a tolerance, values can be hard to recognize as members of an arithmetic
+sequence because the implied index might be `2.999999999...` instead of `3`.
+
+```{r}
+x <- arithmetic(representative = 0, spacing = 0.1)
+has_discretes(x, 0.3)
+has_discretes(x, 0.3, tol = 0)
+```
+
+## Example: `tol` with an explicit numeric set
+
+Even if a set is represented as a numeric vector, you can still run into tiny
+floating-point mismatches.
+
+```{r}
+v <- c(0, 0.1, 0.2, 0.1 * 3)   # last entry is not exactly 0.3
+
+has_discretes(v, 0.3)
+has_discretes(v, 0.3, tol = 0)
+```
+
+If you want "mathematical set" behaviour for an explicit set, use `tol = 0`.
+If you want "numerical computing" behaviour (robust to round-off), keep `tol`
+positive.
+
+## Example: `tol` propagates through transformations
+
+When you transform a discrete set, membership checks happen in the *root space*.
+This means `tol` is applied *before* the transformation (via the inverse map),
+not directly on the transformed values. In practice, this can make membership
+checks behave differently than they would for an ordinary numeric vector.
+
+```{r}
+raw <- 10^(-10:10)
+frozen <- 10^as_discretes(-10:10)
+
+# A realistic way to get a value that is "almost" 5: repeated addition.
+exponent <- tail(cumsum(rep(0.1, 5000)), 1) / 100
+q <- 10^exponent
+
+has_discretes(raw, q)
+has_discretes(frozen, q)
+has_discretes(frozen, q, tol = 0)
+```
+
+## Choosing a `tol`
+
+- **Default is usually fine**: `sqrt(.Machine$double.eps)` is intended to smooth
+  over tiny floating-point noise.
+- **Use `tol = 0` for exactness**: when you truly want explicit sets to behave
+  exactly (e.g., when values were constructed to be exactly representable).
+- **Increase `tol` for noisy values**: if your values come from computation or
+  measurement and you want a wider "snap-to" zone, increase `tol` accordingly.

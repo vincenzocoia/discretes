@@ -10,16 +10,17 @@
 \item{x}{Discrete value series
 (\code{numeric} vector or object of class \code{"discretes"}).}
 
-\item{...}{Reserved for future extensions; must be empty.}
+\item{...}{Arguments to pass downstream to \code{as.numeric()} that's called
+on the resulting vector of discrete values.}
 }
 \value{
 A numeric vector containing all discrete values in \code{x},
 ordered from smallest to largest. Returns \code{numeric(0)} when the interval
-contains no discrete values.
+contains no discrete values. Numeric outputs are wrapped in \code{as.numeric()}.
 }
 \description{
 Return all discrete values in a "discretes" object, if finite.
-If infinite, throws an error.
+Throws an error if infinite.
 }
 \examples{
 as.numeric(integers(-3.5, 10))

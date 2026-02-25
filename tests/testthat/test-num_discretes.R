@@ -52,31 +52,32 @@ test_that("num_discretes() behaviour around numeric vectors with NA", {
     ),
     NA_integer_
   )
-  # Integer
+  # Integer: still can't count because NA could be a double precision that
+  # converts the vector to double.
   x <- c(NA, 7L, 6L, 8L)
   expect_identical(
     num_discretes(
       x, from = 6L, to = 7L, include_from = TRUE, include_to = TRUE
     ),
-    2L
+    NA_integer_
   )
   expect_identical(
     num_discretes(
       x, from = 6L, to = 7L, include_from = TRUE, include_to = FALSE
     ),
-    1L
+    NA_integer_
   )
   expect_identical(
     num_discretes(
       x, from = 6L, to = 7L, include_from = FALSE, include_to = TRUE
     ),
-    1L
+    NA_integer_
   )
   expect_identical(
     num_discretes(
       x, from = 6L, to = 7L, include_from = FALSE, include_to = FALSE
     ),
-    0L
+    NA_integer_
   )
 })
 

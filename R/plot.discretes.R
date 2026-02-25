@@ -33,8 +33,8 @@
 #' @examples
 #' plot(integers())
 #' plot(integers(), from = -50, to = 50)
-#' plot(0.5^natural1(), closeness = 1e-5)
-#' plot(dsct_union(1 / integers(), 0), closeness = 0.05)
+#' plot(0.5^natural1(), closeness = 1e-3)
+#' plot(dsct_union(0.5^natural1(), 0), closeness = 1e-3)
 #' @export
 plot.discretes <- function(x,
                            from = -Inf,

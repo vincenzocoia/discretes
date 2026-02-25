@@ -28,9 +28,7 @@ to the left (decreasing values) and \code{n_right} steps to the right
 }
 \note{
 While \code{spacing} can be zero, this results in a discrete series
-containing only the \code{representative} value, with no other terms. This is
-achieved by setting both \code{n_left} and \code{n_right} to zero internally,
-and overriding the spacing to \code{1L}.
+containing only the \code{representative} value, with no other terms.
 
 The series can only contain \code{-0} if the \code{representative} is set as such.
 }
@@ -40,7 +38,7 @@ arithmetic(representative = 0.6, spacing = 0.7, n_right = 0)
 arithmetic(representative = 0, spacing = 2, n_left = 2, n_right = 2)
 
 # Negative zero, resulting in `-Inf` upon inversion:
-1 / get_discretes_in(arithmetic(-0, 1, n_left = 0, n_right = 0))
+has_negative_zero(arithmetic(-0, 1))
 }
 \seealso{
 \code{\link[=integers]{integers()}}

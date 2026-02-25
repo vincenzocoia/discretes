@@ -6,9 +6,9 @@
 \usage{
 \method{plot}{discretes}(
   x,
-  ...,
   from = -Inf,
   to = Inf,
+  ...,
   closeness = 0.01,
   tol = sqrt(.Machine$double.eps)
 )
@@ -17,9 +17,9 @@
 \item{x}{Discrete value series
 (\code{numeric} vector or object of class \code{"discretes"}).}
 
-\item{...}{Additional arguments passed to the underlying \code{plot()} function.}
-
 \item{from, to}{Numeric values defining the range to plot; single numerics.}
+
+\item{...}{Additional arguments passed to the underlying \code{plot()} function.}
 
 \item{closeness}{Numeric value indicating how close to the (non-infinite)
 sinks points should no longer be plotted. This is because there are an
@@ -59,6 +59,6 @@ manually adjusted by changing the \code{from} and \code{to} parameters.
 \examples{
 plot(integers())
 plot(integers(), from = -50, to = 50)
-plot(0.5^natural1(), closeness = 1e-5)
-plot(dsct_union(1 / integers(), 0), closeness = 0.05)
+plot(0.5^natural1(), closeness = 1e-3)
+plot(dsct_union(0.5^natural1(), 0), closeness = 1e-3)
 }

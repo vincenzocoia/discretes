@@ -9,9 +9,9 @@ get_discretes_at(x, values, ..., tol = sqrt(.Machine$double.eps))
 
 get_discretes_in(
   x,
-  ...,
   from = -Inf,
   to = Inf,
+  ...,
   include_from = TRUE,
   include_to = TRUE,
   tol = sqrt(.Machine$double.eps)

@@ -7,18 +7,18 @@
 \usage{
 dsct_drop(
   x,
-  ...,
   from = -Inf,
   to = Inf,
+  ...,
   include_from = TRUE,
   include_to = TRUE
 )
 
 dsct_keep(
   x,
-  ...,
   from = -Inf,
   to = Inf,
+  ...,
   include_from = TRUE,
   include_to = TRUE
 )
@@ -27,10 +27,10 @@ dsct_keep(
 \item{x}{Discrete value series
 (\code{numeric} vector or object of class \code{"discretes"}).}
 
-\item{...}{Reserved for future extensions; must be empty.}
-
 \item{from, to}{Numeric values defining the range to keep; single numerics
 with \code{from <= to}.}
+
+\item{...}{Reserved for future extensions; must be empty.}
 
 \item{include_from, include_to}{Logical values indicating whether the
 \code{from} and \code{to} values should be included in the kept range; single

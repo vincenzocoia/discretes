@@ -7,7 +7,7 @@
 \usage{
 sinks(x)
 
-has_sink(x, from = -Inf, to = Inf, ..., tol = sqrt(.Machine$double.eps))
+has_sink(x, from = -Inf, to = Inf)
 }
 \arguments{
 \item{x}{Discrete value series
@@ -15,11 +15,6 @@ has_sink(x, from = -Inf, to = Inf, ..., tol = sqrt(.Machine$double.eps))
 
 \item{from, to}{Reference values, possibly infinite. \code{from} must be less than
 or equal to \code{to}; both must be length-1 numeric vectors.}
-
-\item{...}{Reserved for future extensions; must be empty.}
-
-\item{tol}{Numerical tolerance used for snapping queried values
-to members in the discrete series; single non-negative numeric.}
 }
 \value{
 A matrix with two columns: \code{location} and \code{direction}. Each row

@@ -7,17 +7,17 @@
 \usage{
 has_infinite_discretes(
   x,
-  ...,
   from = -Inf,
   to = Inf,
+  ...,
   tol = sqrt(.Machine$double.eps)
 )
 
 num_discretes(
   x,
-  ...,
   from = -Inf,
   to = Inf,
+  ...,
   include_from = TRUE,
   include_to = TRUE,
   tol = sqrt(.Machine$double.eps)
@@ -27,10 +27,10 @@ num_discretes(
 \item{x}{Discrete value series
 (\code{numeric} vector or object of class \code{"discretes"}).}
 
-\item{...}{Reserved for future extensions; must be empty.}
-
 \item{from, to}{Reference values, possibly infinite. \code{from} must be less than
 or equal to \code{to}; both must be length-1 numeric vectors.}
+
+\item{...}{Reserved for future extensions; must be empty.}
 
 \item{tol}{Numerical tolerance used for snapping queried values
 to members in the discrete series; single non-negative numeric.}

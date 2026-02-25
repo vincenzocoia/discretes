@@ -37,15 +37,10 @@ sinks <- function(x) {
 
 #' @rdname sinks
 #' @export
-has_sink <- function(x,
-                     from = -Inf,
-                     to = Inf,
-                     ...,
-                     tol = sqrt(.Machine$double.eps)) {
+has_sink <- function(x, from = -Inf, to = Inf) {
   checkmate::assert_true(is_discrete_set(x))
   checkmate::assert_number(from)
   checkmate::assert_number(to, lower = from)
-  checkmate::assert_number(tol, lower = 0)
-  n <- num_discretes(x, from = from, to = to, tol = tol, ...)
-  n == Inf
+  y <- dsct_keep(x, from = from, to = to)
+  nrow(sinks(y)) > 0
 }
