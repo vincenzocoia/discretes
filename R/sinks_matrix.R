@@ -4,7 +4,7 @@
 # - Default is an empty matrix with 0 rows and 2 columns (i.e., no sinks).
 # - `direction` can only be -1 (approached from left) or 1 (from right).
 sinks_matrix <- function(location = numeric(0L), direction = numeric(0L)) {
-  checkmate::assert_numeric(location)
+  checkmate::assert_numeric(location, any.missing = FALSE)
   l <- length(location)
   checkmate::assert_numeric(direction, len = l)
   if (any(abs(direction) != 1)) {

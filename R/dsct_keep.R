@@ -16,9 +16,9 @@
 #' @rdname subsetting
 #' @export
 dsct_keep <- function(x,
-                      ...,
                       from = -Inf,
                       to = Inf,
+                      ...,
                       include_from = TRUE,
                       include_to = TRUE) {
   ellipsis::check_dots_empty()
@@ -45,8 +45,13 @@ dsct_keep <- function(x,
     return(vector(type, length = 0L))
   }
   base_sinks <- sinks(x)
-  location <- base_sinks[, "location"]
-  sinks <- base_sinks[from <= location & to >= location, , drop = FALSE]
+  locations <- base_sinks[, "location"]
+  directions <- base_sinks[, "direction"]
+  bad1 <- locations < from
+  bad2 <- locations > to
+  bad3 <- locations == from & directions == -1
+  bad4 <- locations == to & directions == 1
+  sinks <- base_sinks[!bad1 & !bad2 & !bad3 & !bad4, , drop = FALSE]
   new_discretes(
     data = list(
       base = x,

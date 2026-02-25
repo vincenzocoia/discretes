@@ -17,6 +17,8 @@ test_that("next_discrete() - edge cases", {
   expect_identical(next_discrete(y, from = 0, n = 0), integer())
   expect_identical(next_discrete(z, from = Inf), numeric())
   expect_identical(next_discrete(z, from = 0, n = 0), numeric())
+  expect_error(next_discrete("hello", from = "hello"))
+  expect_error(prev_discrete("hello", from = "hello"))
 })
 
 test_that("next_discrete() - numeric with NA", {

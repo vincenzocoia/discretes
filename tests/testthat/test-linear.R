@@ -138,3 +138,10 @@ test_that("Ops results in proper linear transform.", {
   z <- discretes:::dsct_linear(base, m = 2, b = 0)
   expect_same_linear(2 * base + 5 - 5, z)
 })
+
+test_that("dsct_linear edge cases", {
+  expect_error(1:2 * integers())
+  expect_error(1:2 * integers() + 5)
+  expect_error(integers() + 1:2)
+  expect_error(2 * integers() + 1:2)
+})

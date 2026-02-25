@@ -45,8 +45,7 @@ has_sink <- function(x,
   checkmate::assert_true(is_discrete_set(x))
   checkmate::assert_number(from)
   checkmate::assert_number(to, lower = from)
-  ellipsis::check_dots_empty()
   checkmate::assert_number(tol, lower = 0)
-  n <- num_discretes(x, from = from, to = to, tol = tol)
+  n <- num_discretes(x, from = from, to = to, tol = tol, ...)
   n == Inf
 }

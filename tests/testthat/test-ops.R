@@ -110,3 +110,9 @@ test_that("NA, NaN not allowed", {
   expect_error(dsct_union(Inf, integers()) - Inf)
   expect_error(dsct_union(-Inf, integers()) + Inf)
 })
+
+test_that("Bad Ops.", {
+  expect_error(integers() %% 2)
+  expect_error(integers() == 2)
+  expect_error(integers() * integers())
+})

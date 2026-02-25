@@ -13,9 +13,7 @@
 #'   describing how many steps exist to the left and right of `representative`.
 #' @return A `dsct_arithmetic` object, inheriting from `discretes`.
 #' @note While `spacing` can be zero, this results in a discrete series
-#'  containing only the `representative` value, with no other terms. This is
-#'  achieved by setting both `n_left` and `n_right` to zero internally,
-#'  and overriding the spacing to `1L`.
+#'  containing only the `representative` value, with no other terms.
 #'  
 #' The series can only contain `-0` if the `representative` is set as such. 
 #' @examples
@@ -24,7 +22,7 @@
 #' arithmetic(representative = 0, spacing = 2, n_left = 2, n_right = 2)
 #' 
 #' # Negative zero, resulting in `-Inf` upon inversion:
-#' 1 / get_discretes_in(arithmetic(-0, 1, n_left = 0, n_right = 0))
+#' has_negative_zero(arithmetic(-0, 1))
 #' @seealso [integers()]
 #' @export
 arithmetic <- function(representative,

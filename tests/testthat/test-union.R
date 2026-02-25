@@ -57,3 +57,15 @@ test_that("dsct_union representative draws from combined support", {
   y <- dsct_union(c(-4, -2), 5)
   expect_true(representative(y) %in% c(-4, -2, 5))
 })
+
+test_that("dsct_union edge cases", {
+  expect_identical(num_discretes(dsct_union(integers(), NA_real_)), Inf)
+  expect_identical(
+    num_discretes(dsct_union(integers(-10, 10), NA_real_)),
+    NA_integer_
+  )
+  expect_identical(num_discretes(dsct_union(empty_set(), empty_set())), 0L)
+  expect_error(dsct_union(integers(), 1:10, "hello"))
+  expect_error(dsct_union(integers(), 1:10, sum))
+  expect_identical(dsct_union(), empty_set())
+})

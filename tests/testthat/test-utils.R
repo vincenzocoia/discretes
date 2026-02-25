@@ -94,3 +94,22 @@ test_that("Inputs to is_between() are checked.", {
   expect_error(is_between(0, numeric(), 1))
   expect_error(is_between(0, 1, numeric()))
 })
+
+test_that("floor2 and ceiling2 work.", {
+  almost_six <- 6 - 1e-10
+  expect_identical(floor2(almost_six), 6L)
+
+  almost_seven <- 7 + 1e-10
+  expect_identical(ceiling2(almost_seven), 7L)
+  
+  expect_identical(ceiling2(NA), NA_integer_)
+  expect_identical(floor2(NA), NA_integer_)
+  expect_identical(
+    ceiling2(c(NA, almost_six, almost_seven)),
+    c(NA_integer_, 6L, 7L)
+  )
+  expect_identical(
+    floor2(c(NA, almost_six, almost_seven)),
+    c(NA_integer_, 6L, 7L)
+  )
+})

@@ -1,8 +1,8 @@
 #' @export
 num_discretes.numeric <- function(x,
-                                  ...,
                                   from = -Inf,
                                   to = Inf,
+                                  ...,
                                   include_from = TRUE,
                                   include_to = TRUE,
                                   tol = sqrt(.Machine$double.eps)) {
@@ -23,24 +23,6 @@ num_discretes.numeric <- function(x,
   x <- unique(x)
   x <- x[!is.na(x)]
   if (has_na) {
-    if (is.integer(x) && is.finite(from) && is.finite(to)) {
-      from_int <- ceiling2(from, tol = tol)
-      to_int <- floor2(to, tol = tol)
-      if (from_int > to_int) {
-        return(0L)
-      }
-      if (abs(from_int - from) > tol) {
-        include_from <- TRUE
-      }
-      if (abs(to_int - to) > tol) {
-        include_to <- TRUE
-      }
-      n_series <- to_int - from_int - 1L + include_from + include_to
-      series <- from_int + seq_len(n_series) - include_from
-      if (all(series %in% x)) {
-        return(possibly_as_integer(n_series))
-      }
-    }
     return(NA_integer_)
   }
   if (include_from) {

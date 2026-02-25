@@ -1,12 +1,11 @@
 #' @export
 num_discretes.dsct_union <- function(x,
-                                     ...,
                                      from = -Inf,
                                      to = Inf,
+                                     ...,
                                      include_from = TRUE,
                                      include_to = TRUE,
                                      tol = sqrt(.Machine$double.eps)) {
-  ellipsis::check_dots_empty()
   checkmate::assert_number(from)
   checkmate::assert_number(to, lower = from)
   checkmate::assert_logical(include_from, len = 1, any.missing = FALSE)
@@ -29,16 +28,17 @@ num_discretes.dsct_union <- function(x,
         to = to,
         include_from = include_from,
         include_to = include_to,
-        tol = tol
+        tol = tol,
+        ...
       )
     },
     FUN.VALUE = numeric(1L)
   )
-  if (any(is.na(counts))) {
-    return(NA_integer_)
-  }
   if (any(is.infinite(counts))) {
     return(Inf)
+  }
+  if (any(is.na(counts))) {
+    return(NA_integer_)
   }
   if (all(counts == 0L)) {
     return(0L)

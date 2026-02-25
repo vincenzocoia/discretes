@@ -5,7 +5,7 @@
 \alias{get_discretes_in}
 \title{Extract members of a discrete set}
 \usage{
-get_discretes_at(x, ..., values, tol = sqrt(.Machine$double.eps))
+get_discretes_at(x, values, ..., tol = sqrt(.Machine$double.eps))
 
 get_discretes_in(
   x,
@@ -21,9 +21,9 @@ get_discretes_in(
 \item{x}{Discrete value series
 (\code{numeric} vector or object of class \code{"discretes"}).}
 
-\item{...}{Reserved for future extensions; must be empty.}
-
 \item{values}{Numeric vector of values to pull from the discrete set \code{x}.}
+
+\item{...}{Reserved for future extensions; must be empty.}
 
 \item{tol}{Numerical tolerance used for snapping queried values
 to members in the discrete series; single non-negative numeric.}

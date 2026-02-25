@@ -1,4 +1,4 @@
-test_that("walking on inverse series works", {
+test_that("Walking on inverse series works", {
   # Function to build an inverse set from a collection of numeric vectors in
   # `...` and test walking the series against `expect` (which doesn't need
   # to be sorted). Tests each n from 0 to the provided one,
@@ -338,4 +338,15 @@ test_that("walking on inverse series works", {
   expect_equal(prev_discrete(y, from = Inf, n = Inf), c(1, 0))
   y <- 1 / dsct_union(1 + 1 / natural0(), 1, 0.5)
   expect_equal(prev_discrete(y, from = Inf, n = Inf), c(2, 1))
+})
+
+
+test_that("Walking an inverse series: edge cases.", {
+  x <- 1 / integers()
+  expect_identical(next_discrete(x, from = -4, n = 0), numeric())
+  expect_identical(prev_discrete(x, from = -4, n = 0), numeric())
+  expect_error(next_discrete(x, from = NA))
+  expect_error(prev_discrete(x, from = NA))
+  expect_error(next_discrete(x, from = -4, goes_in_ellipsis = 0))
+  expect_error(prev_discrete(x, from = -4, goes_in_ellipsis = 0))
 })

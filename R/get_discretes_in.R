@@ -25,9 +25,9 @@
 #' @rdname get_discretes
 #' @export
 get_discretes_in <- function(x,
-                             ...,
                              from = -Inf,
                              to = Inf,
+                             ...,
                              include_from = TRUE,
                              include_to = TRUE,
                              tol = sqrt(.Machine$double.eps)) {

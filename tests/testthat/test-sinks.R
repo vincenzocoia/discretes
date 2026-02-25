@@ -112,4 +112,9 @@ test_that("Transformations preserve sinks.", {
   expect_false(has_sink(x, to = 0))
 })
 
+test_that("Sinks edge cases", {
+  expect_error(sinks_matrix(location = 1:2, direction = 1:2))
+  expect_error(sinks_matrix(location = c(1, NA), direction = c(-1, 1)))
+})
+
 rm("expect_sinks")

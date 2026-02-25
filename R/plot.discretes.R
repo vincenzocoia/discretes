@@ -37,9 +37,9 @@
 #' plot(dsct_union(1 / integers(), 0), closeness = 0.05)
 #' @export
 plot.discretes <- function(x,
-                           ...,
                            from = -Inf,
                            to = Inf,
+                           ...,
                            closeness = 1e-2,
                            tol = sqrt(.Machine$double.eps)) {
   checkmate::assert_number(from)

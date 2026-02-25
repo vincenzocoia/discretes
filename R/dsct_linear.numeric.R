@@ -1,17 +1,20 @@
 #' @export
 dsct_linear.numeric <- function(x, m, b = NULL) {
-  checkmate::assert_number(m, finite = TRUE)
-  checkmate::assert_number(b, finite = TRUE, null.ok = TRUE)
+  checkmate::assert_numeric(m, finite = TRUE, any.missing = FALSE)
+  checkmate::assert_numeric(
+    b,
+    finite = TRUE,
+    any.missing = FALSE,
+    null.ok = TRUE
+  )
+  if (length(m) > 1) {
+    stop("`m` must be a vector of length 0 or 1, not length ", length(m), ".")
+  }
   if (is.null(b)) {
-    res <- m * x
-  } else {
-    res <- m * x + b
+    return(m * x)
   }
-  if (any(is.na(res))) {
-    stop(
-      "Values not allowed from transformation: ",
-      paste(unique(res[is.na(res)]), collapse = ", ")
-    )
+  if (length(b) > 1) {
+    stop("`b` must be a vector of length 0 or 1, not length ", length(b), ".")
   }
-  res
+  m * x + b
 }

@@ -9,7 +9,6 @@ prev_discrete.dsct_union <- function(x,
   n <- assert_and_convert_integerish(n, lower = 0)
   checkmate::assert_logical(include_from, len = 1, any.missing = FALSE)
   checkmate::assert_number(tol, lower = 0)
-  ellipsis::check_dots_empty()
   type <- typeof(representative(x))
   inputs <- x$inputs
   result <- vector(type, length = 0L)
@@ -31,7 +30,8 @@ prev_discrete.dsct_union <- function(x,
         from = current_from,
         n = 1L,
         include_from = FALSE,
-        tol = tol
+        tol = tol,
+        ...
       )
     })
     candidate_values <- unlist(candidates, use.names = FALSE)

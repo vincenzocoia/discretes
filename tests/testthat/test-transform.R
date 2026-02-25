@@ -105,13 +105,19 @@ test_that("dsct_transform() works with custom domain and range.", {
   x <- integers()
   # R -> (0, 1)
   y <- dsct_transform(x, pnorm, qnorm, range = c(0, 1))
+  expect_equal(next_discrete(y, from = 0.5001, n = 4), pnorm(1:4))
+  expect_equal(prev_discrete(y, from = 0.5001, n = 4), pnorm(0:-3))
+  expect_equal(next_discrete(y, from = 0.5001, n = 0), numeric())
+  expect_equal(prev_discrete(y, from = 0.5001, n = 0), numeric())
+  expect_equal(next_discrete(y, from = 1.1, n = 4), numeric())
+  expect_equal(prev_discrete(y, from = -1.1, n = 4), numeric())
   expect_equal(
-    next_discrete(y, from = 0.5001, n = 4),
-    pnorm(1:4)
+    has_discretes(y, values = c(pnorm(-2:2), NA, 0.5 - 0.0001)),
+    c(rep(TRUE, 5), NA, FALSE)
   )
   expect_equal(
-    prev_discrete(y, from = 0.5001, n = 4),
-    pnorm(0:-3)
+    has_discretes(y, values = NA_real_),
+    NA
   )
   # Transforming numeric results in numeric.
   y <- dsct_transform(

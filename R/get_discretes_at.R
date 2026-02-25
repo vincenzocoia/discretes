@@ -1,7 +1,7 @@
 #' @param values Numeric vector of values to pull from the discrete set `x`.
 #' @rdname get_discretes
 #' @export
-get_discretes_at <- function(x, ..., values, tol = sqrt(.Machine$double.eps)) {
+get_discretes_at <- function(x, values, ..., tol = sqrt(.Machine$double.eps)) {
   checkmate::assert_true(is_discrete_set(x))
   checkmate::assert_numeric(values, any.missing = TRUE)
   ellipsis::check_dots_empty()

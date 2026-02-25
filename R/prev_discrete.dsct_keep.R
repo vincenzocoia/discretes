@@ -6,35 +6,50 @@ prev_discrete.dsct_keep <- function(x,
                                     include_from = FALSE,
                                     tol = sqrt(.Machine$double.eps)) {
   checkmate::assert_number(from)
-  ellipsis::check_dots_empty()
   n <- assert_and_convert_integerish(n, lower = 0)
   checkmate::assert_logical(include_from, len = 1, any.missing = FALSE)
   checkmate::assert_number(tol, lower = 0)
-  base <- x$base
-  l <- x$left
-  r <- x$right
-  include_left <- x$include_left
-  include_right <- x$include_right
-  same_right <- is.infinite(from) && is.infinite(r) && sign(from) == sign(r)
-  if ((same_right || abs(from - r) <= tol) && include_from) {
-    from <- r
+  base <- x[["base"]]
+  left <- x[["left"]]
+  right <- x[["right"]]
+  include_left <- x[["include_left"]]
+  include_right <- x[["include_right"]]
+  is_downstream <- is_between(
+    from,
+    lower = -Inf,
+    upper = left,
+    include_lower = TRUE,
+    include_upper = !include_left
+  )
+  if (is_downstream) {
+    return(vector(typeof(representative(base)), length = 0L))
+  }
+  is_upstream <- is_between(
+    from,
+    lower = right,
+    upper = Inf,
+    include_lower = !include_right,
+    include_upper = TRUE
+  )
+  if (is_upstream) {
+    from <- right
     include_from <- include_right
   }
-  if (from > r + tol) {
-    from <- r
-    include_from <- include_right
-  }
-  res <- prev_discrete(
+  n_available <- num_discretes(
+    base,
+    from = left,
+    to = from,
+    include_from = include_left,
+    include_to = include_from,
+    tol = tol
+  )
+  n <- min(n_available, n)
+  prev_discrete(
     base,
     from = from,
     n = n,
     include_from = include_from,
-    tol = tol
+    tol = tol,
+    ...
   )
-  if (include_left) {
-    res <- res[res >= l]
-  } else {
-    res <- res[res > l]
-  }
-  res
 }

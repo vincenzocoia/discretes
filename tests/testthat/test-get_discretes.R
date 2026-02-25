@@ -4,3 +4,8 @@ test_that("", {
   expect_true(is.integer(get_discretes_in(x)))
   expect_false(is.integer(as.numeric(x)))
 })
+
+test_that("Get discretes: edge cases.", {
+  expect_error(get_discretes_in(integers()))
+  expect_error(as.numeric(integers()))
+})

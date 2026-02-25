@@ -1,9 +1,9 @@
 #' @rdname num_discretes
 #' @export
 has_infinite_discretes <- function(x,
-                                   ...,
                                    from = -Inf,
                                    to = Inf,
+                                   ...,
                                    tol = sqrt(.Machine$double.eps)) {
   checkmate::assert_true(inherits(x, "discretes") || is.numeric(x))
   checkmate::assert_number(from)

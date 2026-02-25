@@ -263,3 +263,8 @@ test_that("Negative zeroes are being tracked properly", {
   expect_identical(has_positive_zero(0), TRUE)
   expect_identical(has_positive_zero(c(0, -0)), TRUE)
 })
+
+test_that("Edge cases", {
+  expect_error(has_negative_zero("hello"))
+  expect_error(has_positive_zero("hello"))
+})
