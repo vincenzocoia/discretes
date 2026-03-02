@@ -68,13 +68,14 @@ Perform arithmetic operations on series.
 ``` r
 1 / 2^integers()
 #> Reciprocal series of length Inf:
+#> Loading required namespace: testthat
 #> ..., 0.25, 0.5, 1, 2, 4, 8, ...
 ```
 
-Arithmetic operations on series return new series, preserving structure
-where possible. See the [transformations]() vignette to learn more about
-what’s allowed (hint: non-monotonic functions are not), and how to use
-transformations that are not supported out of the box.
+Arithmetic operations on series return new series. See the
+[transformations]() vignette to learn more about what’s allowed (hint:
+non-monotonic functions are not), and how to use transformations that
+are not supported out of the box.
 
 ### Sinks
 
@@ -85,7 +86,6 @@ plotting:
 ``` r
 x <- 1 / 2^integers()
 plot(x)
-#> Loading required namespace: testthat
 ```
 
 <img src="man/figures/README-unnamed-chunk-7-1.png" width="100%" />
@@ -140,10 +140,11 @@ successor/predecessor.
 ## Acknowledgements
 
 Development of this package would not have been possible without the
-funding and support of the [European Space Agency](https://www.esa.int/)
-and the [Politecnico di Milano](https://www.polimi.it/). The need for
-this package arose from work on the
-[probaverse](https://probaverse.com/) project, which aims to provide
-tools for probabilistic modeling and inference in R.
+funding and support of [BGC Engineering
+Inc.](https://www.bgcengineering.ca/), the [European Space
+Agency](https://www.esa.int/), and the [Politecnico di
+Milano](https://www.polimi.it/). The need for this package arose from
+work on the [probaverse](https://probaverse.com/) project, which aims to
+provide tools for probabilistic modeling and inference in R.
 
 [^1]: Or more precisely, a limit point.

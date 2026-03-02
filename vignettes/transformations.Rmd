@@ -1,0 +1,85 @@
+---
+title: "transformations"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{transformations}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(discretes)
+```
+
+Here is a list of all transformations that are currently implemented.
+
+Operations `+`, `-`, `*`, `/`, `^` are supported when a number is on one side, and a numeric series is on the other.
+
+Operations that are currently not supported:
+
+- Operations between two numeric series.
+- Operations that are not strictly increasing / decreasing within the range of the series.
+
+For example, if a series has both negativea and positive values, it can be cubed, but squaring is not supported because it is not strictly monotonic.
+
+```{r}
+integers()^3
+```
+
+```{r, error=TRUE}
+integers()^2
+```
+
+But squaring is supported if the series is only positive or only negative.
+
+```{r}
+natural0()^2
+```
+
+```{r}
+(-natural0())^2
+```
+
+The following mathematical functions are supported:
+
+- `sqrt()`, on series with non-negative values.
+- `exp()`
+- `log()`, `log2()`, and `log10()` are supported on series with non-negative values.
+
+## Other Transformations
+
+If there are other transformations you'd like to apply, you can use `dsct_transform()`. Make sure:
+
+1. The function is vectorized and operates element-wise; likewise for its inverse. This means functions like `cumsum()` that depend on other values of the vector are not supported.
+2. The function is strictly increasing over the intended domain. If you'd like to apply a decreasing function, consider applying the negative of the function, and then applying the negative of the inverse function to transform back.
+
+Let's say you'd like to apply the `pnorm()` function to a series. You can't do `pnorm(integers())`, but you can instead put it in `dsct_transform()`. The range of the function is not the set of real numbers, so we need to specify it explicitly.
+
+```{r}
+dsct_transform(
+  natural0(),
+  fun = pnorm,
+  inv = qnorm,
+  range = c(0, 1)
+)
+```
+
+You can also use functions that are not increasing over the entire real line, but are increasing over a specified domain. For example `sin()` is increasing between `-pi/2` and `pi/2`, evaluating to between -1 and 1, with inverse `asin()`. 
+
+```{r}
+dsct_transform(
+  -3:3,
+  fun = sin,
+  inv = asin,
+  domain = c(-pi/2, pi/2),
+  range = c(-1, 1)
+)
+```
+

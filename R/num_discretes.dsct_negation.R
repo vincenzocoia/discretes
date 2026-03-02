@@ -14,7 +14,7 @@ num_discretes.dsct_negation <- function(x,
   base_from <- -to
   base_to <- -from
   num_discretes(
-    x$base,
+    x[["base"]],
     from = base_from,
     to = base_to,
     include_from = include_to,

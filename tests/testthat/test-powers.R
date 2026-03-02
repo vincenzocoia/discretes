@@ -14,6 +14,21 @@ test_that("Powers work: basic check.", {
   expect_identical(get_discretes_in(as_discretes(0:5)^-0.5), rev(1 / sqrt(0:5)))
   expect_identical(get_discretes_in(as_discretes(0:5)^-1), rev(1 / (0:5)))
   expect_identical(get_discretes_in(as_discretes(-5:5)^-3), sort((-5:5)^-3))
+  # Fractional power only supported when values are non-negative.
+  expect_identical(get_discretes_in(as_discretes(0:5)^2.1), (0:5)^2.1)
+  expect_error(as_discretes(0:-5)^2.1)
+  expect_error(as_discretes(5:-5)^2.1)
+  # Odd powers
+  expect_identical(get_discretes_in(as_discretes(-5:5)^3), (-5:5)^3)
+  # Even powers -- they are union series if both positive and negative values.
+  expect_identical(get_discretes_in(as_discretes(-5:0)^2), (0:5)^2)
+  expect_identical(get_discretes_in(as_discretes(0:5)^2), (0:5)^2)
+  expect_s3_class(integers()^2, "dsct_union")
+  expect_identical(get_discretes_in(as_discretes(-5:5)^2), (0:5)^2)
+  expect_identical(
+    get_discretes_in(as_discretes(-5:5 + 0.1)^2),
+    sort((-5:5 + 0.1)^2)
+  )
 })
 
 test_that("Powers via different mechanisms match.", {

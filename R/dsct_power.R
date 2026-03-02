@@ -6,8 +6,9 @@
 #' 
 #' @inheritParams next_discrete
 #' @param power The power to raise the series to; numeric of length 0 or 1.
-#'   If `x` contains negative values, then only odd values are allowed;
-#'   an error is thrown otherwise.
+#'   If `x` contains negative values, then only `power` must be an integer,
+#'   otherwise an error is thrown because the series would contain complex
+#'   numbers, which are not supported in the discretes package.
 #' @returns A discretes object where the members are the result of applying the
 #'  power transformation `^` to `x` with the specified `power`.
 #' @examples
@@ -39,6 +40,10 @@ dsct_power <- function(x, power) {
   if (power < 0) {
     return(dsct_invert(x^abs(power)))
   }
+  # - For x >= 0, x^power is always monotonic.
+  # - For x < 0, x^power is complex unless `power` is integer:
+  #   - Odd integers (..., -3, -1, 1, 3, ...): x^power increasing on R.
+  #   - Even integers (..., -2, 0, 2, ...): x^power U-shaped.
   nneg <- num_discretes(
     x,
     from = -Inf,
@@ -57,17 +62,53 @@ dsct_power <- function(x, power) {
       )
     )
   }
-  if (power %% 2L != 1) {
+  fraction <- power %% 1L
+  if (fraction != 0) {
     stop(
-      "Exponentiation of a discretes series is only supported for odd powers ",
-      "when the series contains negative values."
+      "Raising a series with negative values to a fractional power is not ",
+      "supported, because the transformation results in complex numbers."
     )
   }
-  dsct_transform(
+  remainder <- power %% 2L
+  if (remainder == 1) {
+    return(
+      dsct_transform(
+        x,
+        fun = function(t) t^power,
+        inv = function(t) {
+          sign(t) * abs(t)^(1 / power)
+        }
+      )
+    )
+  }
+  xpos <- dsct_keep(
     x,
-    fun = function(t) t^power,
-    inv = function(t) {
-      sign(t) * abs(t)^(1 / power)
-    }
+    from = 0,
+    to = Inf,
+    include_from = TRUE,
+    include_to = TRUE
   )
+  xneg <- dsct_keep(
+    x,
+    from = -Inf,
+    to = 0,
+    include_from = TRUE,
+    include_to = FALSE
+  )
+  ypos <- dsct_transform(
+    xpos,
+    fun = function(t) t^power,
+    inv = function(t) t^(1 / power),
+    domain = c(0, Inf),
+    range = c(0, Inf)
+  )
+  yneg <- dsct_transform(
+    xneg,
+    fun = function(t) t^power,
+    inv = function(t) -t^(1 / power),
+    domain = c(-Inf, 0),
+    range = c(0, Inf),
+    dir = "decreasing"
+  )
+  dsct_union(ypos, yneg)
 }

@@ -67,7 +67,7 @@ Perform arithmetic operations on series.
 1 / 2^integers()
 ```
 
-Arithmetic operations on series return new series, preserving structure where possible.
+Arithmetic operations on series return new series.
 See the [transformations]() vignette to learn more about what's allowed (hint: non-monotonic functions are not), and how to use transformations that are not supported out of the box.
 
 ### Sinks
@@ -115,5 +115,5 @@ Dense countable sets like the rational numbers are not supported because they do
 
 ## Acknowledgements
 
-Development of this package would not have been possible without the funding and support of the [European Space Agency](https://www.esa.int/) and the [Politecnico di Milano](https://www.polimi.it/).
+Development of this package would not have been possible without the funding and support of [BGC Engineering Inc.](https://www.bgcengineering.ca/), the [European Space Agency](https://www.esa.int/), and the [Politecnico di Milano](https://www.polimi.it/).
 The need for this package arose from work on the [probaverse](https://probaverse.com/) project, which aims to provide tools for probabilistic modeling and inference in R.

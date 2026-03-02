@@ -182,3 +182,38 @@ test_that("Bad function inputs to dsct_transform() result in warning", {
   )
   expect_a_warning(next_discrete(y, from = 50, n = 2))
 })
+
+test_that("dsct_transform works with decreasing functions.", {
+  x <- seq(0, 3, length.out = 10)
+  y <- dsct_transform(
+    as_discretes(x),
+    fun = cos,
+    inv = acos,
+    domain = c(0, pi),
+    range = c(-1, 1),
+    dir = "decreasing"
+  )
+  expect_true(has_discretes(y, values = representative(y)))
+  expect_equal(num_discretes(y), 10)
+  expect_equal(get_discretes_in(y), sort(cos(x)))
+  expect_equal(num_discretes(y, to = -1.1), 0)
+  expect_equal(num_discretes(y, from = 1.1), 0)
+  expect_equal(
+    prev_discrete(y, from = Inf, n = 4, include_from = FALSE),
+    prev_discrete(y, from = pi, n = 4, include_from = TRUE)
+  )
+  expect_identical(
+    prev_discrete(y, from = -4, n = 4),
+    numeric()
+  )
+  expect_equal(
+    next_discrete(y, from = 1, n = 4, include_from = TRUE),
+    1
+  )
+  expect_equal(num_discretes(y, to = 0), 5)
+  expect_equal(num_discretes(y, from = 0), 5)
+  expect_equal(
+    has_discretes(y, values = c(cos(c(0, 3)), 0)),
+    c(TRUE, TRUE, FALSE)
+  )
+})

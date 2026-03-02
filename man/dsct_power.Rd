@@ -11,8 +11,9 @@ dsct_power(x, power)
 (\code{numeric} vector or object of class \code{"discretes"}).}
 
 \item{power}{The power to raise the series to; numeric of length 0 or 1.
-If \code{x} contains negative values, then only odd values are allowed;
-an error is thrown otherwise.}
+If \code{x} contains negative values, then only \code{power} must be an integer,
+otherwise an error is thrown because the series would contain complex
+numbers, which are not supported in the discretes package.}
 }
 \value{
 A discretes object where the members are the result of applying the

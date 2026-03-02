@@ -30,9 +30,12 @@ dsct_union <- function(...) {
     if (inherits(x, "dsct_union")) {
       res <- append(res, x$inputs)
     }
-    if (!is.null(x)) {
+    if (!is.null(x) || num_discretes(x) != 0) {
       res <- append(res, list(x))
     }
+  }
+  if (length(res) == 1) {
+    return(res[[1]])
   }
   sinks_list <- lapply(res, sinks)
   sinks <- do.call(rbind, sinks_list)

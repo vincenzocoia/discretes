@@ -4,7 +4,15 @@
 \alias{dsct_transform}
 \title{Monotonically Transform a Discrete Value Series}
 \usage{
-dsct_transform(x, fun, inv, domain = c(-Inf, Inf), range = c(-Inf, Inf))
+dsct_transform(
+  x,
+  fun,
+  inv,
+  ...,
+  domain = c(-Inf, Inf),
+  range = c(-Inf, Inf),
+  dir = c("increasing", "decreasing")
+)
 }
 \arguments{
 \item{x}{Discrete value series
@@ -13,9 +21,14 @@ dsct_transform(x, fun, inv, domain = c(-Inf, Inf), range = c(-Inf, Inf))
 \item{fun, inv}{A vectorized, strictly increasing function to apply to the
 discrete support values, and its inverse, \code{inv}.}
 
+\item{...}{Reserved for future extensions; must be empty.}
+
 \item{domain, range}{Numeric vectors of length 2, indicating the domain and
 range of \code{fun} (that is, the interval on which \code{fun} is valid, and the
 interval in which \code{fun} maps to).}
+
+\item{dir}{A string, either "increasing" or "decreasing", indicating the
+monotonicity of the function \code{fun}.}
 }
 \value{
 A transformed discretes object.
@@ -23,20 +36,23 @@ A transformed discretes object.
 \description{
 Monotonically Transform a Discrete Value Series
 }
-\note{
-The onus is on the user to ensure that \code{inv} is indeed the inverse of
-\code{fun}, that both are vectorized, and that both are strictly increasing.
-
-By strictly increasing, we mean that for any \code{x1 < x2}, it holds that
+\details{
+Strictly increasing means that for any \code{x1 < x2}, it holds that
 \code{fun(x1) < fun(x2)}, for all values on the real line. The function \code{-1/x},
 for example, is not strictly increasing: its derivative is increasing,
 but switches to smaller values after \code{x = 0}, therefore is not strictly
-increasing. This becomes important when distinguishing between \code{+0}
-and \code{-0}, which has special treatment with \code{dsct_inverse()}, but not
-for \code{dsct_transform()}.
+increasing.
+
+If a decreasing function is provided, the transformation is negated
+internally first: that is, the input series is negated, and the
+function and its inverse are modified accordingly.
+}
+\note{
+The onus is on the user to ensure that \code{inv} is indeed the inverse of
+\code{fun}, that both are vectorized.
 }
 \examples{
-dsct_transform(integers(), fun = exp, inv = log, range = c(0, Inf))
+dsct_transform(integers(), fun = pnorm, inv = qnorm, range = c(0, 1))
 }
 \seealso{
 Other transformations: 
