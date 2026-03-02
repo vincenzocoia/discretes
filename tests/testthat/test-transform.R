@@ -109,9 +109,6 @@ test_that("Bad function inputs to dsct_transform() result in warning", {
   }
   # Not proper inverse
   expect_a_warning(dsct_transform(integers(), fun = exp, inv = exp))
-  expect_a_warning(dsct_transform(-100:100, fun = exp, inv = exp))
-  # Not increasing
-  expect_a_warning(dsct_transform(integers(), fun = `-`, inv = `-`))
   # Improper domain -> range mapping
   expect_a_warning(
     dsct_transform(
@@ -216,4 +213,9 @@ test_that("dsct_transform works with decreasing functions.", {
     has_discretes(y, values = c(cos(c(0, 3)), 0)),
     c(TRUE, TRUE, FALSE)
   )
+})
+
+test_that("Numeric transform just applies `fun`.", {
+  expect_equal(dsct_transform(0:5, exp), exp(0:5))
+  expect_equal(dsct_transform(0:5, exp), dsct_transform(0:5, exp, log))
 })

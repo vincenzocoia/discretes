@@ -11,7 +11,7 @@ next_discrete.dsct_inverse <- function(x,
   checkmate::assert_logical(include_from, len = 1, any.missing = FALSE)
   checkmate::assert_number(tol, lower = 0)
   base <- x$base
-  collected <- vector(length = 0, mode = typeof(representative(x)))
+  collected <- vector(length = 0, mode = typeof_dsct(x))
   encountered_sink <- FALSE
   if (n == 0) {
     return(collected)

@@ -10,7 +10,7 @@ prev_discrete.dsct_transform <- function(x,
   checkmate::assert_logical(include_from, len = 1, any.missing = FALSE)
   checkmate::assert_number(tol, lower = 0)
   if (n == 0) {
-    return(vector(mode = typeof(representative(x)), length = 0L))
+    return(vector(mode = typeof_dsct(x), length = 0L))
   }
   rng <- x[["range"]]
   dom <- x[["domain"]]
@@ -18,7 +18,7 @@ prev_discrete.dsct_transform <- function(x,
     base_from <- dom[2]
     include_from <- TRUE
   } else if (from < rng[1]) {
-    return(vector(mode = typeof(representative(x)), length = 0L))
+    return(vector(mode = typeof_dsct(x), length = 0L))
   } else {
     base_from <- x[["inv"]](from)
   }

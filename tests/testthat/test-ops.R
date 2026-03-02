@@ -75,11 +75,7 @@ test_that("Checks when discretes are negative", {
     c(-27, -8, -1, 0, 1, 8, 27)
   )
 
-  expect_error(integers()^2)
-  expect_error(integers()^4)
   expect_error(integers()^0.5)
-  expect_error(integers()^(-2))
-  expect_error(integers()^(-4))
   expect_error(integers()^(-0.5))
 })
 

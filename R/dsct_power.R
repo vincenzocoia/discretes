@@ -28,7 +28,7 @@ dsct_power <- function(x, power) {
   if (num_discretes(x) == 0 || length(power) == 0) {
     return(empty_set(typeof(representative(x)^power)))
   }
-  old_type <- typeof(representative(x))
+  old_type <- typeof_dsct(x)
   new_type <- typeof(representative(x)^power)
   if (power == 1 && old_type == new_type && !has_negative_zero(x)) {
     # Note: (-0)^1 = +0, which is why we need the negative zero check here.

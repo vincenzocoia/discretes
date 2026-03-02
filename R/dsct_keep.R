@@ -41,7 +41,7 @@ dsct_keep <- function(x,
     include_to = include_to
   )
   if (n_remaining == 0) {
-    type <- typeof(representative(x))
+    type <- typeof_dsct(x)
     return(vector(type, length = 0L))
   }
   base_sinks <- sinks(x)

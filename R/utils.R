@@ -136,3 +136,8 @@ is_between <- function(x,
   }
   inc_low & inc_up
 }
+
+
+typeof_dsct <- function(x) {
+  typeof(representative(x))
+}

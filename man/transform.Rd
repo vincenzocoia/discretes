@@ -2,9 +2,12 @@
 % Please edit documentation in R/dsct_transform.R
 \name{dsct_transform}
 \alias{dsct_transform}
+\alias{dsct_transform.discretes}
 \title{Monotonically Transform a Discrete Value Series}
 \usage{
-dsct_transform(
+dsct_transform(x, fun, ...)
+
+\method{dsct_transform}{discretes}(
   x,
   fun,
   inv,
@@ -18,10 +21,10 @@ dsct_transform(
 \item{x}{Discrete value series
 (\code{numeric} vector or object of class \code{"discretes"}).}
 
-\item{fun, inv}{A vectorized, strictly increasing function to apply to the
+\item{fun, inv}{A vectorized, strictly monotonic function to apply to the
 discrete support values, and its inverse, \code{inv}.}
 
-\item{...}{Reserved for future extensions; must be empty.}
+\item{...}{Reserved for future extensions.}
 
 \item{domain, range}{Numeric vectors of length 2, indicating the domain and
 range of \code{fun} (that is, the interval on which \code{fun} is valid, and the
@@ -34,28 +37,33 @@ monotonicity of the function \code{fun}.}
 A transformed discretes object.
 }
 \description{
-Monotonically Transform a Discrete Value Series
+Apply a function that's either strictly increasing or strictly decreasing
+to a numeric series.
 }
 \details{
 Strictly increasing means that for any \code{x1 < x2}, it holds that
 \code{fun(x1) < fun(x2)}, for all values on the real line. The function \code{-1/x},
 for example, is not strictly increasing: its derivative is increasing,
 but switches to smaller values after \code{x = 0}, therefore is not strictly
-increasing.
+increasing. Strictly decreasing is the opposite, in that we have
+\code{fun(x1) > fun(x2)}.
 
 If a decreasing function is provided, the transformation is negated
-internally first: that is, the input series is negated, and the
-function and its inverse are modified accordingly.
-}
-\note{
-The onus is on the user to ensure that \code{inv} is indeed the inverse of
-\code{fun}, that both are vectorized.
+internally first, and then transformed with fun(-x).
 }
 \examples{
 dsct_transform(integers(), fun = pnorm, inv = qnorm, range = c(0, 1))
+dsct_transform(
+  as_discretes(0:3),
+  fun = cos,
+  inv = acos,
+  domain = c(0, pi),
+  range = c(-1, 1),
+  dir = "decreasing"
+)
+
+# For numeric inputs, function is applied directly.
+# Other arguments beyond `fun` get absorbed in `...` and are not used.
+dsct_transform(0:5, exp)
+dsct_transform(0:5, exp, log)
 }
-\seealso{
-Other transformations: 
-\code{\link{dsct_union}()}
-}
-\concept{transformations}

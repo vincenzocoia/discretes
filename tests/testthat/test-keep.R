@@ -43,7 +43,7 @@ test_that("Keep works.", {
     n_set <- c(0:length(y), Inf)
     expect_identical(as.numeric(x), y)
     expect_true(representative(x) %in% y)
-    expect_identical(typeof(representative(x)), typeof(representative(base)))
+    expect_identical(typeof_dsct(x), typeof(representative(base)))
     expect_identical(get_discretes_at(x, values = y), y)
     expect_true(all(has_discretes(x, values = y)))
     for (from in froms) {

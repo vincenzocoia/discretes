@@ -27,13 +27,4 @@ test_that("S3 methods for numeric work properly.", {
     ),
     (0:10)^2
   )
-  suppressWarnings(expect_warning(
-    dsct_transform(
-      0:10,
-      fun = function(x) x^2,
-      inv = sqrt,
-      domain = c(-1, Inf),
-      range = c(0, Inf)
-    )
-  ))
 })

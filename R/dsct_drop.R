@@ -18,7 +18,7 @@ dsct_drop <- function(x,
   if (ndropping == 0) {
     return(x)
   }
-  type <- typeof(representative(x))
+  type <- typeof_dsct(x)
   if (nleft + nright == 0) {
     return(empty_set(type))
   }

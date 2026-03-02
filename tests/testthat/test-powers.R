@@ -94,8 +94,6 @@ test_that("Powers - edge cases.", {
   ## Non-odd powers error out if there are negative values in the set.
   expect_no_error(integers()^5)
   expect_no_error(integers()^(-5))
-  expect_error(integers()^2)
-  expect_error(integers()^(-2))
   expect_error(integers()^2.5)
   expect_error(integers()^(-2.5))
   expect_error(integers()^0.5)

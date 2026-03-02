@@ -11,7 +11,7 @@ next_discrete.dsct_arithmetic <- function(x,
   checkmate::assert_logical(include_from, len = 1, any.missing = FALSE)
   checkmate::assert_number(tol, lower = 0)
   if (from == Inf || n == 0) {
-    type <- typeof(representative(x))
+    type <- typeof_dsct(x)
     return(vector(type, 0L))
   }
   n_left <- x$n_left
@@ -19,7 +19,7 @@ next_discrete.dsct_arithmetic <- function(x,
   representative <- x$representative
   spacing <- x$spacing
   if (from == -Inf && is.infinite(n_left)) {
-    type <- typeof(representative(x))
+    type <- typeof_dsct(x)
     return(vector(type, 0L))
   }
   from_index <- (from - representative) / spacing

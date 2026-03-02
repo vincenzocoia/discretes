@@ -1,7 +1,7 @@
 #' @export
 has_positive_zero.dsct_negation <- function(x) {
   base <- x[["base"]]
-  if (typeof(representative(x)) == "integer") {
+  if (typeof_dsct(x) == "integer") {
     return(has_positive_zero(base))
   }
   has_negative_zero(base)
@@ -9,7 +9,7 @@ has_positive_zero.dsct_negation <- function(x) {
 
 #' @export
 has_negative_zero.dsct_negation <- function(x) {
-  if (typeof(representative(x)) == "integer") {
+  if (typeof_dsct(x) == "integer") {
     return(FALSE)
   }
   has_positive_zero(x[["base"]])

@@ -1,40 +1,52 @@
 #' Monotonically Transform a Discrete Value Series
-#'
+#' 
+#' Apply a function that's either strictly increasing or strictly decreasing
+#' to a numeric series.
+#' 
 #' @inheritParams next_discrete
-#' @param fun,inv A vectorized, strictly increasing function to apply to the
+#' @param fun,inv A vectorized, strictly monotonic function to apply to the
 #'   discrete support values, and its inverse, `inv`.
+#' @param ... Reserved for future extensions.
 #' @param domain,range Numeric vectors of length 2, indicating the domain and
 #'   range of `fun` (that is, the interval on which `fun` is valid, and the
 #'   interval in which `fun` maps to).
 #' @param dir A string, either "increasing" or "decreasing", indicating the
 #'   monotonicity of the function `fun`.
 #' @returns A transformed discretes object.
-#' @note The onus is on the user to ensure that `inv` is indeed the inverse of
-#'   `fun`, that both are vectorized.
 #' @details
 #' Strictly increasing means that for any `x1 < x2`, it holds that
 #'   `fun(x1) < fun(x2)`, for all values on the real line. The function `-1/x`,
 #'   for example, is not strictly increasing: its derivative is increasing,
 #'   but switches to smaller values after `x = 0`, therefore is not strictly
-#'   increasing.
+#'   increasing. Strictly decreasing is the opposite, in that we have
+#'   `fun(x1) > fun(x2)`.
 #'
 #' If a decreasing function is provided, the transformation is negated
-#'   internally first: that is, the input series is negated, and the
-#'   function and its inverse are modified accordingly.
+#'   internally first, and then transformed with fun(-x).
 #' @examples
 #' dsct_transform(integers(), fun = pnorm, inv = qnorm, range = c(0, 1))
-#' @family transformations
+#' dsct_transform(
+#'   as_discretes(0:3),
+#'   fun = cos,
+#'   inv = acos,
+#'   domain = c(0, pi),
+#'   range = c(-1, 1),
+#'   dir = "decreasing"
+#' )
+#' 
+#' # For numeric inputs, function is applied directly.
+#' # Other arguments beyond `fun` get absorbed in `...` and are not used.
+#' dsct_transform(0:5, exp)
+#' dsct_transform(0:5, exp, log)
+#' @rdname transform
 #' @export
 dsct_transform <- function(x,
                            fun,
-                           inv,
-                           ...,
-                           domain = c(-Inf, Inf),
-                           range = c(-Inf, Inf),
-                           dir = c("increasing", "decreasing")) {
+                           ...) {
   UseMethod("dsct_transform")
 }
 
+#' @rdname transform
 #' @export
 dsct_transform.discretes <- function(x,
                                      fun,

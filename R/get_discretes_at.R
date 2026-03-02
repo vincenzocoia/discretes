@@ -8,7 +8,7 @@ get_discretes_at <- function(x, values, ..., tol = sqrt(.Machine$double.eps)) {
   checkmate::assert_number(tol, lower = 0)
   has <- has_discretes(x, values = values, tol = tol)
   values <- values[which(is.na(values) | has)]
-  type <- typeof(representative(x))
+  type <- typeof_dsct(x)
   values[!is.na(values)] <- vapply(
     values[!is.na(values)],
     function(v) next_discrete(x, v, include_from = TRUE, tol = tol),

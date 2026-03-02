@@ -9,7 +9,7 @@ test_that("dsct_linear returns a dsct_transform subclass with m/b fields", {
   expect_identical(x[["m"]], 2L)
   expect_true(is.null(x[["b"]]))
   expect_identical(x[["base"]], base)
-  expect_identical(typeof(representative(x)), "integer")
+  expect_identical(typeof_dsct(x), "integer")
 })
 
 test_that("dsct_linear composition preserves b = NULL semantics", {
@@ -111,7 +111,7 @@ test_that("Ops results in proper linear transform.", {
     testthat::expect_identical(x[["b"]], y[["b"]])
     testthat::expect_identical(x[["base"]], y[["base"]])
     testthat::expect_identical(
-      typeof(representative(x)),
+      typeof_dsct(x),
       typeof(representative(y))
     )
     testthat::expect_identical(

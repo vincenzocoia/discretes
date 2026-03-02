@@ -9,7 +9,7 @@ prev_discrete.dsct_union <- function(x,
   n <- assert_and_convert_integerish(n, lower = 0)
   checkmate::assert_logical(include_from, len = 1, any.missing = FALSE)
   checkmate::assert_number(tol, lower = 0)
-  type <- typeof(representative(x))
+  type <- typeof_dsct(x)
   inputs <- x$inputs
   result <- vector(type, length = 0L)
   if (include_from) {

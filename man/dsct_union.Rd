@@ -29,8 +29,3 @@ x1 <- natural1()
 x2 <- -natural1()
 dsct_union(x1, x2)
 }
-\seealso{
-Other transformations: 
-\code{\link{dsct_transform}()}
-}
-\concept{transformations}
