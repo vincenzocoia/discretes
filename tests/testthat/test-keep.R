@@ -264,12 +264,12 @@ test_that("Edge cases", {
 
 test_that("Sinks are preserved or eliminated.", {
   x <- 1 / integers()
-  expect_false(has_sink(dsct_drop(x, from = -0.3, to = 0.3)))
+  expect_false(has_sink_in(dsct_drop(x, from = -0.3, to = 0.3)))
   yr <- dsct_keep(x, from = 0)
-  expect_true(has_sink(yr, to = 1))
+  expect_true(has_sink_in(yr, to = 1))
   expect_identical(nrow(sinks(yr)), 1L)
   yl <- dsct_keep(x, to = 0)
-  expect_true(has_sink(yl, from = -1))
+  expect_true(has_sink_in(yl, from = -1))
   expect_identical(nrow(sinks(yr)), 1L)
 })
 
@@ -278,22 +278,22 @@ test_that("Representative works.", {
   y <- dsct_union(x, 2 - x)
   # left sink
   z <- dsct_keep(y, from = 0, to = 1)
-  expect_true(has_sink(z, from = 0, to = 0.1))
+  expect_true(has_sink_at(z, 0, dir = "right"))
   expect_true(has_discretes(z, representative(z)))
   # right sink
   z <- dsct_keep(y, from = 1, to = 2)
-  expect_true(has_sink(z, from = 1.9, to = 2))
+  expect_true(has_sink_in(z, from = 1.9, to = 2))
   expect_true(has_discretes(z, representative(z)))
   # both side have sinks
   z <- dsct_keep(y, from = 0, to = 2)
-  expect_true(has_sink(z, from = 0, to = 0.1))
-  expect_true(has_sink(z, from = 1.9, to = 2))
+  expect_true(has_sink_in(z, from = 0, to = 0.1))
+  expect_true(has_sink_in(z, from = 1.9, to = 2))
   expect_true(has_discretes(z, representative(z)))
   # infinite sinks on both sides
   x <- dsct_union(integers(), -Inf, Inf)
   z <- dsct_keep(x, include_from = FALSE, include_to = FALSE)
-  expect_true(has_sink(z, to = -100))
-  expect_true(has_sink(z, from = 100))
+  expect_true(has_sink_in(z, to = -100))
+  expect_true(has_sink_in(z, from = 100))
   expect_true(has_discretes(z, representative(z)))
 })
 

@@ -88,7 +88,7 @@ x <- 1 / 2^integers()
 plot(x)
 ```
 
-<img src="man/figures/README-unnamed-chunk-7-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-7-1.png" alt="" width="100%" />
 
 Notice that there are infinitely many discrete values close to 0.
 
@@ -107,7 +107,7 @@ next_discrete(x, from = -1)
 You can ask whether a sink exists directly.
 
 ``` r
-has_sink(x, from = 0, to = 1)
+has_sink_in(x, from = 0, to = 1)
 #> [1] TRUE
 ```
 

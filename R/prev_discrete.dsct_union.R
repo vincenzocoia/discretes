@@ -42,7 +42,7 @@ prev_discrete.dsct_union <- function(x,
     sinks <- vapply(
       inputs,
       function(d) {
-        has_sink(d, from = prev_val, to = current_from)
+        has_sink_in(d, from = prev_val, to = current_from)
       },
       FUN.VALUE = logical(1L)
     )

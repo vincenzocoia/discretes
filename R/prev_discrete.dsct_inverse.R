@@ -42,7 +42,7 @@ prev_discrete.dsct_inverse <- function(x,
     collected <- append(collected, 1 / newx)
     # Update configuration
     n <- max(0, n - length(newx))
-    encountered_sink <- has_sink(x, from = 0, to = from)
+    encountered_sink <- has_sink_in(x, from = 0, to = from)
     from <- 0
     include_from <- TRUE
   }
@@ -77,7 +77,7 @@ prev_discrete.dsct_inverse <- function(x,
     )
     collected <- append(collected, 1 / newx)
     n <- n - length(newx)
-    encountered_sink <- has_sink(x, to = from)
+    encountered_sink <- has_sink_in(x, to = from)
     from <- -Inf
     include_from <- TRUE
   }

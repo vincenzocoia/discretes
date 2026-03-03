@@ -2,19 +2,13 @@
 % Please edit documentation in R/sinks.R
 \name{sinks}
 \alias{sinks}
-\alias{has_sink}
 \title{Sinks}
 \usage{
 sinks(x)
-
-has_sink(x, from = -Inf, to = Inf)
 }
 \arguments{
 \item{x}{Discrete value series
 (\code{numeric} vector or object of class \code{"discretes"}).}
-
-\item{from, to}{Reference values, possibly infinite. \code{from} must be less than
-or equal to \code{to}; both must be length-1 numeric vectors.}
 }
 \value{
 A matrix with two columns: \code{location} and \code{direction}. Each row
@@ -25,18 +19,16 @@ approached from the left (-1) or right (1).
 \description{
 Sinks are limit points in a discrete set. That means that discrete values
 get arbitrarily close to the sink (from the left or right), and that there
-are infinitely many discrete points around the sink.
+are infinitely many discrete points around the sink. This function returns
+a matrix of all sinks in the numeric series.
 }
 \examples{
 # The set of integers have sinks at +Inf and -Inf
 sinks(integers())
-has_sink(integers())
 
 # The set 1, 1/2, 1/4, 1/8, ... has a sink at 0 approached from the right.
 halves <- 0.5^natural0()
 sinks(halves)
-has_sink(halves, to = 0)
-has_sink(halves, from = 0)
 
 # The reciprocal of the integers has a sink at 0 approached from both the
 # left and right; while the integer 0 gets mapped to Inf, infinity is not a
@@ -44,4 +36,7 @@ has_sink(halves, from = 0)
 reciprocals <- 1 / integers()
 sinks(reciprocals)
 has_discretes(reciprocals, Inf) # Yet Inf is a member.
+}
+\seealso{
+\code{\link[=has_sink_in]{has_sink_in()}}, \code{\link[=has_sink_at]{has_sink_at()}}
 }
