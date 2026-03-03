@@ -225,6 +225,7 @@ test_that("Edge cases", {
   expect_identical(num_discretes(y), 0L)
   expect_identical(next_discrete(y, from = -Inf), integer())
   expect_identical(prev_discrete(y, from = Inf), integer())
+  expect_identical(representative(y), integer())
   expect_false(has_discretes(y, values = 0))
   # [0, 0)
   y <- dsct_keep(

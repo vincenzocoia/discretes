@@ -36,6 +36,21 @@ test_that("dsct_union recognises duplicates and numeric support", {
   )
   expect_true(all(has_discretes(x, values = c(-2, 0, 1))))
   expect_false(has_discretes(x, values = -3))
+
+  expect_identical(dsct_union(), empty_series())
+  expect_identical(dsct_union(integers(), empty_series()), integers())
+  expect_identical(
+    dsct_union(
+      dsct_union(integers(1, 5), integers(10, 15)),
+      empty_series(),
+      -natural1()
+    ),
+    dsct_union(
+      integers(1, 5),
+      integers(10, 15),
+      -natural1()
+    )
+  )
 })
 
 test_that("dsct_union detects infinite support", {

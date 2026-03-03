@@ -2,7 +2,7 @@
 representative.dsct_keep <- function(x) {
   n <- num_discretes(x)
   if (n == 0) {
-    return(numeric(0))
+    return(vector(mode = typeof_dsct(x), length = 0L))
   }
   a <- next_discrete(x, from = x$left, n = 1L, include_from = x$include_left)
   if (length(a)) {

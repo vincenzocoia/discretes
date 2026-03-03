@@ -21,17 +21,16 @@ dsct_union <- function(...) {
   if (!all(good_inputs)) {
     stop("All inputs must be discretes objects or numeric vectors.")
   }
-  if (!length(inputs)) {
-    return(empty_series())
-  }
   res <- list()
   for (x in inputs) {
     if (inherits(x, "dsct_union")) {
       res <- append(res, x$inputs)
-    }
-    if (!is.null(x) || num_discretes(x) != 0) {
+    } else if (!is.null(x) && !identical(num_discretes(x), 0L)) {
       res <- append(res, list(x))
     }
+  }
+  if (!length(res)) {
+    return(empty_series())
   }
   if (length(res) == 1) {
     return(res[[1]])
