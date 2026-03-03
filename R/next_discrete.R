@@ -2,9 +2,7 @@
 #'
 #' `next_discrete()` and `prev_discrete()` find the `n` discrete values
 #' in a distribution next to a reference point. `num_discretes()` finds
-#' the number of discrete values within a range. `has_infinite_discretes()`
-#' checks whether there are an infinite amount of discrete values between
-#' a range of values.
+#' the number of discrete values within a range.
 #'
 #' @param x Discrete value series
 #'   (`numeric` vector or object of class `"discretes"`).

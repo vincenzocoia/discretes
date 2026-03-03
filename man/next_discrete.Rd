@@ -50,9 +50,7 @@ decreasing, so that earlier values are encountered sooner.
 \description{
 \code{next_discrete()} and \code{prev_discrete()} find the \code{n} discrete values
 in a distribution next to a reference point. \code{num_discretes()} finds
-the number of discrete values within a range. \code{has_infinite_discretes()}
-checks whether there are an infinite amount of discrete values between
-a range of values.
+the number of discrete values within a range.
 }
 \note{
 Just because there may not be any

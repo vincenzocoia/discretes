@@ -40,7 +40,7 @@ test_that("dsct_union recognises duplicates and numeric support", {
 
 test_that("dsct_union detects infinite support", {
   x <- dsct_union(natural1(), c(-5, -4))
-  expect_true(has_infinite_discretes(x))
+  expect_true(num_discretes(x) == Inf)
 })
 
 test_that("dsct_union has_discretes follows union semantics with NA inputs", {
