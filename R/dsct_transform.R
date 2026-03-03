@@ -78,7 +78,7 @@ dsct_transform.discretes <- function(x,
   validate_transform_fun(fun, inv, domain = domain, range = range)
   ntotal <- num_discretes(x)
   if (ntotal == 0) {
-    return(empty_set(typeof(fun(representative(x)))))
+    return(empty_series(typeof(fun(representative(x)))))
   }
   nleft <- num_discretes(
     x,

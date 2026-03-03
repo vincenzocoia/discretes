@@ -259,7 +259,7 @@ test_that("Edge cases", {
   expect_identical(dsct_drop(x, from = -9, to = -7), x)
   expect_identical(dsct_drop(x, from = 5, to = 9, include_from = FALSE), x)
   expect_identical(dsct_drop(x, from = -9, to = 1, include_to = FALSE), x)
-  expect_identical(dsct_drop(x, from = 0, to = 6), empty_set("integer"))
+  expect_identical(dsct_drop(x, from = 0, to = 6), empty_series("integer"))
 })
 
 test_that("Sinks are preserved or eliminated.", {

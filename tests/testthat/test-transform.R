@@ -22,10 +22,10 @@ test_that("Identity transform works", {
 
 
 test_that("Empty sets remain empty", {
-  x <- empty_set()
+  x <- empty_series()
   y <- dsct_transform(x, exp, log, range = c(0, Inf))
   expect_identical(x, y)
-  x <- empty_set("integer")
+  x <- empty_series("integer")
   y <- dsct_transform(x, exp, log, range = c(0, Inf))
   expect_identical(typeof(representative(y)), "double")
 })

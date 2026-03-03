@@ -70,11 +70,11 @@ test_that("Logarithms - edge cases.", {
   ## Empty base returns empty. Empty set returns empty.
   expect_identical(
     log(natural1(), base = numeric(0)),
-    empty_set("double")
+    empty_series("double")
   )
   expect_identical(
-    log(empty_set()),
-    empty_set()
+    log(empty_series()),
+    empty_series()
   )
   
   ## Error with other args

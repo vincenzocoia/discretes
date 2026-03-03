@@ -26,7 +26,7 @@ dsct_power <- function(x, power) {
     stop("Cannot exponentiate a series by a vector of length >1.")
   }
   if (num_discretes(x) == 0 || length(power) == 0) {
-    return(empty_set(typeof(representative(x)^power)))
+    return(empty_series(typeof(representative(x)^power)))
   }
   old_type <- typeof_dsct(x)
   new_type <- typeof(representative(x)^power)

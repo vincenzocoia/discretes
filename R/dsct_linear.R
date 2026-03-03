@@ -33,7 +33,7 @@ dsct_linear.discretes <- function(x, m, b = NULL) {
   }
   rpr <- representative(x)
   if (num_discretes(x) == 0 || length(m) == 0 || length(bb) == 0) {
-    return(empty_set(typeof(m * rpr + bb)))
+    return(empty_series(typeof(m * rpr + bb)))
   }
   if (m < 0) {
     return(dsct_linear(dsct_negate(x), m = abs(m), b = b))

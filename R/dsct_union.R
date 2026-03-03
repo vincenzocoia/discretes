@@ -22,7 +22,7 @@ dsct_union <- function(...) {
     stop("All inputs must be discretes objects or numeric vectors.")
   }
   if (!length(inputs)) {
-    return(empty_set())
+    return(empty_series())
   }
   res <- list()
   for (x in inputs) {

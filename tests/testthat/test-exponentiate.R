@@ -63,10 +63,10 @@ test_that("Exponentiation edge cases.", {
   # Empty base returns empty. Empty set returns empty.
   expect_identical(
     discretes:::dsct_raise(integers(), base = numeric(0)),
-    empty_set("double")
+    empty_series("double")
   )
-  expect_identical(numeric(0)^integers(), empty_set("double"))
-  expect_identical(2^empty_set(), empty_set())
-  expect_identical(1^empty_set(), empty_set())
-  expect_identical(0^empty_set(), empty_set())
+  expect_identical(numeric(0)^integers(), empty_series("double"))
+  expect_identical(2^empty_series(), empty_series())
+  expect_identical(1^empty_series(), empty_series())
+  expect_identical(0^empty_series(), empty_series())
 })

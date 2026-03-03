@@ -26,7 +26,7 @@ dsct_raise <- function(x, base = exp(1)) {
   checkmate::assert_true(is_discrete_set(x))
   checkmate::assert_numeric(base, any.missing = FALSE, finite = FALSE)
   if (!length(base) || num_discretes(x) == 0) {
-    return(empty_set(typeof(representative(x)^base)))
+    return(empty_series(typeof(representative(x)^base)))
   }
   if (length(base) > 1) {
     stop("Cannot exponentiate a series by a vector of length >1.")

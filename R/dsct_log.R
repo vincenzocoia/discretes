@@ -23,7 +23,7 @@ dsct_log <- function(x, base = exp(1)) {
   checkmate::assert_true(is_discrete_set(x))
   checkmate::assert_numeric(base, finite = TRUE)
   if (!length(base)) {
-    return(empty_set(typeof(log(representative(x), base = base))))
+    return(empty_series(typeof(log(representative(x), base = base))))
   }
   if (base <= 0 || base == 1) {
     stop("Log base must be positive and not equal to 1.")

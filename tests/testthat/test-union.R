@@ -64,8 +64,8 @@ test_that("dsct_union edge cases", {
     num_discretes(dsct_union(integers(-10, 10), NA_real_)),
     NA_integer_
   )
-  expect_identical(num_discretes(dsct_union(empty_set(), empty_set())), 0L)
+  expect_identical(num_discretes(dsct_union(empty_series(), empty_series())), 0L)
   expect_error(dsct_union(integers(), 1:10, "hello"))
   expect_error(dsct_union(integers(), 1:10, sum))
-  expect_identical(dsct_union(), empty_set())
+  expect_identical(dsct_union(), empty_series())
 })
