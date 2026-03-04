@@ -5,7 +5,7 @@
 #' @param ... Additional arguments passed to the underlying `plot()` function.
 #' @param from,to Numeric values defining the range to plot; single numerics.
 #' @param closeness Numeric value indicating how close to the (non-infinite)
-#'   sinks points should no longer be plotted. This is because there are an
+#'   sinks the points should no longer be plotted. This is because there are an
 #'   infinite number of points around each sink.
 #' @param tol Numerical tolerance used for snapping `from` or `to` values,
 #'   including in internal calls; single non-negative numeric.

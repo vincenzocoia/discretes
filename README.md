@@ -121,6 +121,13 @@ user. Dense countable sets like the rational numbers are not supported
 because they do not have a well-defined notion of local
 successor/predecessor.
 
+## Code of Conduct
+
+Please note that the discretes project is released with a [Contributor
+Code of
+Conduct](https://contributor-covenant.org/version/2/1/CODE_OF_CONDUCT.html).
+By contributing to this project, you agree to abide by its terms.
+
 ## Similar Packages
 
 - [‘Zseq’](https://cran.r-project.org/package=Zseq) provides access to

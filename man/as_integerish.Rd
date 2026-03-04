@@ -11,7 +11,7 @@ as_integerish(x)
 coercable to numeric via \code{as.numeric()} without becoming \code{NA}.}
 }
 \value{
-A vector comprising of whole numbers, with type "integer" if
+A vector comprising whole numbers, with type "integer" if
 possible, but at least type "double".
 }
 \description{
@@ -22,7 +22,7 @@ would rather keep the original number and change the type to "double"
 than to convert large numbers to \code{NA}.
 }
 \details{
-When \code{as.integer()} coneverts a number to \code{NA}, \code{as_integerish()} will
+When \code{as.integer()} converts a number to \code{NA}, \code{as_integerish()} will
 instead drop the fractional part of the number, keeping the sign.
 
 Values in \code{x} that are \code{NA} are preserved as \code{NA}.

@@ -6,7 +6,7 @@
 #' @inheritParams num_discretes
 #' @param ... Arguments to pass downstream to `as.numeric()` that's called
 #'   on the resulting vector of discrete values.
-#' @return A numeric vector containing all discrete values in `x`,
+#' @returns A numeric vector containing all discrete values in `x`,
 #'   ordered from smallest to largest. Returns `numeric(0)` when the interval
 #'   contains no discrete values. Numeric outputs are wrapped in `as.numeric()`.
 #' @examples

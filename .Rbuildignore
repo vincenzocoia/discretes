@@ -5,3 +5,4 @@
 ^codecov\.yml$
 ^\.github$
 DEVELOPER_NOTES.md
+^CODE_OF_CONDUCT\.md$

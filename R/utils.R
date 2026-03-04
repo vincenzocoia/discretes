@@ -56,10 +56,10 @@ floor2 <- function(x, tol = sqrt(.Machine$double.eps)) {
 #'
 #' @param x Numeric vector. More specifically, an atomic vector that is
 #'   coercable to numeric via `as.numeric()` without becoming `NA`.
-#' @returns A vector comprising of whole numbers, with type "integer" if
+#' @returns A vector comprising whole numbers, with type "integer" if
 #'   possible, but at least type "double". 
 #' @details
-#' When `as.integer()` coneverts a number to `NA`, `as_integerish()` will
+#' When `as.integer()` converts a number to `NA`, `as_integerish()` will
 #' instead drop the fractional part of the number, keeping the sign.
 #' 
 #' Values in `x` that are `NA` are preserved as `NA`.
