@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot.discretes.R
 \name{plot.discretes}
 \alias{plot.discretes}
-\title{Plot Discrete Values}
+\title{Plot a numeric series}
 \usage{
 \method{plot}{discretes}(
   x,
@@ -14,7 +14,7 @@
 )
 }
 \arguments{
-\item{x}{Discrete value series
+\item{x}{Numeric series
 (\code{numeric} vector or object of class \code{"discretes"}).}
 
 \item{from, to}{Numeric values defining the range to plot; single numerics.}
@@ -33,8 +33,7 @@ Invisibly returns the input \code{x} object after printing a plot
 in Base R.
 }
 \description{
-Plot the discrete values represented by a \code{discretes} object within a
-specified interval.
+Plot the discrete values in a numeric series within a specified interval.
 }
 \details{
 Sinks at finite values are indicated by vertical dotted gray lines.

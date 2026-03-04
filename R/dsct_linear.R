@@ -1,14 +1,14 @@
-#' Linearly Transform a Discrete Value Series
-#' 
-#' Apply a linear function to a discrete value series (`m * x + b`).
-#' Internal function, with preference to use `+`, `-`, `*`, and `/` instead.
-#' 
+#' Linearly transform a numeric series
+#'
+#' Apply a linear function to a numeric series (`m * x + b`).
+#' Internal function; prefer using `+`, `-`, `*`, and `/` instead.
+#'
 #' @inheritParams next_discrete
 #' @param m A numeric value indicating the multiplier.
 #' @param b A numeric value indicating the intercept. Allowed to be `NULL`
 #'   (the default) to indicate the transformation `m * x` without an intercept,
 #'   which is important to distinguish signed zero.
-#' @returns A linearly transformed discretes object.
+#' @returns A numeric series with the linear transformation applied.
 #' @examples
 #' discretes:::dsct_linear(integers(), m = 2)
 #' discretes:::dsct_linear(integers(), m = 2, b = 0.5)

@@ -1,13 +1,12 @@
-#' Subset a Discrete Value Series
+#' Subset a numeric series
 #'
 #' @inheritParams next_discrete
-#' @param ... Reserved for future extensions; must be empty.
 #' @param from,to Numeric values defining the range to keep; single numerics
 #' with `from <= to`.
 #' @param include_from,include_to Logical values indicating whether the
 #' `from` and `to` values should be included in the kept range; single
 #' logicals.
-#' @return A `discretes` object representing the subset of discrete values
+#' @returns A numeric series representing the subset of discrete values
 #'   within the specified range.
 #' @examples
 #' x <- integers(from = -3)

@@ -1,6 +1,6 @@
-#' Convert a discrete set to a numeric vector
+#' Convert a numeric series to a numeric vector
 #'
-#' Return all discrete values in a "discretes" object, if finite.
+#' Return all discrete values in the numeric series, if finite.
 #' Throws an error if infinite.
 #'
 #' @inheritParams num_discretes

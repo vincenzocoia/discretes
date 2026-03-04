@@ -1,14 +1,15 @@
-#' Logarithm of a discrete set
-#' 
-#' Apply a logarithmic transformation to a discrete set for a given `base`.
+#' Logarithm of a numeric series
+#'
+#' Apply a logarithmic transformation to a numeric series for a given `base`.
 #' `dsct_ln()` is the natural logarithm that uses base `exp(1)`.
 #' Internal; use `log()` instead.
-#' 
+#'
 #' @inheritParams next_discrete
 #' @param base The base to use for the logarithm; numeric of length 0 or 1,
 #'   with negative values and 1 not allowed (an error is thrown otherwise).
-#' @returns A discretes object where the members are the result of applying the
-#'  logarithmic transformation `log()` to `x` with the specified base.
+#' @returns A numeric series whose discrete values are the result of applying
+#'   the logarithmic transformation `log()` to the discrete values of `x`
+#'   with the specified base.
 #' @examples
 #' ## These are the same
 #' discretes:::dsct_log(natural0(), base = exp(1))

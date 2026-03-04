@@ -1,7 +1,7 @@
-#' Print method for "discretes" objects
-#' 
-#' Print a "discretes" object to screen.
-#' 
+#' Print a numeric series
+#'
+#' Print a numeric series to the console.
+#'
 #' @inheritParams next_discrete
 #' @param len Number of discrete values to display.
 #' @param ... Further arguments to pass to downstream methods; currently not

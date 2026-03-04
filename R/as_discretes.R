@@ -1,7 +1,8 @@
-#' Create a discrete series from a numeric vector.
-#' 
+#' Create a numeric series from a numeric vector.
+#'
 #' @param x A numeric vector with no missing values. May contain infinity.
-#' @returns A "discretes" object whose members are the unique values of `x`.
+#' @returns A numeric series (object of class `"discretes"`) whose
+#'   discrete values are the unique values of `x`.
 #' @examples
 #' as_discretes(0:10)
 #' @export

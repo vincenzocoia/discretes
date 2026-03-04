@@ -3,40 +3,37 @@
 \name{has_negative_zero}
 \alias{has_negative_zero}
 \alias{has_positive_zero}
-\title{Check if a discrete value series has a signed zero}
+\title{Check if a numeric series has a signed zero}
 \usage{
 has_negative_zero(x)
 
 has_positive_zero(x)
 }
 \arguments{
-\item{x}{Discrete value series
+\item{x}{Numeric series
 (\code{numeric} vector or object of class \code{"discretes"}).}
 }
 \value{
-A single logical vector indicating whether \code{-0} is present
-in the series for \code{has_negative_zero()}, and whether \code{+0} is present in the
-series for \code{has_positive_zero()}. Both could be \code{TRUE}; see details.
+A single logical: whether \code{-0} is a discrete value in the series
+for \code{has_negative_zero()}, and whether \code{+0} is a discrete value for
+\code{has_positive_zero()}. Both can be \code{TRUE}; see details.
 }
 \description{
-Check if a discrete value series contains zero with a negative sign (\code{-0})
+Check if a numeric series contains zero with a negative sign (\code{-0})
 or a positive sign (\code{+0}). See details.
 }
 \details{
-While \code{+0} and \code{-0} are identical numbers in R, they have a latent sign
-property that gets expressed through their reciprocals: \code{1 / +0} is \code{Inf},
-while \code{1 / -0} is \code{-Inf}. The \code{has_negative_zero()} and \code{has_positive_zero()}
-functions are how the presence of \code{-0} and \code{+0} is tracked in a discrete
-value series. The behaviour of signed zero in a discrete value series is
-made consistent with the behaviour of signed zero in numeric vectors.
+While \code{+0} and \code{-0} are identical in R, they have a latent sign that
+appears in reciprocals: \code{1 / +0} is \code{Inf}, while \code{1 / -0} is \code{-Inf}. The
+\code{has_negative_zero()} and \code{has_positive_zero()} functions report whether
+\code{-0} and \code{+0} are discrete values in the numeric series. Behaviour is
+consistent with signed zero in numeric vectors.
 
-It's possible for a discrete value series to contain both \code{-0} and
-\code{+0}, just like the numeric vector \code{c(0, -0)} contains both. However, only
-one zero will ever get expressed when calling \code{next_discrete()},
-\code{prev_discrete()}, or \code{get_discretes_in()}, similar to the behaviour of
-\code{unique(c(0, -0))}. However, their presence remains latent in the encoding
-of the series, and will get expressed differently when the series is
-inverted, spawning both \code{Inf} and \code{-Inf}. See the examples.
+A numeric series can contain both \code{-0} and \code{+0}, like \code{c(0, -0)}. Only one
+zero is returned by \code{next_discrete()}, \code{prev_discrete()}, or
+\code{get_discretes_in()}, as with \code{unique(c(0, -0))}. Their presence remains
+latent and appears when the series is inverted, giving both \code{Inf} and
+\code{-Inf}. See the examples.
 }
 \examples{
 has_negative_zero(integers())

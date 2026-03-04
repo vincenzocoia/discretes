@@ -2,23 +2,24 @@
 % Please edit documentation in R/dsct_log.R
 \name{dsct_log}
 \alias{dsct_log}
-\title{Logarithm of a discrete set}
+\title{Logarithm of a numeric series}
 \usage{
 dsct_log(x, base = exp(1))
 }
 \arguments{
-\item{x}{Discrete value series
+\item{x}{Numeric series
 (\code{numeric} vector or object of class \code{"discretes"}).}
 
 \item{base}{The base to use for the logarithm; numeric of length 0 or 1,
 with negative values and 1 not allowed (an error is thrown otherwise).}
 }
 \value{
-A discretes object where the members are the result of applying the
-logarithmic transformation \code{log()} to \code{x} with the specified base.
+A numeric series whose discrete values are the result of applying
+the logarithmic transformation \code{log()} to the discrete values of \code{x}
+with the specified base.
 }
 \description{
-Apply a logarithmic transformation to a discrete set for a given \code{base}.
+Apply a logarithmic transformation to a numeric series for a given \code{base}.
 \code{dsct_ln()} is the natural logarithm that uses base \code{exp(1)}.
 Internal; use \code{log()} instead.
 }

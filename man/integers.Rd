@@ -4,7 +4,7 @@
 \alias{integers}
 \alias{natural1}
 \alias{natural0}
-\title{Integer Discrete Value Series}
+\title{Integer numeric series}
 \usage{
 integers(from = -Inf, to = Inf)
 
@@ -14,18 +14,17 @@ natural0()
 }
 \arguments{
 \item{from, to}{Numeric values defining the range of integers.
-Defaults to \code{-Inf} and \code{Inf}, representing all integers, although
-is not closed: \code{-Inf} and \code{Inf} are never included in the series.}
+Defaults to \code{-Inf} and \code{Inf}, representing all integers; the series
+is not closed, so \code{-Inf} and \code{Inf} are never discrete values.}
 }
 \value{
-An arithmetic discrete value series (inheriting class
-\code{"dsct_arithmetic"}) representing the set of integers within the specified
-range.
+A numeric series (arithmetic, class \code{"dsct_arithmetic"})
+whose discrete values are the integers in the specified range.
 }
 \description{
-Use \code{integers()} to create a discrete value series consisting of integers
-within a specified range, possibly unbounded on either end. Use \code{natural0()}
-and \code{natural1()} for the set of natural numbers starting at either 0 or 1.
+Use \code{integers()} to create a numeric series whose discrete values are
+integers within a specified range, possibly unbounded on either end. Use
+\code{natural0()} and \code{natural1()} for the natural numbers starting at 0 or 1.
 }
 \examples{
 integers()                  # All integers

@@ -1,18 +1,18 @@
-#' Monotonically Transform a Discrete Value Series
-#' 
-#' Apply a function that's either strictly increasing or strictly decreasing
+#' Monotonically transform a numeric series
+#'
+#' Apply a function that is strictly increasing or strictly decreasing
 #' to a numeric series.
-#' 
+#'
 #' @inheritParams next_discrete
 #' @param fun,inv A vectorized, strictly monotonic function to apply to the
-#'   discrete support values, and its inverse, `inv`.
-#' @param ... Reserved for future extensions.
+#'   discrete values, and its inverse, `inv`.
+#' @param ... Arguments to pass to specific methods.
 #' @param domain,range Numeric vectors of length 2, indicating the domain and
 #'   range of `fun` (that is, the interval on which `fun` is valid, and the
-#'   interval in which `fun` maps to).
+#'   interval to which `fun` maps).
 #' @param dir A string, either "increasing" or "decreasing", indicating the
 #'   monotonicity of the function `fun`.
-#' @returns A transformed discretes object.
+#' @returns A numeric series with the transformation applied.
 #' @details
 #' Strictly increasing means that for any `x1 < x2`, it holds that
 #'   `fun(x1) < fun(x2)`, for all values on the real line. The function `-1/x`,

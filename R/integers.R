@@ -1,15 +1,14 @@
-#' Integer Discrete Value Series
+#' Integer numeric series
 #'
-#' Use `integers()` to create a discrete value series consisting of integers
-#' within a specified range, possibly unbounded on either end. Use `natural0()`
-#' and `natural1()` for the set of natural numbers starting at either 0 or 1.
-#' 
+#' Use `integers()` to create a numeric series whose discrete values are
+#' integers within a specified range, possibly unbounded on either end. Use
+#' `natural0()` and `natural1()` for the natural numbers starting at 0 or 1.
+#'
 #' @param from,to Numeric values defining the range of integers.
-#'   Defaults to `-Inf` and `Inf`, representing all integers, although
-#'   is not closed: `-Inf` and `Inf` are never included in the series.
-#' @returns An arithmetic discrete value series (inheriting class 
-#'   `"dsct_arithmetic"`) representing the set of integers within the specified
-#'   range.
+#'   Defaults to `-Inf` and `Inf`, representing all integers; the series
+#'   is not closed, so `-Inf` and `Inf` are never discrete values.
+#' @returns A numeric series (arithmetic, class `"dsct_arithmetic"`)
+#'   whose discrete values are the integers in the specified range.
 #' @examples
 #' integers()                  # All integers
 #' integers(from = 0)          # Non-negative integers

@@ -3,7 +3,7 @@
 \name{next_discrete}
 \alias{next_discrete}
 \alias{prev_discrete}
-\title{Probing discrete values in a distribution}
+\title{Traversing a numeric series}
 \usage{
 next_discrete(
   x,
@@ -24,7 +24,7 @@ prev_discrete(
 )
 }
 \arguments{
-\item{x}{Discrete value series
+\item{x}{Numeric series
 (\code{numeric} vector or object of class \code{"discretes"}).}
 
 \item{from}{Reference value to start searching from; single numeric.}
@@ -37,11 +37,11 @@ prev_discrete(
 in the query? Single logical; defaults to \code{TRUE}.}
 
 \item{tol}{Numerical tolerance used for snapping queried values
-to members in the discrete series; single non-negative numeric.}
+to discrete values in the numeric series; single non-negative numeric.}
 }
 \value{
 A vector of sequential points starting from \code{from}, which is
-included in the vector if it has membership in the series and
+included in the vector if it is a discrete value in the numeric series and
 \code{include_from = TRUE}. The length of the vector is at most \code{n}, and
 will return an empty numeric vector if there is no such discrete
 value. \code{next_discrete()} is increasing, while \code{prev_discrete()} is
@@ -49,7 +49,7 @@ decreasing, so that earlier values are encountered sooner.
 }
 \description{
 \code{next_discrete()} and \code{prev_discrete()} find the \code{n} discrete values
-in a distribution next to a reference point. \code{num_discretes()} finds
+in a numeric series next to a reference point. \code{num_discretes()} finds
 the number of discrete values within a range.
 }
 \note{

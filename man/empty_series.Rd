@@ -2,19 +2,19 @@
 % Please edit documentation in R/empty_set.R
 \name{empty_series}
 \alias{empty_series}
-\title{Create an empty discrete set}
+\title{Create an empty numeric series}
 \usage{
 empty_series(mode = c("double", "integer"))
 }
 \arguments{
 \item{mode}{Character vector of length 1 indicating the numeric type of the
-discrete set; either "double" (the default) or "integer".}
+numeric series; either "double" (the default) or "integer".}
 }
 \value{
-An empty discrete set of the specified mode.
+An empty numeric series of the specified mode.
 }
 \description{
-Create a discrete set with no members.
+Create a numeric series with no discrete values.
 }
 \examples{
 empty_series()

@@ -2,12 +2,12 @@
 % Please edit documentation in R/dsct_linear.R
 \name{dsct_linear}
 \alias{dsct_linear}
-\title{Linearly Transform a Discrete Value Series}
+\title{Linearly transform a numeric series}
 \usage{
 dsct_linear(x, m, b = NULL)
 }
 \arguments{
-\item{x}{Discrete value series
+\item{x}{Numeric series
 (\code{numeric} vector or object of class \code{"discretes"}).}
 
 \item{m}{A numeric value indicating the multiplier.}
@@ -17,11 +17,11 @@ dsct_linear(x, m, b = NULL)
 which is important to distinguish signed zero.}
 }
 \value{
-A linearly transformed discretes object.
+A numeric series with the linear transformation applied.
 }
 \description{
-Apply a linear function to a discrete value series (\code{m * x + b}).
-Internal function, with preference to use \code{+}, \code{-}, \code{*}, and \code{/} instead.
+Apply a linear function to a numeric series (\code{m * x + b}).
+Internal function; prefer using \code{+}, \code{-}, \code{*}, and \code{/} instead.
 }
 \examples{
 discretes:::dsct_linear(integers(), m = 2)

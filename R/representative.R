@@ -1,8 +1,8 @@
-#' Get a representative value in a discrete set
+#' Get a representative discrete value in a numeric series
 #'
-#' @param x A discretes object.
-#' @returns A single numeric vector with a representative value from the
-#'   discrete set, with the proper mode.
+#' @inheritParams next_discrete
+#' @returns A single numeric: a representative discrete value from the
+#'   numeric series, with the proper mode.
 #' @examples
 #' representative(integers())
 #' representative(natural1() + 7)

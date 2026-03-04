@@ -1,16 +1,17 @@
-#' Raise a discrete set to a power.
+#' Raise a numeric series to a power
 #'
-#' Apply a power transformation to a discrete set `x` for a given `power`;
+#' Apply a power transformation to a numeric series `x` for a given `power`;
 #' that is, `x^power`.
 #' Internal; use `^` operator instead.
-#' 
+#'
 #' @inheritParams next_discrete
 #' @param power The power to raise the series to; numeric of length 0 or 1.
-#'   If `x` contains negative values, then only `power` must be an integer,
-#'   otherwise an error is thrown because the series would contain complex
-#'   numbers, which are not supported in the discretes package.
-#' @returns A discretes object where the members are the result of applying the
-#'  power transformation `^` to `x` with the specified `power`.
+#'   If `x` contains negative discrete values, then `power` must be an integer,
+#'   otherwise an error is thrown because the result would contain complex
+#'   numbers, which are not supported.
+#' @returns A numeric series whose discrete values are the result of applying
+#'   the power transformation `^` to the discrete values of `x` with the
+#'   specified `power`.
 #' @examples
 #' ## These are the same
 #' discretes:::dsct_power(natural0(), power = 2)

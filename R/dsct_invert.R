@@ -1,10 +1,10 @@
-#' Invert a Discrete Value Series
+#' Invert a numeric series
 #'
-#' Create a discrete value series by taking the reciprocal of values in
-#' another discrete value series.
-#' @inheritParams dsct_negate
-#' @returns A new discrete value series containing the reciprocals of all values
-#'   in `x`.
+#' Create a numeric series by taking the reciprocal of discrete values in
+#' another numeric series.
+#' @inheritParams next_discrete
+#' @returns A new numeric series whose discrete values are the reciprocals
+#'   of the discrete values in `x`.
 #' @noRd
 dsct_invert <- function(x) {
   UseMethod("dsct_invert")

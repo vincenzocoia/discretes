@@ -1,12 +1,9 @@
-#' Test if values belong to a discrete set
+#' Test if values are discrete values in a numeric series
 #'
-#' @param x An discretes object.
+#' @inheritParams next_discrete
 #' @param values A vector of values to check.
-#' @param ... Reserved for future extensions; must be empty.
-#' @param tol Numerical tolerance used for snapping `values`
-#'   to discrete values in the series; single non-negative numeric.
-#' @returns A logical vector indicating whether each value belongs to the
-#'   discrete set defined by `x`. `NA` values are preserved such that `NA` in
+#' @returns A logical vector indicating whether each value is a discrete value
+#'   in the numeric series `x`. `NA` values are preserved such that `NA` in
 #'   `values` results in `NA` in the output.
 #' @note This function does not distinguish between `+0` and `-0`. For that,
 #'   use `has_negative_zero()` or `has_positive_zero()`.

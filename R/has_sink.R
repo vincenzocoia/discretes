@@ -1,8 +1,8 @@
-#' Test for sinks
+#' Test for sinks in a numeric series
 #'
-#' `has_sink_in()` tests whether a discrete set has a sink in the interval
+#' `has_sink_in()` tests whether a numeric series has a sink in the interval
 #' `[from, to]`. `has_sink_at()` tests whether there is a sink at a
-#' given value, with a specific direction.
+#' given value, optionally with a specific direction.
 #'
 #' @inheritParams num_discretes
 #' @param value Single numeric to check for the existence of a sink.

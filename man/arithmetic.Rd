@@ -18,7 +18,8 @@ adjacent terms.}
 describing how many steps exist to the left and right of \code{representative}.}
 }
 \value{
-A \code{dsct_arithmetic} object, inheriting from \code{discretes}.
+A numeric series (class \code{dsct_arithmetic}, inheriting from
+\code{discretes}).
 }
 \description{
 Construct an arithmetic progression, with possibly infinite values.
@@ -27,8 +28,8 @@ to the left (decreasing values) and \code{n_right} steps to the right
 (increasing values) with constant \code{spacing} between consecutive terms.
 }
 \note{
-While \code{spacing} can be zero, this results in a discrete series
-containing only the \code{representative} value, with no other terms.
+While \code{spacing} can be zero, this results in a numeric series
+containing only the \code{representative} value as its single discrete value.
 
 The series can only contain \code{-0} if the \code{representative} is set as such.
 }

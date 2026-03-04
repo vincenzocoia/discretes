@@ -1,4 +1,4 @@
-#' Construct a transformation discrete set object
+#' Construct a transformation numeric series object
 #'
 #' @inheritParams new_discretes
 #' @param subclass Character vector of subclass tags to prepend.

@@ -15,7 +15,7 @@ num_discretes(
 )
 }
 \arguments{
-\item{x}{Discrete value series
+\item{x}{Numeric series
 (\code{numeric} vector or object of class \code{"discretes"}).}
 
 \item{from, to}{Reference values, possibly infinite. \code{from} must be less than
@@ -27,7 +27,7 @@ or equal to \code{to}; both must be length-1 numeric vectors.}
 in the query? Should the \code{to} value? Both must be length-1 logical vectors.}
 
 \item{tol}{Numerical tolerance used for snapping queried values
-to members in the discrete series; single non-negative numeric.}
+to discrete values in the numeric series; single non-negative numeric.}
 }
 \value{
 For \code{num_discretes()},

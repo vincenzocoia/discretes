@@ -5,7 +5,7 @@ Math.discretes <- function(x, ...) {
   allowed <- c("exp", "log", "log10", "log2", "sqrt")
   if (!(op %in% allowed)) {
     stop(
-      sprintf("Math function '%s' is not supported for discretes objects.", op)
+      sprintf("Math function '%s' is not supported for numeric series.", op)
     )
   }
   

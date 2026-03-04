@@ -1,12 +1,12 @@
-#' Combine Discrete Value Series
+#' Combine numeric series
 #'
-#' Combine one or more discrete series (or numeric vectors interpreted as
-#' discrete support) into a single union that preserves the discrete traversal
-#' contract. Duplicate support points are removed using a numerical tolerance.
+#' Combine one or more numeric series (or numeric vectors interpreted as
+#' numeric series) into a single union, where each unique discrete value is
+#' counted once.
 #'
-#' @param ... Objects to combine. Each must be either a `discretes` object or a
+#' @param ... Objects to combine. Each must be either a numeric series or a
 #'   numeric vector.
-#' @returns A "discretes" object inheriting from `dsct_union`.
+#' @returns A numeric series (inheriting from `dsct_union`).
 #' @details
 #' Values are flattened
 #' @note While both `-0` and `+0` can both exist, 
@@ -19,7 +19,7 @@ dsct_union <- function(...) {
   inputs <- rlang::list2(...)
   good_inputs <- vapply(inputs, is_discrete_set, FUN.VALUE = logical(1L))
   if (!all(good_inputs)) {
-    stop("All inputs must be discretes objects or numeric vectors.")
+    stop("All inputs must be numeric series or numeric vectors.")
   }
   res <- list()
   for (x in inputs) {

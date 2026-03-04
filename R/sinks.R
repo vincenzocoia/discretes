@@ -1,8 +1,8 @@
 #' Sinks
 #'
-#' Sinks are limit points in a discrete set. That means that discrete values
-#' get arbitrarily close to the sink (from the left or right), and that there
-#' are infinitely many discrete points around the sink. This function returns
+#' Sinks are limit points in a numeric series. That means that discrete values
+#' get arbitrarily close to the sink (from the left or right), and there are
+#' infinitely many discrete values around the sink. This function returns
 #' a matrix of all sinks in the numeric series.
 #'
 #' @inheritParams num_discretes
@@ -24,7 +24,7 @@
 #' # sink because discrete values don't get arbitrarily close to it.
 #' reciprocals <- 1 / integers()
 #' sinks(reciprocals)
-#' has_discretes(reciprocals, Inf) # Yet Inf is a member.
+#' has_discretes(reciprocals, Inf) # Yet Inf is a discrete value.
 #' @rdname sinks
 #' @export
 sinks <- function(x) {

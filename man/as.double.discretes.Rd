@@ -2,12 +2,12 @@
 % Please edit documentation in R/as.double.R
 \name{as.double.discretes}
 \alias{as.double.discretes}
-\title{Convert a discrete set to a numeric vector}
+\title{Convert a numeric series to a numeric vector}
 \usage{
 \method{as.double}{discretes}(x, ...)
 }
 \arguments{
-\item{x}{Discrete value series
+\item{x}{Numeric series
 (\code{numeric} vector or object of class \code{"discretes"}).}
 
 \item{...}{Arguments to pass downstream to \code{as.numeric()} that's called
@@ -19,7 +19,7 @@ ordered from smallest to largest. Returns \code{numeric(0)} when the interval
 contains no discrete values. Numeric outputs are wrapped in \code{as.numeric()}.
 }
 \description{
-Return all discrete values in a "discretes" object, if finite.
+Return all discrete values in the numeric series, if finite.
 Throws an error if infinite.
 }
 \examples{

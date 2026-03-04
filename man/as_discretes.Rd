@@ -2,7 +2,7 @@
 % Please edit documentation in R/as_discretes.R
 \name{as_discretes}
 \alias{as_discretes}
-\title{Create a discrete series from a numeric vector.}
+\title{Create a numeric series from a numeric vector.}
 \usage{
 as_discretes(x)
 }
@@ -10,10 +10,11 @@ as_discretes(x)
 \item{x}{A numeric vector with no missing values. May contain infinity.}
 }
 \value{
-A "discretes" object whose members are the unique values of \code{x}.
+A numeric series (object of class \code{"discretes"}) whose
+discrete values are the unique values of \code{x}.
 }
 \description{
-Create a discrete series from a numeric vector.
+Create a numeric series from a numeric vector.
 }
 \examples{
 as_discretes(0:10)

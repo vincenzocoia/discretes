@@ -1,14 +1,14 @@
-#' Exponentiation of a discrete set
-#' 
-#' Exponentiate a discrete set `x` with a given base; that is, `base^x`.
+#' Exponentiation of a numeric series
+#'
+#' Exponentiate a numeric series `x` with a given base; that is, `base^x`.
 #' `dsct_exp()` is a special case of `dsct_raise()` where the base is `exp(1)`.
 #' Internal; use `exp()` or `^` operators instead.
-#' 
+#'
 #' @inheritParams next_discrete
 #' @param base The base to use for exponentiation; numeric of length 0 or 1,
 #'   with negative values not allowed (an error is thrown otherwise).
-#' @returns A discretes object where each member is the result of 
-#'   exponentiating a member of `x` by `base` (that is, `base^x`).
+#' @returns A numeric series whose discrete values are the result of
+#'   exponentiating each discrete value of `x` by `base` (that is, `base^x`).
 #' @examples
 #' # These are the same
 #' discretes:::dsct_exp(integers())
@@ -32,7 +32,7 @@ dsct_raise <- function(x, base = exp(1)) {
     stop("Cannot exponentiate a series by a vector of length >1.")
   }
   if (base < 0) {
-    stop("Exponentiating a discrete set with a negative base is not supported.")
+    stop("Exponentiating a numeric series with a negative base is not supported.")
   }
   if (base == 1) {
     return(as_discretes(1))

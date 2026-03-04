@@ -1,9 +1,9 @@
-#' Extract members of a discrete set
-#' 
-#' Extract a finite subset of values from a discrete set by asking for
-#' specific values (`get_discretes_at()`) or by setting a range
+#' Extract discrete values from a numeric series
+#'
+#' Extract a finite subset of discrete values from a numeric series by asking
+#' for specific values (`get_discretes_at()`) or by setting a range
 #' (`get_discretes_in()`). For `get_discretes_at()`, specified values "snap" to
-#' those in the discrete set if they are within `tol` of a value, and are
+#' discrete values in the series if they are within `tol`, and are
 #' dropped otherwise; `NA` values are kept in place.
 #' 
 #' @inheritParams num_discretes

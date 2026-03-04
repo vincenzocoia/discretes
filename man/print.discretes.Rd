@@ -2,12 +2,12 @@
 % Please edit documentation in R/print.discretes.R
 \name{print.discretes}
 \alias{print.discretes}
-\title{Print method for "discretes" objects}
+\title{Print a numeric series}
 \usage{
 \method{print}{discretes}(x, len = 6, ...)
 }
 \arguments{
-\item{x}{Discrete value series
+\item{x}{Numeric series
 (\code{numeric} vector or object of class \code{"discretes"}).}
 
 \item{len}{Number of discrete values to display.}
@@ -19,7 +19,7 @@ used.}
 Invisibly returns the input object \code{x}.
 }
 \description{
-Print a "discretes" object to screen.
+Print a numeric series to the console.
 }
 \examples{
 print(integers())

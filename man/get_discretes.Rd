@@ -3,7 +3,7 @@
 \name{get_discretes_at}
 \alias{get_discretes_at}
 \alias{get_discretes_in}
-\title{Extract members of a discrete set}
+\title{Extract discrete values from a numeric series}
 \usage{
 get_discretes_at(x, values, ..., tol = sqrt(.Machine$double.eps))
 
@@ -18,15 +18,15 @@ get_discretes_in(
 )
 }
 \arguments{
-\item{x}{Discrete value series
+\item{x}{Numeric series
 (\code{numeric} vector or object of class \code{"discretes"}).}
 
-\item{values}{Numeric vector of values to pull from the discrete set \code{x}.}
+\item{values}{Numeric vector of values to pull from the numeric series \code{x}.}
 
 \item{...}{Reserved for future extensions; must be empty.}
 
 \item{tol}{Numerical tolerance used for snapping queried values
-to members in the discrete series; single non-negative numeric.}
+to discrete values in the numeric series; single non-negative numeric.}
 
 \item{from, to}{Reference values, possibly infinite. \code{from} must be less than
 or equal to \code{to}; both must be length-1 numeric vectors.}
@@ -46,10 +46,10 @@ An error will be thrown in \code{get_discretes_in()} if there are infinitely
 many points in the range.
 }
 \description{
-Extract a finite subset of values from a discrete set by asking for
-specific values (\code{get_discretes_at()}) or by setting a range
+Extract a finite subset of discrete values from a numeric series by asking
+for specific values (\code{get_discretes_at()}) or by setting a range
 (\code{get_discretes_in()}). For \code{get_discretes_at()}, specified values "snap" to
-those in the discrete set if they are within \code{tol} of a value, and are
+discrete values in the series if they are within \code{tol}, and are
 dropped otherwise; \code{NA} values are kept in place.
 }
 \examples{

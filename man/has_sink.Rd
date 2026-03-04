@@ -3,14 +3,14 @@
 \name{has_sink_in}
 \alias{has_sink_in}
 \alias{has_sink_at}
-\title{Test for sinks}
+\title{Test for sinks in a numeric series}
 \usage{
 has_sink_in(x, from = -Inf, to = Inf)
 
 has_sink_at(x, value, dir = c("either", "left", "right", "both"))
 }
 \arguments{
-\item{x}{Discrete value series
+\item{x}{Numeric series
 (\code{numeric} vector or object of class \code{"discretes"}).}
 
 \item{from, to}{Reference values, possibly infinite. \code{from} must be less than
@@ -29,9 +29,9 @@ A length-one logical: \code{TRUE} if a sink exists in the range
 (\code{has_sink_at}); \code{FALSE} otherwise.
 }
 \description{
-\code{has_sink_in()} tests whether a discrete set has a sink in the interval
+\code{has_sink_in()} tests whether a numeric series has a sink in the interval
 \verb{[from, to]}. \code{has_sink_at()} tests whether there is a sink at a
-given value, with a specific direction.
+given value, optionally with a specific direction.
 }
 \examples{
 # The set of integers have sinks at +Inf and -Inf

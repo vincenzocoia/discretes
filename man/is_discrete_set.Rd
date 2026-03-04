@@ -2,7 +2,7 @@
 % Please edit documentation in R/is_discrete_set.R
 \name{is_discrete_set}
 \alias{is_discrete_set}
-\title{Check is if an object is understood as a discretes object}
+\title{Check if an object is treated as a numeric series}
 \usage{
 is_discrete_set(x)
 }
@@ -10,15 +10,14 @@ is_discrete_set(x)
 \item{x}{Object to check.}
 }
 \value{
-\code{TRUE} if \code{x} can be understood as a "discretes" object,
-\code{FALSE} otherwise.
+\code{TRUE} if \code{x} is treated as a numeric series, \code{FALSE} otherwise.
 }
 \description{
-This can happen if an object inherits the class "discretes", or if it
-is a numeric vector.
+Returns \code{TRUE} if an object inherits the class \code{"discretes"} or is a
+numeric vector.
 }
 \examples{
 is_discrete_set(natural0())
 is_discrete_set(c(1, 2, 3))
-is_discrete_set("not a discretes")
+is_discrete_set("not a numeric series")
 }

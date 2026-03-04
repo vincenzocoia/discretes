@@ -3,25 +3,25 @@
 \name{dsct_raise}
 \alias{dsct_raise}
 \alias{dsct_exp}
-\title{Exponentiation of a discrete set}
+\title{Exponentiation of a numeric series}
 \usage{
 dsct_raise(x, base = exp(1))
 
 dsct_exp(x)
 }
 \arguments{
-\item{x}{Discrete value series
+\item{x}{Numeric series
 (\code{numeric} vector or object of class \code{"discretes"}).}
 
 \item{base}{The base to use for exponentiation; numeric of length 0 or 1,
 with negative values not allowed (an error is thrown otherwise).}
 }
 \value{
-A discretes object where each member is the result of
-exponentiating a member of \code{x} by \code{base} (that is, \code{base^x}).
+A numeric series whose discrete values are the result of
+exponentiating each discrete value of \code{x} by \code{base} (that is, \code{base^x}).
 }
 \description{
-Exponentiate a discrete set \code{x} with a given base; that is, \code{base^x}.
+Exponentiate a numeric series \code{x} with a given base; that is, \code{base^x}.
 \code{dsct_exp()} is a special case of \code{dsct_raise()} where the base is \code{exp(1)}.
 Internal; use \code{exp()} or \code{^} operators instead.
 }

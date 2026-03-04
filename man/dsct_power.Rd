@@ -2,25 +2,26 @@
 % Please edit documentation in R/dsct_power.R
 \name{dsct_power}
 \alias{dsct_power}
-\title{Raise a discrete set to a power.}
+\title{Raise a numeric series to a power}
 \usage{
 dsct_power(x, power)
 }
 \arguments{
-\item{x}{Discrete value series
+\item{x}{Numeric series
 (\code{numeric} vector or object of class \code{"discretes"}).}
 
 \item{power}{The power to raise the series to; numeric of length 0 or 1.
-If \code{x} contains negative values, then only \code{power} must be an integer,
-otherwise an error is thrown because the series would contain complex
-numbers, which are not supported in the discretes package.}
+If \code{x} contains negative discrete values, then \code{power} must be an integer,
+otherwise an error is thrown because the result would contain complex
+numbers, which are not supported.}
 }
 \value{
-A discretes object where the members are the result of applying the
-power transformation \code{^} to \code{x} with the specified \code{power}.
+A numeric series whose discrete values are the result of applying
+the power transformation \code{^} to the discrete values of \code{x} with the
+specified \code{power}.
 }
 \description{
-Apply a power transformation to a discrete set \code{x} for a given \code{power};
+Apply a power transformation to a numeric series \code{x} for a given \code{power};
 that is, \code{x^power}.
 Internal; use \code{^} operator instead.
 }

@@ -2,27 +2,28 @@
 % Please edit documentation in R/has_discretes.R
 \name{has_discretes}
 \alias{has_discretes}
-\title{Test if values belong to a discrete set}
+\title{Test if values are discrete values in a numeric series}
 \usage{
 has_discretes(x, values, ..., tol = sqrt(.Machine$double.eps))
 }
 \arguments{
-\item{x}{An discretes object.}
+\item{x}{Numeric series
+(\code{numeric} vector or object of class \code{"discretes"}).}
 
 \item{values}{A vector of values to check.}
 
 \item{...}{Reserved for future extensions; must be empty.}
 
-\item{tol}{Numerical tolerance used for snapping \code{values}
-to discrete values in the series; single non-negative numeric.}
+\item{tol}{Numerical tolerance used for snapping queried values
+to discrete values in the numeric series; single non-negative numeric.}
 }
 \value{
-A logical vector indicating whether each value belongs to the
-discrete set defined by \code{x}. \code{NA} values are preserved such that \code{NA} in
+A logical vector indicating whether each value is a discrete value
+in the numeric series \code{x}. \code{NA} values are preserved such that \code{NA} in
 \code{values} results in \code{NA} in the output.
 }
 \description{
-Test if values belong to a discrete set
+Test if values are discrete values in a numeric series
 }
 \note{
 This function does not distinguish between \code{+0} and \code{-0}. For that,

@@ -4,7 +4,7 @@ Ops.discretes <- function(e1, e2) {
   allowed <- c("+", "-", "*", "/", "^")
 
   if (!(op %in% allowed)) {
-    stop(sprintf("Operator '%s' is not supported for discretes objects.", op))
+    stop(sprintf("Operator '%s' is not supported for numeric series.", op))
   }
 
   unary <- missing(e2)
@@ -15,7 +15,7 @@ Ops.discretes <- function(e1, e2) {
       "-" = dsct_negate(e1),
       stop(
         sprintf(
-          "Unary operator '%s' is not supported for discretes objects.", op
+          "Unary operator '%s' is not supported for numeric series.", op
         )
       )
     )
@@ -26,7 +26,7 @@ Ops.discretes <- function(e1, e2) {
   e2_is_dsct <- inherits(e2, "discretes")
 
   if (e1_is_dsct && e2_is_dsct) {
-    stop("Operations between two 'discretes' objects are not supported.")
+    stop("Operations between two numeric series are not supported.")
   }
 
   if (e1_is_dsct) {

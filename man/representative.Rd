@@ -2,19 +2,20 @@
 % Please edit documentation in R/representative.R
 \name{representative}
 \alias{representative}
-\title{Get a representative value in a discrete set}
+\title{Get a representative discrete value in a numeric series}
 \usage{
 representative(x)
 }
 \arguments{
-\item{x}{A discretes object.}
+\item{x}{Numeric series
+(\code{numeric} vector or object of class \code{"discretes"}).}
 }
 \value{
-A single numeric vector with a representative value from the
-discrete set, with the proper mode.
+A single numeric: a representative discrete value from the
+numeric series, with the proper mode.
 }
 \description{
-Get a representative value in a discrete set
+Get a representative discrete value in a numeric series
 }
 \examples{
 representative(integers())

@@ -3,7 +3,7 @@
 \name{dsct_transform}
 \alias{dsct_transform}
 \alias{dsct_transform.discretes}
-\title{Monotonically Transform a Discrete Value Series}
+\title{Monotonically transform a numeric series}
 \usage{
 dsct_transform(x, fun, ...)
 
@@ -18,26 +18,26 @@ dsct_transform(x, fun, ...)
 )
 }
 \arguments{
-\item{x}{Discrete value series
+\item{x}{Numeric series
 (\code{numeric} vector or object of class \code{"discretes"}).}
 
 \item{fun, inv}{A vectorized, strictly monotonic function to apply to the
-discrete support values, and its inverse, \code{inv}.}
+discrete values, and its inverse, \code{inv}.}
 
-\item{...}{Reserved for future extensions.}
+\item{...}{Arguments to pass to specific methods.}
 
 \item{domain, range}{Numeric vectors of length 2, indicating the domain and
 range of \code{fun} (that is, the interval on which \code{fun} is valid, and the
-interval in which \code{fun} maps to).}
+interval to which \code{fun} maps).}
 
 \item{dir}{A string, either "increasing" or "decreasing", indicating the
 monotonicity of the function \code{fun}.}
 }
 \value{
-A transformed discretes object.
+A numeric series with the transformation applied.
 }
 \description{
-Apply a function that's either strictly increasing or strictly decreasing
+Apply a function that is strictly increasing or strictly decreasing
 to a numeric series.
 }
 \details{

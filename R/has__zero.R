@@ -1,27 +1,24 @@
-#' Check if a discrete value series has a signed zero
-#' 
-#' Check if a discrete value series contains zero with a negative sign (`-0`)
+#' Check if a numeric series has a signed zero
+#'
+#' Check if a numeric series contains zero with a negative sign (`-0`)
 #' or a positive sign (`+0`). See details.
-#' 
+#'
 #' @inheritParams next_discrete
-#' @returns A single logical vector indicating whether `-0` is present
-#'   in the series for `has_negative_zero()`, and whether `+0` is present in the
-#'   series for `has_positive_zero()`. Both could be `TRUE`; see details.
-#' @details 
-#' While `+0` and `-0` are identical numbers in R, they have a latent sign
-#' property that gets expressed through their reciprocals: `1 / +0` is `Inf`,
-#' while `1 / -0` is `-Inf`. The `has_negative_zero()` and `has_positive_zero()`
-#' functions are how the presence of `-0` and `+0` is tracked in a discrete
-#' value series. The behaviour of signed zero in a discrete value series is
-#' made consistent with the behaviour of signed zero in numeric vectors.
-#' 
-#' It's possible for a discrete value series to contain both `-0` and
-#' `+0`, just like the numeric vector `c(0, -0)` contains both. However, only
-#' one zero will ever get expressed when calling `next_discrete()`,
-#' `prev_discrete()`, or `get_discretes_in()`, similar to the behaviour of
-#' `unique(c(0, -0))`. However, their presence remains latent in the encoding
-#' of the series, and will get expressed differently when the series is
-#' inverted, spawning both `Inf` and `-Inf`. See the examples.
+#' @returns A single logical: whether `-0` is a discrete value in the series
+#'   for `has_negative_zero()`, and whether `+0` is a discrete value for
+#'   `has_positive_zero()`. Both can be `TRUE`; see details.
+#' @details
+#' While `+0` and `-0` are identical in R, they have a latent sign that
+#' appears in reciprocals: `1 / +0` is `Inf`, while `1 / -0` is `-Inf`. The
+#' `has_negative_zero()` and `has_positive_zero()` functions report whether
+#' `-0` and `+0` are discrete values in the numeric series. Behaviour is
+#' consistent with signed zero in numeric vectors.
+#'
+#' A numeric series can contain both `-0` and `+0`, like `c(0, -0)`. Only one
+#' zero is returned by `next_discrete()`, `prev_discrete()`, or
+#' `get_discretes_in()`, as with `unique(c(0, -0))`. Their presence remains
+#' latent and appears when the series is inverted, giving both `Inf` and
+#' `-Inf`. See the examples.
 #' @examples
 #' has_negative_zero(integers())
 #' has_positive_zero(integers())

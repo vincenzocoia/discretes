@@ -7,7 +7,7 @@
 zeroes_vector(x)
 }
 \arguments{
-\item{x}{Discrete value series
+\item{x}{Numeric series
 (\code{numeric} vector or object of class \code{"discretes"}).}
 }
 \value{

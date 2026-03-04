@@ -1,4 +1,4 @@
-#' Construct a discrete set object
+#' Construct a numeric series object
 #'
 #' @param data List of fields describing the infinite vector.
 #' @param ... Additional attributes to set on the object.

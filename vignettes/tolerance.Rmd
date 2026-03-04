@@ -20,13 +20,13 @@ library(discretes)
 
 ## What is `tol`?
 
-Many operations in **discretes** involve comparing a *queried* numeric value to a
-known discrete set. Because most decimal fractions are not represented exactly
-in floating point (e.g. `0.1`), values that "should" match can differ by a tiny
-amount after arithmetic.
+Many operations in **discretes** involve comparing a *queried* numeric value to
+the discrete values in a numeric series. Because most decimal fractions are not
+represented exactly in floating point (e.g. `0.1`), values that "should" match
+can differ by a tiny amount after arithmetic.
 
 In this package, `tol` is an **absolute tolerance** used when deciding whether a
-query value is "close enough" to a discrete member.
+query value is "close enough" to a discrete value in the series.
 
 - Setting **`tol = 0`** requests **exact** comparisons.
 - The default is `sqrt(.Machine$double.eps)`, which is small but usually enough
@@ -52,8 +52,8 @@ the same `tol`.
 
 ## Example: `tol` with `arithmetic()`
 
-Without a tolerance, values can be hard to recognize as members of an arithmetic
-sequence because the implied index might be `2.999999999...` instead of `3`.
+Without a tolerance, values can be hard to recognize as discrete values in an
+arithmetic series because the implied index might be `2.999999999...` instead of `3`.
 
 ```{r}
 x <- arithmetic(representative = 0, spacing = 0.1)
@@ -79,10 +79,10 @@ positive.
 
 ## Example: `tol` propagates through transformations
 
-When you transform a discrete set, membership checks happen in the *root space*.
+When you transform a numeric series, membership checks happen in the *root space*.
 This means `tol` is applied *before* the transformation (via the inverse map),
-not directly on the transformed values. In practice, this can make membership
-checks behave differently than they would for an ordinary numeric vector.
+not directly on the transformed discrete values. In practice, this can make
+membership checks behave differently than they would for an ordinary numeric vector.
 
 ```{r}
 raw <- 10^(-10:10)

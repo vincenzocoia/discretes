@@ -3,7 +3,7 @@
 \name{dsct_drop}
 \alias{dsct_drop}
 \alias{dsct_keep}
-\title{Subset a Discrete Value Series}
+\title{Subset a numeric series}
 \usage{
 dsct_drop(
   x,
@@ -24,7 +24,7 @@ dsct_keep(
 )
 }
 \arguments{
-\item{x}{Discrete value series
+\item{x}{Numeric series
 (\code{numeric} vector or object of class \code{"discretes"}).}
 
 \item{from, to}{Numeric values defining the range to keep; single numerics
@@ -37,11 +37,11 @@ with \code{from <= to}.}
 logicals.}
 }
 \value{
-A \code{discretes} object representing the subset of discrete values
+A numeric series representing the subset of discrete values
 within the specified range.
 }
 \description{
-Subset a Discrete Value Series
+Subset a numeric series
 }
 \examples{
 x <- integers(from = -3)

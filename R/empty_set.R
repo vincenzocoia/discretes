@@ -1,10 +1,10 @@
-#' Create an empty discrete set
-#' 
-#' Create a discrete set with no members.
-#' 
+#' Create an empty numeric series
+#'
+#' Create a numeric series with no discrete values.
+#'
 #' @param mode Character vector of length 1 indicating the numeric type of the
-#'   discrete set; either "double" (the default) or "integer".
-#' @returns An empty discrete set of the specified mode.
+#'   numeric series; either "double" (the default) or "integer".
+#' @returns An empty numeric series of the specified mode.
 #' @examples
 #' empty_series()
 #' @export

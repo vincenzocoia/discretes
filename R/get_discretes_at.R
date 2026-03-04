@@ -1,4 +1,4 @@
-#' @param values Numeric vector of values to pull from the discrete set `x`.
+#' @param values Numeric vector of values to pull from the numeric series `x`.
 #' @rdname get_discretes
 #' @export
 get_discretes_at <- function(x, values, ..., tol = sqrt(.Machine$double.eps)) {

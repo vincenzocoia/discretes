@@ -11,9 +11,10 @@
 #' @param ... Reserved for future extensions; must be empty.
 #' @param n_left,n_right Non-negative counts (possibly `Inf`, the default)
 #'   describing how many steps exist to the left and right of `representative`.
-#' @return A `dsct_arithmetic` object, inheriting from `discretes`.
-#' @note While `spacing` can be zero, this results in a discrete series
-#'  containing only the `representative` value, with no other terms.
+#' @return A numeric series (class `dsct_arithmetic`, inheriting from
+#'   `discretes`).
+#' @note While `spacing` can be zero, this results in a numeric series
+#'   containing only the `representative` value as its single discrete value.
 #'  
 #' The series can only contain `-0` if the `representative` is set as such. 
 #' @examples

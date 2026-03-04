@@ -1,7 +1,6 @@
-#' Plot Discrete Values
+#' Plot a numeric series
 #'
-#' Plot the discrete values represented by a `discretes` object within a
-#' specified interval.
+#' Plot the discrete values in a numeric series within a specified interval.
 #' @inheritParams next_discrete
 #' @param ... Additional arguments passed to the underlying `plot()` function.
 #' @param from,to Numeric values defining the range to plot; single numerics.
@@ -109,14 +108,14 @@ plot.discretes <- function(x,
 }
 
 
-#' Helper function for plotting discrete value series
-#' 
-#' @param x Numeric vector to plot.
+#' Helper function for plotting discrete values from a numeric series
+#'
+#' @param x Numeric vector of discrete values to plot.
 #' @param sinklocs Numeric vector of sink locations to indicate on the plot
 #'   as dashed gray lines.
 #' @param neg_inf,pos_inf Either: `"closed"`, where the infinite point is
-#'   included in the discrete value series; `"open"`, where it's a limit point
-#'   but not included in the series; or `"no"` (the default) where the series
+#'   a discrete value in the numeric series; `"open"`, where it's a limit point
+#'   but not a discrete value; or `"no"` (the default) where the series
 #'   does not extend to infinity in the specified direction.
 #' @param ... Arguments to pass to the main `plot()` function.
 #' @returns Plot of the numeric vector on the number line.
