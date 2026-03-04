@@ -14,8 +14,8 @@ has_discretes(x, values, ..., tol = sqrt(.Machine$double.eps))
 
 \item{...}{Reserved for future extensions; must be empty.}
 
-\item{tol}{Numerical tolerance used for snapping queried values
-to discrete values in the numeric series; single non-negative numeric.}
+\item{tol}{Numerical tolerance when testing membership. Single non-negative
+numeric. See \code{\link[=next_discrete]{next_discrete()}} for details.}
 }
 \value{
 A logical vector indicating whether each value is a discrete value

@@ -7,8 +7,8 @@
 #' @param closeness Numeric value indicating how close to the (non-infinite)
 #'   sinks the points should no longer be plotted. This is because there are an
 #'   infinite number of points around each sink.
-#' @param tol Numerical tolerance used for snapping `from` or `to` values,
-#'   including in internal calls; single non-negative numeric.
+#' @param tol Passed to `dsct_keep()` when subsetting the series between `from`
+#'   and `to`.
 #' @returns Invisibly returns the input `x` object after printing a plot
 #'   in Base R.
 #' @details

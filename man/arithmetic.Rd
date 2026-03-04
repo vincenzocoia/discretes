@@ -2,7 +2,7 @@
 % Please edit documentation in R/arithmetic.R
 \name{arithmetic}
 \alias{arithmetic}
-\title{Arithmetic Series}
+\title{Arithmetic series}
 \usage{
 arithmetic(representative, spacing, ..., n_left = Inf, n_right = Inf)
 }

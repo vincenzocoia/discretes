@@ -34,21 +34,25 @@ query value is "close enough" to a discrete value in the series.
 
 ## Where is `tol` actually used?
 
-Conceptually, `tol` is only used at the points where the package must make a
-yes/no decision about membership or boundaries. Most other functions accept
-`tol` and simply pass it along to wherever that decision is made.
+Tolerance is not applied to the series you see at the top level. It is **passed
+down** through any nested or transformed series and used **only when membership
+is actually tested**—at the underlying arithmetic progression or stored numeric
+vector. Other functions accept `tol` and pass it through to that point.
 
-The two most important "leaf" cases are:
+The two places where it is used are:
 
-- **Arithmetic progressions** (`arithmetic()`): membership is checked by testing
-  whether the implied index \((x - representative) / spacing\) is *integer-ish*.
-- **Explicit numeric sets** (plain numeric vectors, or `as_discretes(numeric)`):
-  membership is checked by testing whether a queried value is within `tol` of
-  any stored value.
+- **Arithmetic progressions** (`arithmetic()`): membership is decided by the
+  implied step index \((x - representative) / spacing\). Because of floating
+  point, this index is rarely an exact integer (e.g. `(0.3 - 0) / 0.1`). A
+  value is treated as a discrete value if that index is within `tol` of an
+  integer.
+- **Numeric-vector-based series** (plain numeric vectors or `as_discretes(...)`):
+  membership is decided by testing whether the queried value is within `tol` of
+  any stored discrete value.
 
-Transformations (like `exp(as_discretes(...))`) work by mapping queried points
-back to the root space and then applying the same membership logic there, using
-the same `tol`.
+For transformed series (e.g. `1 / arithmetic(...)`), the queried value is mapped
+back to the underlying series and the same logic is applied there with the same
+`tol`; no separate tolerance is applied to the transformed values.
 
 ## Example: `tol` with `arithmetic()`
 
@@ -104,4 +108,5 @@ has_discretes(frozen, q, tol = 0)
 - **Use `tol = 0` for exactness**: when you truly want explicit sets to behave
   exactly (e.g., when values were constructed to be exactly representable).
 - **Increase `tol` for noisy values**: if your values come from computation or
-  measurement and you want a wider "snap-to" zone, increase `tol` accordingly.
+  measurement and you want a wider margin when testing membership at the
+  underlying series, increase `tol` accordingly.

@@ -1,4 +1,4 @@
-#' Number of Discrete Values in a Series
+#' Number of discrete values in a series
 #'
 #' Return the number of discrete values in `x` that lie between
 #' `from` and `to`, or test whether the number of discrete values is infinite.

@@ -25,8 +25,8 @@ get_discretes_in(
 
 \item{...}{Reserved for future extensions; must be empty.}
 
-\item{tol}{Numerical tolerance used for snapping queried values
-to discrete values in the numeric series; single non-negative numeric.}
+\item{tol}{Numerical tolerance when testing membership. Single non-negative
+numeric. See \code{\link[=next_discrete]{next_discrete()}} for details.}
 
 \item{from, to}{Reference values, possibly infinite. \code{from} must be less than
 or equal to \code{to}; both must be length-1 numeric vectors.}
@@ -39,7 +39,11 @@ A numeric vector containing all discrete values in the provided series \code{x}:
 \itemize{
 \item For \code{get_discretes_in()}, all discrete values between \code{from} and \code{to},
 ordered from smallest to largest.
-\item For \code{get_discretes_at()}, all discrete values that snap to \code{values}.
+\item For \code{get_discretes_at()}, the discrete values that the given \code{values} are
+members of. Membership is tested with \code{tol} at the underlying series,
+returning the discrete values in the series rather than the supplied
+\code{values}. Discrete values not within \code{tol} of the supplied \code{values}
+are dropped.
 }
 
 An error will be thrown in \code{get_discretes_in()} if there are infinitely
@@ -48,9 +52,11 @@ many points in the range.
 \description{
 Extract a finite subset of discrete values from a numeric series by asking
 for specific values (\code{get_discretes_at()}) or by setting a range
-(\code{get_discretes_in()}). For \code{get_discretes_at()}, specified values "snap" to
-discrete values in the series if they are within \code{tol}, and are
-dropped otherwise; \code{NA} values are kept in place.
+(\code{get_discretes_in()}). For \code{get_discretes_at()}, each value in \code{values} is
+tested for membership using \code{tol} (passed down to the underlying series); if
+it is a member, the
+corresponding discrete value is returned, otherwise it is dropped. \code{NA}
+values are kept in place.
 }
 \examples{
 get_discretes_in(integers(), from = 6.6, to = 10.1)

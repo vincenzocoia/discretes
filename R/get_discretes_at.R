@@ -9,6 +9,7 @@ get_discretes_at <- function(x, values, ..., tol = sqrt(.Machine$double.eps)) {
   has <- has_discretes(x, values = values, tol = tol)
   values <- values[which(is.na(values) | has)]
   type <- typeof_dsct(x)
+  mode(values) <- type
   values[!is.na(values)] <- vapply(
     values[!is.na(values)],
     function(v) next_discrete(x, v, include_from = TRUE, tol = tol),

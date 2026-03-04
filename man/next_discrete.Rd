@@ -36,8 +36,8 @@ prev_discrete(
 \item{include_from}{Should the \code{from} value be included
 in the query? Single logical; defaults to \code{TRUE}.}
 
-\item{tol}{Numerical tolerance used for snapping queried values
-to discrete values in the numeric series; single non-negative numeric.}
+\item{tol}{Numerical tolerance when testing membership. Single non-negative
+numeric. See \code{\link[=next_discrete]{next_discrete()}} for details.}
 }
 \value{
 A vector of sequential points starting from \code{from}, which is
@@ -52,8 +52,18 @@ decreasing, so that earlier values are encountered sooner.
 in a numeric series next to a reference point. \code{num_discretes()} finds
 the number of discrete values within a range.
 }
-\note{
-Just because there may not be any
+\details{
+For a transformed or combined series (e.g. \code{1 / integers()}), traversal is
+delegated to the base series, and \code{tol} is passed through to those calls.
+This means that \code{tol} is only realized on the underlying series:
+\itemize{
+\item \strong{Numeric vector} (or \code{as_discretes(...)}): a value is a member if it is
+within \code{tol} of a stored value.
+\item \strong{Arithmetic series}: the implied step index (distance from the
+representative in steps) is treated as an integer if it is within \code{tol}
+of an integer.
+See \code{vignette("tolerance", package = "discretes")} for examples.
+}
 }
 \examples{
 x <- integers(from = 2)

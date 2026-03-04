@@ -25,8 +25,8 @@
 sinks the points should no longer be plotted. This is because there are an
 infinite number of points around each sink.}
 
-\item{tol}{Numerical tolerance used for snapping \code{from} or \code{to} values,
-including in internal calls; single non-negative numeric.}
+\item{tol}{Passed to \code{dsct_keep()} when subsetting the series between \code{from}
+and \code{to}.}
 }
 \value{
 Invisibly returns the input \code{x} object after printing a plot

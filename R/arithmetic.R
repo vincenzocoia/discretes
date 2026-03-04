@@ -1,4 +1,4 @@
-#' Arithmetic Series
+#' Arithmetic series
 #'
 #' Construct an arithmetic progression, with possibly infinite values.
 #' The progression is anchored at `representative` and extends `n_left` steps
