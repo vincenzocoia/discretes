@@ -66,9 +66,10 @@ Perform arithmetic operations on series.
 ```
 
 A new series is created after a base series gets modified. See the
-**Creating numeric series** vignette
-([`vignette("creating-numeric-series", package = "discretes")`](https://discretes.netlify.app/articles/creating-numeric-series.md))
-for what’s allowed (e.g. monotonic transformations) and how to use
+[**Creating numeric
+series**](https://discretes.netlify.app/articles/creating-numeric-series)
+vignette for what’s allowed (e.g. monotonic transformations) and how to
+use
 [`dsct_transform()`](https://discretes.netlify.app/reference/transform.md)
 for custom transformations.
 
@@ -110,29 +111,37 @@ has_sink_at(x, 0, dir = "right")
 
 ## Vignettes
 
-- **Creating numeric series** — Base series, arithmetic, and custom
-  manipulations.
-  [`vignette("creating-numeric-series", package = "discretes")`](https://discretes.netlify.app/articles/creating-numeric-series.md)
-- **Querying a numeric series** — Traversing with
-  `next_discrete`/`prev_discrete`, membership with `has_discretes`, and
-  extracting values with
+There are two main vignettes explaining how to use this package.
+
+- [**Creating numeric
+  series**](https://discretes.netlify.app/articles/creating-numeric-series)
+  — Base series, arithmetic, and custom manipulations.
+- [**Querying a numeric
+  series**](https://discretes.netlify.app/articles/querying-numeric-series)
+  — Traversing with `next_discrete`/`prev_discrete`, membership with
+  `has_discretes`, and extracting values with
   [`get_discretes_at()`](https://discretes.netlify.app/reference/get_discretes.md)
   /
   [`get_discretes_in()`](https://discretes.netlify.app/reference/get_discretes.md).
-  [`vignette("querying-numeric-series", package = "discretes")`](https://discretes.netlify.app/articles/querying-numeric-series.md)
-- **Tolerance** — How `tol` is used in membership and traversal.
-  [`vignette("tolerance", package = "discretes")`](https://discretes.netlify.app/articles/tolerance.md)
-- **Signed zero** — Behaviour of +0 and -0 in numeric series.
-  [`vignette("signed_zero", package = "discretes")`](https://discretes.netlify.app/articles/signed_zero.md)
+
+In addition, there are two technical vignettes for those interested in
+more details.
+
+- [**Tolerance**](https://discretes.netlify.app/articles/tolerance) —
+  How `tol` is used in membership and traversal.
+- [**Signed zero**](https://discretes.netlify.app/articles/signed_zero)
+  — Behaviour of +0 and -0 in numeric series.
 
 ## Limitations
 
 The series supported by the package include arithmetic series like
 integers, finite series from a numeric vector, and series created from
-them (see the **Creating numeric series** vignette). Specialized series
-like the Fibonacci numbers are not explicitly supported. Dense countable
-sets like the rational numbers are also not supported because they do
-not have a well-defined notion of local successor/predecessor.
+them (see the [**Creating numeric
+series**](https://discretes.netlify.app/articles/creating-numeric-series)
+vignette). Specialized series like the Fibonacci numbers are not
+explicitly supported. Dense countable sets like the rational numbers are
+also not supported because they do not have a well-defined notion of
+local successor/predecessor.
 
 ## Code of Conduct
 
@@ -147,9 +156,9 @@ By contributing to this project, you agree to abide by its terms.
   named integer sequences (e.g., Fibonacci numbers, prime numbers), but
   does not provide a general framework for constructing and transforming
   numeric series.
-- [‘sets’](https://cran.r-project.org/web/packages/sets/index.html)
-  focuses on finite set operations and abstract set algebra, rather than
-  structured numeric series.
+- [‘sets’](https://cran.r-project.org/package=sets) focuses on finite
+  set operations and abstract set algebra, rather than structured
+  numeric series.
 - [‘set6’](https://CRAN.R-project.org/package=set6) supported infinite
   sets via object-oriented abstractions, but is no longer available on
   CRAN.
@@ -175,6 +184,10 @@ provide tools for probabilistic modeling and inference in R.
 
 ## All functions
 
+- [`Math(`*`<discretes>`*`)`](https://discretes.netlify.app/reference/Math.discretes.md)
+  : Math group generic for numeric series
+- [`Ops(`*`<discretes>`*`)`](https://discretes.netlify.app/reference/Ops.discretes.md)
+  : Arithmetic and power operators for numeric series
 - [`arithmetic()`](https://discretes.netlify.app/reference/arithmetic.md)
   : Arithmetic series
 - [`as.double(`*`<discretes>`*`)`](https://discretes.netlify.app/reference/as.double.discretes.md)
@@ -243,5 +256,5 @@ provide tools for probabilistic modeling and inference in R.
   series](https://discretes.netlify.app/articles/creating-numeric-series.md):
 - [Querying a numeric
   series](https://discretes.netlify.app/articles/querying-numeric-series.md):
-- [signed_zero](https://discretes.netlify.app/articles/signed_zero.md):
+- [Signed Zero](https://discretes.netlify.app/articles/signed_zero.md):
 - [Tolerance](https://discretes.netlify.app/articles/tolerance.md):

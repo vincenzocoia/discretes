@@ -75,8 +75,8 @@ calls. This means that `tol` is only realized on the underlying series:
 
 - **Arithmetic series**: the implied step index (distance from the
   representative in steps) is treated as an integer if it is within
-  `tol` of an integer. See
-  [`vignette("tolerance", package = "discretes")`](https://discretes.netlify.app/articles/tolerance.md)
+  `tol` of an integer. See the
+  [Tolerance](https://discretes.netlify.app/articles/tolerance) vignette
   for examples.
 
 ## Examples

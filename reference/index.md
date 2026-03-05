@@ -2,6 +2,10 @@
 
 ## All functions
 
+- [`Math(`*`<discretes>`*`)`](https://discretes.netlify.app/reference/Math.discretes.md)
+  : Math group generic for numeric series
+- [`Ops(`*`<discretes>`*`)`](https://discretes.netlify.app/reference/Ops.discretes.md)
+  : Arithmetic and power operators for numeric series
 - [`arithmetic()`](https://discretes.netlify.app/reference/arithmetic.md)
   : Arithmetic series
 - [`as.double(`*`<discretes>`*`)`](https://discretes.netlify.app/reference/as.double.discretes.md)

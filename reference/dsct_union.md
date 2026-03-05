@@ -36,6 +36,5 @@ x1 <- natural1()
 x2 <- -natural1()
 dsct_union(x1, x2)
 #> Union series of length Inf:
-#> Loading required namespace: testthat
 #> ..., -3, -2, -1, 1, 2, 3, ...
 ```

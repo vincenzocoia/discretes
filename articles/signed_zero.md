@@ -1,4 +1,4 @@
-# signed_zero
+# Signed Zero
 
 ``` r
 library(discretes)
