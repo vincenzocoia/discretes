@@ -6,3 +6,6 @@
 ^\.github$
 DEVELOPER_NOTES.md
 ^CODE_OF_CONDUCT\.md$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$

@@ -31,7 +31,7 @@
 #' @rdname has_sink
 #' @export
 has_sink_in <- function(x, from = -Inf, to = Inf) {
-  checkmate::assert_true(is_discrete_set(x))
+  checkmate::assert_true(is_series(x))
   checkmate::assert_number(from)
   checkmate::assert_number(to, lower = from)
   y <- dsct_keep(x, from = from, to = to)
@@ -42,7 +42,7 @@ has_sink_in <- function(x, from = -Inf, to = Inf) {
 #' @rdname has_sink
 #' @export
 has_sink_at <- function(x, value, dir = c("either", "left", "right", "both")) {
-  checkmate::assert_true(is_discrete_set(x))
+  checkmate::assert_true(is_series(x))
   checkmate::assert_number(value)
   dir <- rlang::arg_match(dir)
   mat <- sinks(x)

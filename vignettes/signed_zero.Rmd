@@ -1,0 +1,61 @@
+---
+title: "signed_zero"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{signed_zero}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(discretes)
+```
+
+In R, zero has a latent sign: `+0` and `-0` print the same but behave differently under reciprocation:
+`1 / 0` is `Inf` and `1 / -0` is `-Inf`.
+When a numeric series contains zero, that sign can matter for derived series (for example, after inversion).
+
+For numeric series, rules around signed zero follow those of base R.
+
+The functions `has_negative_zero()` and `has_positive_zero()` report whether `-0` or `+0` is a discrete value in the series.
+For example, the integers contain a single positive zero:
+
+```{r}
+has_negative_zero(integers())
+has_positive_zero(integers())
+```
+
+Negation can induce negative zeroes (although note that, in R, -0 is only possible as type "double" and not of type "integer").
+
+```{r}
+has_negative_zero(-1.5 * integers())
+```
+
+Like numeric vectors, a series can contain both signs of zero.
+Only one zero is enumerated by `next_discrete()`, `prev_discrete()`, or `get_discretes_*()`.
+
+```{r}
+x <- dsct_union(-0, 0)
+x
+has_positive_zero(x)
+has_negative_zero(x)
+```
+
+But, both signs remain latent and appear when the series is inverted:
+
+```{r}
+1 / x
+```
+
+When choosing to pull positive or negative zero from the series:
+
+- For numeric vectors, behaviour is delegated to `base::unique()`.
+- For combined series through `dsct_union()`, the zero from the first series that has a zero is taken.
+- Otherwise, positive zero is selected.

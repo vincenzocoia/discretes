@@ -1,5 +1,5 @@
 ---
-title: "tolerance"
+title: "Tolerance"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{tolerance}
@@ -18,11 +18,10 @@ knitr::opts_chunk$set(
 library(discretes)
 ```
 
-## What is `tol`?
 
-Many operations in **discretes** involve comparing a *queried* numeric value to
+Many operations in the discretes package involve comparing a *queried* numeric value to
 the discrete values in a numeric series. Because most decimal fractions are not
-represented exactly in floating point (e.g. `0.1`), values that "should" match
+represented exactly in floating point, values that "should" match
 can differ by a tiny amount after arithmetic.
 
 In this package, `tol` is an **absolute tolerance** used when deciding whether a
@@ -34,10 +33,8 @@ query value is "close enough" to a discrete value in the series.
 
 ## Where is `tol` actually used?
 
-Tolerance is not applied to the series you see at the top level. It is **passed
-down** through any nested or transformed series and used **only when membership
-is actually tested**—at the underlying arithmetic progression or stored numeric
-vector. Other functions accept `tol` and pass it through to that point.
+Tolerance is not applied to the series you see at the top level. 
+It is **passed down** through any nested or transformed series and used **only when membership is actually tested** at the underlying series.
 
 The two places where it is used are:
 
@@ -46,18 +43,18 @@ The two places where it is used are:
   point, this index is rarely an exact integer (e.g. `(0.3 - 0) / 0.1`). A
   value is treated as a discrete value if that index is within `tol` of an
   integer.
-- **Numeric-vector-based series** (plain numeric vectors or `as_discretes(...)`):
+- **Numeric-vector-based series** (plain numeric vectors or `as_discretes()`):
   membership is decided by testing whether the queried value is within `tol` of
   any stored discrete value.
 
-For transformed series (e.g. `1 / arithmetic(...)`), the queried value is mapped
+For transformed series (e.g. `1 / arithmetic()`), the queried value is mapped
 back to the underlying series and the same logic is applied there with the same
 `tol`; no separate tolerance is applied to the transformed values.
 
 ## Example: `tol` with `arithmetic()`
 
 Without a tolerance, values can be hard to recognize as discrete values in an
-arithmetic series because the implied index might be `2.999999999...` instead of `3`.
+arithmetic series because the implied index might be `2.999999999` instead of `3`.
 
 ```{r}
 x <- arithmetic(representative = 0, spacing = 0.1)
@@ -65,9 +62,9 @@ has_discretes(x, 0.3)
 has_discretes(x, 0.3, tol = 0)
 ```
 
-## Example: `tol` with an explicit numeric set
+## Example: `tol` with an explicit numeric series
 
-Even if a set is represented as a numeric vector, you can still run into tiny
+Even if a series is represented as a numeric vector, you can still run into tiny
 floating-point mismatches.
 
 ```{r}
@@ -77,36 +74,43 @@ has_discretes(v, 0.3)
 has_discretes(v, 0.3, tol = 0)
 ```
 
-If you want "mathematical set" behaviour for an explicit set, use `tol = 0`.
-If you want "numerical computing" behaviour (robust to round-off), keep `tol`
-positive.
+If you want "mathematical series" behaviour for an explicit series, use `tol = 0`.
+If you want "numerical computing" behaviour (robust to round-off), keep `tol` positive.
 
-## Example: `tol` propagates through transformations
+## Example: preserving numeric vectors
 
-When you transform a numeric series, membership checks happen in the *root space*.
-This means `tol` is applied *before* the transformation (via the inverse map),
-not directly on the transformed discrete values. In practice, this can make
-membership checks behave differently than they would for an ordinary numeric vector.
+When a numeric vector is converted to a "discretes" object via `as_discretes()`, the root numeric vector is preserved, even if the series gets transformed.
+
+Consider transforming a numeric vector vs. that same vector expressed as a "discretes" object.
 
 ```{r}
-raw <- 10^(-10:10)
-frozen <- 10^as_discretes(-10:10)
+raw <- 10^(-5:5)
+raw
+preserved <- 10^as_discretes(-5:5)
+preserved
+```
 
-# A realistic way to get a value that is "almost" 5: repeated addition.
-exponent <- tail(cumsum(rep(0.1, 5000)), 1) / 100
-q <- 10^exponent
+The numeric vector gets transformed right away, whereas it remains as the base series when transformed as a "discretes" object. This has implications because errors are propagated differently.
 
+For example, an exponent slightly off by `1e-10` results in a more significant error after transformation that may not be within the default `tol`:
+
+```{r}
+# Exponent slightly off from `5`
+q <- 10^(5 - 1e-10)
+# Error after transformation
+10^5 - q
+```
+
+This means that membership on the eagerly transformed numeric vector fails, but not so when the vector is preserved.
+This is because tolerance is applied to the root series.
+
+```{r}
 has_discretes(raw, q)
-has_discretes(frozen, q)
-has_discretes(frozen, q, tol = 0)
+has_discretes(preserved, q)
 ```
 
 ## Choosing a `tol`
 
-- **Default is usually fine**: `sqrt(.Machine$double.eps)` is intended to smooth
-  over tiny floating-point noise.
-- **Use `tol = 0` for exactness**: when you truly want explicit sets to behave
-  exactly (e.g., when values were constructed to be exactly representable).
-- **Increase `tol` for noisy values**: if your values come from computation or
-  measurement and you want a wider margin when testing membership at the
-  underlying series, increase `tol` accordingly.
+- **Default is usually fine**: `sqrt(.Machine$double.eps)` is intended to smooth over tiny floating-point noise.
+- **Use `tol = 0` for exactness**: when you truly want explicit sets to behave exactly, perhaps useful in some situations when working with 'integer' storage mode.
+- **Increase `tol` for noisy values**: if your values come from computation or measurement and you are noticing unusual membership failures, increase `tol` accordingly.

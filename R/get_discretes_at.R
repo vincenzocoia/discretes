@@ -2,7 +2,7 @@
 #' @rdname get_discretes
 #' @export
 get_discretes_at <- function(x, values, ..., tol = sqrt(.Machine$double.eps)) {
-  checkmate::assert_true(is_discrete_set(x))
+  checkmate::assert_true(is_series(x))
   checkmate::assert_numeric(values, any.missing = TRUE)
   ellipsis::check_dots_empty()
   checkmate::assert_number(tol, lower = 0)

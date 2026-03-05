@@ -1,0 +1,97 @@
+---
+title: "Creating numeric series"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Creating numeric series}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(discretes)
+```
+
+The discretes package lets you create numeric series in two main ways:
+
+**Arithmetic series** — Use `arithmetic()` or the wrappers `integers()`, `natural1()`, and `natural0()` for common cases (all integers, positive integers starting at 1, non-negative integers starting at 0).
+
+**From a numeric vector** — Use `as_discretes()` to turn an existing numeric vector into a numeric series.
+
+Once you have a base series, you can create new ones by subsetting, combining, or transforming.
+
+## Subsetting and combining
+
+- **Subsetting**: `dsct_keep()` and `dsct_drop()` restrict a series to or outside of an interval.
+- **Combining**: `dsct_union()` merges multiple series into one.
+
+## Arithmetic and standard functions
+
+**Arithmetic** — The operations `+`, `-`, `*`, `/`, `^` are supported when one side is a number and the other is a numeric series. For example:
+
+```{r}
+integers()^2
+2 * natural1() - 1   # odd positive integers
+1 / 2^integers()     # reciprocals of powers of 2
+```
+
+Length-0 vectors are allowed, too, but result in empty series:
+
+```{r}
+numeric(0L) * natural1()
+```
+
+**Mathematical functions** — `exp()` is supported. For non-negative series, `log()`, `log2()`, `log10()`, and `sqrt()` are also supported:
+
+```{r}
+log(natural0())
+```
+
+Other functions may be able to be applied as well; use `dsct_transform()` for those (see below).
+
+## Custom transformations: `dsct_transform()`
+
+For other transformations, use `dsct_transform()`. On a numeric vector, the function is applied directly:
+
+```{r}
+dsct_transform(0:10, cos) # Same as cos(0:10)
+```
+
+When transforming an object of class `"discretes"` there are more restrictions so that querying the series can be defined
+from the base series.
+
+1. The function and its inverse must be vectorized and element-wise (no `cumsum()`-style dependence on other elements).
+2. You must supply the **domain** and **range** of the function. This defaults to all real numbers.
+3. The function must be [strictly monotonic](https://en.wikipedia.org/wiki/Monotonic_function) over the given domain.
+
+Here is an example of applying the function `pnorm()`. The range is (0, 1), so it must be given explicitly:
+
+```{r}
+dsct_transform(
+  natural0(),
+  fun = pnorm,
+  inv = qnorm,
+  range = c(0, 1)
+)
+```
+
+For a function that is monotonic only on an interval, restrict the domain.
+For example, `cos()` is decreasing on `[0, pi]` with range `[-1, 1]`, and inverse `acos()`.
+Specify `dir = "decreasing"` to indicate that this is a decreasing function.
+
+```{r}
+dsct_transform(
+  0:3,
+  fun = cos,
+  inv = acos,
+  domain = c(0, pi),
+  range = c(-1, 1),
+  dir = "decreasing"
+)
+```

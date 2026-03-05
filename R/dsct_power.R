@@ -21,7 +21,7 @@
 #' discretes:::dsct_power(integers(), power = 3)
 #' integers()^3
 dsct_power <- function(x, power) {
-  checkmate::assert_true(is_discrete_set(x))
+  checkmate::assert_true(is_series(x))
   checkmate::assert_numeric(power, any.missing = FALSE, finite = FALSE)
   if (length(power) > 1) {
     stop("Cannot exponentiate a series by a vector of length >1.")

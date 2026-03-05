@@ -30,7 +30,9 @@
 #'   value (whichever is closer to the infinite sink) is used. This can be
 #'   manually adjusted by changing the `from` and `to` parameters.
 #' @note If this function takes a long time to plot, it's likely because
-#'   your series has "slowly varying" behaviour next to a sink,
+#'   your series has 
+#'   [slowly varying](https://en.wikipedia.org/wiki/Slowly_varying_function)
+#'   behaviour next to a sink,
 #'   like `1 / natural1()`, where discrete values pile up rapidly
 #'   while approaching the sink very slowly. To avoid so many points from
 #'   being plotted, increase the `closeness` argument.
@@ -151,8 +153,8 @@ plot_finite_discretes <- function(x,
     yaxt = "n",
     bty = "n",
     ylab = "",
-    xlab = "Value",
-    main = "Discrete Series",
+    xlab = "Discrete Value",
+    main = "Numeric Series",
     pch = "|",
     ...
   )

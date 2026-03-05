@@ -37,7 +37,7 @@ get_discretes_in <- function(x,
                              include_from = TRUE,
                              include_to = TRUE,
                              tol = sqrt(.Machine$double.eps)) {
-  checkmate::assert_true(is_discrete_set(x))
+  checkmate::assert_true(is_series(x))
   ellipsis::check_dots_empty()
   checkmate::assert_number(from)
   checkmate::assert_number(to, lower = from)

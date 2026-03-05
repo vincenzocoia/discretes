@@ -23,7 +23,7 @@
 #' 0^integers()
 #' @rdname exponentiate
 dsct_raise <- function(x, base = exp(1)) {
-  checkmate::assert_true(is_discrete_set(x))
+  checkmate::assert_true(is_series(x))
   checkmate::assert_numeric(base, any.missing = FALSE, finite = FALSE)
   if (!length(base) || num_discretes(x) == 0) {
     return(empty_series(typeof(representative(x)^base)))

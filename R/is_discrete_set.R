@@ -6,10 +6,10 @@
 #' @param x Object to check.
 #' @returns `TRUE` if `x` is treated as a numeric series, `FALSE` otherwise.
 #' @examples
-#' is_discrete_set(natural0())
-#' is_discrete_set(c(1, 2, 3))
-#' is_discrete_set("not a numeric series")
+#' is_series(natural0())
+#' is_series(c(1, 2, 3))
+#' is_series("not a numeric series")
 #' @export
-is_discrete_set <- function(x) {
+is_series <- function(x) {
   inherits(x, "discretes") || is.numeric(x)
 }

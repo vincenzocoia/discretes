@@ -57,7 +57,9 @@ manually adjusted by changing the \code{from} and \code{to} parameters.
 }
 \note{
 If this function takes a long time to plot, it's likely because
-your series has "slowly varying" behaviour next to a sink,
+your series has
+\href{https://en.wikipedia.org/wiki/Slowly_varying_function}{slowly varying}
+behaviour next to a sink,
 like \code{1 / natural1()}, where discrete values pile up rapidly
 while approaching the sink very slowly. To avoid so many points from
 being plotted, increase the \code{closeness} argument.
