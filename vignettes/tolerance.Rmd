@@ -2,7 +2,7 @@
 title: "Tolerance"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{tolerance}
+  %\VignetteIndexEntry{Tolerance}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

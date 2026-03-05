@@ -9,7 +9,7 @@
 coverage](https://codecov.io/gh/vincenzocoia/discretes/graph/badge.svg)](https://app.codecov.io/gh/vincenzocoia/discretes)
 [![R-CMD-check](https://github.com/probaverse/discretes/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/probaverse/discretes/actions/workflows/R-CMD-check.yaml)
 [![License:
-MIT](https://img.shields.io/badge/license-mit-blue.svg)](https://cran.r-project.org/web/licenses/mit)
+MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://cran.r-project.org/web/licenses/MIT)
 [![Lifecycle:
 stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 <!-- badges: end -->
