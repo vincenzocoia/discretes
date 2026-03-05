@@ -1,0 +1,247 @@
+# discretes
+
+The discretes package provides a framework for representing numeric
+series that may be finite or infinite. Think `1:Inf`, without storing
+all the values explicitly.
+
+Series can be traversed, tested for membership, and queried for limit
+points (“sinks”). They can be manipulated to create new series, such as
+by transforming or combining.
+
+The name “discretes” reflects the original use case of representing the
+support of discrete probability distributions like the Poisson or
+Geometric, which are often infinite but enumerable. The package is not
+limited to probability applications: it is designed as a general-purpose
+tool for working with enumerable numeric series.
+
+## Installation
+
+Install discretes from CRAN with:
+
+``` r
+install.packages("discretes")
+```
+
+## Examples
+
+``` r
+library(discretes)
+```
+
+While vectors in R must be finite, this is not a problem for discretes.
+
+``` r
+natural0()
+#> Integer series of length Inf:
+#> 0, 1, 2, 3, 4, 5, ...
+```
+
+These objects are referred to as “numeric series”, and have class
+“discretes”. Their members are referred to as “discrete values”.
+
+What’s the next discrete value after 10 in the series of integers? Or
+the previous five values from 1.3?
+
+``` r
+next_discrete(integers(), from = 10)
+#> [1] 11
+prev_discrete(integers(), from = 1.3, n = 5)
+#> [1]  1  0 -1 -2 -3
+```
+
+Test whether values are discrete values in a series.
+
+``` r
+has_discretes(natural1(), c(0, 1))
+#> [1] FALSE  TRUE
+```
+
+Perform arithmetic operations on series.
+
+``` r
+1 / 2^integers()
+#> Reciprocal series of length Inf:
+#> Loading required namespace: testthat
+#> ..., 0.25, 0.5, 1, 2, 4, 8, ...
+```
+
+A new series is created after a base series gets modified. See the
+**Creating numeric series** vignette
+([`vignette("creating-numeric-series", package = "discretes")`](https://discretes.netlify.app/articles/creating-numeric-series.md))
+for what’s allowed (e.g. monotonic transformations) and how to use
+[`dsct_transform()`](https://discretes.netlify.app/reference/transform.md)
+for custom transformations.
+
+### Sinks
+
+That last series above, `1 / 2^integers()`, has a sink[¹](#fn1) at 0
+(approached from the right) and a sink at infinity, best seen by
+plotting:
+
+``` r
+x <- 1 / 2^integers()
+plot(x)
+```
+
+![](reference/figures/README-unnamed-chunk-7-1.png)
+
+Notice that there are infinitely many discrete values close to 0.
+
+``` r
+num_discretes(x, from = 0, to = 1)
+#> [1] Inf
+```
+
+There is no such thing as a “next” value when looking left of the sink.
+
+``` r
+next_discrete(x, from = -1)
+#> numeric(0)
+```
+
+You can ask whether a sink exists directly.
+
+``` r
+has_sink_in(x, from = 0, to = 1)
+#> [1] TRUE
+has_sink_at(x, 0, dir = "right")
+#> [1] TRUE
+```
+
+## Vignettes
+
+- **Creating numeric series** — Base series, arithmetic, and custom
+  manipulations.
+  [`vignette("creating-numeric-series", package = "discretes")`](https://discretes.netlify.app/articles/creating-numeric-series.md)
+- **Querying a numeric series** — Traversing with
+  `next_discrete`/`prev_discrete`, membership with `has_discretes`, and
+  extracting values with
+  [`get_discretes_at()`](https://discretes.netlify.app/reference/get_discretes.md)
+  /
+  [`get_discretes_in()`](https://discretes.netlify.app/reference/get_discretes.md).
+  [`vignette("querying-numeric-series", package = "discretes")`](https://discretes.netlify.app/articles/querying-numeric-series.md)
+- **Tolerance** — How `tol` is used in membership and traversal.
+  [`vignette("tolerance", package = "discretes")`](https://discretes.netlify.app/articles/tolerance.md)
+- **Signed zero** — Behaviour of +0 and -0 in numeric series.
+  [`vignette("signed_zero", package = "discretes")`](https://discretes.netlify.app/articles/signed_zero.md)
+
+## Limitations
+
+The series supported by the package include arithmetic series like
+integers, finite series from a numeric vector, and series created from
+them (see the **Creating numeric series** vignette). Specialized series
+like the Fibonacci numbers are not explicitly supported. Dense countable
+sets like the rational numbers are also not supported because they do
+not have a well-defined notion of local successor/predecessor.
+
+## Code of Conduct
+
+Please note that the discretes project is released with a [Contributor
+Code of
+Conduct](https://contributor-covenant.org/version/2/1/CODE_OF_CONDUCT.html).
+By contributing to this project, you agree to abide by its terms.
+
+## Similar Packages
+
+- [‘Zseq’](https://cran.r-project.org/package=Zseq) provides access to
+  named integer sequences (e.g., Fibonacci numbers, prime numbers), but
+  does not provide a general framework for constructing and transforming
+  numeric series.
+- [‘sets’](https://cran.r-project.org/web/packages/sets/index.html)
+  focuses on finite set operations and abstract set algebra, rather than
+  structured numeric series.
+- [‘set6’](https://CRAN.R-project.org/package=set6) supported infinite
+  sets via object-oriented abstractions, but is no longer available on
+  CRAN.
+- [‘peruse’](https://jacgoldsm.github.io/peruse/) provides tools for
+  iterating general sequences, but does not focus on algebraic
+  manipulation or structured numeric series.
+
+## Acknowledgements
+
+Development of this package would not have been possible without the
+funding and support of the [European Space
+Agency](https://www.esa.int/), [BGC Engineering
+Inc.](https://www.bgcengineering.ca/), and the [Politecnico di
+Milano](https://www.polimi.it/). The need for this package arose from
+work on the [probaverse](https://probaverse.com/) project, which aims to
+provide tools for probabilistic modeling and inference in R.
+
+------------------------------------------------------------------------
+
+1.  Or more precisely, a limit point.
+
+# Package index
+
+## All functions
+
+- [`arithmetic()`](https://discretes.netlify.app/reference/arithmetic.md)
+  : Arithmetic series
+- [`as.double(`*`<discretes>`*`)`](https://discretes.netlify.app/reference/as.double.discretes.md)
+  : Convert a numeric series to a numeric vector
+- [`as_discretes()`](https://discretes.netlify.app/reference/as_discretes.md)
+  : Create a numeric series from a numeric vector
+- [`as_integerish()`](https://discretes.netlify.app/reference/as_integerish.md)
+  : "Safely" convert to integer-like
+- [`dsct_linear()`](https://discretes.netlify.app/reference/dsct_linear.md)
+  : Linearly transform a numeric series
+- [`dsct_power()`](https://discretes.netlify.app/reference/dsct_power.md)
+  : Raise a numeric series to a power
+- [`dsct_union()`](https://discretes.netlify.app/reference/dsct_union.md)
+  : Combine numeric series
+- [`empty_series()`](https://discretes.netlify.app/reference/empty_series.md)
+  : Create an empty numeric series
+- [`dsct_raise()`](https://discretes.netlify.app/reference/exponentiate.md)
+  [`dsct_exp()`](https://discretes.netlify.app/reference/exponentiate.md)
+  : Exponentiation of a numeric series
+- [`get_discretes_at()`](https://discretes.netlify.app/reference/get_discretes.md)
+  [`get_discretes_in()`](https://discretes.netlify.app/reference/get_discretes.md)
+  : Extract discrete values from a numeric series
+- [`has_discretes()`](https://discretes.netlify.app/reference/has_discretes.md)
+  : Test if values are discrete values in a numeric series
+- [`has_sink_in()`](https://discretes.netlify.app/reference/has_sink.md)
+  [`has_sink_at()`](https://discretes.netlify.app/reference/has_sink.md)
+  : Test for sinks in a numeric series
+- [`integers()`](https://discretes.netlify.app/reference/integers.md)
+  [`natural1()`](https://discretes.netlify.app/reference/integers.md)
+  [`natural0()`](https://discretes.netlify.app/reference/integers.md) :
+  Integer numeric series
+- [`is_between()`](https://discretes.netlify.app/reference/is_between.md)
+  : Check if values are between two bounds
+- [`is_series()`](https://discretes.netlify.app/reference/is_series.md)
+  : Check if an object is treated as a numeric series
+- [`dsct_log()`](https://discretes.netlify.app/reference/logarithm.md) :
+  Logarithm of a numeric series
+- [`has_negative_zero()`](https://discretes.netlify.app/reference/negative_zero.md)
+  [`has_positive_zero()`](https://discretes.netlify.app/reference/negative_zero.md)
+  : Check if a numeric series has a signed zero
+- [`next_discrete()`](https://discretes.netlify.app/reference/next_discrete.md)
+  [`prev_discrete()`](https://discretes.netlify.app/reference/next_discrete.md)
+  : Traversing a numeric series
+- [`num_discretes()`](https://discretes.netlify.app/reference/num_discretes.md)
+  : Number of discrete values in a series
+- [`plot(`*`<discretes>`*`)`](https://discretes.netlify.app/reference/plot.discretes.md)
+  : Plot a numeric series
+- [`print(`*`<discretes>`*`)`](https://discretes.netlify.app/reference/print.discretes.md)
+  : Print a numeric series
+- [`representative()`](https://discretes.netlify.app/reference/representative.md)
+  : Get a representative discrete value in a numeric series
+- [`sinks()`](https://discretes.netlify.app/reference/sinks.md) : Sinks
+- [`dsct_drop()`](https://discretes.netlify.app/reference/subsetting.md)
+  [`dsct_keep()`](https://discretes.netlify.app/reference/subsetting.md)
+  : Subset a numeric series
+- [`dsct_transform()`](https://discretes.netlify.app/reference/transform.md)
+  : Monotonically transform a numeric series
+- [`zeroes_vector()`](https://discretes.netlify.app/reference/zeroes_vector.md)
+  : Construct vector of zeroes
+
+# Articles
+
+### All vignettes
+
+- [Creating numeric
+  series](https://discretes.netlify.app/articles/creating-numeric-series.md):
+- [Querying a numeric
+  series](https://discretes.netlify.app/articles/querying-numeric-series.md):
+- [signed_zero](https://discretes.netlify.app/articles/signed_zero.md):
+- [Tolerance](https://discretes.netlify.app/articles/tolerance.md):

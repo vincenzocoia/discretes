@@ -1,0 +1,133 @@
+# Tolerance
+
+``` r
+library(discretes)
+```
+
+Many operations in the discretes package involve comparing a *queried*
+numeric value to the discrete values in a numeric series. Because most
+decimal fractions are not represented exactly in floating point, values
+that “should” match can differ by a tiny amount after arithmetic.
+
+In this package, `tol` is an **absolute tolerance** used when deciding
+whether a query value is “close enough” to a discrete value in the
+series.
+
+- Setting **`tol = 0`** requests **exact** comparisons.
+- The default is `sqrt(.Machine$double.eps)`, which is small but usually
+  enough to ignore round-off noise.
+
+## Where is `tol` actually used?
+
+Tolerance is not applied to the series you see at the top level. It is
+**passed down** through any nested or transformed series and used **only
+when membership is actually tested** at the underlying series.
+
+The two places where it is used are:
+
+- **Arithmetic progressions**
+  ([`arithmetic()`](https://discretes.netlify.app/reference/arithmetic.md)):
+  membership is decided by the implied step index
+  $(x - representative)/spacing$. Because of floating point, this index
+  is rarely an exact integer (e.g. `(0.3 - 0) / 0.1`). A value is
+  treated as a discrete value if that index is within `tol` of an
+  integer.
+- **Numeric-vector-based series** (plain numeric vectors or
+  [`as_discretes()`](https://discretes.netlify.app/reference/as_discretes.md)):
+  membership is decided by testing whether the queried value is within
+  `tol` of any stored discrete value.
+
+For transformed series (e.g. `1 / arithmetic()`), the queried value is
+mapped back to the underlying series and the same logic is applied there
+with the same `tol`; no separate tolerance is applied to the transformed
+values.
+
+## Example: `tol` with `arithmetic()`
+
+Without a tolerance, values can be hard to recognize as discrete values
+in an arithmetic series because the implied index might be `2.999999999`
+instead of `3`.
+
+``` r
+x <- arithmetic(representative = 0, spacing = 0.1)
+has_discretes(x, 0.3)
+#> [1] TRUE
+has_discretes(x, 0.3, tol = 0)
+#> [1] FALSE
+```
+
+## Example: `tol` with an explicit numeric series
+
+Even if a series is represented as a numeric vector, you can still run
+into tiny floating-point mismatches.
+
+``` r
+v <- c(0, 0.1, 0.2, 0.1 * 3)   # last entry is not exactly 0.3
+
+has_discretes(v, 0.3)
+#> [1] TRUE
+has_discretes(v, 0.3, tol = 0)
+#> [1] FALSE
+```
+
+If you want “mathematical series” behaviour for an explicit series, use
+`tol = 0`. If you want “numerical computing” behaviour (robust to
+round-off), keep `tol` positive.
+
+## Example: preserving numeric vectors
+
+When a numeric vector is converted to a “discretes” object via
+[`as_discretes()`](https://discretes.netlify.app/reference/as_discretes.md),
+the root numeric vector is preserved, even if the series gets
+transformed.
+
+Consider transforming a numeric vector vs. that same vector expressed as
+a “discretes” object.
+
+``` r
+raw <- 10^(-5:5)
+raw
+#>  [1] 1e-05 1e-04 1e-03 1e-02 1e-01 1e+00 1e+01 1e+02 1e+03 1e+04 1e+05
+preserved <- 10^as_discretes(-5:5)
+preserved
+#> Transformed series of length 11:
+#> 1e-05, 1e-04, 0.001, ..., 1000, 10000, 1e+05
+```
+
+The numeric vector gets transformed right away, whereas it remains as
+the base series when transformed as a “discretes” object. This has
+implications because errors are propagated differently.
+
+For example, an exponent slightly off by `1e-10` results in a more
+significant error after transformation that may not be within the
+default `tol`:
+
+``` r
+# Exponent slightly off from `5`
+q <- 10^(5 - 1e-10)
+# Error after transformation
+10^5 - q
+#> [1] 2.302586e-05
+```
+
+This means that membership on the eagerly transformed numeric vector
+fails, but not so when the vector is preserved. This is because
+tolerance is applied to the root series.
+
+``` r
+has_discretes(raw, q)
+#> [1] FALSE
+has_discretes(preserved, q)
+#> [1] TRUE
+```
+
+## Choosing a `tol`
+
+- **Default is usually fine**: `sqrt(.Machine$double.eps)` is intended
+  to smooth over tiny floating-point noise.
+- **Use `tol = 0` for exactness**: when you truly want explicit sets to
+  behave exactly, perhaps useful in some situations when working with
+  ‘integer’ storage mode.
+- **Increase `tol` for noisy values**: if your values come from
+  computation or measurement and you are noticing unusual membership
+  failures, increase `tol` accordingly.
