@@ -1,3 +1,17 @@
+#' Arithmetic and power operators for numeric series
+#'
+#' Support for `+`, `-`, `*`, `/`, and `^` between a numeric series and a
+#' single number. One operand must be a numeric series and the other a number.
+#'
+#' @param e1,e2 Operands; one must be a numeric series (class `discretes`),
+#'   the other a single numeric.
+#' @returns A numeric series resulting from the operation (e.g. series + number,
+#'   number * series, series^number).
+#' @examples
+#' integers() + 1
+#' 2 * natural1()
+#' 1 / integers(from = 1, to = 5)
+#' natural0()^2
 #' @export
 Ops.discretes <- function(e1, e2) {
   op <- .Generic

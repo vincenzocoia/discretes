@@ -1,4 +1,16 @@
-#' @noRd
+#' Math group generic for numeric series
+#'
+#' Support for `exp`, `log`, `log10`, `log2`, and `sqrt` on numeric series.
+#' The new series behaves as though the function is applied to each discrete
+#' value in the series.
+#'
+#' @inheritParams next_discrete
+#' @param ... Passed to `log()` for the `base` argument when `op == "log"`.
+#' @returns A numeric series with the math function applied.
+#' @examples
+#' exp(integers(from = 0, to = 3))
+#' log(natural1())
+#' sqrt(integers(from = 0, to = 10))
 #' @export
 Math.discretes <- function(x, ...) {
   op <- .Generic # nolint

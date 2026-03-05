@@ -7,13 +7,14 @@
 
 [![Codecov test
 coverage](https://codecov.io/gh/vincenzocoia/discretes/graph/badge.svg)](https://app.codecov.io/gh/vincenzocoia/discretes)
-[![R-CMD-check](https://github.com/probaverse/discretes/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/probaverse/discretes/actions/workflows/R-CMD-check.yaml)
+[![R-CMD-check](https://github.com/vincenzocoia/discretes/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/vincenzocoia/discretes/actions/workflows/R-CMD-check.yaml)
 [![License:
 MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://cran.r-project.org/web/licenses/MIT)
 [![Lifecycle:
 stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 [![Netlify
 Status](https://api.netlify.com/api/v1/badges/ae7ee74a-dc5a-479f-9b17-757a44876de2/deploy-status)](https://app.netlify.com/projects/discretes/deploys)
+[![R-CMD-check](https://github.com/vincenzocoia/discretes/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/vincenzocoia/discretes/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 The discretes package provides a framework for representing numeric
@@ -168,9 +169,9 @@ By contributing to this project, you agree to abide by its terms.
   named integer sequences (e.g., Fibonacci numbers, prime numbers), but
   does not provide a general framework for constructing and transforming
   numeric series.
-- [‘sets’](https://cran.r-project.org/web/packages/sets/index.html)
-  focuses on finite set operations and abstract set algebra, rather than
-  structured numeric series.
+- [‘sets’](https://cran.r-project.org/package=sets) focuses on finite
+  set operations and abstract set algebra, rather than structured
+  numeric series.
 - [‘set6’](https://CRAN.R-project.org/package=set6) supported infinite
   sets via object-oriented abstractions, but is no longer available on
   CRAN.
