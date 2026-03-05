@@ -62,7 +62,7 @@ within \code{tol} of a stored value.
 \item \strong{Arithmetic series}: the implied step index (distance from the
 representative in steps) is treated as an integer if it is within \code{tol}
 of an integer.
-See \code{vignette("tolerance", package = "discretes")} for examples.
+See the \href{https://discretes.netlify.app/articles/tolerance}{Tolerance} vignette for examples.
 }
 }
 \examples{

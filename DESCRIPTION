@@ -1,7 +1,7 @@
 Package: discretes
 Type: Package
 Title: Discrete Numeric Series
-Version: 0.1.0.9000
+Version: 0.1.0
 Authors@R: c(
     person(
       "Vincenzo", "Coia",

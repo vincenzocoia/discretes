@@ -12,6 +12,8 @@ coverage](https://codecov.io/gh/vincenzocoia/discretes/graph/badge.svg)](https:/
 MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://cran.r-project.org/web/licenses/MIT)
 [![Lifecycle:
 stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
+[![Netlify
+Status](https://api.netlify.com/api/v1/badges/ae7ee74a-dc5a-479f-9b17-757a44876de2/deploy-status)](https://app.netlify.com/projects/discretes/deploys)
 <!-- badges: end -->
 
 The discretes package provides a framework for representing numeric
@@ -80,10 +82,10 @@ Perform arithmetic operations on series.
 ```
 
 A new series is created after a base series gets modified. See the
-**Creating numeric series** vignette
-(`vignette("creating-numeric-series", package = "discretes")`) for
-what’s allowed (e.g. monotonic transformations) and how to use
-`dsct_transform()` for custom transformations.
+[**Creating numeric
+series**](https://discretes.netlify.app/articles/creating-numeric-series)
+vignette for what’s allowed (e.g. monotonic transformations) and how to
+use `dsct_transform()` for custom transformations.
 
 ### Sinks
 
@@ -123,26 +125,35 @@ has_sink_at(x, 0, dir = "right")
 
 ## Vignettes
 
-- **Creating numeric series** — Base series, arithmetic, and custom
-  manipulations.
-  `vignette("creating-numeric-series", package = "discretes")`
-- **Querying a numeric series** — Traversing with
-  `next_discrete`/`prev_discrete`, membership with `has_discretes`, and
-  extracting values with `get_discretes_at()` / `get_discretes_in()`.
-  `vignette("querying-numeric-series", package = "discretes")`
-- **Tolerance** — How `tol` is used in membership and traversal.
-  `vignette("tolerance", package = "discretes")`
-- **Signed zero** — Behaviour of +0 and -0 in numeric series.
-  `vignette("signed_zero", package = "discretes")`
+There are two main vignettes explaining how to use this package.
+
+- [**Creating numeric
+  series**](https://discretes.netlify.app/articles/creating-numeric-series)
+  — Base series, arithmetic, and custom manipulations.
+- [**Querying a numeric
+  series**](https://discretes.netlify.app/articles/querying-numeric-series)
+  — Traversing with `next_discrete`/`prev_discrete`, membership with
+  `has_discretes`, and extracting values with `get_discretes_at()` /
+  `get_discretes_in()`.
+
+In addition, there are two technical vignettes for those interested in
+more details.
+
+- [**Tolerance**](https://discretes.netlify.app/articles/tolerance) —
+  How `tol` is used in membership and traversal.
+- [**Signed zero**](https://discretes.netlify.app/articles/signed_zero)
+  — Behaviour of +0 and -0 in numeric series.
 
 ## Limitations
 
 The series supported by the package include arithmetic series like
 integers, finite series from a numeric vector, and series created from
-them (see the **Creating numeric series** vignette). Specialized series
-like the Fibonacci numbers are not explicitly supported. Dense countable
-sets like the rational numbers are also not supported because they do
-not have a well-defined notion of local successor/predecessor.
+them (see the [**Creating numeric
+series**](https://discretes.netlify.app/articles/creating-numeric-series)
+vignette). Specialized series like the Fibonacci numbers are not
+explicitly supported. Dense countable sets like the rational numbers are
+also not supported because they do not have a well-defined notion of
+local successor/predecessor.
 
 ## Code of Conduct
 

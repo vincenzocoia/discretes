@@ -1,5 +1,5 @@
 ---
-title: "signed_zero"
+title: "Signed Zero"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{signed_zero}

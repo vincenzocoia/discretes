@@ -29,7 +29,7 @@
 #' - **Arithmetic series**: the implied step index (distance from the
 #'   representative in steps) is treated as an integer if it is within `tol`
 #'   of an integer.
-#' See `vignette("tolerance", package = "discretes")` for examples.
+#' See the [Tolerance](https://discretes.netlify.app/articles/tolerance) vignette for examples.
 #' @examples
 #' x <- integers(from = 2)
 #' next_discrete(x, from = 1.3)
