@@ -7,7 +7,6 @@
 
 [![Codecov test
 coverage](https://codecov.io/gh/vincenzocoia/discretes/graph/badge.svg)](https://app.codecov.io/gh/vincenzocoia/discretes)
-[![R-CMD-check](https://github.com/vincenzocoia/discretes/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/vincenzocoia/discretes/actions/workflows/R-CMD-check.yaml)
 [![License:
 MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://cran.r-project.org/web/licenses/MIT)
 [![Lifecycle:
