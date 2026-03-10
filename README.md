@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# discretes
+# discretes <a href="https://discretes.netlify.app"><img src="man/figures/logo.png" align="right" height="139" alt="discretes website" /></a>
 
 <!-- badges: start -->
 
