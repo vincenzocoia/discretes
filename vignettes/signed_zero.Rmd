@@ -2,7 +2,7 @@
 title: "Signed Zero"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{signed_zero}
+  %\VignetteIndexEntry{Signed Zero}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

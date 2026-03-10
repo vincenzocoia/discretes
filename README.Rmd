@@ -25,7 +25,8 @@ knitr::opts_chunk$set(
 
 The discretes package provides a framework for representing numeric series that may be finite or infinite. Think `1:Inf`, without storing all the values explicitly.
 
-Series can be traversed, tested for membership, and queried for limit points ("sinks"). They can be manipulated to create new series, such as by transforming or combining.
+Series can be traversed, tested for membership, and queried for limit points ("sinks").
+They can be manipulated to create new series, such as by transforming or combining.
 
 The name "discretes" reflects the original use case of representing the support of discrete probability distributions like the Poisson or Geometric, which are often infinite but enumerable.
 The package is not limited to probability applications: it is designed as a general-purpose tool for working with enumerable numeric series.
@@ -120,7 +121,7 @@ In addition, there are two technical vignettes for those interested in more deta
 
 ## Limitations
 
-The series supported by the package include arithmetic series like integers, finite series from a numeric vector, and series created from them (see the [**Creating numeric series**](https://discretes.netlify.app/articles/creating-numeric-series) vignette).
+The series supported by the package include arithmetic series like integers, finite series from a numeric vector, and series created from them.
 Specialized series like the Fibonacci numbers are not explicitly supported.
 Dense countable sets like the rational numbers are also not supported because they do not have a well-defined notion of local successor/predecessor.
 

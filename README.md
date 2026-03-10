@@ -148,12 +148,10 @@ more details.
 
 The series supported by the package include arithmetic series like
 integers, finite series from a numeric vector, and series created from
-them (see the [**Creating numeric
-series**](https://discretes.netlify.app/articles/creating-numeric-series)
-vignette). Specialized series like the Fibonacci numbers are not
-explicitly supported. Dense countable sets like the rational numbers are
-also not supported because they do not have a well-defined notion of
-local successor/predecessor.
+them. Specialized series like the Fibonacci numbers are not explicitly
+supported. Dense countable sets like the rational numbers are also not
+supported because they do not have a well-defined notion of local
+successor/predecessor.
 
 ## Code of Conduct
 
