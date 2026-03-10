@@ -4,7 +4,8 @@
 library(discretes)
 ```
 
-The discretes package lets you create numeric series in two main ways:
+The discretes package lets you create basic numeric series in two main
+ways:
 
 **Arithmetic series** — Use
 [`arithmetic()`](https://discretes.netlify.app/reference/arithmetic.md)
@@ -124,12 +125,13 @@ decreasing on `[0, pi]` with range `[-1, 1]`, and inverse
 
 ``` r
 dsct_transform(
-  0:3,
+  integers(from = 0, to = 3),
   fun = cos,
   inv = acos,
   domain = c(0, pi),
   range = c(-1, 1),
   dir = "decreasing"
 )
-#> [1]  1.0000000  0.5403023 -0.4161468 -0.9899925
+#> Transformed series of length 4:
+#> -0.9899925, -0.4161468, 0.5403023, 1
 ```

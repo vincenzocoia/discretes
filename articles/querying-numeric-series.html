@@ -96,17 +96,48 @@ They are the main way to move along a series without enumerating it.</p>
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/integers.html">integers</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/next_discrete.html">next_discrete</a></span><span class="op">(</span><span class="va">x</span>, from <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 11</span></span>
-<span><span class="fu"><a href="../reference/next_discrete.html">next_discrete</a></span><span class="op">(</span><span class="va">x</span>, from <span class="op">=</span> <span class="fl">10</span>, n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 11 12 13 14 15</span></span>
+<span><span class="fu"><a href="../reference/next_discrete.html">next_discrete</a></span><span class="op">(</span><span class="va">x</span>, from <span class="op">=</span> <span class="fl">10</span>, n <span class="op">=</span> <span class="fl">5</span>, include_from <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 10 11 12 13 14</span></span>
 <span><span class="fu"><a href="../reference/next_discrete.html">prev_discrete</a></span><span class="op">(</span><span class="va">x</span>, from <span class="op">=</span> <span class="fl">1.3</span>, n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1]  1  0 -1 -2 -3</span></span></code></pre></div>
-<p>If <code>from</code> is itself a discrete value, you can include it
-by setting <code>include_from = TRUE</code>. By default,
-<code><a href="../reference/next_discrete.html">next_discrete()</a></code> and <code><a href="../reference/next_discrete.html">prev_discrete()</a></code> use
-<code>include_from = FALSE</code>, so the result starts strictly after
-(or before) <code>from</code>.</p>
-<p>Traversal is delegated to the underlying series, and the result is
-mapped back.</p>
+<p>When <code>x</code> is a modified series, traversal is delegated to
+the underlying series, and the result is mapped back.</p>
+</div>
+<div class="section level2">
+<h2 id="pulling-values-from-a-numeric-series">Pulling values from a numeric series<a class="anchor" aria-label="anchor" href="#pulling-values-from-a-numeric-series"></a>
+</h2>
+<p>Rather than traversing a series to get discrete values, you can also
+specify a range or try specific values.</p>
+<p><strong><code><a href="../reference/get_discretes.html">get_discretes_at()</a></code></strong> — Gets specified
+discrete values from the series, if they can be found in the series
+(within <code>tol</code> of the base series).</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/get_discretes.html">get_discretes_at</a></span><span class="op">(</span><span class="fu"><a href="../reference/integers.html">integers</a></span><span class="op">(</span><span class="op">)</span>, values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">10</span>, <span class="fl">4</span>, <span class="fl">3.5</span>, <span class="fl">10</span>, <span class="cn">NA</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] -10   4  10  NA</span></span>
+<span><span class="fu"><a href="../reference/get_discretes.html">get_discretes_at</a></span><span class="op">(</span><span class="fu"><a href="../reference/integers.html">integers</a></span><span class="op">(</span><span class="op">)</span>, values <span class="op">=</span> <span class="fl">5.5</span><span class="op">)</span></span>
+<span><span class="co">#&gt; integer(0)</span></span></code></pre></div>
+<p><strong><code><a href="../reference/get_discretes.html">get_discretes_in()</a></code></strong> — Gets all discrete
+values within a range. The result is ordered from smallest to largest.
+If there are infinitely many discrete values in the range,
+<code><a href="../reference/get_discretes.html">get_discretes_in()</a></code> throws an error; use
+<code><a href="../reference/num_discretes.html">num_discretes()</a></code> first to check.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/get_discretes.html">get_discretes_in</a></span><span class="op">(</span><span class="fu"><a href="../reference/integers.html">integers</a></span><span class="op">(</span><span class="op">)</span>, from <span class="op">=</span> <span class="fl">6.6</span>, to <span class="op">=</span> <span class="fl">10.1</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1]  7  8  9 10</span></span>
+<span><span class="fu"><a href="../reference/get_discretes.html">get_discretes_in</a></span><span class="op">(</span><span class="fl">1</span> <span class="op">/</span> <span class="fu"><a href="../reference/integers.html">integers</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Loading required namespace: testthat</span></span>
+<span><span class="co">#&gt; [1] 0.2000000 0.2500000 0.3333333 0.5000000 1.0000000       Inf</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="counting-num_discretes">Counting: <code>num_discretes()</code><a class="anchor" aria-label="anchor" href="#counting-num_discretes"></a>
+</h2>
+<p><code><a href="../reference/num_discretes.html">num_discretes()</a></code> returns how many discrete values lie in
+a range. It can return <code>Inf</code> for infinite series.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/num_discretes.html">num_discretes</a></span><span class="op">(</span><span class="fu"><a href="../reference/integers.html">integers</a></span><span class="op">(</span><span class="op">)</span>, from <span class="op">=</span> <span class="op">-</span><span class="fl">2</span>, to <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 8</span></span>
+<span><span class="fu"><a href="../reference/num_discretes.html">num_discretes</a></span><span class="op">(</span><span class="fl">1</span> <span class="op">/</span> <span class="fl">2</span><span class="op">^</span><span class="fu"><a href="../reference/integers.html">integers</a></span><span class="op">(</span><span class="op">)</span>, from <span class="op">=</span> <span class="fl">0</span>, to <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] Inf</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="membership-has_discretes">Membership: <code>has_discretes()</code><a class="anchor" aria-label="anchor" href="#membership-has_discretes"></a>
@@ -114,52 +145,13 @@ mapped back.</p>
 <p>Use <code><a href="../reference/has_discretes.html">has_discretes()</a></code> to check whether given values are
 discrete values in the series. It returns a logical vector, one per
 queried value.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/has_discretes.html">has_discretes</a></span><span class="op">(</span><span class="fu"><a href="../reference/integers.html">natural1</a></span><span class="op">(</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">2.5</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] FALSE  TRUE  TRUE FALSE</span></span>
 <span><span class="fu"><a href="../reference/has_discretes.html">has_discretes</a></span><span class="op">(</span><span class="fu"><a href="../reference/integers.html">integers</a></span><span class="op">(</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">10</span>, <span class="fl">0</span>, <span class="fl">10</span>, <span class="cn">NA</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] TRUE TRUE TRUE   NA</span></span></code></pre></div>
 <p><code>NA</code> in the queried values yields <code>NA</code> in the
 result.</p>
-</div>
-<div class="section level2">
-<h2 id="getting-discrete-values-get_discretes_at-and-get_discretes_in">Getting discrete values: <code>get_discretes_at()</code> and
-<code>get_discretes_in()</code><a class="anchor" aria-label="anchor" href="#getting-discrete-values-get_discretes_at-and-get_discretes_in"></a>
-</h2>
-<p><strong><code><a href="../reference/get_discretes.html">get_discretes_at()</a></code></strong> — Grabs the
-specified discrete values that are members of the series (within
-<code>tol</code> of the base series), the corresponding discrete value
-in the series is returned; otherwise it is dropped. So the result is the
-“canonical” discrete values at those positions. <code>NA</code> values
-are kept in place.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/get_discretes.html">get_discretes_at</a></span><span class="op">(</span><span class="fu"><a href="../reference/integers.html">integers</a></span><span class="op">(</span><span class="op">)</span>, values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">10</span>, <span class="fl">4</span>, <span class="fl">3.5</span>, <span class="fl">10</span>, <span class="cn">NA</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] -10   4  10  NA</span></span>
-<span><span class="fu"><a href="../reference/get_discretes.html">get_discretes_at</a></span><span class="op">(</span><span class="fu"><a href="../reference/integers.html">integers</a></span><span class="op">(</span><span class="op">)</span>, values <span class="op">=</span> <span class="fl">5.5</span><span class="op">)</span></span>
-<span><span class="co">#&gt; integer(0)</span></span></code></pre></div>
-<p><strong><code><a href="../reference/get_discretes.html">get_discretes_in()</a></code></strong> — Returns all
-discrete values within a range. The result is ordered from smallest to
-largest. If there are infinitely many discrete values in the range,
-<code><a href="../reference/get_discretes.html">get_discretes_in()</a></code> throws an error; use
-<code><a href="../reference/num_discretes.html">num_discretes()</a></code> first to check.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/get_discretes.html">get_discretes_in</a></span><span class="op">(</span><span class="fu"><a href="../reference/integers.html">integers</a></span><span class="op">(</span><span class="op">)</span>, from <span class="op">=</span> <span class="fl">6.6</span>, to <span class="op">=</span> <span class="fl">10.1</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1]  7  8  9 10</span></span>
-<span><span class="fu"><a href="../reference/get_discretes.html">get_discretes_in</a></span><span class="op">(</span><span class="fl">1</span> <span class="op">/</span> <span class="fu"><a href="../reference/arithmetic.html">arithmetic</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">4</span>, n_left <span class="op">=</span> <span class="fl">3</span>, n_right <span class="op">=</span> <span class="fl">5</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Loading required namespace: testthat</span></span>
-<span><span class="co">#&gt; [1] -0.33333333 -0.14285714 -0.09090909  0.04761905  0.05882353  0.07692308</span></span>
-<span><span class="co">#&gt; [7]  0.11111111  0.20000000  1.00000000</span></span></code></pre></div>
-</div>
-<div class="section level2">
-<h2 id="counting-num_discretes">Counting: <code>num_discretes()</code><a class="anchor" aria-label="anchor" href="#counting-num_discretes"></a>
-</h2>
-<p><code><a href="../reference/num_discretes.html">num_discretes()</a></code> returns how many discrete values lie in
-a range. It can return <code>Inf</code> for infinite series.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/num_discretes.html">num_discretes</a></span><span class="op">(</span><span class="fu"><a href="../reference/integers.html">integers</a></span><span class="op">(</span><span class="op">)</span>, from <span class="op">=</span> <span class="op">-</span><span class="fl">2</span>, to <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 8</span></span>
-<span><span class="fu"><a href="../reference/num_discretes.html">num_discretes</a></span><span class="op">(</span><span class="fl">1</span> <span class="op">/</span> <span class="fl">2</span><span class="op">^</span><span class="fu"><a href="../reference/integers.html">integers</a></span><span class="op">(</span><span class="op">)</span>, from <span class="op">=</span> <span class="fl">0</span>, to <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] Inf</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="querying-sinks">Querying sinks<a class="anchor" aria-label="anchor" href="#querying-sinks"></a>

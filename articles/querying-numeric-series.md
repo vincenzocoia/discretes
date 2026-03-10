@@ -21,22 +21,60 @@ along a series without enumerating it.
 x <- integers()
 next_discrete(x, from = 10)
 #> [1] 11
-next_discrete(x, from = 10, n = 5)
-#> [1] 11 12 13 14 15
+next_discrete(x, from = 10, n = 5, include_from = TRUE)
+#> [1] 10 11 12 13 14
 prev_discrete(x, from = 1.3, n = 5)
 #> [1]  1  0 -1 -2 -3
 ```
 
-If `from` is itself a discrete value, you can include it by setting
-`include_from = TRUE`. By default,
-[`next_discrete()`](https://discretes.netlify.app/reference/next_discrete.md)
-and
-[`prev_discrete()`](https://discretes.netlify.app/reference/next_discrete.md)
-use `include_from = FALSE`, so the result starts strictly after (or
-before) `from`.
+When `x` is a modified series, traversal is delegated to the underlying
+series, and the result is mapped back.
 
-Traversal is delegated to the underlying series, and the result is
-mapped back.
+## Pulling values from a numeric series
+
+Rather than traversing a series to get discrete values, you can also
+specify a range or try specific values.
+
+**[`get_discretes_at()`](https://discretes.netlify.app/reference/get_discretes.md)**
+— Gets specified discrete values from the series, if they can be found
+in the series (within `tol` of the base series).
+
+``` r
+get_discretes_at(integers(), values = c(-10, 4, 3.5, 10, NA))
+#> [1] -10   4  10  NA
+get_discretes_at(integers(), values = 5.5)
+#> integer(0)
+```
+
+**[`get_discretes_in()`](https://discretes.netlify.app/reference/get_discretes.md)**
+— Gets all discrete values within a range. The result is ordered from
+smallest to largest. If there are infinitely many discrete values in the
+range,
+[`get_discretes_in()`](https://discretes.netlify.app/reference/get_discretes.md)
+throws an error; use
+[`num_discretes()`](https://discretes.netlify.app/reference/num_discretes.md)
+first to check.
+
+``` r
+get_discretes_in(integers(), from = 6.6, to = 10.1)
+#> [1]  7  8  9 10
+get_discretes_in(1 / integers(0, 5))
+#> Loading required namespace: testthat
+#> [1] 0.2000000 0.2500000 0.3333333 0.5000000 1.0000000       Inf
+```
+
+## Counting: `num_discretes()`
+
+[`num_discretes()`](https://discretes.netlify.app/reference/num_discretes.md)
+returns how many discrete values lie in a range. It can return `Inf` for
+infinite series.
+
+``` r
+num_discretes(integers(), from = -2, to = 5)
+#> [1] 8
+num_discretes(1 / 2^integers(), from = 0, to = 1)
+#> [1] Inf
+```
 
 ## Membership: `has_discretes()`
 
@@ -53,53 +91,6 @@ has_discretes(integers(), c(-10, 0, 10, NA))
 ```
 
 `NA` in the queried values yields `NA` in the result.
-
-## Getting discrete values: `get_discretes_at()` and `get_discretes_in()`
-
-**[`get_discretes_at()`](https://discretes.netlify.app/reference/get_discretes.md)**
-— Grabs the specified discrete values that are members of the series
-(within `tol` of the base series), the corresponding discrete value in
-the series is returned; otherwise it is dropped. So the result is the
-“canonical” discrete values at those positions. `NA` values are kept in
-place.
-
-``` r
-get_discretes_at(integers(), values = c(-10, 4, 3.5, 10, NA))
-#> [1] -10   4  10  NA
-get_discretes_at(integers(), values = 5.5)
-#> integer(0)
-```
-
-**[`get_discretes_in()`](https://discretes.netlify.app/reference/get_discretes.md)**
-— Returns all discrete values within a range. The result is ordered from
-smallest to largest. If there are infinitely many discrete values in the
-range,
-[`get_discretes_in()`](https://discretes.netlify.app/reference/get_discretes.md)
-throws an error; use
-[`num_discretes()`](https://discretes.netlify.app/reference/num_discretes.md)
-first to check.
-
-``` r
-get_discretes_in(integers(), from = 6.6, to = 10.1)
-#> [1]  7  8  9 10
-get_discretes_in(1 / arithmetic(1, 4, n_left = 3, n_right = 5))
-#> Loading required namespace: testthat
-#> [1] -0.33333333 -0.14285714 -0.09090909  0.04761905  0.05882353  0.07692308
-#> [7]  0.11111111  0.20000000  1.00000000
-```
-
-## Counting: `num_discretes()`
-
-[`num_discretes()`](https://discretes.netlify.app/reference/num_discretes.md)
-returns how many discrete values lie in a range. It can return `Inf` for
-infinite series.
-
-``` r
-num_discretes(integers(), from = -2, to = 5)
-#> [1] 8
-num_discretes(1 / 2^integers(), from = 0, to = 1)
-#> [1] Inf
-```
 
 ## Querying sinks
 
