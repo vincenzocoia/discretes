@@ -19,7 +19,12 @@ library(discretes)
 ```
 
 In R, zero has a latent sign: `+0` and `-0` print the same but behave differently under reciprocation:
-`1 / 0` is `Inf` and `1 / -0` is `-Inf`.
+
+```{r}
+1 / 0
+1 / -0
+```
+
 When a numeric series contains zero, that sign can matter for derived series (for example, after inversion).
 
 For numeric series, rules around signed zero follow those of base R.
