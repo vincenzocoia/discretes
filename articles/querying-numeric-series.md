@@ -4,18 +4,23 @@
 library(discretes)
 ```
 
-Once you have a numeric series, you can traverse it, test membership,
-extract discrete values, and query limit points (sinks). This vignette
-covers the main query functions.
+Once you have a numeric series, you can materialize it as a numeric
+vector, check which values are in it, count values in a range, and query
+limit points (sinks). This vignette covers these query functions.
 
-## Traversing: `next_discrete()` and `prev_discrete()`
+## Materializing values from a series
+
+Materializing a series means producing its discrete values as an
+ordinary numeric vector. There are three ways to do it.
+
+### Traversing: `next_discrete()` and `prev_discrete()`
 
 [`next_discrete()`](https://discretes.netlify.app/reference/next_discrete.md)
 returns the next `n` discrete values in the series starting from a
 reference point;
 [`prev_discrete()`](https://discretes.netlify.app/reference/next_discrete.md)
-does the same in the opposite direction. They are the main way to move
-along a series without enumerating it.
+does the same in the opposite direction. They return a numeric vector of
+values (of length at most `n`).
 
 ``` r
 x <- integers()
@@ -30,10 +35,10 @@ prev_discrete(x, from = 1.3, n = 5)
 When `x` is a modified series, traversal is delegated to the underlying
 series, and the result is mapped back.
 
-## Pulling values from a numeric series
+### Pulling values: `get_discretes_at()` and `get_discretes_in()`
 
-Rather than traversing a series to get discrete values, you can also
-specify a range or try specific values.
+Rather than traversing from a reference point, you can ask for values in
+a range or at specific values.
 
 **[`get_discretes_at()`](https://discretes.netlify.app/reference/get_discretes.md)**
 — Gets specified discrete values from the series, if they can be found
@@ -63,11 +68,46 @@ get_discretes_in(1 / integers(0, 5))
 #> [1] 0.2000000 0.2500000 0.3333333 0.5000000 1.0000000       Inf
 ```
 
+### Subsetting by position: `[`
+
+When a series has a well-defined first element
+(e.g. [`natural1()`](https://discretes.netlify.app/reference/integers.md)),
+you can subset by position with `[`.
+
+``` r
+natural1()[2]
+#> [1] 2
+natural1()[c(1, 3, 5)]
+#> [1] 1 3 5
+```
+
+Unlike
+[`dsct_keep()`](https://discretes.netlify.app/reference/subsetting.md)
+and
+[`dsct_drop()`](https://discretes.netlify.app/reference/subsetting.md),
+which return a *new series*, `[` materializes the series as a numeric
+vector.
+
+The behaviour of subsetting is delegated to base R, so you can expect
+similar behaviour:
+
+``` r
+x <- as_discretes(1:4)
+x[-1]
+#> [1] 2 3 4
+x[c(0, NA, 1, 4, 1, 5)]
+#> [1] NA  1  4  1 NA
+x[]
+#> [1] 1 2 3 4
+```
+
+However, note that assignment via `[` is not supported.
+
 ## Counting: `num_discretes()`
 
 [`num_discretes()`](https://discretes.netlify.app/reference/num_discretes.md)
-returns how many discrete values lie in a range. It can return `Inf` for
-infinite series.
+returns how many discrete values lie in a range. It returns `Inf` for
+infinite-length series.
 
 ``` r
 num_discretes(integers(), from = -2, to = 5)
@@ -76,12 +116,12 @@ num_discretes(1 / 2^integers(), from = 0, to = 1)
 #> [1] Inf
 ```
 
-## Membership: `has_discretes()`
+## Which values are in the series?
 
 Use
 [`has_discretes()`](https://discretes.netlify.app/reference/has_discretes.md)
-to check whether given values are discrete values in the series. It
-returns a logical vector, one per queried value.
+to check whether given values are in the series. It returns a logical
+vector, one per queried value.
 
 ``` r
 has_discretes(natural1(), c(0, 1, 2, 2.5))
@@ -139,6 +179,3 @@ approached from that side), or `"both"` (approached from both sides).
 When a series has a sink, there is no “next” or “previous” discrete
 value on the far side of the sink
 (e.g. `next_discrete(reciprocals, from = -1)` returns nothing).
-
-Together, the functions above cover traversing, membership, extraction,
-counting, and sink queries for any numeric series.

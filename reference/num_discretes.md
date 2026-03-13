@@ -39,8 +39,8 @@ num_discretes(
 
 - tol:
 
-  Numerical tolerance when testing membership. Single non-negative
-  numeric. See
+  Numerical tolerance when checking if a value is in the series. Single
+  non-negative numeric. See
   [`next_discrete()`](https://discretes.netlify.app/reference/next_discrete.md)
   for details.
 

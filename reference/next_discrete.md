@@ -52,8 +52,8 @@ prev_discrete(
 
 - tol:
 
-  Numerical tolerance when testing membership. Single non-negative
-  numeric. See `next_discrete()` for details.
+  Numerical tolerance when checking if a value is in the series. Single
+  non-negative numeric. See `next_discrete()` for details.
 
 ## Value
 

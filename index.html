@@ -77,7 +77,7 @@
 <!-- badges: start -->
 
 <p>The discretes package provides a framework for representing numeric series that may be finite or infinite. Think <code>1:Inf</code>, without storing all the values explicitly.</p>
-<p>Series can be traversed, tested for membership, and queried for limit points (“sinks”). They can be manipulated to create new series, such as by transforming or combining.</p>
+<p>Series can be traversed, checked for which values are in them, and queried for limit points (“sinks”). They can be manipulated to create new series, such as by transforming or combining.</p>
 <p>The name “discretes” reflects the original use case of representing the support of discrete probability distributions like the Poisson or Geometric, which are often infinite but enumerable. The package is not limited to probability applications: it is designed as a general-purpose tool for working with enumerable numeric series.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
@@ -146,12 +146,12 @@
 <li>
 <a href="https://discretes.netlify.app/articles/creating-numeric-series"><strong>Creating numeric series</strong></a> — Base series, arithmetic, and custom manipulations.</li>
 <li>
-<a href="https://discretes.netlify.app/articles/querying-numeric-series"><strong>Querying a numeric series</strong></a> — Traversing with <code>next_discrete</code>/<code>prev_discrete</code>, membership with <code>has_discretes</code>, and extracting values with <code><a href="reference/get_discretes.html">get_discretes_at()</a></code> / <code><a href="reference/get_discretes.html">get_discretes_in()</a></code>.</li>
+<a href="https://discretes.netlify.app/articles/querying-numeric-series"><strong>Querying a numeric series</strong></a> — Traversing with <code>next_discrete</code>/<code>prev_discrete</code>, checking which values are in a series with <code>has_discretes</code>, and extracting values with <code><a href="reference/get_discretes.html">get_discretes_at()</a></code> / <code><a href="reference/get_discretes.html">get_discretes_in()</a></code>.</li>
 </ul>
 <p>In addition, there are two technical vignettes for those interested in more details.</p>
 <ul>
 <li>
-<a href="https://discretes.netlify.app/articles/tolerance"><strong>Tolerance</strong></a> — How <code>tol</code> is used in membership and traversal.</li>
+<a href="https://discretes.netlify.app/articles/tolerance"><strong>Tolerance</strong></a> — How <code>tol</code> is used when checking if values are in a series and when traversing.</li>
 <li>
 <a href="https://discretes.netlify.app/articles/signed_zero"><strong>Signed zero</strong></a> — Behaviour of +0 and -0 in numeric series.</li>
 </ul>

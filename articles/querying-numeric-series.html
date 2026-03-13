@@ -81,17 +81,23 @@
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/vincenzocoia/discretes" class="external-link">discretes</a></span><span class="op">)</span></span></code></pre></div>
-<p>Once you have a numeric series, you can traverse it, test membership,
-extract discrete values, and query limit points (sinks). This vignette
-covers the main query functions.</p>
+<p>Once you have a numeric series, you can materialize it as a numeric
+vector, check which values are in it, count values in a range, and query
+limit points (sinks). This vignette covers these query functions.</p>
 <div class="section level2">
-<h2 id="traversing-next_discrete-and-prev_discrete">Traversing: <code>next_discrete()</code> and
-<code>prev_discrete()</code><a class="anchor" aria-label="anchor" href="#traversing-next_discrete-and-prev_discrete"></a>
+<h2 id="materializing-values-from-a-series">Materializing values from a series<a class="anchor" aria-label="anchor" href="#materializing-values-from-a-series"></a>
 </h2>
+<p>Materializing a series means producing its discrete values as an
+ordinary numeric vector. There are three ways to do it.</p>
+<div class="section level3">
+<h3 id="traversing-next_discrete-and-prev_discrete">Traversing: <code>next_discrete()</code> and
+<code>prev_discrete()</code><a class="anchor" aria-label="anchor" href="#traversing-next_discrete-and-prev_discrete"></a>
+</h3>
 <p><code><a href="../reference/next_discrete.html">next_discrete()</a></code> returns the next <code>n</code> discrete
 values in the series starting from a reference point;
 <code><a href="../reference/next_discrete.html">prev_discrete()</a></code> does the same in the opposite direction.
-They are the main way to move along a series without enumerating it.</p>
+They return a numeric vector of values (of length at most
+<code>n</code>).</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/integers.html">integers</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/next_discrete.html">next_discrete</a></span><span class="op">(</span><span class="va">x</span>, from <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
@@ -103,11 +109,12 @@ They are the main way to move along a series without enumerating it.</p>
 <p>When <code>x</code> is a modified series, traversal is delegated to
 the underlying series, and the result is mapped back.</p>
 </div>
-<div class="section level2">
-<h2 id="pulling-values-from-a-numeric-series">Pulling values from a numeric series<a class="anchor" aria-label="anchor" href="#pulling-values-from-a-numeric-series"></a>
-</h2>
-<p>Rather than traversing a series to get discrete values, you can also
-specify a range or try specific values.</p>
+<div class="section level3">
+<h3 id="pulling-values-get_discretes_at-and-get_discretes_in">Pulling values: <code>get_discretes_at()</code> and
+<code>get_discretes_in()</code><a class="anchor" aria-label="anchor" href="#pulling-values-get_discretes_at-and-get_discretes_in"></a>
+</h3>
+<p>Rather than traversing from a reference point, you can ask for values
+in a range or at specific values.</p>
 <p><strong><code><a href="../reference/get_discretes.html">get_discretes_at()</a></code></strong> — Gets specified
 discrete values from the series, if they can be found in the series
 (within <code>tol</code> of the base series).</p>
@@ -128,24 +135,51 @@ If there are infinitely many discrete values in the range,
 <span><span class="co">#&gt; Loading required namespace: testthat</span></span>
 <span><span class="co">#&gt; [1] 0.2000000 0.2500000 0.3333333 0.5000000 1.0000000       Inf</span></span></code></pre></div>
 </div>
+<div class="section level3">
+<h3 id="subsetting-by-position">Subsetting by position: <code>[</code><a class="anchor" aria-label="anchor" href="#subsetting-by-position"></a>
+</h3>
+<p>When a series has a well-defined first element
+(e.g. <code><a href="../reference/integers.html">natural1()</a></code>), you can subset by position with
+<code>[</code>.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/integers.html">natural1</a></span><span class="op">(</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span></span>
+<span><span class="co">#&gt; [1] 2</span></span>
+<span><span class="fu"><a href="../reference/integers.html">natural1</a></span><span class="op">(</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span>, <span class="fl">5</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="co">#&gt; [1] 1 3 5</span></span></code></pre></div>
+<p>Unlike <code><a href="../reference/subsetting.html">dsct_keep()</a></code> and <code><a href="../reference/subsetting.html">dsct_drop()</a></code>, which
+return a <em>new series</em>, <code>[</code> materializes the series as
+a numeric vector.</p>
+<p>The behaviour of subsetting is delegated to base R, so you can expect
+similar behaviour:</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/as_discretes.html">as_discretes</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span></span>
+<span><span class="va">x</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span></span>
+<span><span class="co">#&gt; [1] 2 3 4</span></span>
+<span><span class="va">x</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="cn">NA</span>, <span class="fl">1</span>, <span class="fl">4</span>, <span class="fl">1</span>, <span class="fl">5</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="co">#&gt; [1] NA  1  4  1 NA</span></span>
+<span><span class="va">x</span><span class="op">[</span><span class="op">]</span></span>
+<span><span class="co">#&gt; [1] 1 2 3 4</span></span></code></pre></div>
+<p>However, note that assignment via <code>[</code> is not
+supported.</p>
+</div>
+</div>
 <div class="section level2">
 <h2 id="counting-num_discretes">Counting: <code>num_discretes()</code><a class="anchor" aria-label="anchor" href="#counting-num_discretes"></a>
 </h2>
 <p><code><a href="../reference/num_discretes.html">num_discretes()</a></code> returns how many discrete values lie in
-a range. It can return <code>Inf</code> for infinite series.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+a range. It returns <code>Inf</code> for infinite-length series.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/num_discretes.html">num_discretes</a></span><span class="op">(</span><span class="fu"><a href="../reference/integers.html">integers</a></span><span class="op">(</span><span class="op">)</span>, from <span class="op">=</span> <span class="op">-</span><span class="fl">2</span>, to <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 8</span></span>
 <span><span class="fu"><a href="../reference/num_discretes.html">num_discretes</a></span><span class="op">(</span><span class="fl">1</span> <span class="op">/</span> <span class="fl">2</span><span class="op">^</span><span class="fu"><a href="../reference/integers.html">integers</a></span><span class="op">(</span><span class="op">)</span>, from <span class="op">=</span> <span class="fl">0</span>, to <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] Inf</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="membership-has_discretes">Membership: <code>has_discretes()</code><a class="anchor" aria-label="anchor" href="#membership-has_discretes"></a>
+<h2 id="which-values-are-in-the-series">Which values are in the series?<a class="anchor" aria-label="anchor" href="#which-values-are-in-the-series"></a>
 </h2>
-<p>Use <code><a href="../reference/has_discretes.html">has_discretes()</a></code> to check whether given values are
-discrete values in the series. It returns a logical vector, one per
-queried value.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<p>Use <code><a href="../reference/has_discretes.html">has_discretes()</a></code> to check whether given values are in
+the series. It returns a logical vector, one per queried value.</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/has_discretes.html">has_discretes</a></span><span class="op">(</span><span class="fu"><a href="../reference/integers.html">natural1</a></span><span class="op">(</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">2.5</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] FALSE  TRUE  TRUE FALSE</span></span>
 <span><span class="fu"><a href="../reference/has_discretes.html">has_discretes</a></span><span class="op">(</span><span class="fu"><a href="../reference/integers.html">integers</a></span><span class="op">(</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">10</span>, <span class="fl">0</span>, <span class="fl">10</span>, <span class="cn">NA</span><span class="op">)</span><span class="op">)</span></span>
@@ -161,7 +195,7 @@ discrete values get arbitrarily close to it, and there are infinitely
 many discrete values near the sink.</p>
 <p><code><a href="../reference/sinks.html">sinks()</a></code> lists all sinks in a matrix of locations and
 directions: approached from the left (-1) or right (+1).</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/sinks.html">sinks</a></span><span class="op">(</span><span class="fu"><a href="../reference/integers.html">integers</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt;      location direction</span></span>
 <span><span class="co">#&gt; [1,]      Inf        -1</span></span>
@@ -177,7 +211,7 @@ directions: approached from the left (-1) or right (+1).</p>
 <p><code><a href="../reference/has_sink.html">has_sink_in()</a></code> or <code><a href="../reference/has_sink.html">has_sink_at()</a></code> are
 convenience functions that test for a sink in an interval or at a
 value.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/has_sink.html">has_sink_in</a></span><span class="op">(</span><span class="fu"><a href="../reference/integers.html">integers</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] TRUE</span></span>
 <span><span class="fu"><a href="../reference/has_sink.html">has_sink_at</a></span><span class="op">(</span><span class="fu"><a href="../reference/integers.html">integers</a></span><span class="op">(</span><span class="op">)</span>, <span class="cn">Inf</span><span class="op">)</span></span>
@@ -191,8 +225,6 @@ value.</p>
 sink, there is no “next” or “previous” discrete value on the far side of
 the sink (e.g. <code>next_discrete(reciprocals, from = -1)</code>
 returns nothing).</p>
-<p>Together, the functions above cover traversing, membership,
-extraction, counting, and sink queries for any numeric series.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

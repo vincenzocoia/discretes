@@ -82,45 +82,69 @@
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/vincenzocoia/discretes" class="external-link">discretes</a></span><span class="op">)</span></span></code></pre></div>
 <p>In R, zero has a latent sign: <code>+0</code> and <code>-0</code>
-print the same but behave differently under reciprocation:
-<code>1 / 0</code> is <code>Inf</code> and <code>1 / -0</code> is
-<code>-Inf</code>. When a numeric series contains zero, that sign can
-matter for derived series (for example, after inversion).</p>
-<p>For numeric series, rules around signed zero follow those of base
-R.</p>
+print the same but behave differently under reciprocation:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/identical.html" class="external-link">identical</a></span><span class="op">(</span><span class="fl">0</span>, <span class="op">-</span><span class="fl">0</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] TRUE</span></span>
+<span><span class="fl">1</span> <span class="op">/</span> <span class="fl">0</span></span>
+<span><span class="co">#&gt; [1] Inf</span></span>
+<span><span class="fl">1</span> <span class="op">/</span> <span class="op">-</span><span class="fl">0</span></span>
+<span><span class="co">#&gt; [1] -Inf</span></span></code></pre></div>
+<p>When a numeric series contains zero, that sign can matter for derived
+series (for example, after inversion).</p>
+<p>Support for signed zero is included in the discretes package so that
+the proper signed infinity results by inversion:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/arithmetic.html">arithmetic</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">3</span>, n_left <span class="op">=</span> <span class="fl">1</span>, n_right <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="va">x</span></span>
+<span><span class="co">#&gt; Arithmetic series of length 3:</span></span>
+<span><span class="co">#&gt; -3, 0, 3</span></span>
+<span><span class="fl">1</span> <span class="op">/</span> <span class="va">x</span></span>
+<span><span class="co">#&gt; Reciprocal series of length 3:</span></span>
+<span><span class="co">#&gt; Loading required namespace: testthat</span></span>
+<span><span class="co">#&gt; -0.3333333, 0.3333333, Inf</span></span>
+<span><span class="fl">1</span> <span class="op">/</span> <span class="op">-</span><span class="va">x</span></span>
+<span><span class="co">#&gt; Reciprocal series of length 3:</span></span>
+<span><span class="co">#&gt; -Inf, -0.3333333, 0.3333333</span></span></code></pre></div>
 <p>The functions <code><a href="../reference/negative_zero.html">has_negative_zero()</a></code> and
 <code><a href="../reference/negative_zero.html">has_positive_zero()</a></code> report whether <code>-0</code> or
 <code>+0</code> is a discrete value in the series. For example, the
 integers contain a single positive zero:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/negative_zero.html">has_negative_zero</a></span><span class="op">(</span><span class="fu"><a href="../reference/integers.html">integers</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] FALSE</span></span>
 <span><span class="fu"><a href="../reference/negative_zero.html">has_positive_zero</a></span><span class="op">(</span><span class="fu"><a href="../reference/integers.html">integers</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] TRUE</span></span></code></pre></div>
-<p>Negation can induce negative zeroes (although note that, in R, -0 is
+<p>Rules around signed zero follow those of base R. For example,
+negation can induce negative zeroes (although note that, in R, -0 is
 only possible as type “double” and not of type “integer”).</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/negative_zero.html">has_negative_zero</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1.5</span> <span class="op">*</span> <span class="fu"><a href="../reference/integers.html">integers</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] FALSE</span></span></code></pre></div>
-<p>Like numeric vectors, a series can contain both signs of zero. Only
-one zero is enumerated by <code><a href="../reference/next_discrete.html">next_discrete()</a></code>,
-<code><a href="../reference/next_discrete.html">prev_discrete()</a></code>, or <code>get_discretes_*()</code>.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<p>Like numeric vectors, a series can contain both signs of zero:</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dsct_union.html">dsct_union</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span></span>
 <span><span class="va">x</span></span>
 <span><span class="co">#&gt; Union series of length 1:</span></span>
-<span><span class="co">#&gt; Loading required namespace: testthat</span></span>
 <span><span class="co">#&gt; 0</span></span>
 <span><span class="fu"><a href="../reference/negative_zero.html">has_positive_zero</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] TRUE</span></span>
 <span><span class="fu"><a href="../reference/negative_zero.html">has_negative_zero</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] TRUE</span></span></code></pre></div>
+<p>However, since they are both identical values, only one zero is
+enumerated by <code><a href="../reference/next_discrete.html">next_discrete()</a></code>,
+<code><a href="../reference/next_discrete.html">prev_discrete()</a></code>, or <code>get_discretes_*()</code>:</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/num_discretes.html">num_discretes</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 1</span></span></code></pre></div>
 <p>But, both signs remain latent and appear when the series is
 inverted:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fl">1</span> <span class="op">/</span> <span class="va">x</span></span>
 <span><span class="co">#&gt; Reciprocal series of length 2:</span></span>
-<span><span class="co">#&gt; -Inf, Inf</span></span></code></pre></div>
+<span><span class="co">#&gt; -Inf, Inf</span></span>
+<span><span class="fu"><a href="../reference/num_discretes.html">num_discretes</a></span><span class="op">(</span><span class="fl">1</span> <span class="op">/</span> <span class="va">x</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 2</span></span></code></pre></div>
 <p>When choosing to pull positive or negative zero from the series:</p>
 <ul>
 <li>For numeric vectors, behaviour is delegated to

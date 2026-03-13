@@ -100,23 +100,23 @@ small but usually enough to ignore round-off noise.</li>
 </h2>
 <p>Tolerance is not applied to the series you see at the top level. It
 is <strong>passed down</strong> through any nested or transformed series
-and used <strong>only when membership is actually tested</strong> at the
-underlying series.</p>
+and used only when we check whether a value is in the series at the
+underlying level.</p>
 <p>The two places where it is used are:</p>
 <ul>
 <li>
 <strong>Arithmetic progressions</strong>
-(<code><a href="../reference/arithmetic.html">arithmetic()</a></code>): membership is decided by the implied step
-index
+(<code><a href="../reference/arithmetic.html">arithmetic()</a></code>): we decide if a value is in the series using
+the implied step index
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo>−</mo><mi>r</mi><mi>e</mi><mi>p</mi><mi>r</mi><mi>e</mi><mi>s</mi><mi>e</mi><mi>n</mi><mi>t</mi><mi>a</mi><mi>t</mi><mi>i</mi><mi>v</mi><mi>e</mi><mo stretchy="true" form="postfix">)</mo></mrow><mi>/</mi><mi>s</mi><mi>p</mi><mi>a</mi><mi>c</mi><mi>i</mi><mi>n</mi><mi>g</mi></mrow><annotation encoding="application/x-tex">(x - representative) / spacing</annotation></semantics></math>.
 Because of floating point, this index is rarely an exact integer
 (e.g. <code>(0.3 - 0) / 0.1</code>). A value is treated as a discrete
 value if that index is within <code>tol</code> of an integer.</li>
 <li>
 <strong>Numeric-vector-based series</strong> (plain numeric vectors
-or <code><a href="../reference/as_discretes.html">as_discretes()</a></code>): membership is decided by testing
-whether the queried value is within <code>tol</code> of any stored
-discrete value.</li>
+or <code><a href="../reference/as_discretes.html">as_discretes()</a></code>): we decide if a value is in the series
+by checking whether it is within <code>tol</code> of any stored discrete
+value.</li>
 </ul>
 <p>For transformed series (e.g. <code>1 / arithmetic()</code>), the
 queried value is mapped back to the underlying series and the same logic
@@ -177,12 +177,12 @@ the default <code>tol</code>:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Exponent slightly off from `5`</span></span>
 <span><span class="va">q</span> <span class="op">&lt;-</span> <span class="fl">10</span><span class="op">^</span><span class="op">(</span><span class="fl">5</span> <span class="op">-</span> <span class="fl">1e-10</span><span class="op">)</span></span>
-<span><span class="co"># Error after transformation</span></span>
+<span><span class="co"># Error magnitude after transformation</span></span>
 <span><span class="fl">10</span><span class="op">^</span><span class="fl">5</span> <span class="op">-</span> <span class="va">q</span></span>
 <span><span class="co">#&gt; [1] 2.302586e-05</span></span></code></pre></div>
-<p>This means that membership on the eagerly transformed numeric vector
-fails, but not so when the vector is preserved. This is because
-tolerance is applied to the root series.</p>
+<p>This means that “is this value in the series?” fails for the eagerly
+transformed vector, but not when the vector is preserved. This is
+because tolerance is applied to the root series.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/has_discretes.html">has_discretes</a></span><span class="op">(</span><span class="va">raw</span>, <span class="va">q</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] FALSE</span></span>
@@ -203,8 +203,9 @@ truly want explicit sets to behave exactly, perhaps useful in some
 situations when working with ‘integer’ storage mode.</li>
 <li>
 <strong>Increase <code>tol</code> for noisy values</strong>: if your
-values come from computation or measurement and you are noticing unusual
-membership failures, increase <code>tol</code> accordingly.</li>
+values come from computation or measurement and you are noticing values
+incorrectly treated as not in the series, increase <code>tol</code>
+accordingly.</li>
 </ul>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

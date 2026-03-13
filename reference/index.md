@@ -29,7 +29,7 @@
   [`get_discretes_in()`](https://discretes.netlify.app/reference/get_discretes.md)
   : Extract discrete values from a numeric series
 - [`has_discretes()`](https://discretes.netlify.app/reference/has_discretes.md)
-  : Test if values are discrete values in a numeric series
+  : Check which values are in a numeric series
 - [`has_sink_in()`](https://discretes.netlify.app/reference/has_sink.md)
   [`has_sink_at()`](https://discretes.netlify.app/reference/has_sink.md)
   : Test for sinks in a numeric series
@@ -58,6 +58,9 @@
 - [`representative()`](https://discretes.netlify.app/reference/representative.md)
   : Get a representative discrete value in a numeric series
 - [`sinks()`](https://discretes.netlify.app/reference/sinks.md) : Sinks
+- [`` `[`( ``*`<discretes>`*`)`](https://discretes.netlify.app/reference/subset_discretes.md)
+  [`` `[<-`( ``*`<discretes>`*`)`](https://discretes.netlify.app/reference/subset_discretes.md)
+  : Subset a numeric series by position
 - [`dsct_drop()`](https://discretes.netlify.app/reference/subsetting.md)
   [`dsct_keep()`](https://discretes.netlify.app/reference/subsetting.md)
   : Subset a numeric series

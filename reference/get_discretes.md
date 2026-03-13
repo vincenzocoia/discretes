@@ -3,8 +3,8 @@
 Extract a finite subset of discrete values from a numeric series by
 asking for specific values (`get_discretes_at()`) or by setting a range
 (`get_discretes_in()`). For `get_discretes_at()`, each value in `values`
-is tested for membership using `tol` (passed down to the underlying
-series); if it is a member, the corresponding discrete value is
+is checked against the series using `tol` (passed down to the underlying
+series); if it is in the series, the corresponding discrete value is
 returned, otherwise it is dropped. `NA` values are kept in place.
 
 ## Usage
@@ -39,8 +39,8 @@ get_discretes_in(
 
 - tol:
 
-  Numerical tolerance when testing membership. Single non-negative
-  numeric. See
+  Numerical tolerance when checking if a value is in the series. Single
+  non-negative numeric. See
   [`next_discrete()`](https://discretes.netlify.app/reference/next_discrete.md)
   for details.
 
@@ -62,11 +62,11 @@ A numeric vector containing all discrete values in the provided series
 - For `get_discretes_in()`, all discrete values between `from` and `to`,
   ordered from smallest to largest.
 
-- For `get_discretes_at()`, the discrete values that the given `values`
-  are members of. Membership is tested with `tol` at the underlying
-  series, returning the discrete values in the series rather than the
-  supplied `values`. Discrete values not within `tol` of the supplied
-  `values` are dropped.
+- For `get_discretes_at()`, the discrete values in the series that match
+  the given `values`. Whether a value is in the series is decided with
+  `tol` at the underlying series, returning the discrete values in the
+  series rather than the supplied `values`. Discrete values not within
+  `tol` of the supplied `values` are dropped.
 
 An error will be thrown in `get_discretes_in()` if there are infinitely
 many points in the range.

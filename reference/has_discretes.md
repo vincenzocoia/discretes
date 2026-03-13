@@ -1,6 +1,6 @@
-# Test if values are discrete values in a numeric series
+# Check which values are in a numeric series
 
-Test if values are discrete values in a numeric series
+Check which values are in a numeric series
 
 ## Usage
 
@@ -24,16 +24,16 @@ has_discretes(x, values, ..., tol = sqrt(.Machine$double.eps))
 
 - tol:
 
-  Numerical tolerance when testing membership. Single non-negative
-  numeric. See
+  Numerical tolerance when checking if a value is in the series. Single
+  non-negative numeric. See
   [`next_discrete()`](https://discretes.netlify.app/reference/next_discrete.md)
   for details.
 
 ## Value
 
-A logical vector indicating whether each value is a discrete value in
-the numeric series `x`. `NA` values are preserved such that `NA` in
-`values` results in `NA` in the output.
+A logical vector indicating whether each value is in the numeric series
+`x`. `NA` values are preserved such that `NA` in `values` results in
+`NA` in the output.
 
 ## Note
 
