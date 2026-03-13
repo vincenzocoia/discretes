@@ -26,8 +26,8 @@ or equal to \code{to}; both must be length-1 numeric vectors.}
 \item{include_from, include_to}{Should the \code{from} value be included
 in the query? Should the \code{to} value? Both must be length-1 logical vectors.}
 
-\item{tol}{Numerical tolerance when testing membership. Single non-negative
-numeric. See \code{\link[=next_discrete]{next_discrete()}} for details.}
+\item{tol}{Numerical tolerance when checking if a value is in the series.
+Single non-negative numeric. See \code{next_discrete()} for details.}
 }
 \value{
 For \code{num_discretes()},

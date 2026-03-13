@@ -21,6 +21,7 @@ library(discretes)
 In R, zero has a latent sign: `+0` and `-0` print the same but behave differently under reciprocation:
 
 ```{r}
+identical(0, -0)
 1 / 0
 1 / -0
 ```

@@ -34,17 +34,17 @@ query value is "close enough" to a discrete value in the series.
 ## Where is `tol` actually used?
 
 Tolerance is not applied to the series you see at the top level. 
-It is **passed down** through any nested or transformed series and used **only when membership is actually tested** at the underlying series.
+It is **passed down** through any nested or transformed series and used only when we check whether a value is in the series at the underlying level.
 
 The two places where it is used are:
 
-- **Arithmetic progressions** (`arithmetic()`): membership is decided by the
+- **Arithmetic progressions** (`arithmetic()`): we decide if a value is in the series using the
   implied step index \((x - representative) / spacing\). Because of floating
   point, this index is rarely an exact integer (e.g. `(0.3 - 0) / 0.1`). A
   value is treated as a discrete value if that index is within `tol` of an
   integer.
 - **Numeric-vector-based series** (plain numeric vectors or `as_discretes()`):
-  membership is decided by testing whether the queried value is within `tol` of
+  we decide if a value is in the series by checking whether it is within `tol` of
   any stored discrete value.
 
 For transformed series (e.g. `1 / arithmetic()`), the queried value is mapped
@@ -97,11 +97,11 @@ For example, an exponent slightly off by `1e-10` results in a more significant e
 ```{r}
 # Exponent slightly off from `5`
 q <- 10^(5 - 1e-10)
-# Error after transformation
+# Error magnitude after transformation
 10^5 - q
 ```
 
-This means that membership on the eagerly transformed numeric vector fails, but not so when the vector is preserved.
+This means that "is this value in the series?" fails for the eagerly transformed vector, but not when the vector is preserved.
 This is because tolerance is applied to the root series.
 
 ```{r}
@@ -111,6 +111,7 @@ has_discretes(preserved, q)
 
 ## Choosing a `tol`
 
+
 - **Default is usually fine**: `sqrt(.Machine$double.eps)` is intended to smooth over tiny floating-point noise.
 - **Use `tol = 0` for exactness**: when you truly want explicit sets to behave exactly, perhaps useful in some situations when working with 'integer' storage mode.
-- **Increase `tol` for noisy values**: if your values come from computation or measurement and you are noticing unusual membership failures, increase `tol` accordingly.
+- **Increase `tol` for noisy values**: if your values come from computation or measurement and you are noticing values incorrectly treated as not in the series, increase `tol` accordingly.
