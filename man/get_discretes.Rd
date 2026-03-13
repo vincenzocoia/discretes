@@ -25,8 +25,8 @@ get_discretes_in(
 
 \item{...}{Reserved for future extensions; must be empty.}
 
-\item{tol}{Numerical tolerance when testing membership. Single non-negative
-numeric. See \code{\link[=next_discrete]{next_discrete()}} for details.}
+\item{tol}{Numerical tolerance when checking if a value is in the series.
+Single non-negative numeric. See \code{next_discrete()} for details.}
 
 \item{from, to}{Reference values, possibly infinite. \code{from} must be less than
 or equal to \code{to}; both must be length-1 numeric vectors.}
@@ -39,8 +39,8 @@ A numeric vector containing all discrete values in the provided series \code{x}:
 \itemize{
 \item For \code{get_discretes_in()}, all discrete values between \code{from} and \code{to},
 ordered from smallest to largest.
-\item For \code{get_discretes_at()}, the discrete values that the given \code{values} are
-members of. Membership is tested with \code{tol} at the underlying series,
+\item For \code{get_discretes_at()}, the discrete values in the series that match the given
+\code{values}. Whether a value is in the series is decided with \code{tol} at the underlying series,
 returning the discrete values in the series rather than the supplied
 \code{values}. Discrete values not within \code{tol} of the supplied \code{values}
 are dropped.
@@ -53,10 +53,9 @@ many points in the range.
 Extract a finite subset of discrete values from a numeric series by asking
 for specific values (\code{get_discretes_at()}) or by setting a range
 (\code{get_discretes_in()}). For \code{get_discretes_at()}, each value in \code{values} is
-tested for membership using \code{tol} (passed down to the underlying series); if
-it is a member, the
-corresponding discrete value is returned, otherwise it is dropped. \code{NA}
-values are kept in place.
+checked against the series using \code{tol} (passed down to the underlying series);
+if it is in the series, the corresponding discrete value is returned,
+otherwise it is dropped. \code{NA} values are kept in place.
 }
 \examples{
 get_discretes_in(integers(), from = 6.6, to = 10.1)

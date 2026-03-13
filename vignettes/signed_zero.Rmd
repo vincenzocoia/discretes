@@ -19,10 +19,23 @@ library(discretes)
 ```
 
 In R, zero has a latent sign: `+0` and `-0` print the same but behave differently under reciprocation:
-`1 / 0` is `Inf` and `1 / -0` is `-Inf`.
+
+```{r}
+identical(0, -0)
+1 / 0
+1 / -0
+```
+
 When a numeric series contains zero, that sign can matter for derived series (for example, after inversion).
 
-For numeric series, rules around signed zero follow those of base R.
+Support for signed zero is included in the discretes package so that the proper signed infinity results by inversion:
+
+```{r}
+x <- arithmetic(0, 3, n_left = 1, n_right = 1)
+x
+1 / x
+1 / -x
+```
 
 The functions `has_negative_zero()` and `has_positive_zero()` report whether `-0` or `+0` is a discrete value in the series.
 For example, the integers contain a single positive zero:
@@ -32,14 +45,14 @@ has_negative_zero(integers())
 has_positive_zero(integers())
 ```
 
-Negation can induce negative zeroes (although note that, in R, -0 is only possible as type "double" and not of type "integer").
+
+Rules around signed zero follow those of base R. For example, negation can induce negative zeroes (although note that, in R, -0 is only possible as type "double" and not of type "integer").
 
 ```{r}
 has_negative_zero(-1.5 * integers())
 ```
 
-Like numeric vectors, a series can contain both signs of zero.
-Only one zero is enumerated by `next_discrete()`, `prev_discrete()`, or `get_discretes_*()`.
+Like numeric vectors, a series can contain both signs of zero:
 
 ```{r}
 x <- dsct_union(-0, 0)
@@ -48,10 +61,17 @@ has_positive_zero(x)
 has_negative_zero(x)
 ```
 
+However, since they are both identical values, only one zero is enumerated by `next_discrete()`, `prev_discrete()`, or `get_discretes_*()`:
+
+```{r}
+num_discretes(x)
+```
+
 But, both signs remain latent and appear when the series is inverted:
 
 ```{r}
 1 / x
+num_discretes(1 / x)
 ```
 
 When choosing to pull positive or negative zero from the series:

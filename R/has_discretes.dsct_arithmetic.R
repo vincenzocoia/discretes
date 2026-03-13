@@ -14,7 +14,7 @@ has_discretes.dsct_arithmetic <- function(x,
   spacing <- x$spacing
 
   indices <- (values - rep_val) / spacing
-  is_integerish <- abs(indices - round(indices)) < tol
+  is_integerish <- abs(indices - round(indices)) <= tol
   is_integerish[is.infinite(indices)] <- FALSE
 
   i_integerish <- which(is_integerish)

@@ -2,7 +2,7 @@
 % Please edit documentation in R/has_discretes.R
 \name{has_discretes}
 \alias{has_discretes}
-\title{Test if values are discrete values in a numeric series}
+\title{Check which values are in a numeric series}
 \usage{
 has_discretes(x, values, ..., tol = sqrt(.Machine$double.eps))
 }
@@ -14,16 +14,16 @@ has_discretes(x, values, ..., tol = sqrt(.Machine$double.eps))
 
 \item{...}{Reserved for future extensions; must be empty.}
 
-\item{tol}{Numerical tolerance when testing membership. Single non-negative
-numeric. See \code{\link[=next_discrete]{next_discrete()}} for details.}
+\item{tol}{Numerical tolerance when checking if a value is in the series.
+Single non-negative numeric. See \code{next_discrete()} for details.}
 }
 \value{
-A logical vector indicating whether each value is a discrete value
-in the numeric series \code{x}. \code{NA} values are preserved such that \code{NA} in
-\code{values} results in \code{NA} in the output.
+A logical vector indicating whether each value is in the numeric
+series \code{x}. \code{NA} values are preserved such that \code{NA} in \code{values} results
+in \code{NA} in the output.
 }
 \description{
-Test if values are discrete values in a numeric series
+Check which values are in a numeric series
 }
 \note{
 This function does not distinguish between \code{+0} and \code{-0}. For that,

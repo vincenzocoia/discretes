@@ -20,9 +20,9 @@ The discretes package provides a framework for representing numeric
 series that may be finite or infinite. Think `1:Inf`, without storing
 all the values explicitly.
 
-Series can be traversed, tested for membership, and queried for limit
-points (“sinks”). They can be manipulated to create new series, such as
-by transforming or combining.
+Series can be traversed, checked for which values are in them, and
+queried for limit points (“sinks”). They can be manipulated to create
+new series, such as by transforming or combining.
 
 The name “discretes” reflects the original use case of representing the
 support of discrete probability distributions like the Poisson or
@@ -132,15 +132,16 @@ There are two main vignettes explaining how to use this package.
   — Base series, arithmetic, and custom manipulations.
 - [**Querying a numeric
   series**](https://discretes.netlify.app/articles/querying-numeric-series)
-  — Traversing with `next_discrete`/`prev_discrete`, membership with
-  `has_discretes`, and extracting values with `get_discretes_at()` /
-  `get_discretes_in()`.
+  — Traversing with `next_discrete`/`prev_discrete`, checking which
+  values are in a series with `has_discretes`, and extracting values
+  with `get_discretes_at()` / `get_discretes_in()`.
 
 In addition, there are two technical vignettes for those interested in
 more details.
 
 - [**Tolerance**](https://discretes.netlify.app/articles/tolerance) —
-  How `tol` is used in membership and traversal.
+  How `tol` is used when checking if values are in a series and when
+  traversing.
 - [**Signed zero**](https://discretes.netlify.app/articles/signed_zero)
   — Behaviour of +0 and -0 in numeric series.
 

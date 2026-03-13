@@ -3,10 +3,9 @@
 #' Extract a finite subset of discrete values from a numeric series by asking
 #' for specific values (`get_discretes_at()`) or by setting a range
 #' (`get_discretes_in()`). For `get_discretes_at()`, each value in `values` is
-#' tested for membership using `tol` (passed down to the underlying series); if
-#' it is a member, the
-#' corresponding discrete value is returned, otherwise it is dropped. `NA`
-#' values are kept in place.
+#' checked against the series using `tol` (passed down to the underlying series);
+#' if it is in the series, the corresponding discrete value is returned,
+#' otherwise it is dropped. `NA` values are kept in place.
 #'
 #' @inheritParams num_discretes
 #' @returns
@@ -14,8 +13,8 @@
 #'
 #' - For `get_discretes_in()`, all discrete values between `from` and `to`,
 #'     ordered from smallest to largest.
-#' - For `get_discretes_at()`, the discrete values that the given `values` are
-#'     members of. Membership is tested with `tol` at the underlying series,
+#' - For `get_discretes_at()`, the discrete values in the series that match the given
+#'     `values`. Whether a value is in the series is decided with `tol` at the underlying series,
 #'     returning the discrete values in the series rather than the supplied
 #'     `values`. Discrete values not within `tol` of the supplied `values`
 #'     are dropped.

@@ -1,10 +1,10 @@
-#' Test if values are discrete values in a numeric series
+#' Check which values are in a numeric series
 #'
 #' @inheritParams next_discrete
 #' @param values A vector of values to check.
-#' @returns A logical vector indicating whether each value is a discrete value
-#'   in the numeric series `x`. `NA` values are preserved such that `NA` in
-#'   `values` results in `NA` in the output.
+#' @returns A logical vector indicating whether each value is in the numeric
+#'   series `x`. `NA` values are preserved such that `NA` in `values` results
+#'   in `NA` in the output.
 #' @note This function does not distinguish between `+0` and `-0`. For that,
 #'   use `has_negative_zero()` or `has_positive_zero()`.
 #' @examples

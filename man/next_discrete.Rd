@@ -36,8 +36,8 @@ prev_discrete(
 \item{include_from}{Should the \code{from} value be included
 in the query? Single logical; defaults to \code{TRUE}.}
 
-\item{tol}{Numerical tolerance when testing membership. Single non-negative
-numeric. See \code{\link[=next_discrete]{next_discrete()}} for details.}
+\item{tol}{Numerical tolerance when checking if a value is in the series.
+Single non-negative numeric. See \code{next_discrete()} for details.}
 }
 \value{
 A vector of sequential points starting from \code{from}, which is

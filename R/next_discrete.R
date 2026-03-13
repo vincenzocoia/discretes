@@ -11,8 +11,8 @@
 #' @param n Number of discrete values to find; single positive integer.
 #' @param include_from Should the `from` value be included
 #' in the query? Single logical; defaults to `TRUE`.
-#' @param tol Numerical tolerance when testing membership. Single non-negative
-#'   numeric. See \code{\link[=next_discrete]{next_discrete()}} for details.
+#' @param tol Numerical tolerance when checking if a value is in the series.
+#'   Single non-negative numeric. See `next_discrete()` for details.
 #' @returns A vector of sequential points starting from `from`, which is
 #' included in the vector if it is a discrete value in the numeric series and
 #' `include_from = TRUE`. The length of the vector is at most `n`, and
