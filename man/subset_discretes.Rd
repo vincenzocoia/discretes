@@ -27,13 +27,14 @@ series behaviour defaults to that of \code{get_discretes_in()}.
 \description{
 When a series has a well-defined "first" element (e.g. \code{natural1()} starts at
 1), subsetting with \verb{[]} materializes a specified part of the series, and
-mirrors the behaviour of base R.
+mirrors the behaviour of numeric vector subsetting.
 Positive \code{i} returns the discrete values at those positions, and
 negative \code{i} tries to return the full series with the specified positions
 dropped.
 }
 \details{
-Subsetting via \verb{[]} tries to delegate to base R as quickly as possible by first
+Subsetting via \verb{[]} tries to delegate to native behaviour on numeric vectors
+as quickly as possible by first
 materializing the series as a vector, and then conducting the subsetting.
 \itemize{
 \item If \code{i} is missing or has negative values, subsetting is delegated to the
@@ -46,7 +47,7 @@ from \code{-Inf}.
 }
 }
 \note{
-Unlike base R, the following actions are not supported:
+Unlike subsetting numeric vectors, the following actions are not supported:
 \itemize{
 \item Replacement via \verb{[<-} (throws an error).
 \item Subsetting by a character vector, as though subsetting by entry names.

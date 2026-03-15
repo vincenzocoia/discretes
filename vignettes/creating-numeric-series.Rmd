@@ -41,7 +41,7 @@ integers()^2
 1 / 2^integers()     # reciprocals of powers of 2
 ```
 
-Length-0 vectors are allowed, too, but result in empty series:
+Length-0 vectors are allowed, too, but result in empty series (like for base R vectors)
 
 ```{r}
 numeric(0L) * natural1()

@@ -22,7 +22,9 @@ all the values explicitly.
 
 Series can be traversed, checked for which values are in them, and
 queried for limit points (“sinks”). They can be manipulated to create
-new series, such as by transforming or combining.
+new series, such as by transforming or combining. Rules for doing so are
+delegated to base R whenever possible to maintain congruence with
+numeric vectors.
 
 The name “discretes” reflects the original use case of representing the
 support of discrete probability distributions like the Poisson or
