@@ -2,7 +2,7 @@
 #'
 #' When a series has a well-defined "first" element (e.g. `natural1()` starts at
 #' 1), subsetting with `[]` materializes a specified part of the series, and
-#' mirrors the behaviour of base R. 
+#' mirrors the behaviour of numeric vector subsetting. 
 #' Positive `i` returns the discrete values at those positions, and
 #' negative `i` tries to return the full series with the specified positions
 #' dropped.
@@ -14,16 +14,17 @@
 #'   supported.
 #' @returns A vector of discrete values. When the series has no first element or
 #'   too few values for positive `i`, R returns NA as for ordinary vectors.
-#'   For negative `i` or missing `i`, the full series is obtained first; infinite
-#'   series behaviour defaults to that of `get_discretes_in()`.
+#'   For negative `i` or missing `i`, the full series is obtained first;
+#'   infinite series behaviour defaults to that of `get_discretes_in()`.
 #' @note
-#' Unlike base R, the following actions are not supported:
+#' Unlike subsetting numeric vectors, the following actions are not supported:
 #' 
 #' - Replacement via `[<-` (throws an error).
 #' - Subsetting by a character vector, as though subsetting by entry names.
 #' - Subsetting by a logical vector.
 #' @details
-#' Subsetting via `[]` tries to delegate to base R as quickly as possible by first
+#' Subsetting via `[]` tries to delegate to native behaviour on numeric vectors
+#' as quickly as possible by first
 #' materializing the series as a vector, and then conducting the subsetting.
 #' 
 #' - If `i` is missing or has negative values, subsetting is delegated to the
