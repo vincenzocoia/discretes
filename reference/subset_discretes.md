@@ -3,9 +3,9 @@
 When a series has a well-defined "first" element (e.g.
 [`natural1()`](https://discretes.netlify.app/reference/integers.md)
 starts at 1), subsetting with `[]` materializes a specified part of the
-series, and mirrors the behaviour of base R. Positive `i` returns the
-discrete values at those positions, and negative `i` tries to return the
-full series with the specified positions dropped.
+series, and mirrors the behaviour of numeric vector subsetting. Positive
+`i` returns the discrete values at those positions, and negative `i`
+tries to return the full series with the specified positions dropped.
 
 ## Usage
 
@@ -42,9 +42,9 @@ series behaviour defaults to that of
 
 ## Details
 
-Subsetting via `[]` tries to delegate to base R as quickly as possible
-by first materializing the series as a vector, and then conducting the
-subsetting.
+Subsetting via `[]` tries to delegate to native behaviour on numeric
+vectors as quickly as possible by first materializing the series as a
+vector, and then conducting the subsetting.
 
 - If `i` is missing or has negative values, subsetting is delegated to
   the full series materialized via
@@ -61,7 +61,8 @@ subsetting.
 
 ## Note
 
-Unlike base R, the following actions are not supported:
+Unlike subsetting numeric vectors, the following actions are not
+supported:
 
 - Replacement via `[<-` (throws an error).
 

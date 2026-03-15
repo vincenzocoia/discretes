@@ -53,7 +53,8 @@ integers()^2
 #> ..., 0.25, 0.5, 1, 2, 4, 8, ...
 ```
 
-Length-0 vectors are allowed, too, but result in empty series:
+Length-0 vectors are allowed, too, but result in empty series (like for
+base R vectors)
 
 ``` r
 numeric(0L) * natural1()

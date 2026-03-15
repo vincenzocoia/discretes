@@ -88,8 +88,8 @@ and
 which return a *new series*, `[` materializes the series as a numeric
 vector.
 
-The behaviour of subsetting is delegated to base R, so you can expect
-similar behaviour:
+The behaviour of subsetting is delegated to that of numeric vectors, so
+you can expect similar behaviour:
 
 ``` r
 x <- as_discretes(1:4)
@@ -101,7 +101,13 @@ x[]
 #> [1] 1 2 3 4
 ```
 
-However, note that assignment via `[` is not supported.
+However, not some functionality available with numeric vectors is not
+supported for numeric *series*:
+
+- Assignment via `[`, like `x[1:3] <- ...`
+- Subsetting by name, like `x["foo"]`
+- Subsetting by logical vector, like `x[x < 3]` (futher, comparisons
+  like `x < 3` or `x == 3` do not result in a supported structure).
 
 ## Counting: `num_discretes()`
 

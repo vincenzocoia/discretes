@@ -149,8 +149,8 @@ If there are infinitely many discrete values in the range,
 <p>Unlike <code><a href="../reference/subsetting.html">dsct_keep()</a></code> and <code><a href="../reference/subsetting.html">dsct_drop()</a></code>, which
 return a <em>new series</em>, <code>[</code> materializes the series as
 a numeric vector.</p>
-<p>The behaviour of subsetting is delegated to base R, so you can expect
-similar behaviour:</p>
+<p>The behaviour of subsetting is delegated to that of numeric vectors,
+so you can expect similar behaviour:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/as_discretes.html">as_discretes</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span></span>
 <span><span class="va">x</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span></span>
@@ -159,8 +159,18 @@ similar behaviour:</p>
 <span><span class="co">#&gt; [1] NA  1  4  1 NA</span></span>
 <span><span class="va">x</span><span class="op">[</span><span class="op">]</span></span>
 <span><span class="co">#&gt; [1] 1 2 3 4</span></span></code></pre></div>
-<p>However, note that assignment via <code>[</code> is not
-supported.</p>
+<p>However, not some functionality available with numeric vectors is not
+supported for numeric <em>series</em>:</p>
+<ul>
+<li>Assignment via <code>[</code>, like
+<code>x[1:3] &lt;- ...</code>
+</li>
+<li>Subsetting by name, like <code>x["foo"]</code>
+</li>
+<li>Subsetting by logical vector, like <code>x[x &lt; 3]</code> (futher,
+comparisons like <code>x &lt; 3</code> or <code>x == 3</code> do not
+result in a supported structure).</li>
+</ul>
 </div>
 </div>
 <div class="section level2">
