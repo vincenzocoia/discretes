@@ -20,5 +20,7 @@
 #' (posneg <- discretes:::zeroes_vector(dsct_union(integers(), -0)))
 #' 1 / posneg
 zeroes_vector <- function(x) {
-  c(-0, 0)[c(has_negative_zero(x), has_positive_zero(x))]
+  res <- c(-0, 0)[c(has_negative_zero(x), has_positive_zero(x))]
+  mode(res) <- typeof_dsct(x)
+  res
 }

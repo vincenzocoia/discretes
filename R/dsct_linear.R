@@ -36,7 +36,12 @@ dsct_linear.discretes <- function(x, m, b = NULL) {
     return(empty_series(typeof(m * rpr + bb)))
   }
   if (m < 0) {
-    return(dsct_linear(dsct_negate(x), m = abs(m), b = b))
+    if (is.null(b)) {
+      negb <- NULL
+    } else {
+      negb <- -b
+    }
+    return(dsct_negate(dsct_linear(x, m = -m, b = negb)))
   }
   if (m == 1 && is.null(b) && typeof(rpr) == typeof(m * rpr)) {
     return(x)

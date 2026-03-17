@@ -1,12 +1,24 @@
-#' Create a numeric series from a numeric vector
+#' Convert to a discretes object
+#' 
+#' Convert a foreign object to a "discretes" object.
 #'
-#' @param x A numeric vector with no missing values. May contain infinity.
-#' @returns A numeric series (object of class `"discretes"`) whose
-#'   discrete values are the unique values of `x`.
+#' @param x Object to convert to object of class "discretes".
+#' @returns A numeric series (object of class `"discretes"`). When `x` is
+#'   a numeric vector, the series contains all unique values of `x`.
 #' @examples
 #' as_discretes(0:10)
 #' @export
-as_discretes <- function(x) {
+as_discretes <- function(x) UseMethod("as_discretes")
+
+#' @describeIn as_discretes Convert a numeric vector to discretes object.
+#' @export
+as_discretes.discretes <- function(x) {
+  x
+}
+
+#' @describeIn as_discretes Keeps the discretes object as-is.
+#' @export
+as_discretes.numeric <- function(x) {
   checkmate::assert_numeric(x, any.missing = FALSE, finite = FALSE)
   new_discretes(
     data = list(values = x),

@@ -2,20 +2,33 @@
 % Please edit documentation in R/as_discretes.R
 \name{as_discretes}
 \alias{as_discretes}
-\title{Create a numeric series from a numeric vector}
+\alias{as_discretes.discretes}
+\alias{as_discretes.numeric}
+\title{Convert to a discretes object}
 \usage{
 as_discretes(x)
+
+\method{as_discretes}{discretes}(x)
+
+\method{as_discretes}{numeric}(x)
 }
 \arguments{
-\item{x}{A numeric vector with no missing values. May contain infinity.}
+\item{x}{Object to convert to object of class "discretes".}
 }
 \value{
-A numeric series (object of class \code{"discretes"}) whose
-discrete values are the unique values of \code{x}.
+A numeric series (object of class \code{"discretes"}). When \code{x} is
+a numeric vector, the series contains all unique values of \code{x}.
 }
 \description{
-Create a numeric series from a numeric vector
+Convert a foreign object to a "discretes" object.
 }
+\section{Methods (by class)}{
+\itemize{
+\item \code{as_discretes(discretes)}: Convert a numeric vector to discretes object.
+
+\item \code{as_discretes(numeric)}: Keeps the discretes object as-is.
+
+}}
 \examples{
 as_discretes(0:10)
 }

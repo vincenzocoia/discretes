@@ -27,4 +27,10 @@ test_that("S3 methods for numeric work properly.", {
     ),
     (0:10)^2
   )
+  # as_discretes
+  expect_s3_class(as_discretes(1:10), "discretes")
+  expect_identical(get_discretes_in(as_discretes(1:10)), 1:10)
+  expect_identical(as_discretes(integers()), integers())
+  expect_error(as_discretes("hello"))
+  expect_error(as_discretes(c("1", "2", "3")))
 })

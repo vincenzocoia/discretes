@@ -21,8 +21,8 @@ supported.}
 \value{
 A vector of discrete values. When the series has no first element or
 too few values for positive \code{i}, R returns NA as for ordinary vectors.
-For negative \code{i} or missing \code{i}, the full series is obtained first; infinite
-series behaviour defaults to that of \code{get_discretes_in()}.
+For negative \code{i} or missing \code{i}, the full series is obtained first;
+infinite series behaviour defaults to that of \code{get_discretes_in()}.
 }
 \description{
 When a series has a well-defined "first" element (e.g. \code{natural1()} starts at
