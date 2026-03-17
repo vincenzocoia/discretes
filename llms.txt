@@ -195,7 +195,7 @@ provide tools for probabilistic modeling and inference in R.
 - [`as.double(`*`<discretes>`*`)`](https://discretes.netlify.app/reference/as.double.discretes.md)
   : Convert a numeric series to a numeric vector
 - [`as_discretes()`](https://discretes.netlify.app/reference/as_discretes.md)
-  : Create a numeric series from a numeric vector
+  : Convert to a discretes object
 - [`as_integerish()`](https://discretes.netlify.app/reference/as_integerish.md)
   : "Safely" convert to integer-like
 - [`dsct_linear()`](https://discretes.netlify.app/reference/dsct_linear.md)

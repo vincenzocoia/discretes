@@ -56,7 +56,7 @@ possible as type “double” and not of type “integer”).
 
 ``` r
 has_negative_zero(-1.5 * integers())
-#> [1] FALSE
+#> [1] TRUE
 ```
 
 Like numeric vectors, a series can contain both signs of zero:

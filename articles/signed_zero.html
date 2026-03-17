@@ -120,7 +120,7 @@ negation can induce negative zeroes (although note that, in R, -0 is
 only possible as type “double” and not of type “integer”).</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/negative_zero.html">has_negative_zero</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1.5</span> <span class="op">*</span> <span class="fu"><a href="../reference/integers.html">integers</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] FALSE</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] TRUE</span></span></code></pre></div>
 <p>Like numeric vectors, a series can contain both signs of zero:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/dsct_union.html">dsct_union</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span></span>

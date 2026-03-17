@@ -53,7 +53,7 @@ has_positive_zero(integers())
 has_negative_zero(-integers())
 #> [1] FALSE
 has_negative_zero(-1.5 * integers())
-#> [1] FALSE
+#> [1] TRUE
 
 # -0 and +0 can co-exist, but are never double counted. However, they
 # get expressed differently when the series is inverted.

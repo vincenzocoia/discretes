@@ -25,7 +25,7 @@ A numeric (double) vector of zeroes, either of length 0, 1, or 2.
 
 ``` r
 (none <- discretes:::zeroes_vector(natural1()))
-#> numeric(0)
+#> integer(0)
 1 / none
 #> numeric(0)
 
