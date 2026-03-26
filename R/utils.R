@@ -79,6 +79,7 @@ floor2 <- function(x, tol = sqrt(.Machine$double.eps)) {
 #' 
 #' y <- discretes:::as_integerish(c(NA, 1, -5.5, 1e100))
 #' is.integer(y)
+#' @noRd
 as_integerish <- function(x) {
   checkmate::assert_atomic_vector(x)
   checkmate::assert_numeric(
@@ -114,6 +115,7 @@ as_integerish <- function(x) {
 #' discretes:::is_between(1:5, lower = 2, upper = 2)
 #' discretes:::is_between(1:5, lower = 2, upper = 2, include_lower = FALSE)
 #' discretes:::is_between(1:5, lower = 2, upper = 4, include_upper = FALSE)
+#' @noRd
 is_between <- function(x,
                        lower,
                        upper,

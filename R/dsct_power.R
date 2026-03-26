@@ -20,6 +20,7 @@
 #' ## These are also the same
 #' discretes:::dsct_power(integers(), power = 3)
 #' integers()^3
+#' @noRd
 dsct_power <- function(x, power) {
   checkmate::assert_true(is_series(x))
   checkmate::assert_numeric(power, any.missing = FALSE, finite = FALSE)

@@ -21,6 +21,7 @@
 #' 
 #' # This also works. Notice how the set reduces.
 #' 0^integers()
+#' @noRd
 #' @rdname exponentiate
 dsct_raise <- function(x, base = exp(1)) {
   checkmate::assert_true(is_series(x))
@@ -79,6 +80,7 @@ dsct_raise <- function(x, base = exp(1)) {
   )
 }
 
+#' @noRd
 #' @rdname exponentiate
 dsct_exp <- function(x) {
   dsct_transform(

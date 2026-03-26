@@ -12,6 +12,7 @@
 #' @examples
 #' discretes:::dsct_linear(integers(), m = 2)
 #' discretes:::dsct_linear(integers(), m = 2, b = 0.5)
+#' @noRd
 dsct_linear <- function(x, m, b = NULL) {
   UseMethod("dsct_linear")
 }

@@ -10,3 +10,4 @@ DEVELOPER_NOTES.md
 ^docs$
 ^pkgdown$
 ^cran-comments\.md$
+^CRAN-SUBMISSION$

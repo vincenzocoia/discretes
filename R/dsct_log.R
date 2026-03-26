@@ -19,6 +19,7 @@
 #' discretes:::dsct_log(natural0(), base = 10)
 #' log(natural0(), base = 10)
 #' log10(natural0())
+#' @noRd
 #' @rdname logarithm
 dsct_log <- function(x, base = exp(1)) {
   checkmate::assert_true(is_series(x))
