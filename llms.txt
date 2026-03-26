@@ -196,19 +196,10 @@ provide tools for probabilistic modeling and inference in R.
   : Convert a numeric series to a numeric vector
 - [`as_discretes()`](https://discretes.netlify.app/reference/as_discretes.md)
   : Convert to a discretes object
-- [`as_integerish()`](https://discretes.netlify.app/reference/as_integerish.md)
-  : "Safely" convert to integer-like
-- [`dsct_linear()`](https://discretes.netlify.app/reference/dsct_linear.md)
-  : Linearly transform a numeric series
-- [`dsct_power()`](https://discretes.netlify.app/reference/dsct_power.md)
-  : Raise a numeric series to a power
 - [`dsct_union()`](https://discretes.netlify.app/reference/dsct_union.md)
   : Combine numeric series
 - [`empty_series()`](https://discretes.netlify.app/reference/empty_series.md)
   : Create an empty numeric series
-- [`dsct_raise()`](https://discretes.netlify.app/reference/exponentiate.md)
-  [`dsct_exp()`](https://discretes.netlify.app/reference/exponentiate.md)
-  : Exponentiation of a numeric series
 - [`get_discretes_at()`](https://discretes.netlify.app/reference/get_discretes.md)
   [`get_discretes_in()`](https://discretes.netlify.app/reference/get_discretes.md)
   : Extract discrete values from a numeric series
@@ -221,12 +212,8 @@ provide tools for probabilistic modeling and inference in R.
   [`natural1()`](https://discretes.netlify.app/reference/integers.md)
   [`natural0()`](https://discretes.netlify.app/reference/integers.md) :
   Integer numeric series
-- [`is_between()`](https://discretes.netlify.app/reference/is_between.md)
-  : Check if values are between two bounds
 - [`is_series()`](https://discretes.netlify.app/reference/is_series.md)
   : Check if an object is treated as a numeric series
-- [`dsct_log()`](https://discretes.netlify.app/reference/logarithm.md) :
-  Logarithm of a numeric series
 - [`has_negative_zero()`](https://discretes.netlify.app/reference/negative_zero.md)
   [`has_positive_zero()`](https://discretes.netlify.app/reference/negative_zero.md)
   : Check if a numeric series has a signed zero
@@ -250,8 +237,6 @@ provide tools for probabilistic modeling and inference in R.
   : Subset a numeric series
 - [`dsct_transform()`](https://discretes.netlify.app/reference/transform.md)
   : Monotonically transform a numeric series
-- [`zeroes_vector()`](https://discretes.netlify.app/reference/zeroes_vector.md)
-  : Construct vector of zeroes
 
 # Articles
 

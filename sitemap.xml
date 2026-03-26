@@ -17,20 +17,14 @@
 <url><loc>https://discretes.netlify.app/reference/arithmetic.html</loc></url>
 <url><loc>https://discretes.netlify.app/reference/as.double.discretes.html</loc></url>
 <url><loc>https://discretes.netlify.app/reference/as_discretes.html</loc></url>
-<url><loc>https://discretes.netlify.app/reference/as_integerish.html</loc></url>
-<url><loc>https://discretes.netlify.app/reference/dsct_linear.html</loc></url>
-<url><loc>https://discretes.netlify.app/reference/dsct_power.html</loc></url>
 <url><loc>https://discretes.netlify.app/reference/dsct_union.html</loc></url>
 <url><loc>https://discretes.netlify.app/reference/empty_series.html</loc></url>
-<url><loc>https://discretes.netlify.app/reference/exponentiate.html</loc></url>
 <url><loc>https://discretes.netlify.app/reference/get_discretes.html</loc></url>
 <url><loc>https://discretes.netlify.app/reference/has_discretes.html</loc></url>
 <url><loc>https://discretes.netlify.app/reference/has_sink.html</loc></url>
 <url><loc>https://discretes.netlify.app/reference/index.html</loc></url>
 <url><loc>https://discretes.netlify.app/reference/integers.html</loc></url>
-<url><loc>https://discretes.netlify.app/reference/is_between.html</loc></url>
 <url><loc>https://discretes.netlify.app/reference/is_series.html</loc></url>
-<url><loc>https://discretes.netlify.app/reference/logarithm.html</loc></url>
 <url><loc>https://discretes.netlify.app/reference/negative_zero.html</loc></url>
 <url><loc>https://discretes.netlify.app/reference/next_discrete.html</loc></url>
 <url><loc>https://discretes.netlify.app/reference/num_discretes.html</loc></url>
@@ -41,6 +35,5 @@
 <url><loc>https://discretes.netlify.app/reference/subset_discretes.html</loc></url>
 <url><loc>https://discretes.netlify.app/reference/subsetting.html</loc></url>
 <url><loc>https://discretes.netlify.app/reference/transform.html</loc></url>
-<url><loc>https://discretes.netlify.app/reference/zeroes_vector.html</loc></url>
 </urlset>
 
