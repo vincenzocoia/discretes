@@ -7,3 +7,15 @@
 inst/doc
 ..Rcheck/
 docs
+paper.pdf
+paper.tex
+paper.aux
+paper.log
+paper.bbl
+paper.bcf
+paper.blg
+paper.out
+paper.fdb_latexmk
+paper.fls
+paper.synctex.gz
+voice.md
