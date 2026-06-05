@@ -1,3 +1,9 @@
 % Pandoc 3 citeproc + JOSS template: define commands expected in body and refs.
 \providecommand{\citeproc}[2]{\hyperlink{cite.#1}{#2}}
 \providecommand{\citeproctext}{}
+% \bibitem prints its (empty) optional label as "[]" via \@biblabel; pandoc's
+% own default template suppresses this. The vendored JOSS template does not, so
+% do it here to avoid an empty bracket "marker" before every reference.
+\makeatletter
+\def\@biblabel#1{}
+\makeatother

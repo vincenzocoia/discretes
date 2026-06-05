@@ -98,8 +98,8 @@ The clearest case where encoding and expression must be kept apart is signed
 zero. In IEEE-754 arithmetic R has both $+0$ and $-0$; `identical(0, -0)` is
 `TRUE`, and mathematically there is only one zero, so a series containing both
 still reports a single value. But the two are not interchangeable: `1 / 0` is
-`Inf` while `1 / -0` is `-Inf`. (The difference is visible in the raw bytes:
-`writeBin(-0, raw())` sets the sign bit, giving `00 00 00 00 00 00 00 80`, as opposed to all zeros for $+0$.) A series that expressed itself as a single $0$ would invert to a single infinity and silently lose the other. discretes therefore tracks the latent signs with `has_positive_zero()` and `has_negative_zero()`: the set $\{0, -0\}$ is one value when enumerated, but its reciprocal is the two-value series $\{-\infty, +\infty\}$ (infinities are themselves allowed as discrete values). Getting this right is not pedantry — it is what lets inversion of a support agree with the inversion R would perform on the corresponding vector [@Goldberg1991].
+`Inf` while `1 / -0` is `-Inf` [@Goldberg1991]. (The difference is visible in the raw bytes:
+`writeBin(-0, raw())` sets the sign bit, giving `00 00 00 00 00 00 00 80`, as opposed to all zeros for $+0$.) A series that expressed itself as a single $0$ would invert to a single infinity and silently lose the other. discretes therefore tracks the latent signs with `has_positive_zero()` and `has_negative_zero()`: the set $\{0, -0\}$ is one value when enumerated, but its reciprocal is the two-value series $\{-\infty, +\infty\}$ (infinities are themselves allowed as discrete values). Getting this right is not pedantry — it is what lets inversion of a support agree with the inversion R would perform on the corresponding vector.
 
 # Research impact
 
