@@ -59,7 +59,7 @@ values often has no generating pattern — the outcomes can be scattered anywher
 among the reals — so the vector itself is stored and treated as a series.
 
 From these two forms, new series are built by manipulation: union of several
-series; the arithmetic operations `+`, `-`, `*`, `/`, and `^`; functions such as
+series; the arithmetic operations `+`, `-`, `*`, `/`, and exponentiation; functions such as
 `log` and `exp`; trimming a series to an interval; and arbitrary transformations,
 including non-monotonic ones, through `dsct_transform()`. This is a deliberately
 small set of primitives, but composing them reaches a large majority of the
@@ -85,7 +85,7 @@ The same contract is what makes manipulation work. A transformation is itself a 
 One rule runs through the package: a series should behave exactly as a numeric
 vector would. Whenever an operation has an established meaning for vectors,
 discretes defers to it rather than inventing a parallel convention. R defines
-`0^0` as `1`, for instance, so a series does the same, and results keep R's
+$0^0$ as $1$, for instance, so a series does the same, and results keep R's
 integer type where a vector would.
 
 Making this precise requires separating two views of a series: its *encoding* — the parameters that define it, such as a seed, spacing, and step counts for arithmetic series, or the original vector — and its *expression*, the actual numeric values R produces when
