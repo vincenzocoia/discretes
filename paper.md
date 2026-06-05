@@ -1,23 +1,24 @@
 ---
-
 title: 'discretes: Representing enumerable numeric series in R without listing their members'
 tags:
-
-- R
-- discrete mathematics
-- probability
-- numerical computing
-- scientific computing
+  - R
+  - discrete mathematics
+  - probability
+  - numerical computing
+  - scientific computing
 authors:
-- name: Vincenzo Coia
-orcid: 0000-0000-0000-0000 # TODO: add ORCID
-affiliation: 1
+  - name: Vincenzo Coia
+    orcid: 0000-0002-3028-4329
+    corresponding: true
+    affiliation: 1
+  - name: Carlo De Michele
+    orcid: 0000-0002-7098-4725
+    affiliation: 1
 affiliations:
-- name: TODO - affiliation, City, Country # TODO: confirm affiliation
-index: 1
+  - name: C2E Lab, Department of Civil and Environmental Engineering (DICA), Politecnico di Milano, Milan, Italy
+    index: 1
 date: 5 June 2026
 bibliography: paper.bib
-
 ---
 
 # Summary
@@ -35,17 +36,17 @@ behaves the way a vector would if a vector could be infinite.
 
 discretes was written for the probaverse project [@probaverse], a set of R packages that treat probability distributions as first-class objects. A central goal there is to support any distribution a user might construct, not only named families. Most named distributions with a discrete component — Poisson, geometric, hypergeometric — live on the natural numbers [@JohnsonKotzKemp], and it is tempting to assume every discrete support does. That assumption breaks as soon as distributions are shifted, scaled, or combined, which is exactly what applied modelling requires. To reason about an arbitrary distribution we have to answer concrete questions about its support: What is the next admissible value above a cutoff? Are there finitely or infinitely many outcomes between two points? Is a particular number an outcome at all?
 
-Base R has finite numeric vectors and sequence helpers (`seq()`, `:`), but no type for an infinite enumerable set that can be transformed and queried consistently. The usual workarounds — store a long prefix of the values, hard-code the support of each named distribution, or quietly truncate the set — are fragile, and they tend to fail when computations are involved. discretes provides this missing archetype, and although it was written for probability, it is a general-purpose tool for enumerable numeric series.
+Base R has finite numeric vectors and sequence helpers (`seq()`, `:`), but no type for an infinite enumerable set that can be transformed and queried consistently. The usual workarounds — store a long prefix of the values, hard-code the support of each named distribution, or quietly truncate the set — are fragile, and they tend to fail near the values that matter most, such as a limit the series approaches. discretes provides this missing abstraction, and although it was written for probability, it is a general-purpose tool for enumerable numeric series.
 
 # State of the field
 
-Several R packages address neighbouring problems. Zseq [@Zseq] supplies named integer sequences such as the Fibonacci and prime numbers, but not a general way to construct and transform series. sets [@sets] implements finite set operations and abstract set algebra, with no notion of successor and predecessor along the number line. set6 [@set6] offered object-oriented infinite sets but is no longer on CRAN and was not built around agreement with R's numeric-vector behaviour. peruse [@peruse] iterates over general sequences with a well-defined starting value, with less attention to arithmetic manipulation and limit points. discretes was written as its own layer rather than as a wrapper over these because its target object is a locally enumerable numeric series, closed under operations commonly applied to numeric vectors, and is explicit about the floating-point cases — signed zero, infinities — that those operations expose.
+Several R packages address neighbouring problems. Zseq [@Zseq] supplies named integer sequences such as the Fibonacci and prime numbers, but not a general way to construct and transform series. sets [@sets] implements finite set operations and abstract set algebra, with no notion of successor and predecessor along the number line. set6 [@set6] offered object-oriented infinite sets but is no longer on CRAN and was not built around agreement with R's numeric-vector behaviour. peruse [@peruse] iterates over general sequences with a well-defined starting value, with less attention to arithmetic manipulation and limit points. discretes was written as its own layer rather than as a wrapper over these because its target object is a locally enumerable numeric series — closed under operations commonly applied to numeric vectors, and explicit about the floating-point cases (signed zero, infinities) that those operations expose.
 
 # Software design
 
 ## What the package represents
 
-discretes does not try to represent every countable set of numbers. For example, infinitely dense sets such as the rationals are excluded, where there is no well-defined "next" value, and in fact every real number is a limit point of the rationals. What discretes does handle is series whose values are isolated except at a finite number of limit points. Following the package's shorthand, we call these limit points *sinks*. The natural numbers $0, 1, 2, \ldots$ have a single sink, at infinity. The series $1, 1/2, 1/4, \ldots$ has a sink at $0$, approached from the right. Allowing finitely many sinks covers the supports that arise in practice while keeping every series finitely describable.
+discretes does not try to represent every countable set of numbers. Infinitely dense sets such as the rationals are excluded, because they have no well-defined "next" value: every real number is a limit point of the rationals. What discretes does handle is series whose values are isolated except at a finite number of limit points. Following the package's shorthand, we call these limit points *sinks*. The natural numbers $0, 1, 2, \ldots$ have a single sink, at infinity. The series $1, 1/2, 1/4, \ldots$ has a sink at $0$, approached from the right. Allowing finitely many sinks covers the supports that arise in practice while keeping every series finitely describable.
 
 ## Two base series, then manipulation
 
@@ -64,7 +65,7 @@ including non-monotonic ones, through `dsct_transform()`. This is a deliberately
 small set of primitives, but composing them reaches a large majority of the
 numeric series one actually needs.
 
-It does not reach all of them. Sequences with their own bespoke logic, such as the Fibonacci numbers, could have been supported, but was left out on purpose: the aim was to cover the common cases well, not to chase every constructible set. (The Fibonacci example also makes a point about sets. Although the sequence is written $1, 1, 2, 3, 5, \ldots$, a set holds each value once, so the two discrete values above $0$ are $1$ and $2$, not $1$ and $1$.)
+It does not reach all of them. Sequences with their own bespoke logic, such as the Fibonacci numbers, could have been supported but were left out on purpose: the aim was to cover the common cases well, not to chase every constructible set. (The Fibonacci example also makes a point about sets. Although the sequence is written $1, 1, 2, 3, 5, \ldots$, a set holds each value once, so the two discrete values above $0$ are $1$ and $2$, not $1$ and $1$.)
 
 This mirrors how the rest of probaverse is built. The distionary package supplies
 base distributions and distplyr manipulates and combines them; the named families
@@ -112,7 +113,7 @@ Generative AI assisted with drafting and editing this manuscript. The authors re
 
 Development of discretes was supported by the European Space Agency, BGC
 Engineering Inc., and the Politecnico di Milano. The need for the package arose
-from work on the probaverse project. The author thanks colleagues who reviewed
+from work on the probaverse project. The authors thank colleagues who reviewed
 package behaviour and documentation during open development.
 
 # References
