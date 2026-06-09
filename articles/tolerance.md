@@ -1,6 +1,7 @@
 # Tolerance
 
 ``` r
+
 library(discretes)
 ```
 
@@ -28,8 +29,8 @@ The two places where it is used are:
 - **Arithmetic progressions**
   ([`arithmetic()`](https://discretes.netlify.app/reference/arithmetic.md)):
   we decide if a value is in the series using the implied step index
-  $(x - representative)/spacing$. Because of floating point, this index
-  is rarely an exact integer (e.g. `(0.3 - 0) / 0.1`). A value is
+  $`(x - representative) / spacing`$. Because of floating point, this
+  index is rarely an exact integer (e.g. `(0.3 - 0) / 0.1`). A value is
   treated as a discrete value if that index is within `tol` of an
   integer.
 - **Numeric-vector-based series** (plain numeric vectors or
@@ -49,6 +50,7 @@ in an arithmetic series because the implied index might be `2.999999999`
 instead of `3`.
 
 ``` r
+
 x <- arithmetic(representative = 0, spacing = 0.1)
 has_discretes(x, 0.3)
 #> [1] TRUE
@@ -62,6 +64,7 @@ Even if a series is represented as a numeric vector, you can still run
 into tiny floating-point mismatches.
 
 ``` r
+
 v <- c(0, 0.1, 0.2, 0.1 * 3)   # last entry is not exactly 0.3
 
 has_discretes(v, 0.3)
@@ -85,6 +88,7 @@ Consider transforming a numeric vector vs. that same vector expressed as
 a “discretes” object.
 
 ``` r
+
 raw <- 10^(-5:5)
 raw
 #>  [1] 1e-05 1e-04 1e-03 1e-02 1e-01 1e+00 1e+01 1e+02 1e+03 1e+04 1e+05
@@ -103,6 +107,7 @@ significant error after transformation that may not be within the
 default `tol`:
 
 ``` r
+
 # Exponent slightly off from `5`
 q <- 10^(5 - 1e-10)
 # Error magnitude after transformation
@@ -115,6 +120,7 @@ transformed vector, but not when the vector is preserved. This is
 because tolerance is applied to the root series.
 
 ``` r
+
 has_discretes(raw, q)
 #> [1] FALSE
 has_discretes(preserved, q)

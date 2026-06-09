@@ -21,18 +21,21 @@ tool for working with enumerable numeric series.
 Install discretes from CRAN with:
 
 ``` r
+
 install.packages("discretes")
 ```
 
 ## Examples
 
 ``` r
+
 library(discretes)
 ```
 
 While vectors in R must be finite, this is not a problem for discretes.
 
 ``` r
+
 natural0()
 #> Integer series of length Inf:
 #> 0, 1, 2, 3, 4, 5, ...
@@ -45,6 +48,7 @@ What’s the next discrete value after 10 in the series of integers? Or
 the previous five values from 1.3?
 
 ``` r
+
 next_discrete(integers(), from = 10)
 #> [1] 11
 prev_discrete(integers(), from = 1.3, n = 5)
@@ -54,6 +58,7 @@ prev_discrete(integers(), from = 1.3, n = 5)
 Test whether values are discrete values in a series.
 
 ``` r
+
 has_discretes(natural1(), c(0, 1))
 #> [1] FALSE  TRUE
 ```
@@ -61,6 +66,7 @@ has_discretes(natural1(), c(0, 1))
 Perform arithmetic operations on series.
 
 ``` r
+
 1 / 2^integers()
 #> Reciprocal series of length Inf:
 #> Loading required namespace: testthat
@@ -77,11 +83,12 @@ for custom transformations.
 
 ### Sinks
 
-That last series above, `1 / 2^integers()`, has a sink[¹](#fn1) at 0
+That last series above, `1 / 2^integers()`, has a sink[^1] at 0
 (approached from the right) and a sink at infinity, best seen by
 plotting:
 
 ``` r
+
 x <- 1 / 2^integers()
 plot(x)
 ```
@@ -91,6 +98,7 @@ plot(x)
 Notice that there are infinitely many discrete values close to 0.
 
 ``` r
+
 num_discretes(x, from = 0, to = 1)
 #> [1] Inf
 ```
@@ -98,6 +106,7 @@ num_discretes(x, from = 0, to = 1)
 There is no such thing as a “next” value when looking left of the sink.
 
 ``` r
+
 next_discrete(x, from = -1)
 #> numeric(0)
 ```
@@ -105,6 +114,7 @@ next_discrete(x, from = -1)
 You can ask whether a sink exists directly.
 
 ``` r
+
 has_sink_in(x, from = 0, to = 1)
 #> [1] TRUE
 has_sink_at(x, 0, dir = "right")
@@ -178,9 +188,7 @@ Milano](https://www.polimi.it/). The need for this package arose from
 work on the [probaverse](https://probaverse.com/) project, which aims to
 provide tools for probabilistic modeling and inference in R.
 
-------------------------------------------------------------------------
-
-1.  Or more precisely, a limit point.
+[^1]: Or more precisely, a limit point.
 
 # Package index
 
@@ -190,6 +198,8 @@ provide tools for probabilistic modeling and inference in R.
   : Math group generic for numeric series
 - [`Ops(`*`<discretes>`*`)`](https://discretes.netlify.app/reference/Ops.discretes.md)
   : Arithmetic and power operators for numeric series
+- [`Summary(`*`<discretes>`*`)`](https://discretes.netlify.app/reference/Summary.discretes.md)
+  : Summary group generic for numeric series
 - [`arithmetic()`](https://discretes.netlify.app/reference/arithmetic.md)
   : Arithmetic series
 - [`as.double(`*`<discretes>`*`)`](https://discretes.netlify.app/reference/as.double.discretes.md)

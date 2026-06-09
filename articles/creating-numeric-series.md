@@ -1,6 +1,7 @@
 # Creating numeric series
 
 ``` r
+
 library(discretes)
 ```
 
@@ -41,6 +42,7 @@ when one side is a number and the other is a numeric series. For
 example:
 
 ``` r
+
 integers()^2
 #> Loading required namespace: testthat
 #> Union series of length Inf:
@@ -57,6 +59,7 @@ Length-0 vectors are allowed, too, but result in empty series (like for
 base R vectors)
 
 ``` r
+
 numeric(0L) * natural1()
 #> Empty series.
 ```
@@ -69,6 +72,7 @@ is supported. For non-negative series,
 [`sqrt()`](https://rdrr.io/r/base/MathFun.html) are also supported:
 
 ``` r
+
 log(natural0())
 #> Transformed series of length Inf:
 #> -Inf, 0, 0.6931472, 1.098612, 1.386294, 1.609438, ...
@@ -85,6 +89,7 @@ For other transformations, use
 On a numeric vector, the function is applied directly:
 
 ``` r
+
 dsct_transform(0:10, cos) # Same as cos(0:10)
 #>  [1]  1.0000000  0.5403023 -0.4161468 -0.9899925 -0.6536436  0.2836622
 #>  [7]  0.9601703  0.7539023 -0.1455000 -0.9111303 -0.8390715
@@ -108,6 +113,7 @@ Here is an example of applying the function
 so it must be given explicitly:
 
 ``` r
+
 dsct_transform(
   natural0(),
   fun = pnorm,
@@ -125,6 +131,7 @@ decreasing on `[0, pi]` with range `[-1, 1]`, and inverse
 `dir = "decreasing"` to indicate that this is a decreasing function.
 
 ``` r
+
 dsct_transform(
   integers(from = 0, to = 3),
   fun = cos,

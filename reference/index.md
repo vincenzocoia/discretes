@@ -6,6 +6,8 @@
   : Math group generic for numeric series
 - [`Ops(`*`<discretes>`*`)`](https://discretes.netlify.app/reference/Ops.discretes.md)
   : Arithmetic and power operators for numeric series
+- [`Summary(`*`<discretes>`*`)`](https://discretes.netlify.app/reference/Summary.discretes.md)
+  : Summary group generic for numeric series
 - [`arithmetic()`](https://discretes.netlify.app/reference/arithmetic.md)
   : Arithmetic series
 - [`as.double(`*`<discretes>`*`)`](https://discretes.netlify.app/reference/as.double.discretes.md)

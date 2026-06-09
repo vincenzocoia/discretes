@@ -1,6 +1,7 @@
 # Querying a numeric series
 
 ``` r
+
 library(discretes)
 ```
 
@@ -23,6 +24,7 @@ does the same in the opposite direction. They return a numeric vector of
 values (of length at most `n`).
 
 ``` r
+
 x <- integers()
 next_discrete(x, from = 10)
 #> [1] 11
@@ -45,6 +47,7 @@ a range or at specific values.
 in the series (within `tol` of the base series).
 
 ``` r
+
 get_discretes_at(integers(), values = c(-10, 4, 3.5, 10, NA))
 #> [1] -10   4  10  NA
 get_discretes_at(integers(), values = 5.5)
@@ -61,6 +64,7 @@ throws an error; use
 first to check.
 
 ``` r
+
 get_discretes_in(integers(), from = 6.6, to = 10.1)
 #> [1]  7  8  9 10
 get_discretes_in(1 / integers(0, 5))
@@ -75,6 +79,7 @@ When a series has a well-defined first element
 you can subset by position with `[`.
 
 ``` r
+
 natural1()[2]
 #> [1] 2
 natural1()[c(1, 3, 5)]
@@ -92,6 +97,7 @@ The behaviour of subsetting is delegated to that of numeric vectors, so
 you can expect similar behaviour:
 
 ``` r
+
 x <- as_discretes(1:4)
 x[-1]
 #> [1] 2 3 4
@@ -116,6 +122,7 @@ returns how many discrete values lie in a range. It returns `Inf` for
 infinite-length series.
 
 ``` r
+
 num_discretes(integers(), from = -2, to = 5)
 #> [1] 8
 num_discretes(1 / 2^integers(), from = 0, to = 1)
@@ -130,6 +137,7 @@ to check whether given values are in the series. It returns a logical
 vector, one per queried value.
 
 ``` r
+
 has_discretes(natural1(), c(0, 1, 2, 2.5))
 #> [1] FALSE  TRUE  TRUE FALSE
 has_discretes(integers(), c(-10, 0, 10, NA))
@@ -149,6 +157,7 @@ sinks in a matrix of locations and directions: approached from the left
 (-1) or right (+1).
 
 ``` r
+
 sinks(integers())
 #>      location direction
 #> [1,]      Inf        -1
@@ -170,6 +179,7 @@ are convenience functions that test for a sink in an interval or at a
 value.
 
 ``` r
+
 has_sink_in(integers())
 #> [1] TRUE
 has_sink_at(integers(), Inf)
