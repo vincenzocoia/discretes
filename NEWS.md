@@ -1,3 +1,5 @@
+# discretes 0.1.1
+
 # discretes 0.1.0
 
 * Initial CRAN submission.
