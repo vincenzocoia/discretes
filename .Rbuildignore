@@ -11,3 +11,5 @@ DEVELOPER_NOTES.md
 ^pkgdown$
 ^cran-comments\.md$
 ^CRAN-SUBMISSION$
+^[.]?air[.]toml$
+^\.vscode$
