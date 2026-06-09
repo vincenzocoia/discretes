@@ -30,9 +30,13 @@ Summary.discretes <- function(x, ..., na.rm = FALSE) {
   args <- list(x, ...)
 
   if (op %in% c("all", "any")) {
-    stop(sprintf(
-      "`%s()` is not defined for a numeric series.", op
-    ), call. = FALSE)
+    stop(
+      sprintf(
+        "`%s()` is not defined for a numeric series.",
+        op
+      ),
+      call. = FALSE
+    )
   }
 
   if (op %in% c("sum", "prod")) {
@@ -41,15 +45,19 @@ Summary.discretes <- function(x, ..., na.rm = FALSE) {
         return(as.numeric(a))
       }
       if (!is.finite(num_discretes(a))) {
-        stop(sprintf(
-          "`%s()` is not defined for a series with infinitely many discrete values.", # nolint
-          op
-        ), call. = FALSE)
+        stop(
+          "`",
+          op,
+          "()` is not defined for a series with infinitely many ",
+          "discrete values.",
+          call. = FALSE
+        )
       }
       get_discretes_in(a)
     })
     vals <- unlist(vals)
-    return(switch(op,
+    return(switch(
+      op,
       sum = sum(vals, na.rm = na.rm),
       prod = prod(vals, na.rm = na.rm)
     ))
@@ -72,7 +80,8 @@ Summary.discretes <- function(x, ..., na.rm = FALSE) {
     }
   }
 
-  switch(op,
+  switch(
+    op,
     min = min(low, na.rm = na.rm),
     max = max(high, na.rm = na.rm),
     range = c(min(low, na.rm = na.rm), max(high, na.rm = na.rm))
