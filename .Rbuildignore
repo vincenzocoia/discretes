@@ -13,3 +13,5 @@ DEVELOPER_NOTES.md
 ^CRAN-SUBMISSION$
 ^[.]?air[.]toml$
 ^\.vscode$
+^\.claude$
+^CODE_STANDARDS\.md$
