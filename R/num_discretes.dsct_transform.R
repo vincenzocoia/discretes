@@ -7,7 +7,7 @@ num_discretes.dsct_transform <- function(x,
                                          include_to = TRUE,
                                          tol = sqrt(.Machine$double.eps)) {
   checkmate::assert_number(from)
-  checkmate::assert_number(to, lower = from)
+  checkmate::assert_number(to)
   checkmate::assert_logical(include_from, len = 1, any.missing = FALSE)
   checkmate::assert_logical(include_to, len = 1, any.missing = FALSE)
   checkmate::assert_number(tol, lower = 0)
@@ -28,6 +28,11 @@ num_discretes.dsct_transform <- function(x,
     include_to <- TRUE
   } else {
     base_to <- inv(to)
+  }
+  if (base_to < base_from) {
+    # `from` and `to` lie inside the declared range but outside the actual
+    # discrete values, so they map to an empty base interval.
+    return(0L)
   }
   num_discretes(
     x[["base"]],

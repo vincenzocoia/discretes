@@ -8,7 +8,7 @@ num_discretes.dsct_arithmetic <- function(x,
                                           tol = sqrt(.Machine$double.eps)) {
   ellipsis::check_dots_empty()
   checkmate::assert_number(from)
-  checkmate::assert_number(to, lower = from)
+  checkmate::assert_number(to)
   checkmate::assert_logical(include_from, len = 1, any.missing = FALSE)
   checkmate::assert_logical(include_to, len = 1, any.missing = FALSE)
   checkmate::assert_number(tol, lower = 0)

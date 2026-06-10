@@ -7,7 +7,7 @@ num_discretes.dsct_keep <- function(x,
                                     include_to = TRUE,
                                     tol = sqrt(.Machine$double.eps)) {
   checkmate::assert_number(from)
-  checkmate::assert_number(to, lower = from)
+  checkmate::assert_number(to)
   checkmate::assert_logical(include_from, len = 1, any.missing = FALSE)
   checkmate::assert_logical(include_to, len = 1, any.missing = FALSE)
   checkmate::assert_number(tol, lower = 0)

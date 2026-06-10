@@ -3,8 +3,9 @@
 #' Return the number of discrete values in `x` that lie between
 #' `from` and `to`, or test whether the number of discrete values is infinite.
 #' @inheritParams next_discrete
-#' @param from,to Reference values, possibly infinite. `from` must be less than
-#'   or equal to `to`; both must be length-1 numeric vectors.
+#' @param from,to Reference values, possibly infinite; both must be length-1
+#'   numeric vectors. If `to < from`, the range is empty: `num_discretes()`
+#'   returns `0` with a warning.
 #' @param include_from,include_to Should the `from` value be included
 #'   in the query? Should the `to` value? Both must be length-1 logical vectors.
 #' @returns For `num_discretes()`,
@@ -27,5 +28,14 @@ num_discretes <- function(x,
                           include_from = TRUE,
                           include_to = TRUE,
                           tol = sqrt(.Machine$double.eps)) {
+  checkmate::assert_number(from)
+  checkmate::assert_number(to)
+  if (to < from) {
+    warning(
+      "`to` (", to, ") is less than `from` (", from,
+      "); returning 0 for the empty range."
+    )
+    return(0L)
+  }
   UseMethod("num_discretes")
 }

@@ -13,8 +13,9 @@ has_sink_at(x, value, dir = c("either", "left", "right", "both"))
 \item{x}{Numeric series
 (\code{numeric} vector or object of class \code{"discretes"}).}
 
-\item{from, to}{Reference values, possibly infinite. \code{from} must be less than
-or equal to \code{to}; both must be length-1 numeric vectors.}
+\item{from, to}{Reference values, possibly infinite; both must be length-1
+numeric vectors. If \code{to < from}, the range is empty: \code{num_discretes()}
+returns \code{0} with a warning.}
 
 \item{value}{Single numeric to check for the existence of a sink.}
 

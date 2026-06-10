@@ -2,6 +2,7 @@
 # for `dsct_transform()`. Run for its `warning()` side effects; returns
 # `fun` invisibly. See `dsct_transform()` for the inputs.
 validate_transform_fun <- function(fun, inv, domain, range) {
+  orig_domain <- domain
   if (all(is.infinite(domain))) {
     domain <- c(-1, 1)
   }
@@ -43,6 +44,44 @@ validate_transform_fun <- function(fun, inv, domain, range) {
     warning(
       "Function does not evaluate to within the specified range: ",
       paste(range, collapse = ", ")
+    )
+  }
+  # Also flag a `range` that is wider than the function's image. For an
+  # increasing `fun`, the image endpoints are `fun()` at the domain endpoints,
+  # evaluated directly (R returns the correct limit at +/-Inf for the monotonic
+  # functions used here, e.g. `tanh(Inf) == 1`). An unbounded image yields an
+  # infinite bound, so the comparison never fires for it; only a finite image
+  # bound that the range overshoots warns. This treats finite and infinite
+  # range bounds the same.
+  tol <- .Machine$double.eps^0.5
+  image_lower <- try(fun(orig_domain[1]), silent = TRUE)
+  if (
+    !inherits(image_lower, "try-error") &&
+      !is.na(image_lower) &&
+      range[1] < image_lower - tol
+  ) {
+    warning(
+      "The specified range's lower bound (",
+      range[1],
+      ") is below the ",
+      "function's image, which starts near ",
+      image_lower,
+      "."
+    )
+  }
+  image_upper <- try(fun(orig_domain[2]), silent = TRUE)
+  if (
+    !inherits(image_upper, "try-error") &&
+      !is.na(image_upper) &&
+      range[2] > image_upper + tol
+  ) {
+    warning(
+      "The specified range's upper bound (",
+      range[2],
+      ") is above the ",
+      "function's image, which ends near ",
+      image_upper,
+      "."
     )
   }
   x2 <- try(inv(rng[!na]), silent = TRUE)

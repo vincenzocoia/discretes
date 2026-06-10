@@ -79,8 +79,61 @@ test_that("dsct_union edge cases", {
     num_discretes(dsct_union(integers(-10, 10), NA_real_)),
     NA_integer_
   )
-  expect_identical(num_discretes(dsct_union(empty_series(), empty_series())), 0L)
+  expect_identical(
+    num_discretes(dsct_union(empty_series(), empty_series())),
+    0L
+  )
   expect_error(dsct_union(integers(), 1:10, "hello"))
   expect_error(dsct_union(integers(), 1:10, sum))
   expect_identical(dsct_union(), empty_series())
+})
+
+test_that("walking a union with an interior accumulation point (sink)", {
+  # Regression: querying a union from a point below a component whose atoms
+  # accumulate at a finite sink (no smallest atom) used to map to an inverted
+  # base interval and trip an assertion. The ranges below are intentionally
+  # wider than the functions' images (which warns), so that the query at 2
+  # exercises the runtime guard rather than the early range check.
+  suppressWarnings({
+    below <- dsct_transform(
+      natural1(),
+      fun = function(n) 5 - 2^(-n),
+      inv = function(y) -log2(5 - y),
+      domain = c(0, Inf),
+      range = c(0, 5),
+      dir = "increasing"
+    ) # 4.5, 4.75, ... -> 5 from below
+    above <- dsct_transform(
+      natural1(),
+      fun = function(n) 5 + 2^(-n),
+      inv = function(y) -log2(y - 5),
+      domain = c(0, Inf),
+      range = c(5, Inf),
+      dir = "decreasing"
+    ) # 5.5, 5.25, ... -> 5 from above
+  })
+  both <- dsct_union(below, above)
+
+  expect_equal(next_discrete(both, 2), 4.5)
+  expect_equal(next_discrete(both, 4.4), 4.5)
+  expect_equal(next_discrete(both, 2, n = 3), c(4.5, 4.75, 4.875))
+  expect_equal(prev_discrete(both, 6), 5.5)
+  expect_equal(get_discretes_in(both, from = 4, to = 4.9), c(4.5, 4.75, 4.875))
+  expect_equal(num_discretes(both, from = 2, to = 4.9), 3L)
+})
+
+test_that("transform counts 0 for a range inside [range] but below the atoms", {
+  # `2` is inside the declared range [0, 5] but below every atom (4.5, 4.75,
+  # ...), so it maps to an empty base interval and should count 0, not error.
+  # The over-wide range warns at construction; suppress it to focus on counting.
+  below <- suppressWarnings(dsct_transform(
+    natural1(),
+    fun = function(n) 5 - 2^(-n),
+    inv = function(y) -log2(5 - y),
+    domain = c(0, Inf),
+    range = c(0, 5),
+    dir = "increasing"
+  ))
+  expect_equal(num_discretes(below, from = -Inf, to = 2), 0L)
+  expect_equal(num_discretes(below, from = -Inf, to = 4.6), 1L)
 })
