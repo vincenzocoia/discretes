@@ -172,3 +172,19 @@ test_that("num_discretes() behaviour with from = to", {
     0L
   )
 })
+
+test_that("num_discretes() returns 0 with a warning when to < from", {
+  # An empty (inverted) range counts 0, consistently across series types.
+  expect_warning(n <- num_discretes(1:5, from = 5, to = 2), "less than")
+  expect_identical(n, 0L)
+  expect_warning(
+    n <- num_discretes(natural1(), from = 5, to = 2), "less than"
+  )
+  expect_identical(n, 0L)
+  expect_warning(
+    n <- num_discretes(1 / natural1(), from = 5, to = 2), "less than"
+  )
+  expect_identical(n, 0L)
+  # A valid range is unaffected and silent.
+  expect_silent(expect_identical(num_discretes(natural1(), 1, 10), 10L))
+})

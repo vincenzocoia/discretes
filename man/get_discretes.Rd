@@ -28,8 +28,9 @@ get_discretes_in(
 \item{tol}{Numerical tolerance when checking if a value is in the series.
 Single non-negative numeric. See \code{next_discrete()} for details.}
 
-\item{from, to}{Reference values, possibly infinite. \code{from} must be less than
-or equal to \code{to}; both must be length-1 numeric vectors.}
+\item{from, to}{Reference values, possibly infinite; both must be length-1
+numeric vectors. If \code{to < from}, the range is empty: \code{num_discretes()}
+returns \code{0} with a warning.}
 
 \item{include_from, include_to}{Should the \code{from} value be included
 in the query? Should the \code{to} value? Both must be length-1 logical vectors.}

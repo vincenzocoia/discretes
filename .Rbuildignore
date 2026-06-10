@@ -17,3 +17,7 @@ DEVELOPER_NOTES.md
 ^paper\.tex$
 ^paper$
 ^voice\.md$
+^[.]?air[.]toml$
+^\.vscode$
+^\.claude$
+^CODE_STANDARDS\.md$

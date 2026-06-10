@@ -170,6 +170,17 @@ test_that("Bad function inputs to dsct_transform() result in warning", {
       range = c(1, exp(10))
     )
   )
+  # Range wider than the function's image: exp([0, 10]) = [1, exp(10)], so a
+  # declared range of [0, exp(10)] extends below the image (lower bound 0 < 1).
+  expect_a_warning(
+    dsct_transform(
+      integers(),
+      fun = exp,
+      inv = log,
+      domain = c(0, 10),
+      range = c(0, exp(10))
+    )
+  )
   # Trying to map values outside of the range
   y <- dsct_transform(
     integers(),
@@ -178,6 +189,32 @@ test_that("Bad function inputs to dsct_transform() result in warning", {
     range = c(0, 100)
   )
   expect_a_warning(next_discrete(y, from = 50, n = 2))
+})
+
+test_that("an over-wide range warns whether its bounds are finite or infinite", {
+  # tanh maps onto (-1, 1); an infinite default range is wider than that image
+  # and warns, just as a too-wide finite range does. An unbounded image (the
+  # function actually reaches +/-Inf) does not warn.
+  # The default range is wider on both sides, so it warns twice.
+  expect_warning(
+    expect_warning(
+      dsct_transform(integers(), fun = tanh, inv = atanh),
+      "below the"
+    ),
+    "above the"
+  )
+  expect_warning(
+    dsct_transform(integers(), fun = tanh, inv = atanh, range = c(-1, 2)),
+    "above the"
+  )
+  expect_no_warning(
+    dsct_transform(integers(), fun = tanh, inv = atanh, range = c(-1, 1))
+  )
+  # exp maps (-Inf, Inf) -> (0, Inf): the upper bound is genuinely unbounded,
+  # so the default infinite upper range bound does not warn.
+  expect_no_warning(
+    dsct_transform(integers(), fun = exp, inv = log, range = c(0, Inf))
+  )
 })
 
 test_that("dsct_transform works with decreasing functions.", {

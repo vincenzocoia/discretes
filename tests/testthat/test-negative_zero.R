@@ -243,10 +243,12 @@ test_that("Negative zeroes are being tracked properly", {
   expect_identical(has_negative_zero(-posneg), TRUE)
   expect_identical(has_positive_zero(-posneg), TRUE)
   ## --> transform
-  none_tanh <- dsct_transform(none, fun = tanh, inv = atanh)
-  pos_tanh <- dsct_transform(pos, fun = tanh, inv = atanh)
-  neg_tanh <- dsct_transform(neg, fun = tanh, inv = atanh)
-  posneg_tanh <- dsct_transform(posneg, fun = tanh, inv = atanh)
+  none_tanh <- dsct_transform(none, fun = tanh, inv = atanh, range = c(-1, 1))
+  pos_tanh <- dsct_transform(pos, fun = tanh, inv = atanh, range = c(-1, 1))
+  neg_tanh <- dsct_transform(neg, fun = tanh, inv = atanh, range = c(-1, 1))
+  posneg_tanh <- dsct_transform(
+    posneg, fun = tanh, inv = atanh, range = c(-1, 1)
+  )
   expect_identical(has_negative_zero(none_tanh), FALSE)
   expect_identical(has_positive_zero(none_tanh), FALSE)
   expect_identical(has_negative_zero(pos_tanh), has_negative_zero(tanh(0)))
