@@ -25,8 +25,9 @@ num_discretes(
 
 - from, to:
 
-  Reference values, possibly infinite. `from` must be less than or equal
-  to `to`; both must be length-1 numeric vectors.
+  Reference values, possibly infinite; both must be length-1 numeric
+  vectors. If `to < from`, the range is empty: `num_discretes()` returns
+  `0` with a warning.
 
 - ...:
 

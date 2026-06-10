@@ -46,8 +46,10 @@ get_discretes_in(
 
 - from, to:
 
-  Reference values, possibly infinite. `from` must be less than or equal
-  to `to`; both must be length-1 numeric vectors.
+  Reference values, possibly infinite; both must be length-1 numeric
+  vectors. If `to < from`, the range is empty:
+  [`num_discretes()`](https://discretes.netlify.app/reference/num_discretes.md)
+  returns `0` with a warning.
 
 - include_from, include_to:
 

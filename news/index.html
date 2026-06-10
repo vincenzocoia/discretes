@@ -47,6 +47,10 @@
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.1.1" id="discretes-011">discretes 0.1.1<a class="anchor" aria-label="anchor" href="#discretes-011"></a></h2>
 <ul><li>Added a <code>Summary</code> group generic method so that <code><a href="https://rdrr.io/r/base/range.html" class="external-link">range()</a></code>, <code><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min()</a></code>, <code><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max()</a></code>, <code><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum()</a></code>, and <code><a href="https://rdrr.io/r/base/prod.html" class="external-link">prod()</a></code> work on numeric series. Previously these fell through to base R defaults and operated on the internal representation; e.g. <code>range(natural1())</code> wrongly returned <code>c(0, Inf)</code> instead of <code>c(1, Inf)</code>.</li>
+<li>
+<code><a href="../reference/transform.html">dsct_transform()</a></code> now warns when the declared <code>range</code> is wider than the function’s image.</li>
+<li>
+<code><a href="../reference/num_discretes.html">num_discretes()</a></code> now returns <code>0</code> with a warning when <code>to &lt; from</code> (an empty range), consistently across all series types, rather than erroring. This acts as a guard when <code><a href="../reference/transform.html">dsct_transform()</a></code> specifies a function <code>range</code> that is wider than the mapped <code>domain</code>.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.1.0" id="discretes-010">discretes 0.1.0<a class="anchor" aria-label="anchor" href="#discretes-010"></a></h2><p class="text-muted">CRAN release: 2026-03-31</p>

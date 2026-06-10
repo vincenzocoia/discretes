@@ -72,8 +72,9 @@ given value, optionally with a specific direction.</p>
 
 
 <dt id="arg-from-to">from, to<a class="anchor" aria-label="anchor" href="#arg-from-to"></a></dt>
-<dd><p>Reference values, possibly infinite. <code>from</code> must be less than
-or equal to <code>to</code>; both must be length-1 numeric vectors.</p></dd>
+<dd><p>Reference values, possibly infinite; both must be length-1
+numeric vectors. If <code>to &lt; from</code>, the range is empty: <code><a href="num_discretes.html">num_discretes()</a></code>
+returns <code>0</code> with a warning.</p></dd>
 
 
 <dt id="arg-value">value<a class="anchor" aria-label="anchor" href="#arg-value"></a></dt>
