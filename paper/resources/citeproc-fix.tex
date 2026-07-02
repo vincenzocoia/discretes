@@ -7,3 +7,11 @@
 \makeatletter
 \def\@biblabel#1{}
 \makeatother
+% Modern pandoc citeproc emits paragraph-style reference entries (no \item),
+% but the vendored JOSS template defines CSLReferences as a list environment.
+% Redefine it to paragraph form so the bibliography compiles.
+\renewenvironment{CSLReferences}[2]
+ {\setlength{\parindent}{0pt}%
+  \everypar{\setlength{\hangindent}{\ifodd #1 \cslhangindent\else 0pt\fi}}%
+  \ignorespaces}%
+ {\par}
