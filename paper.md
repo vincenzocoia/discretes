@@ -80,7 +80,7 @@ traverse, `num_discretes()` to count the values in an interval, `has_discretes()
 
 The same contract is what makes manipulation work. A transformation is itself a new series whose definition happens to refer to another series. Because it is a series, it implements the same contract, and it answers a query by querying the series underneath it. Wrapping manipulations on top of one another builds a ladder of these objects; a query descends the ladder until it reaches a base series — an arithmetic series or a vector — where the question can be answered directly. The package uses S3 method dispatch for this, with one method per series type for each generic. Traversal is defined directly for each type rather than, say, treating a backward step as a forward step on a negated series, which would invite infinite recursion on composed objects.
 
-As a concrete example, take a Poisson variable $X$, whose support is the natural numbers $0, 1, 2, \ldots$, and form the transformed support of $1/2^X$. The transformation acts on the *support*, not on the distribution, and it turns the sink at infinity into a sink at $0$:
+As a concrete example, take a Poisson variable $X$, whose support is the natural numbers $0, 1, 2, \ldots$, and form the transformed support of $1/2^X$. The transformation acts on the *support*, and it turns the sink at infinity into a sink at $0$:
 
 ```r
 support <- 1 / 2^natural0()      # support of 1 / 2^X, with X ~ Poisson
