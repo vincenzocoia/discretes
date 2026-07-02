@@ -46,7 +46,7 @@ Several R packages address neighbouring problems. Zseq [@Zseq] supplies named in
 
 ## What the package represents
 
-discretes does not try to represent every countable set of numbers. Infinitely dense sets such as the rationals are excluded, because they have no well-defined "next" value: every real number is a limit point of the rationals. What discretes does handle is series whose values are isolated except at a finite number of limit points. Following the package's shorthand, we call these limit points *sinks*. The natural numbers $0, 1, 2, \ldots$ have a single sink, at infinity. The series $1, 1/2, 1/4, \ldots$ has a sink at $0$, approached from the right. Allowing finitely many sinks covers the supports that arise in practice while keeping every series finitely describable.
+discretes does not try to represent every countable set of numbers. Infinitely dense sets such as the rationals are excluded, because they have no well-defined "next" value: every real number is a limit point of the rationals. What discretes does handle is series whose values are isolated except at a finite number of limit points. Following the package's shorthand, we call these limit points *sinks*. The natural numbers $0, 1, 2, \ldots$ have a single sink, at infinity. The series $1, 1/2, 1/4, \ldots$ has a sink at $0$, approached from the right. Allowing finitely many sinks covers the supports that arise in practice while keeping every series finitely describable. These are sets, so each value appears once; but unlike an arbitrary set, their values sit in order along the number line and are spaced apart — isolated except at the finitely many sinks. That order is what lets us ask for the "next" or "previous" value.
 
 ## Two base series, then manipulation
 
@@ -79,6 +79,14 @@ A numeric series answers a fixed set of questions, and these define the contract
 traverse, `num_discretes()` to count the values in an interval, `has_discretes()` to test membership, and `has_sink_at()` / `has_sink_in()` to report limit points.
 
 The same contract is what makes manipulation work. A transformation is itself a new series whose definition happens to refer to another series. Because it is a series, it implements the same contract, and it answers a query by querying the series underneath it. Wrapping manipulations on top of one another builds a ladder of these objects; a query descends the ladder until it reaches a base series — an arithmetic series or a vector — where the question can be answered directly. The package uses S3 method dispatch for this, with one method per series type for each generic. Traversal is defined directly for each type rather than, say, treating a backward step as a forward step on a negated series, which would invite infinite recursion on composed objects.
+
+As a concrete example, take a Poisson variable $X$, whose support is the natural numbers $0, 1, 2, \ldots$, and form the transformed support of $1/2^X$. The transformation acts on the *support*, not on the distribution, and it turns the sink at infinity into a sink at $0$:
+
+```r
+support <- 1 / 2^natural0()      # support of 1 / 2^X, with X ~ Poisson
+has_sink_at(support, 0)          # TRUE: the transform creates a sink at 0
+num_discretes(support, 0.1, 1)   # 4: outcomes in [0.1, 1], none enumerated
+```
 
 ## Congruence with base R
 
