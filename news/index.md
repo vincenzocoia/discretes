@@ -2,6 +2,8 @@
 
 ## discretes 0.1.1
 
+CRAN release: 2026-09-11
+
 - Added a `Summary` group generic method so that
   [`range()`](https://rdrr.io/r/base/range.html),
   [`min()`](https://rdrr.io/r/base/Extremes.html),

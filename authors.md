@@ -11,7 +11,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/vincenzocoia/discretes/blob/main/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/vincenzocoia/discretes/blob/v0.1.1/DESCRIPTION)
 
 Coia V, De Michele C (2026). *discretes: Discrete Numeric Series*. R
 package version 0.1.1, <https://discretes.netlify.app>.
