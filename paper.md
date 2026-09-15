@@ -8,7 +8,7 @@ tags:
   - scientific computing
 authors:
   - name: Vincenzo Coia
-    orcid: 0000-0002-3028-4329
+    orcid: 0000-0002-2930-0723
     corresponding: true
     affiliation: 1
   - name: Carlo De Michele
@@ -17,7 +17,7 @@ authors:
 affiliations:
   - name: C2E Lab, Department of Civil and Environmental Engineering (DICA), Politecnico di Milano, Milan, Italy
     index: 1
-date: 5 June 2026
+date: 15 September 2026
 bibliography: paper.bib
 ---
 
@@ -111,7 +111,7 @@ still reports a single value. But the two are not interchangeable: `1 / 0` is
 
 # Research impact
 
-discretes is released on CRAN under the MIT license, documented with a pkgdown site and four vignettes — two introducing the construction and querying of series, two covering the finer points of numerical tolerance and signed zero — and tested with an extensive testthat suite that checks the series' behavioural contracts, including the sink and signed-zero cases [@discretes_repo]. Its current use is for probaverse, where it represents distribution supports so that downstream code can combine models and run computations on precise outcomes rather than numerically derived values. This is a concrete present application rather than a speculative one: infinite-but-regular supports are routine in discrete modeling, and handling their limits and floating-point edge cases correctly is a prerequisite for dependable simulation and inference.
+discretes is released on CRAN under the MIT license, documented with a pkgdown site and four vignettes — two introducing the construction and querying of series, two covering the finer points of numerical tolerance and signed zero — and tested with an extensive testthat suite that checks the series' behavioural contracts, including the sink and signed-zero cases [@discretes]. Its current use is for probaverse, where it represents distribution supports so that downstream code can combine models and run computations on precise outcomes rather than numerically derived values. This is a concrete present application rather than a speculative one: infinite-but-regular supports are routine in discrete modeling, and handling their limits and floating-point edge cases correctly is a prerequisite for dependable simulation and inference.
 
 # AI usage disclosure
 
