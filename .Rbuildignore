@@ -21,3 +21,4 @@ DEVELOPER_NOTES.md
 ^\.vscode$
 ^\.claude$
 ^CODE_STANDARDS\.md$
+^revdep$

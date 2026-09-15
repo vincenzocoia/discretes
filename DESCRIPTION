@@ -3,11 +3,10 @@ Type: Package
 Title: Discrete Numeric Series
 Version: 0.1.1
 Authors@R: c(
-    person(
-      "Vincenzo", "Coia",
-      email = "vincenzo.coia@gmail.com",
-      role = c("aut", "cre", "cph")
-    )
+    person("Vincenzo", "Coia", , "vincenzo.coia@gmail.com", role = c("aut", "cre", "cph"),
+           comment = c(ORCID = "0000-0002-2930-0723")),
+    person("Carlo", "De Michele", role = "aut",
+           comment = c(ORCID = "0000-0002-7098-4725"))
   )
 Description: Provides a framework for representing discrete numeric series
     (enumerable sets of numbers) that may be finite or infinite. Series can
