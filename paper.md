@@ -83,9 +83,9 @@ The same contract is what makes manipulation work. A transformation is itself a 
 As a concrete example, take a Poisson variable $X$, whose support is the natural numbers $0, 1, 2, \ldots$, and form the transformed support of $1/2^X$. The transformation acts on the *support*, and it turns the sink at infinity into a sink at $0$:
 
 ```r
-support <- 1 / 2^natural0()      # support of 1 / 2^X, with X ~ Poisson
-has_sink_at(support, 0)          # TRUE: the transform creates a sink at 0
-num_discretes(support, 0.1, 1)   # 4: outcomes in [0.1, 1], none enumerated
+support <- 1 / 2^natural0()     # support of 1 / 2^X, with X ~ Poisson
+has_sink_at(support, 0)         # TRUE: the transform creates a sink at 0
+num_discretes(support, 0.1, 1)  # 4: outcomes in [0.1, 1], none enumerated
 ```
 
 ## Congruence with base R
@@ -119,8 +119,7 @@ Generative AI assisted with drafting and editing this manuscript. The authors re
 
 # Acknowledgements
 
-Development of discretes was supported by the European Space Agency, BGC
-Engineering Inc., and the Politecnico di Milano. The need for the package arose
+Development of discretes was supported by the European Space Agency. The need for the package arose
 from work on the probaverse project. The authors thank colleagues who reviewed
 package behaviour and documentation during open development.
 
